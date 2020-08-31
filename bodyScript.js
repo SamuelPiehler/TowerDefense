@@ -1,4 +1,4 @@
-//test
+
 //erzeugt rechts neben der map eine auswahl an towern die gebaut werden können
 var size = Math.floor(resizekoords(map[0].length,map.length));
 
