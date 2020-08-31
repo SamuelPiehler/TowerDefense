@@ -1125,7 +1125,13 @@ function Gegner(id, typ, lebenMult){
           if (gegner[j] != undefined) {
             var entfernung = Math.sqrt(Math.pow((gegner[j].posx - this.posx), 2) + Math.pow((gegner[j].posy - this.posy), 2))*70/size;  //abstand zu getroffenem gegner
             if (entfernung <= effektZeit[i]) {   //wenn in AoE range
-              gegner[j].damage(effektStaerke[i], [], [], [], ursprung);  //füge gegner den effektschaden zu
+              uebergabeEffekt = effekt.slice();
+              uebergabeEffektStaerke = effektStaerke.slice();
+              uebergabeEffektTime = effektZeit.slice();
+              uebergabeEffekt.splice(i,1);
+              uebergabeEffektStaerke.splice(i,1);
+              uebergabeEffektTime.splice(i,1);
+              gegner[j].damage(effektStaerke[i], uebergabeEffekt, uebergabeEffektStaerke, uebergabeEffektTime, ursprung);  //füge gegner den effektschaden zu
             }
           }
         }
@@ -1414,7 +1420,10 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime[0] = 120;
               break;
             case 6:   //rocketLauncher Stunned Gegner für 0,5 sec
-
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
+              this.effekt.push(1);
+              this.effektStaerke.push(1);
+              this.effektTime.push(50);
               break;
             case 7:   //singleGift
 
