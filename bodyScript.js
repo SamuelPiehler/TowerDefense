@@ -375,7 +375,7 @@ function showStats(evt, object) {
     for (var i = 0; i < towertypen.length - 1; i++) {
       preis += parseInt(towertypen[i][6]*preisMult);
     }
-    preis = parseInt(preis/(towertypen.length-1));
+    preis = parseInt(preis/(towertypen.length-1)*0.95);
   }
   else {
     var preis =  parseInt(towertypen[object.name][6]*preisMult);
@@ -387,8 +387,8 @@ function showStats(evt, object) {
     var preisFarbe = "'red'";
   }
   statFenster.innerHTML += "Preis: <font color=" + preisFarbe + " class=preisFarbe>" + preis + "</font><br>";
-  statFenster.innerHTML += "Damage: " + towertypen[object.name][2] + "<br>";
   if (object.name != towertypen.length - 1) {
+    statFenster.innerHTML += "Damage: " + towertypen[object.name][2] + "<br>";
     statFenster.innerHTML += "Nachladezeit: " + towertypen[object.name][5] + " sec <br>";
     statFenster.innerHTML += "Reichweite: " + towertypen[object.name][4] + "<br>";
     if (towertypen[object.name][3] != 0) {
@@ -725,10 +725,20 @@ function select(evt, id) {      //id enthält entweder die id des zu wählenden 
   else {
     selected = id;
   }
-  if (parseInt(towertypen[selected][6]*preisMult) <= geld) {    //ist genug geld vorhanden
+  if (selected == towertypen.length - 1) {
+    var preis = 0;
+    for (var i = 0; i < towertypen.length - 1; i++) {
+      preis += parseInt(towertypen[i][6]*preisMult);
+    }
+    preis = parseInt(preis/(towertypen.length-1)*0.95);
+  }
+  else {
+    var preis =  parseInt(towertypen[selected][6]*preisMult);
+  }
+  if (preis <= geld) {    //ist genug geld vorhanden
     ladeBild('Bilder/Tower/base2.png', towerSelect[selected][0], 0);     //zeichne bild zum anzeigen was ausgewählt ist
   }
-  else {    //falls nichts ausgewählt werden konnte
+  else {    //falls nichts ausgewählt werden konnte wegen zu wenig geld (oder verlerhafter aufruf der funktion)
     selected = -1;
   }
 }
@@ -744,10 +754,22 @@ function deselect() {
 
 //funktion zum bauen eines turmes
 function build() {
+  var selectRandom = false;
   if (selected != -1) {   //ist ein turmtyp ausgewählt?
-    if (parseInt(towertypen[selected][6]*preisMult) <= geld) {    //ist genug geld vorhanden?
+    if (selected == towertypen.length - 1) {
+      selectRandom = true;
+      var preis = 0;
+      for (var i = 0; i < towertypen.length - 1; i++) {
+        preis += parseInt(towertypen[i][6]*preisMult);
+      }
+      preis = parseInt(preis/(towertypen.length-1)*0.95);
+    }
+    else {
+      var preis =  parseInt(towertypen[selected][6]*preisMult);
+    }
+    if (preis <= geld) {    //ist genug geld vorhanden?
       if (selected == 9) {    //wenn Supporttower öffne place menü
-        addGeld(-parseInt(towertypen[selected][6]*preisMult));    //kosten abziehen
+        addGeld(-preis);    //kosten abziehen
         var coordinaten = this.name.split(',');     //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
         var number = 0;   //überprüfe im tuerme array welcher index der kleinste freie ist
         while (tuerme[number] != undefined) {
@@ -756,13 +778,22 @@ function build() {
         tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number, prompt("Gieb dan bufftyp an (0-3)")*1);    //erstelle neuen turm mit koordinaten typ und id
       }
       else {  //ansonste plaziere turm
-        addGeld(-parseInt(towertypen[selected][6]*preisMult));    //kosten abziehen
+        if (selected == towertypen.length - 1) {
+          selected = Math.floor(Math.random()*(towertypen.length - 1));
+        }
+        addGeld(-preis);    //kosten abziehen
         var coordinaten = this.name.split(',');     //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
         var number = 0;   //überprüfe im tuerme array welcher index der kleinste freie ist
         while (tuerme[number] != undefined) {
           number++;
         }
-        tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number);    //erstelle neuen turm mit koordinaten typ und id
+        if (selected == 9) {
+          tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number, Math.floor(Math.random()*4));
+        }
+        else {
+          tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number);    //erstelle neuen turm mit koordinaten typ und id
+        }
+        //if 1/1000 chance full upgraded bei randomturm??
       }
       tuerme.forEach((item, i) => {
         if (item != undefined && item.typ == 9) {
@@ -770,8 +801,11 @@ function build() {
         }
       });
     }
-    if (!shift || geld < parseInt(towertypen[selected][6]*preisMult)) {   //wenn shift nicht gedrückt ist wird die auswahl des towers gelöscht nach bau
+    if (!shift || geld < preis) {   //wenn shift nicht gedrückt ist wird die auswahl des towers gelöscht nach bau
       deselect();
+    }
+    else if (selectRandom) {
+      selected = towertypen.length - 1;
     }
   }
 }
