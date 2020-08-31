@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/master.css">
+    <script src="stats.js"></script>
+  </head>
+  <body>
+    <span id=selections>
+      <lable>
+        <img class=mapicon src="Bilder/Icons/mapIcon.png">
+        <select id="selectmap"></select>
+      </lable>
+      <lable>
+        schwierigkeit auswählen
+        <select id="selectdif">
+          <option>Sandbox</option>
+          <option>Leicht</option>
+          <option>Mittel</option>
+          <option>Schwer</option>
+        </select>
+      </lable>
+      <input type=button value="Spiel starten!" onclick="loadsettings()">
+      <script type="text/javascript">
+        //speichern der zuletzt genutzten map
+        var mapold;
+        //speichern der zuletzt gesetzten geldmenge
+        var mapGeld;
+        //die map und das geld vorbereiten
+        var map;
+        var geld;
+        //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
+        var schwierigkeit;
+        //hier werden alle verfügbaren maps gespeichert
+        var maplist = [];
+        //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben
+        var allsucceeded = true;
+        var success = false;
+        //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche
+        var checkerturn = 1;
+        //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;
+        var firstTimeLoad = true;
+        //backmap ist die momentan geladene karte
+        var backmap = "";
+        //funktionsaufruf um alle karten anzuzeigen
+        renderavailable();
+        function renderavailable() {
+          //maplist löschen
+          maplist = [];
+          //neu nach maps suchen
+          getmaps(function() {
+            //Liste löschen
+            document.getElementById("selectmap").innerHTML = "";
+            //liste neu erschaffen
+            maplist.forEach(function(Index, i) {
+              document.getElementById("selectmap").innerHTML += `<option name =${i} > ${Index[2]}</option> `;
+            });
+          });
+        }
+        //hilfsfunktion um auszuwerten, ob die momentan getestete map existiert und hinzufügen zur maplist
+        function handle(el, func) {
+          //success wird immer beim erfolgre
+          if (success) {
+            maplist.push([map, geld, checkerturn]);
+            checkerturn++;
+            map = mapold;
+            geld = geldold;
+            getmaps(func);
+          }
+          if (success == false)
+            func();
+          el.remove();
+          succcess = false
+          map = mapold;
+          geld = geldold;
+        }
+        function getmaps(func=(()=>{})) {
+          mapold = map;
+          geldold = geld;
+          var script = document.createElement("script");
+          script.src = "Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
+          //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+          document.body.appendChild(script);
+          script.onerror = function(el, func) {
+            success = false;
+            handle(el, func, (function() {
+              success = false;
+            })());
+          }.bind(null, script, func);
+          script.onload = function(el, func) {
+              handle(el, func)
+          }.bind(null, script, func);
+        }
+        function loadsettings(mapload = "") {          if(mapload == "")
+          map = maplist[document.getElementById("selectmap").selectedIndex];
+          else
+          map = mapload;
+          mapGeld = map[1];
+          geld = map[1];
+          map = map[0];
+          // map = JSON.stringify(map);
+          // map = map.replace(/(\[")/gm, "[");
+          // map = map.replace(/("\])/gm, "]");
+          // map = eval(map);
+          backmap = map;
+          schwierigkeit = document.getElementById("selectdif").selectedIndex;
+          if (firstTimeLoad) {
+            firstTimeLoad = false;
+            var script = document.createElement("script");
+            script.src = "headScript.js";
+            //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+            document.body.appendChild(script);
+            script.onload = function() {
+              setTimeout(function() {
+                var scriptb = document.createElement("script");
+                scriptb.src = "bodyScript.js";
+                //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+                document.body.appendChild(scriptb);
+                scriptb.onload = function() {
+                  if (map[0][0][1] == undefined) {
+                    buildMap();
+                  }
+                  else {
+                    buildMapNeu();
+                  }
+                  document.getElementById("selections").innerHTML += `<input type=button value="Neustart" onclick="reset()">`
+                }
+                document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
+                document.getElementById("Geld").innerHTML = geld;
+                switch (schwierigkeit) {
+                  case 0:
+                    document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
+                    break;
+                  case 1:
+                    document.getElementById("Schwierigkeit").innerHTML = "Leicht";
+                    break;
+                  case 2:
+                    document.getElementById("Schwierigkeit").innerHTML = "Mittel";
+                    break;
+                  case 3:
+                    document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+                    break;
+                }
+                document.getElementById("Leben").innerHTML = spielerLeben;
+              }, 10);
+            };
+          }
+          else {
+            reset();
+          }
+        }
+        function reset() {
+          size = Math.floor(resizekoords(map[0].length,map.length))
+          setTimeout(()=>{
+            startButton.src = "Bilder/Buttons/start.png";
+            mapDiv.innerHTML = "";
+            map = backmap;
+            start = [[], []];
+            teilwellenNummer = 0;
+            wellenNummer = 1;
+            spielerLeben = 100;
+            geld = mapGeld;
+            gamePause = false;
+            wellenEnde = 0;
+            roundTime = -1000;
+            timers = [];
+            intervals = [];
+            deselect();
+            hideUpgrade();
+            gegner = [];
+            objContext = gegnerBild.getContext('2d');
+            objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+            objContext2 = gegnerBildHidden.getContext('2d');
+            objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+            tuerme.forEach((item, i) => {
+              if (item != undefined) {
+                item.canvasBase.remove();
+                item.canvasGeschütz.remove();
+              }
+            });
+            tuerme = [];
+            preisMult = 1;
+            for (var i = 0; i < 3 - schwierigkeit; i++) {
+              preisMult -= 0.15;
+            }
+            if (schwierigkeit == 0) {
+              preisMult = 0;
+            }
+            switch (schwierigkeit) {
+              case 0:
+                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/sandBurg.png";
+                break;
+              case 1:
+                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/einfach.png";
+                break;
+              case 2:
+                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/mittel.png";
+                break;
+              case 3:
+                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
+                break;
+            }
+            document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
+            document.getElementById("Geld").innerHTML = geld;
+            switch (schwierigkeit) {
+              case 0:
+                document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
+                break;
+              case 1:
+                document.getElementById("Schwierigkeit").innerHTML = "Leicht";
+                break;
+              case 2:
+                document.getElementById("Schwierigkeit").innerHTML = "Mittel";
+                break;
+              case 3:
+                document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+                break;
+            }
+            document.getElementById("Leben").innerHTML = spielerLeben;
+            if (map[0][0][1] == undefined) {
+              buildMap();
+            }
+            else {
+              buildMapNeu();
+            }
+          }, 200);
+        }
+        function loadmap(name = "map1.js"){
+          getmap(name,
+            function(arr){
+              map = arr;
+          mapGeld = map[1];
+          geld = map[1];
+          map = map[0];
+          // map = JSON.stringify(map);
+          // map = map.replace(/(\[")/gm, "[");
+          // map = map.replace(/("\])/gm, "]");
+          // map = eval(map);
+          backmap = map;
+          schwierigkeit = document.getElementById("selectdif").selectedIndex;
+          if (firstTimeLoad) {
+            firstTimeLoad = false;
+            var script = document.createElement("script");
+            script.src = "headScript.js";
+            //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+            document.body.appendChild(script);
+            script.onload = function() {
+              setTimeout(function() {
+                var scriptb = document.createElement("script");
+                scriptb.src = "bodyScript.js";
+                //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+                document.body.appendChild(scriptb);
+                scriptb.onload = function() {
+                  if (map[0][0][1] == undefined) {
+                    buildMap();
+                  }
+                  else {
+                    buildMapNeu();
+                  }
+                  document.getElementById("selections").innerHTML += `<input type=button value="Neustart" onclick="reset()">`
+                }
+                document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
+                document.getElementById("Geld").innerHTML = geld;
+                switch (schwierigkeit) {
+                  case 0:
+                    document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
+                    break;
+                  case 1:
+                    document.getElementById("Schwierigkeit").innerHTML = "Leicht";
+                    break;
+                  case 2:
+                    document.getElementById("Schwierigkeit").innerHTML = "Mittel";
+                    break;
+                  case 3:
+                    document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+                    break;
+                }
+                document.getElementById("Leben").innerHTML = spielerLeben;
+              }, 10);
+            };
+          }
+          else {
+            reset();
+          }
+            }
+          )
+
+        }
+        function getmap(name,func = ()=>{}){
+          mapold = map;
+          geldold = geld;
+          var script = document.createElement("script");
+          script.src = `${"Maps/" + name}${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
+          //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+          document.body.appendChild(script);
+          script.onerror = function(el, func) {
+            success = false;
+            handleb(el, func, false);
+          }.bind(null, script, func);
+          script.onload = function(el, func) {
+              handleb(el, func,true)
+          }.bind(null, script, func);
+
+        }
+        function handleb(el, func,success) {
+          if(success != false){
+          func([map, geld, checkerturn]);
+
+        }else
+        {
+          map = mapold;
+          geld = geldold;
+        }
+          el.remove();
+
+        }
+      </script>
+    </span>
+  </body>
+</html>
