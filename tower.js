@@ -350,7 +350,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                 }
               }
               else if (this.richtung == 90) {   //wenn der sniper exact nach links zeigt
-                if (this.posx > item.posx && Math.abs(this.posx-item.posx) <= size/2) {
+                if (this.posx > item.posx && Math.abs(this.posy-item.posy) <= size/2) {
                   item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
                 }
               }
@@ -360,7 +360,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                 }
               }
               else if (this.richtung == 270) {  //wenn der sniper nach rechts zeigt
-                if (this.posx > item.posx && Math.abs(this.posx-item.posx) <= size/2) {
+                if (this.posx < item.posx && Math.abs(this.posy-item.posy) <= size/2) {
                   item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
                 }
               }
