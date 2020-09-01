@@ -1595,7 +1595,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.reichweite += 10;
             break;
             case 1:   //sniper  trifft alle gegner in der linie
-
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 2:   //slow permanenter slowstack auf gegner max 100 stacks = speed/1.25
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -1713,27 +1713,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       this.richtung = grad;
       if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
         if (this.typ == 1 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn sniper stufe 5
-          // if (richtung == 0) {
-          //   gegner.forEach((item, i) => {
-          //     if (item != undefined) {
-          //       if (this.posy < item.posy && Math.abs(this.posx-item.posx) < 35) {
-          //         gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-          //       }
-          //     }
-          //   });
-          // }
-          // else if (richtung == 180) {
-          //   gegner.forEach((item, i) => {
-          //     if (item != undefined) {
-          //       if (this.posy > item.posy && Math.abs(this.posx-item.posx) < 35) {
-          //         gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-          //       }
-          //     }
-          //   });
-          // }
-          // else {
-          //   var a1 = Math.sin((this.richtung+90)/180*Math.PI)
-          // }
+          
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
           //füge schaden und effeckt auf gegner zu
