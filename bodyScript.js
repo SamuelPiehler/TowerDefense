@@ -479,7 +479,6 @@ function showUpgrade(object, id) {
   var typ = tuerme[id].typ;
   upgradeFenster = document.createElement("div");
   document.body.appendChild(upgradeFenster);
-  upgradeFenster.onresize = function(){console.log("tese")};
   upgradeFenster.style.position = 'absolute';
   upgradeFenster.style.left = (tuerme[id].posx + 75)+'px';
   upgradeFenster.style.top = (tuerme[id].posy + 110)+'px';
@@ -574,6 +573,21 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + round(tuerme[id].dmgDealed/100, 1) + "sec verlangsamt<br>";
     }
+    switch (tuerme[id].targetPrio) {
+      case 0:
+        var prio = "ersten"
+        break;
+      case 1:
+        var prio = "letzten"
+        break;
+      case 2:
+        var prio = "stärksten"
+        break;
+      case 3:
+        var prio = "schwächsten"
+        break;
+    }
+    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     var upgradeButton = document.createElement("button"); //button um den turm upzugraden
     upgradeFenster.appendChild(upgradeButton);
     upgradeButton.innerHTML = "Upgrade";
@@ -640,6 +654,35 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + (tuerme[id].dmgDealed/100) + "sec verlangsamt<br>";
     }
+    switch (tuerme[id].targetPrio) {
+      case 0:
+        var prio = "ersten"
+        break;
+      case 1:
+        var prio = "letzten"
+        break;
+      case 2:
+        var prio = "stärksten"
+        break;
+      case 3:
+        var prio = "schwächsten"
+        break;
+    }
+    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
+  }
+  if (tuerme[id].drehGeschw != 0) {
+    var targetButton = document.createElement("button");  //button um das turm target zu ändern
+    upgradeFenster.appendChild(targetButton);
+    targetButton.innerHTML = "Target";
+    targetButton.style.position = 'relative';
+    if (tuerme[id].upgradeStufe < maxUpgrade) {
+      targetButton.style.left = (50)+'px';
+    }
+    else {
+      targetButton.style.left = (20)+'px';
+    }
+    targetButton.style.bottom = (0)+'px';
+    targetButton.addEventListener("click", function(){tuerme[id].changeTarget();});
   }
   var sellButton = document.createElement("button");  //button um den turm zu verkaufen
   upgradeFenster.appendChild(sellButton);
@@ -1283,6 +1326,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.richtung = 0;    //in welche richtung schaut der turm
   this.richtung2 = 0;   // basicturm upgradestufe 5 richtung des 2ten geschützes
   this.target = -1;
+  this.targetPrio = 0;
   this.dmgDealed = 0;   //wie viel schaden hat der turm insgesamt verursacht
   this.effecktStacks = 0; //wie viele effecktstacks hat dieser turm verursacht
   this.canvasBase = document.createElement("canvas");   //bild der turmbase
@@ -1325,6 +1369,55 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   };
   if (this.typ == 9) {
     this.buffTuerme();
+  }
+  this.changeTarget = function(){   //funktion um targetpriorität zu ändern
+    hideUpgrade();
+    var typ = tuerme[id].typ;
+    upgradeFenster = document.createElement("div");
+    document.body.appendChild(upgradeFenster);
+    upgradeFenster.style.position = 'absolute';
+    upgradeFenster.style.left = (this.posx)+'px';
+    upgradeFenster.style.top = (this.posy + size*2)+'px';
+    upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
+    upgradeFenster.style.zIndex=6;
+    upgradeFenster.style.width="150px";
+    upgradeFenster.style.height="50px";
+    var closeButton = document.createElement("button");   //button um das upgradefenster zu schliesen
+    upgradeFenster.appendChild(closeButton);
+    closeButton.innerHTML = "x";
+    closeButton.style.position = 'absolute';
+    closeButton.style.left = (upgradeFenster.scrollWidth-23)+'px';
+    closeButton.style.top = (0)+'px';
+    closeButton.addEventListener("click", function(){hideUpgrade();});
+    id = this.id;
+    var firstButton = document.createElement("button");
+    upgradeFenster.appendChild(firstButton);
+    firstButton.innerHTML = "first";
+    firstButton.style.position = 'absolute';
+    firstButton.style.left = (0)+'px';
+    firstButton.style.top = (0)+'px';
+    firstButton.addEventListener("click", function(){tuerme[id].targetPrio=0;hideUpgrade();});
+    var lastButton = document.createElement("button");
+    upgradeFenster.appendChild(lastButton);
+    lastButton.innerHTML = "last";
+    lastButton.style.position = 'absolute';
+    lastButton.style.left = (60)+'px';
+    lastButton.style.top = (0)+'px';
+    lastButton.addEventListener("click", function(){tuerme[id].targetPrio=1;hideUpgrade();});
+    var strongButton = document.createElement("button");
+    upgradeFenster.appendChild(strongButton);
+    strongButton.innerHTML = "strong";
+    strongButton.style.position = 'absolute';
+    strongButton.style.left = (0)+'px';
+    strongButton.style.bottom = (0)+'px';
+    strongButton.addEventListener("click", function(){tuerme[id].targetPrio=2;hideUpgrade();});
+    var weakButton = document.createElement("button");
+    upgradeFenster.appendChild(weakButton);
+    weakButton.innerHTML = "weak";
+    weakButton.style.position = 'absolute';
+    weakButton.style.left = (60)+'px';
+    weakButton.style.bottom = (0)+'px';
+    weakButton.addEventListener("click", function(){tuerme[id].targetPrio=3;hideUpgrade();});
   }
   this.sell = function(){   //funktion um turm zu verkaufen
     this.canvasBase.remove();
@@ -1594,16 +1687,70 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             if (gegner[target] == undefined) {    //wähle erstes target
               target = i;
             }
-            else if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
-              target2 = target;
-              target = i;
-            }
-            else if (gegner[target2] == undefined || gegner[target2].strecke < item.strecke) {
-              target2 = i;
+            else {
+              switch (this.targetPrio) {
+                case 0:
+                  if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].strecke < item.strecke) {
+                    target2 = i;
+                  }
+                  break;
+                case 1:
+                  if (gegner[target].strecke > item.strecke) {   //update targets so dass der letzte gegner immer target 1 ist und der zweite von hinten  target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].strecke > item.strecke) {
+                    target2 = i;
+                  }
+                  break;
+                case 2:
+                  if (gegner[target].leben < item.leben) {   //update targets so dass der gegner mit den meisten leben immer target 1 ist und der zweite target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].leben < item.leben) {
+                    target2 = i;
+                  }
+                  break;
+                case 3:
+                  if (gegner[target].leben > item.leben) {   //update targets so dass der gegner mit den wenigsten leben immer target 1 ist und der zweite target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].leben > item.leben) {
+                    target2 = i;
+                  }
+                  break;
+              }
             }
           }
-          else if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {    //wähle das target das am meisten weg zurück gelegt hat
-            target = i;
+          else {
+            switch (this.targetPrio) {
+              case 0:
+                if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {
+                  target = i;
+                }
+                break;
+              case 1:
+                if (gegner[target] == undefined || gegner[target].strecke > item.strecke) {
+                  target = i;
+                }
+                break;
+              case 2:
+                if (gegner[target] == undefined || gegner[target].leben < item.leben) {
+                  target = i;
+                }
+                break;
+              case 3:
+                if (gegner[target] == undefined || gegner[target].leben > item.leben) {
+                  target = i;
+                }
+                break;
+            }
           }
         }
       }
