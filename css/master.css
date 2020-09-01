@@ -53,3 +53,8 @@ body *{
   image-rendering: crisp-edges;
   image-rendering: pixelated;
 }
+
+#bullets *{
+  pointer-events: none;
+  z-index: 10000;
+}
