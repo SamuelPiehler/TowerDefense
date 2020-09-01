@@ -1681,7 +1681,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   };
   this.zielen = function() {    //wird 1 mal pro gametick ausgeführt
     var uebergabeEffektStaerke = this.effektStaerke.slice();    //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
-    var uebergabeEffektTime = this.effektStaerke.slice();
+    var uebergabeEffektTime = this.effektTime.slice();
     for (var i = 0; i < this.effekt.length; i++) {
       uebergabeEffektStaerke[i] *= (1+this.buffStaerken[2]/100);
       uebergabeEffektTime[i] *= (1+this.buffStaerken[2]/100);
