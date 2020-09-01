@@ -42,19 +42,3 @@ function bullet(x1,y1,x2,y2,color = "red", time = 100, l_width = 3){
         bullets[id][1] = true;
     }.bind(null,bull,id), time);}
 }
-function gr(){
-    var ran_height = Math.floor( (Math.random() * 600)- 300);
-    var ran_width = Math.floor( (Math.random() * 600) - 300 )
-    var x = Math.floor(Math.random() * (window.innerWidth - ran_width) );
-    var y = Math.floor(Math.random() * (window.innerHeight - ran_height));
-    return [ran_width + x, ran_height + y, x + 300, y + 300];
-}
-
-function randompos(){
-    var r = gr();bullet(r[0],r[1],r[2],r[3],"gray",10);
-}
-setInterval(randompos,2);
-setTimeout(() => {
-    
-bullet(200,200,300,100,"blue",1000);
-}, 1100);
