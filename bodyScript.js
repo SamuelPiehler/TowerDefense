@@ -1202,7 +1202,7 @@ function Gegner(id, typ, lebenMult){
       if (this.imunität[j] == 6 && farbe == "white") {   //wenn normalschaden und %dmg mitigation
         points *= Math.max(1 - this.imunitätStärke[j]/100, 0);
       }
-      else if (this.imunität[j] == 7 && farbe == "white") {   //wenn normalschaden und flat dmg mitigation
+      else if (this.imunität[j] == 5 && farbe == "white") {   //wenn normalschaden und flat dmg mitigation
         points = Math.max(points-this.imunitätStärke[j], 0);
       }
     }
@@ -1360,7 +1360,15 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           if (item != undefined && j != this.id) {
             entfernung = Math.sqrt(Math.pow((item.posx - this.posx), 2) + Math.pow((item.posy - this.posy), 2))*70/size;
             if (entfernung <= this.effektTime*(1+this.buffStaerken[3]/100)) {
-              item.buffStaerken[this.effekt[i]-7] = Math.max(item.buffStaerken[this.effekt[i]-7], this.effektStaerke[i]*(1+this.buffStaerken[2]/100));
+              if (!(item.effekt[0] == 9)) {
+                if (item.typ == 9 && item.buffStaerken[this.effekt[i]-7] < this.effektStaerke[i]*(1+this.buffStaerken[2]/100)) {
+                  item.buffStaerken[this.effekt[i]-7] = this.effektStaerke[i]*(1+this.buffStaerken[2]/100);
+                  item.buffTuerme();
+                }
+                else {
+                  item.buffStaerken[this.effekt[i]-7] = Math.max(item.buffStaerken[this.effekt[i]-7], this.effektStaerke[i]*(1+this.buffStaerken[2]/100));
+                }
+              }
             }
           }
         });
