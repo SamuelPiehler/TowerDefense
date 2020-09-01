@@ -630,21 +630,23 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + round(tuerme[id].dmgDealed/100, 1) + "sec verlangsamt<br>";
     }
-    switch (tuerme[id].targetPrio) {
-      case 0:
-        var prio = "ersten"
-        break;
-      case 1:
-        var prio = "letzten"
-        break;
-      case 2:
-        var prio = "stärksten"
-        break;
-      case 3:
-        var prio = "schwächsten"
-        break;
+    if (tuerme[id].drehGeschw != 0) {
+      switch (tuerme[id].targetPrio) {
+        case 0:
+          var prio = "ersten"
+          break;
+        case 1:
+          var prio = "letzten"
+          break;
+        case 2:
+          var prio = "stärksten"
+          break;
+        case 3:
+          var prio = "schwächsten"
+          break;
+      }
+      upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     }
-    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     var upgradeButton = document.createElement("button"); //button um den turm upzugraden
     upgradeFenster.appendChild(upgradeButton);
     upgradeButton.innerHTML = "Upgrade";
