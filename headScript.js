@@ -1,8 +1,8 @@
 //Konfig
 var maxUpgrade = 5;
 var anzahlEffeckte = 5;
-//TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport
-//GegnerEffeckt:  0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 6 = %NormalMittigation, 7 = FlatNormalDefense
+//TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport, 15 = stackbares Gift
+//GegnerEffeckt:  0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = FlatNormalDefense, 6 = %NormalMittigation, 7 = on death split, 8 = on time spawn, 9 = agro, 10 = heal, 11 = speedbuff, 12 = shield, 13 = tower slow, 14 = tower stun, 15 = stackbares Gift
 // config optionen für die SchadensZahlen
 // 0 = OffsetX, 1 = OffsetY
 var numberallsum = [35, 70];
@@ -254,38 +254,38 @@ for (var i = 0; i < gegnerWellen.length; i++) {
 }
 
 var gegnertypen = [];
-//0 = Bild, 1 = Leben, 2 = Geschwindigkeit, 3 = Imunität, 4 = Imunität%, 5 = GeldBeiKill, 6= Spielerschaden
+//0 = Bild, 1 = Leben, 2 = Geschwindigkeit, 3 = Imunität/effekt, 4 = Imunität%/effecktstärke, 5 = GeldBeiKill, 6= Spielerschaden
 gegnertypen.push(['Bilder/Gegner/gegner00Basic.png', 150, 1, [], [], 1, 1]);   //0 Basic
 gegnertypen.push(['Bilder/Gegner/gegner01BonusHp.png', 250, 1, [], [], 2, 1]);   //1 Basic mit etwas mehr Leben
 gegnertypen.push(['Bilder/Gegner/gegner02langsamTank.png', 550, 0.6, [0], [50], 6, 1]);  //2 Langsamer Gegner mit viel Leben slowimmunität
 gegnertypen.push(['Bilder/Gegner/gegner03Schnell.png', 250, 1.6, [], [], 4, 1]);   //3 Schneller Gegner
-gegnertypen.push(['Bilder/Gegner/gegner04Immunitaeten.png', 450, 0.8, [2,3,7], [75,100,20], 8, 1]);   //4 etwas Langsamer Gegner mit vielen Immunitäten
+gegnertypen.push(['Bilder/Gegner/gegner04Immunitaeten.png', 450, 0.8, [2,3,5], [75,100,20], 8, 1]);   //4 etwas Langsamer Gegner mit vielen Immunitäten
 gegnertypen.push(['Bilder/Gegner/gegner05GiftImmun.png', 350, 0.8, [3], [75], 5, 1]);  //5 Gift immuner Gegner
 gegnertypen.push(['Bilder/Gegner/gegner06Boss1.png', 2000, 0.5, [0,6], [65,25], 25, 10]);   //6 Boss Gegner langsam mit slow und normaldmg immunität
-gegnertypen.push(['Bilder/Gegner/gegner07Agro.png', 1000,  1 ,[] , [], 20 , 3]);  //7 zieht die Tower auf sich
-gegnertypen.push(['Bilder/Gegner/gegner08Heiler.png', 750, 1.6 ,[], [], 10 , 4]);  //8 soll die Gegner heilen
-gegnertypen.push(['Bilder/Gegner/gegner09SpawnTimer.png', 600, 1, [],[], 15, 6]); //9 spawnt Gegner
-gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png' , 500, 0.9 ,[] ,[] , 12, 4]); //10 nach dem Tod spawnt er Gegner
-gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png' , 250, 0.8 ,[] ,[] , 8, 2]); // 11 das sind seine spawnt nach dem Tod
-gegnertypen.push(['Bilder/Gegner/gegner12Speedbuff.png' , 400, 1.2 ,[],[], 14 , 2]); //12 Bufft Gegner mit speed
-gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 800 , 1.6, [], [], 20, 6]); //13 Bufft Gegner mit Schild und der Effektschaden wird anulliert
-gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png',1000 ,0.7,[],[], 10 , 4]); //14 slower die Türme
-gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png',3000 ,0.8, [] ,[], 30 , 15]); //15 Boss 2
-gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 4000 ,0.7, [],[] ,35 ,20]); // 16 Boss 3
+gegnertypen.push(['Bilder/Gegner/gegner07Agro.png', 1000,  1 ,[9] , [1], 20 , 3]);  //7 zieht die Tower auf sich
+gegnertypen.push(['Bilder/Gegner/gegner08Heiler.png', 750, 1.6 ,[10], [[100, 140, 1]], 10 , 4]);  //8 soll die Gegner heilen 1% jede sec(100 spielticks) mit 140 reichweite
+gegnertypen.push(['Bilder/Gegner/gegner09SpawnTimer.png', 600, 1, [8],[50], 15, 6]); //9 spawnt Gegner 11 alle 0.5 sec (=50)
+gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png', 500, 0.9 ,[7] ,[3] , 12, 4]); //10 nach dem Tod spawnt er 3 mal Gegner 11
+gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png', 250, 0.8 ,[] ,[] , 0, 1]); // 11 wird von anderen gegnern gespawned
+gegnertypen.push(['Bilder/Gegner/gegner12Speedbuff.png', 400, 1.2 ,[11],[[5, 140]], 14 , 2]); //12 Bufft speed von anderen Gegner um 5% 140 reichweite
+gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 800 , 1.6, [12], [[50, 140]], 20, 6]); //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
+gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 1000, 0.7, [13], [[2, 140]], 10 , 4]); //14 slowed die Türme in 140 reichweite um 2%
+gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png', 3000, 0.8, [], [], 30 , 15]); //15 Boss 2
+gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 4000, 0.7, [], [], 35, 20]); // 16 Boss 3
 
 var towertypen = [];
 //0 Base src, 1 Geschütz src, 2 Damage, 3 Drehgeschwindigkeit, 4 Reichweite, 5 Angriffszeit, 6 Preis, 7 Effekt, 8 Effektstärke, 9 EffektDauer/Reichweite, 10 Name, 11 stufe5 geschütz 12 unlockt
 towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/00basic.png', 20, 2, 140, 0.5, 25, [], [], [], "Basic Tower", "Bilder/Tower/00basic5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 130, 1.3, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/fehlt.png", false]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 130, 1.3, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/01sniper5.png", true]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/02slower.png', 0, 0, 100, 0.7, 60, [0], [1.5], [1.5], "Slow Tower", "Bilder/Tower/02slower5.png", true]);
-towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 140, 0.5, 80, [3], [5], [15], "Gift Tower", "Bilder/Tower/03gift5.png", false]);
+towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 140, 0.5, 80, [3], [5], [15], "Gift Tower", "Bilder/Tower/03gift5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/04feuerAoe.png', 10, 0, 140, 1, 150, [2], [10], [5], "FeuerAoe Turm", "Bilder/Tower/04feuerAoe5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 350, 1.7, 200, 3, 200, [1], [1], [0.3], "Anti Boss Tower", "Bilder/Tower/05antiBoss5.png", true]); //andere Base
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 125, 1, 500, 4, 250, [5], [75], [70], "Rocket Launcher", "Bilder/Tower/06rocket5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 60 ,1 , 180,  1, 100, [3], [70], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", false]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 90, 1.7, 160, 1, 90, [2], [100], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", false]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [15, 10, 10, 30], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", false]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 400, 1, 230, 8, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", false]);
+towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 60 ,1 , 180,  1, 100, [3], [70], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", true]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 90, 1.7, 160, 1, 90, [2], [100], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", true]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [15, 10, 10, 30], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", true]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 400, 1, 230, 8, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", true]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , [], [], [], "Random", "Bilder/Map/empty.png", false]);
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert

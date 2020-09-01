@@ -1,6 +1,8 @@
 
-//erzeugt rechts neben der map eine auswahl an towern die gebaut werden können
-var size = Math.floor(resizekoords(map[0].length,map.length));
+//setzt die map größe und map part größe
+var size = Math.floor(resizekoords(map[0].length, map.length));
+var mapMaxX = size * map[0].length;
+var mapMaxY = size * map.length;
 
 //Canvas in dem alle Gegner Angezeigt werden
 var gegnerBild = document.createElement('canvas');
@@ -174,6 +176,7 @@ document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
 document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
 function tasteGedrueckt(evt) {
+  console.log(evt.key);
   switch (evt.key) {
     case "Shift":
       shift = true;
@@ -188,8 +191,51 @@ function tasteGedrueckt(evt) {
     case "s":
       changeGameSpeed();
       break;
+    case "S":
+      changeGameSpeed();
+      break;
+    case "!":
+      select(false, 0);
+      break;
+    case '"':
+      select(false, 1);
+      break;
+    case '§':
+      select(false, 2);
+      break;
+    case '$':
+      select(false, 3);
+      break;
+    case '%':
+      select(false, 4);
+      break;
+    case '&':
+      select(false, 5);
+      break;
+    case '/':
+      select(false, 6);
+      break;
+    case '(':
+      select(false, 7);
+      break;
+    case ')':
+      select(false, 8);
+      break;
+    case '=':
+      select(false, 9);
+    case '0':
+      select(false, 9);
+      break;
+    case '?':
+      select(false, 10);
+    case 'ß':
+      select(false, 10);
+      break;
+    case 'Dead':
+      select(false, 11);
+      break;
     default:
-      if (evt.key*1 >= 1 && evt.key*1 <= 7) { //wählt tower zum bauen aus je nach gedückter zahl
+      if (evt.key*1 >= 1 && evt.key*1 <= 9) { //wählt tower zum bauen aus je nach gedückter zahl
         select(false, evt.key-1);
       }
       break;
@@ -366,9 +412,10 @@ function showStats(evt, object) {
   statFenster = document.createElement("div");
   document.body.appendChild(statFenster);
   statFenster.style.position = 'absolute';
-  statFenster.style.left = (evt.srcElement.offsetLeft + 65)+'px';
-  statFenster.style.top = (evt.srcElement.offsetTop + 60)+'px';
+  var x = evt.srcElement.offsetLeft + 65;
+  var y = evt.srcElement.offsetTop + 60;
   statFenster.style.backgroundColor  = '#d5d0ff';
+  statFenster.style.zIndex = 10;
   statFenster.innerHTML = towertypen[object.name][10] + "<br>";
   if (object.name == towertypen.length - 1) {
     var preis = 0;
@@ -441,6 +488,16 @@ function showStats(evt, object) {
       }
     }
   }
+  if (x + statFenster.offsetWidth > screen.width) {
+    x -= statFenster.offsetWidth + 50;
+  }
+  if (y + 100 + statFenster.offsetHeight > screen.height) {
+    statFenster.style.bottom = '0px';
+  }
+  else {
+    statFenster.style.top = y+'px';
+  }
+  statFenster.style.left = x+'px';
 }
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
@@ -464,7 +521,8 @@ function showRange(evt, object, id) {
   rangeDiv.style.borderStyle = 'solid';
   rangeDiv.style.borderWidth = '1px';
   rangeDiv.style.borderColor = '#000000';
-  rangeDiv.style.zIndex=4;
+  rangeDiv.style.zIndex = 4;
+  rangeDiv.style.overflow = "hidden";
 }
 
 //lösche reichweite des turms wenn er nicht mehr gehovert wird
@@ -479,16 +537,15 @@ function showUpgrade(object, id) {
   var typ = tuerme[id].typ;
   upgradeFenster = document.createElement("div");
   document.body.appendChild(upgradeFenster);
-  upgradeFenster.onresize = function(){console.log("tese")};
   upgradeFenster.style.position = 'absolute';
-  upgradeFenster.style.left = (tuerme[id].posx + 75)+'px';
-  upgradeFenster.style.top = (tuerme[id].posy + 110)+'px';
+  var x = tuerme[id].posx + 75;
+  var y = tuerme[id].posy + 110;
   upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
   upgradeFenster.style.zIndex=6;
   upgradeFenster.innerHTML += towertypen[typ][10] + "<br>";
   if (tuerme[id].upgradeStufe < maxUpgrade) {   //ist der Turm auf der maximalen upgradestufe
     if (tuerme[id].upgradeStufe == maxUpgrade - 1) {
-      var preis = parseInt(towertypen[typ][6]*preisMult)*2
+      var preis = parseInt(towertypen[typ][6]*preisMult)*2;
     }
     else {
       var preis = parseInt(parseInt(towertypen[typ][6]*preisMult)*(25+10*tuerme[id].upgradeStufe)/100);
@@ -574,6 +631,21 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + round(tuerme[id].dmgDealed/100, 1) + "sec verlangsamt<br>";
     }
+    switch (tuerme[id].targetPrio) {
+      case 0:
+        var prio = "ersten"
+        break;
+      case 1:
+        var prio = "letzten"
+        break;
+      case 2:
+        var prio = "stärksten"
+        break;
+      case 3:
+        var prio = "schwächsten"
+        break;
+    }
+    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     var upgradeButton = document.createElement("button"); //button um den turm upzugraden
     upgradeFenster.appendChild(upgradeButton);
     upgradeButton.innerHTML = "Upgrade";
@@ -626,6 +698,9 @@ function showUpgrade(object, id) {
         case 10:
           upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "%. <br>";
           break;
+        case 15:
+          upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " Schaden/sec (kann mit Gift von anderen Türmen stacken). <br>";
+          break;
       }
       if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 10) {
         upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + " <br>";
@@ -640,6 +715,35 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + (tuerme[id].dmgDealed/100) + "sec verlangsamt<br>";
     }
+    switch (tuerme[id].targetPrio) {
+      case 0:
+        var prio = "ersten"
+        break;
+      case 1:
+        var prio = "letzten"
+        break;
+      case 2:
+        var prio = "stärksten"
+        break;
+      case 3:
+        var prio = "schwächsten"
+        break;
+    }
+    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
+  }
+  if (tuerme[id].drehGeschw != 0) {
+    var targetButton = document.createElement("button");  //button um das turm target zu ändern
+    upgradeFenster.appendChild(targetButton);
+    targetButton.innerHTML = "Target";
+    targetButton.style.position = 'relative';
+    if (tuerme[id].upgradeStufe < maxUpgrade) {
+      targetButton.style.left = (50)+'px';
+    }
+    else {
+      targetButton.style.left = (20)+'px';
+    }
+    targetButton.style.bottom = (0)+'px';
+    targetButton.addEventListener("click", function(){tuerme[id].changeTarget();});
   }
   var sellButton = document.createElement("button");  //button um den turm zu verkaufen
   upgradeFenster.appendChild(sellButton);
@@ -661,6 +765,18 @@ function showUpgrade(object, id) {
   upgradeFehlerDiv.innerHTML = "<font color=ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</font>";
   upgradeFenster.appendChild(upgradeFehlerDiv);
   upgradeFehlerDiv.hidden = true;
+
+
+  if (x + upgradeFenster.offsetWidth > mapMaxX) {
+    x -= upgradeFenster.offsetWidth + 50;
+  }
+  if (y + 100 + upgradeFenster.offsetHeight > screen.height) {
+    upgradeFenster.style.bottom = '0px';
+  }
+  else {
+    upgradeFenster.style.top = y+'px';
+  }
+  upgradeFenster.style.left = x+'px';
 }
 
 
@@ -1002,6 +1118,7 @@ function Gegner(id, typ, lebenMult){
   this.id = id; //nummer in gegner array
   this.typ = typ;
   this.leben = gegnertypen[typ][1]*lebenMult;
+  this.maxHP = this.leben;
   this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   this.effektTyp = [];    //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
@@ -1026,6 +1143,7 @@ function Gegner(id, typ, lebenMult){
     for (var i = 0; i < anzahlEffeckte; i++) {
       effektStaerken[i] = 0;
     }
+    effektStaerken[15] = 0;
     for (var i = 0; i < this.effektTyp.length; i++) {   //gehe jeden effeckt durch der den gegner momentan betrifft
       if (this.effektTyp[i] != undefined) {   //skip falls effeckt gelöscht wurde
         if (roundTime - this.effektStart[i] <= this.effektZeit[i]) {    //skip falls efecktzeit abgelaufen ist
@@ -1071,14 +1189,24 @@ function Gegner(id, typ, lebenMult){
       }
     }
     //wiederholung für gift
-    if (roundTime - this.letztesGift >= 50 && effektStaerken[3] > 0) {
+    if (roundTime - this.letztesGift >= 50 && (effektStaerken[3] > 0 || effektStaerken[15] > 0)) {
       if (roundTime - this.letztesGift - gameSpeed < 50) {
         this.letztesGift += 50;
       }
       else {
         this.letztesGift = roundTime;
       }
-      this.damage(effektStaerken[3]/2, [], [], [], effektUrsprung[3], "green");
+      var giftSchaden = 0;
+      for (var i = 0; i < this.effektTyp.length; i++) {
+        if (this.effektTyp[i] == 15) {
+          giftSchaden += this.effektStaerke[i];
+          if (this.effektUrsprung[i] == effektUrsprung[3]) {
+            giftSchaden -= Math.min(effektStaerken[3], this.effektStaerke[i]);
+          }
+        }
+      }
+      giftSchaden += effektStaerken[3];
+      this.damage(giftSchaden/2, [], [], [], effektUrsprung[3], "green");
       if (this.leben <= 0) {
         return;
       }
@@ -1184,7 +1312,10 @@ function Gegner(id, typ, lebenMult){
           }
           break;
         }
-        if (this.imunität[j] == 0 && effekt[i] == 4) {
+        if (this.imunität[j] == 0 && effekt[i] == 4) {    //slow imunität wirkt auf permaslow
+          effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+        }
+        if (this.imunität[j] == 3 && effekt[i] == 15) {   //gift immunität wirkt auf stackbares Gift
           effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);
         }
       }
@@ -1193,7 +1324,7 @@ function Gegner(id, typ, lebenMult){
       if (this.imunität[j] == 6 && farbe == "white") {   //wenn normalschaden und %dmg mitigation
         points *= Math.max(1 - this.imunitätStärke[j]/100, 0);
       }
-      else if (this.imunität[j] == 7 && farbe == "white") {   //wenn normalschaden und flat dmg mitigation
+      else if (this.imunität[j] == 5 && farbe == "white") {   //wenn normalschaden und flat dmg mitigation
         points = Math.max(points-this.imunitätStärke[j], 0);
       }
     }
@@ -1221,10 +1352,10 @@ function Gegner(id, typ, lebenMult){
       numbers(anzeige, this.posx, this.posy, farbe);
     }
     for (var i = 0; i < effekt.length; i++) { //wurden beim schaden effeckte mitgegeben wurde
-      if (effekt[i] != 5 && effekt[i] != 4) { // 4=permaslow und 5=AoE wird extra behandelt
+      if (effekt[i] > 10 || effekt[i] < 4) { // 4=permaslow und die anderen efeckte werden nicht im gegner gespeichert extra behandelt
         var handeled = false;   //effeckt schon abgehandelt (bei überschreiben von altem effeckt)
-        for (var j = 0; j < this.effektTyp.length; j++) {   //gehe alle efeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
-          if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] == effektStaerke[i] && this.effektUrsprung[j] == ursprung) {
+        for (var j = 0; j < this.effektTyp.length; j++) {   //gehe alle effeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
+          if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] <= effektStaerke[i] && this.effektUrsprung[j] == ursprung) {
             this.effektZeit[j] = Math.max(effektZeit[i] + roundTime - this.effektStart[j], this.effektZeit[j]);  //wenn ja verängere nur efeckt zeit
             handeled = true;
             break;
@@ -1317,6 +1448,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.richtung = 0;    //in welche richtung schaut der turm
   this.richtung2 = 0;   // basicturm upgradestufe 5 richtung des 2ten geschützes
   this.target = -1;
+  this.targetPrio = 0;
   this.dmgDealed = 0;   //wie viel schaden hat der turm insgesamt verursacht
   this.effecktStacks = 0; //wie viele effecktstacks hat dieser turm verursacht
   this.canvasBase = document.createElement("canvas");   //bild der turmbase
@@ -1350,7 +1482,21 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           if (item != undefined && j != this.id) {
             entfernung = Math.sqrt(Math.pow((item.posx - this.posx), 2) + Math.pow((item.posy - this.posy), 2))*70/size;
             if (entfernung <= this.effektTime*(1+this.buffStaerken[3]/100)) {
-              item.buffStaerken[this.effekt[i]-7] = Math.max(item.buffStaerken[this.effekt[i]-7], this.effektStaerke[i]*(1+this.buffStaerken[2]/100));
+              if (!(item.effekt[0] == 9)) {
+                if (item.typ == 9 && item.buffStaerken[this.effekt[i]-7] < this.effektStaerke[i]*(1+this.buffStaerken[2]/100)) {
+                  item.buffStaerken[this.effekt[i]-7] = this.effektStaerke[i]*(1+this.buffStaerken[2]/100);
+                  item.buffTuerme();
+                }
+                else {
+                  item.buffStaerken[this.effekt[i]-7] = Math.max(item.buffStaerken[this.effekt[i]-7], this.effektStaerke[i]*(1+this.buffStaerken[2]/100));
+                }
+              }
+              else {
+                if (item.buffStaerken[this.effekt[i]-7] < this.effektStaerke[i]) {
+                  item.buffStaerken[this.effekt[i]-7] = this.effektStaerke[i];
+                  item.buffTuerme();
+                }
+              }
             }
           }
         });
@@ -1359,6 +1505,55 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   };
   if (this.typ == 9) {
     this.buffTuerme();
+  }
+  this.changeTarget = function(){   //funktion um targetpriorität zu ändern
+    hideUpgrade();
+    var typ = tuerme[id].typ;
+    upgradeFenster = document.createElement("div");
+    document.body.appendChild(upgradeFenster);
+    upgradeFenster.style.position = 'absolute';
+    upgradeFenster.style.left = (this.posx)+'px';
+    upgradeFenster.style.top = (this.posy + size*2)+'px';
+    upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
+    upgradeFenster.style.zIndex=6;
+    upgradeFenster.style.width="150px";
+    upgradeFenster.style.height="50px";
+    var closeButton = document.createElement("button");   //button um das upgradefenster zu schliesen
+    upgradeFenster.appendChild(closeButton);
+    closeButton.innerHTML = "x";
+    closeButton.style.position = 'absolute';
+    closeButton.style.left = (upgradeFenster.scrollWidth-23)+'px';
+    closeButton.style.top = (0)+'px';
+    closeButton.addEventListener("click", function(){hideUpgrade();});
+    id = this.id;
+    var firstButton = document.createElement("button");
+    upgradeFenster.appendChild(firstButton);
+    firstButton.innerHTML = "first";
+    firstButton.style.position = 'absolute';
+    firstButton.style.left = (0)+'px';
+    firstButton.style.top = (0)+'px';
+    firstButton.addEventListener("click", function(){tuerme[id].targetPrio=0;hideUpgrade();});
+    var lastButton = document.createElement("button");
+    upgradeFenster.appendChild(lastButton);
+    lastButton.innerHTML = "last";
+    lastButton.style.position = 'absolute';
+    lastButton.style.left = (60)+'px';
+    lastButton.style.top = (0)+'px';
+    lastButton.addEventListener("click", function(){tuerme[id].targetPrio=1;hideUpgrade();});
+    var strongButton = document.createElement("button");
+    upgradeFenster.appendChild(strongButton);
+    strongButton.innerHTML = "strong";
+    strongButton.style.position = 'absolute';
+    strongButton.style.left = (0)+'px';
+    strongButton.style.bottom = (0)+'px';
+    strongButton.addEventListener("click", function(){tuerme[id].targetPrio=2;hideUpgrade();});
+    var weakButton = document.createElement("button");
+    upgradeFenster.appendChild(weakButton);
+    weakButton.innerHTML = "weak";
+    weakButton.style.position = 'absolute';
+    weakButton.style.left = (60)+'px';
+    weakButton.style.bottom = (0)+'px';
+    weakButton.addEventListener("click", function(){tuerme[id].targetPrio=3;hideUpgrade();});
   }
   this.sell = function(){   //funktion um turm zu verkaufen
     this.canvasBase.remove();
@@ -1434,7 +1629,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.reichweite += 10;
             break;
             case 1:   //sniper  trifft alle gegner in der linie
-
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 2:   //slow permanenter slowstack auf gegner max 100 stacks = speed/1.25
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -1443,7 +1638,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime.push(0);
               break;
             case 3:   //gift kann sich nun stacken
-
+              this.effekt[0] = 15;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 4:   //FeuerAoe trifft zusätzlich zufälligen gegner auf der map mit extra feuerschaden und stärkerem tickschaden
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -1460,10 +1656,14 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime.push(50);
               break;
             case 7:   //singleGift
-
+              this.effektStaerke[0] *= 2;
+              this.effektTime[0] /= 1.5;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 8:   //Lava
-
+              this.effektStaerke[0] *= 2;
+              this.effektTime[0] /= 1.5;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 9:   //Support
               this.effektStaerke[0] += towertypen[9][8][this.effekt[0]-7]*0.5;
@@ -1471,8 +1671,9 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.reichweite = this.effektTime[0];
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
-            case 12:   //Tesla
-
+            case 10:   //Tesla
+              this.effektStaerke[0] += 3;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
           }
         }
@@ -1494,7 +1695,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   };
   this.drehen = function(grad, target, grad2, target2){   // richte turm in richtung gegner aus grad ist gegnerrichtung target ist gegner id (2 für basic turm stufe 5 zweites target)
     var uebergabeEffektStaerke = this.effektStaerke.slice();    //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
-    var uebergabeEffektTime = this.effektStaerke.slice();
+    var uebergabeEffektTime = this.effektTime.slice();
     for (var i = 0; i < this.effekt.length; i++) {
       uebergabeEffektStaerke[i] *= (1+this.buffStaerken[2]/100);
       uebergabeEffektTime[i] *= (1+this.buffStaerken[2]/100);
@@ -1546,27 +1747,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       this.richtung = grad;
       if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
         if (this.typ == 1 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn sniper stufe 5
-          // if (richtung == 0) {
-          //   gegner.forEach((item, i) => {
-          //     if (item != undefined) {
-          //       if (this.posy < item.posy && Math.abs(this.posx-item.posx) < 35) {
-          //         gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-          //       }
-          //     }
-          //   });
-          // }
-          // else if (richtung == 180) {
-          //   gegner.forEach((item, i) => {
-          //     if (item != undefined) {
-          //       if (this.posy > item.posy && Math.abs(this.posx-item.posx) < 35) {
-          //         gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-          //       }
-          //     }
-          //   });
-          // }
-          // else {
-          //   var a1 = Math.sin((this.richtung+90)/180*Math.PI)
-          // }
+          
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
           //füge schaden und effeckt auf gegner zu
@@ -1607,7 +1788,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   };
   this.zielen = function() {    //wird 1 mal pro gametick ausgeführt
     var uebergabeEffektStaerke = this.effektStaerke.slice();    //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
-    var uebergabeEffektTime = this.effektStaerke.slice();
+    var uebergabeEffektTime = this.effektTime.slice();
     for (var i = 0; i < this.effekt.length; i++) {
       uebergabeEffektStaerke[i] *= (1+this.buffStaerken[2]/100);
       uebergabeEffektTime[i] *= (1+this.buffStaerken[2]/100);
@@ -1628,16 +1809,70 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             if (gegner[target] == undefined) {    //wähle erstes target
               target = i;
             }
-            else if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
-              target2 = target;
-              target = i;
-            }
-            else if (gegner[target2] == undefined || gegner[target2].strecke < item.strecke) {
-              target2 = i;
+            else {
+              switch (this.targetPrio) {
+                case 0:
+                  if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].strecke < item.strecke) {
+                    target2 = i;
+                  }
+                  break;
+                case 1:
+                  if (gegner[target].strecke > item.strecke) {   //update targets so dass der letzte gegner immer target 1 ist und der zweite von hinten  target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].strecke > item.strecke) {
+                    target2 = i;
+                  }
+                  break;
+                case 2:
+                  if (gegner[target].leben < item.leben) {   //update targets so dass der gegner mit den meisten leben immer target 1 ist und der zweite target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].leben < item.leben) {
+                    target2 = i;
+                  }
+                  break;
+                case 3:
+                  if (gegner[target].leben > item.leben) {   //update targets so dass der gegner mit den wenigsten leben immer target 1 ist und der zweite target 2
+                    target2 = target;
+                    target = i;
+                  }
+                  else if (gegner[target2] == undefined || gegner[target2].leben > item.leben) {
+                    target2 = i;
+                  }
+                  break;
+              }
             }
           }
-          else if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {    //wähle das target das am meisten weg zurück gelegt hat
-            target = i;
+          else {
+            switch (this.targetPrio) {
+              case 0:
+                if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {
+                  target = i;
+                }
+                break;
+              case 1:
+                if (gegner[target] == undefined || gegner[target].strecke > item.strecke) {
+                  target = i;
+                }
+                break;
+              case 2:
+                if (gegner[target] == undefined || gegner[target].leben < item.leben) {
+                  target = i;
+                }
+                break;
+              case 3:
+                if (gegner[target] == undefined || gegner[target].leben > item.leben) {
+                  target = i;
+                }
+                break;
+            }
           }
         }
       }
