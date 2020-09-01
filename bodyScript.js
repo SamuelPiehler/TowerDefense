@@ -1011,6 +1011,7 @@ function Gegner(id, typ, lebenMult){
   this.id = id; //nummer in gegner array
   this.typ = typ;
   this.leben = gegnertypen[typ][1]*lebenMult;
+  this.maxHP = this.leben;
   this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   this.effektTyp = [];    //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
@@ -1567,7 +1568,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   };
   this.drehen = function(grad, target, grad2, target2){   // richte turm in richtung gegner aus grad ist gegnerrichtung target ist gegner id (2 für basic turm stufe 5 zweites target)
     var uebergabeEffektStaerke = this.effektStaerke.slice();    //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
-    var uebergabeEffektTime = this.effektStaerke.slice();
+    var uebergabeEffektTime = this.effektTime.slice();
     for (var i = 0; i < this.effekt.length; i++) {
       uebergabeEffektStaerke[i] *= (1+this.buffStaerken[2]/100);
       uebergabeEffektTime[i] *= (1+this.buffStaerken[2]/100);
