@@ -1369,6 +1369,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                   item.buffStaerken[this.effekt[i]-7] = Math.max(item.buffStaerken[this.effekt[i]-7], this.effektStaerke[i]*(1+this.buffStaerken[2]/100));
                 }
               }
+              else {
+                if (item.buffStaerken[this.effekt[i]-7] < this.effektStaerke[i]) {
+                  item.buffStaerken[this.effekt[i]-7] = this.effektStaerke[i];
+                  item.buffTuerme();
+                }
+              }
             }
           }
         });
