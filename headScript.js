@@ -284,7 +284,7 @@ towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 350, 1
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 125, 1, 500, 4, 250, [5], [75], [70], "Rocket Launcher", "Bilder/Tower/06rocket5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 60 ,1 , 180,  1, 100, [3], [70], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", false]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 90, 1.7, 160, 1, 90, [2], [100], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", false]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [15, 10, 10, 30], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", false]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [15, 10, 10, 30], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 400, 1, 230, 8, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", false]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , [], [], [], "Random", "Bilder/Map/empty.png", false]);
 
