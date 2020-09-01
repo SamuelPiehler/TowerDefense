@@ -1,3 +1,7 @@
+body{
+  overflow: hidden;
+}
+
 .button{
   box-shadow: 3px 2px 3px  #972742, -3px -2px 3px #972742, -3px 2px 3px  #972742, 3px -2px 3px #972742;
   border-radius: 20%;
@@ -37,9 +41,11 @@
   padding-left: 30px ;
   padding-right: 5px;
 }
+
 .mapicon{
 margin-bottom: -5px;
 }
+
 img,
 canvas,
 body *{

@@ -1,6 +1,8 @@
 
-//erzeugt rechts neben der map eine auswahl an towern die gebaut werden können
-var size = Math.floor(resizekoords(map[0].length,map.length));
+//setzt die map größe und map part größe
+var size = Math.floor(resizekoords(map[0].length, map.length));
+var mapMaxX = size * map[0].length;
+var mapMaxY = size * map.length;
 
 //Canvas in dem alle Gegner Angezeigt werden
 var gegnerBild = document.createElement('canvas');
@@ -174,6 +176,7 @@ document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
 document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
 function tasteGedrueckt(evt) {
+  console.log(evt.key);
   switch (evt.key) {
     case "Shift":
       shift = true;
@@ -188,8 +191,51 @@ function tasteGedrueckt(evt) {
     case "s":
       changeGameSpeed();
       break;
+    case "S":
+      changeGameSpeed();
+      break;
+    case "!":
+      select(false, 0);
+      break;
+    case '"':
+      select(false, 1);
+      break;
+    case '§':
+      select(false, 2);
+      break;
+    case '$':
+      select(false, 3);
+      break;
+    case '%':
+      select(false, 4);
+      break;
+    case '&':
+      select(false, 5);
+      break;
+    case '/':
+      select(false, 6);
+      break;
+    case '(':
+      select(false, 7);
+      break;
+    case ')':
+      select(false, 8);
+      break;
+    case '=':
+      select(false, 9);
+    case '0':
+      select(false, 9);
+      break;
+    case '?':
+      select(false, 10);
+    case 'ß':
+      select(false, 10);
+      break;
+    case 'Dead':
+      select(false, 11);
+      break;
     default:
-      if (evt.key*1 >= 1 && evt.key*1 <= 7) { //wählt tower zum bauen aus je nach gedückter zahl
+      if (evt.key*1 >= 1 && evt.key*1 <= 9) { //wählt tower zum bauen aus je nach gedückter zahl
         select(false, evt.key-1);
       }
       break;
@@ -366,9 +412,10 @@ function showStats(evt, object) {
   statFenster = document.createElement("div");
   document.body.appendChild(statFenster);
   statFenster.style.position = 'absolute';
-  statFenster.style.left = (evt.srcElement.offsetLeft + 65)+'px';
-  statFenster.style.top = (evt.srcElement.offsetTop + 60)+'px';
+  var x = evt.srcElement.offsetLeft + 65;
+  var y = evt.srcElement.offsetTop + 60;
   statFenster.style.backgroundColor  = '#d5d0ff';
+  statFenster.style.zIndex = 10;
   statFenster.innerHTML = towertypen[object.name][10] + "<br>";
   if (object.name == towertypen.length - 1) {
     var preis = 0;
@@ -441,6 +488,16 @@ function showStats(evt, object) {
       }
     }
   }
+  if (x + statFenster.offsetWidth > screen.width) {
+    x -= statFenster.offsetWidth + 50;
+  }
+  if (y + 100 + statFenster.offsetHeight > screen.height) {
+    statFenster.style.bottom = '0px';
+  }
+  else {
+    statFenster.style.top = y+'px';
+  }
+  statFenster.style.left = x+'px';
 }
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
@@ -464,7 +521,8 @@ function showRange(evt, object, id) {
   rangeDiv.style.borderStyle = 'solid';
   rangeDiv.style.borderWidth = '1px';
   rangeDiv.style.borderColor = '#000000';
-  rangeDiv.style.zIndex=4;
+  rangeDiv.style.zIndex = 4;
+  rangeDiv.style.overflow = "hidden";
 }
 
 //lösche reichweite des turms wenn er nicht mehr gehovert wird
@@ -480,14 +538,14 @@ function showUpgrade(object, id) {
   upgradeFenster = document.createElement("div");
   document.body.appendChild(upgradeFenster);
   upgradeFenster.style.position = 'absolute';
-  upgradeFenster.style.left = (tuerme[id].posx + 75)+'px';
-  upgradeFenster.style.top = (tuerme[id].posy + 110)+'px';
+  var x = tuerme[id].posx + 75;
+  var y = tuerme[id].posy + 110;
   upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
   upgradeFenster.style.zIndex=6;
   upgradeFenster.innerHTML += towertypen[typ][10] + "<br>";
   if (tuerme[id].upgradeStufe < maxUpgrade) {   //ist der Turm auf der maximalen upgradestufe
     if (tuerme[id].upgradeStufe == maxUpgrade - 1) {
-      var preis = parseInt(towertypen[typ][6]*preisMult)*2
+      var preis = parseInt(towertypen[typ][6]*preisMult)*2;
     }
     else {
       var preis = parseInt(parseInt(towertypen[typ][6]*preisMult)*(25+10*tuerme[id].upgradeStufe)/100);
@@ -640,6 +698,9 @@ function showUpgrade(object, id) {
         case 10:
           upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "%. <br>";
           break;
+        case 15:
+          upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " Schaden/sec (kann mit Gift von anderen Türmen stacken). <br>";
+          break;
       }
       if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 10) {
         upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + " <br>";
@@ -704,6 +765,18 @@ function showUpgrade(object, id) {
   upgradeFehlerDiv.innerHTML = "<font color=ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</font>";
   upgradeFenster.appendChild(upgradeFehlerDiv);
   upgradeFehlerDiv.hidden = true;
+
+
+  if (x + upgradeFenster.offsetWidth > mapMaxX) {
+    x -= upgradeFenster.offsetWidth + 50;
+  }
+  if (y + 100 + upgradeFenster.offsetHeight > screen.height) {
+    upgradeFenster.style.bottom = '0px';
+  }
+  else {
+    upgradeFenster.style.top = y+'px';
+  }
+  upgradeFenster.style.left = x+'px';
 }
 
 
@@ -1036,6 +1109,7 @@ function Gegner(id, typ, lebenMult){
     for (var i = 0; i < anzahlEffeckte; i++) {
       effektStaerken[i] = 0;
     }
+    effektStaerken[15] = 0;
     for (var i = 0; i < this.effektTyp.length; i++) {   //gehe jeden effeckt durch der den gegner momentan betrifft
       if (this.effektTyp[i] != undefined) {   //skip falls effeckt gelöscht wurde
         if (roundTime - this.effektStart[i] <= this.effektZeit[i]) {    //skip falls efecktzeit abgelaufen ist
@@ -1081,14 +1155,24 @@ function Gegner(id, typ, lebenMult){
       }
     }
     //wiederholung für gift
-    if (roundTime - this.letztesGift >= 50 && effektStaerken[3] > 0) {
+    if (roundTime - this.letztesGift >= 50 && (effektStaerken[3] > 0 || effektStaerken[15] > 0)) {
       if (roundTime - this.letztesGift - gameSpeed < 50) {
         this.letztesGift += 50;
       }
       else {
         this.letztesGift = roundTime;
       }
-      this.damage(effektStaerken[3]/2, [], [], [], effektUrsprung[3], "green");
+      var giftSchaden = 0;
+      for (var i = 0; i < this.effektTyp.length; i++) {
+        if (this.effektTyp[i] == 15) {
+          giftSchaden += this.effektStaerke[i];
+          if (this.effektUrsprung[i] == effektUrsprung[3]) {
+            giftSchaden -= Math.min(effektStaerken[3], this.effektStaerke[i]);
+          }
+        }
+      }
+      giftSchaden += effektStaerken[3];
+      this.damage(giftSchaden/2, [], [], [], effektUrsprung[3], "green");
       if (this.leben <= 0) {
         return;
       }
@@ -1194,7 +1278,10 @@ function Gegner(id, typ, lebenMult){
           }
           break;
         }
-        if (this.imunität[j] == 0 && effekt[i] == 4) {
+        if (this.imunität[j] == 0 && effekt[i] == 4) {    //slow imunität wirkt auf permaslow
+          effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+        }
+        if (this.imunität[j] == 3 && effekt[i] == 15) {   //gift immunität wirkt auf stackbares Gift
           effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);
         }
       }
@@ -1231,10 +1318,10 @@ function Gegner(id, typ, lebenMult){
       numbers(anzeige, this.posx, this.posy, farbe);
     }
     for (var i = 0; i < effekt.length; i++) { //wurden beim schaden effeckte mitgegeben wurde
-      if (effekt[i] != 5 && effekt[i] != 4) { // 4=permaslow und 5=AoE wird extra behandelt
+      if (effekt[i] > 10 || effekt[i] < 4) { // 4=permaslow und die anderen efeckte werden nicht im gegner gespeichert extra behandelt
         var handeled = false;   //effeckt schon abgehandelt (bei überschreiben von altem effeckt)
-        for (var j = 0; j < this.effektTyp.length; j++) {   //gehe alle efeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
-          if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] == effektStaerke[i] && this.effektUrsprung[j] == ursprung) {
+        for (var j = 0; j < this.effektTyp.length; j++) {   //gehe alle effeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
+          if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] <= effektStaerke[i] && this.effektUrsprung[j] == ursprung) {
             this.effektZeit[j] = Math.max(effektZeit[i] + roundTime - this.effektStart[j], this.effektZeit[j]);  //wenn ja verängere nur efeckt zeit
             handeled = true;
             break;
@@ -1517,7 +1604,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime.push(0);
               break;
             case 3:   //gift kann sich nun stacken
-
+              this.effekt[0] = 15;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 4:   //FeuerAoe trifft zusätzlich zufälligen gegner auf der map mit extra feuerschaden und stärkerem tickschaden
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -1534,10 +1622,14 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime.push(50);
               break;
             case 7:   //singleGift
-
+              this.effektStaerke[0] *= 2;
+              this.effektTime[0] /= 1.5;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 8:   //Lava
-
+              this.effektStaerke[0] *= 2;
+              this.effektTime[0] /= 1.5;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 9:   //Support
               this.effektStaerke[0] += towertypen[9][8][this.effekt[0]-7]*0.5;
@@ -1545,8 +1637,9 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.reichweite = this.effektTime[0];
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
-            case 12:   //Tesla
-
+            case 10:   //Tesla
+              this.effektStaerke[0] += 3;
+              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
           }
         }

@@ -1,8 +1,8 @@
 //Konfig
 var maxUpgrade = 5;
 var anzahlEffeckte = 5;
-//TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport
-//GegnerEffeckt:  0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = FlatNormalDefense, 6 = %NormalMittigation, 7 = on death split, 8 = on time spawn, 9 = agro, 10 = heal, 11 = speedbuff, 12 = shield, 13 = tower slow, 14 = tower stun
+//TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport, 15 = stackbares Gift
+//GegnerEffeckt:  0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = FlatNormalDefense, 6 = %NormalMittigation, 7 = on death split, 8 = on time spawn, 9 = agro, 10 = heal, 11 = speedbuff, 12 = shield, 13 = tower slow, 14 = tower stun, 15 = stackbares Gift
 // config optionen für die SchadensZahlen
 // 0 = OffsetX, 1 = OffsetY
 var numberallsum = [35, 70];
@@ -278,14 +278,14 @@ var towertypen = [];
 towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/00basic.png', 20, 2, 140, 0.5, 25, [], [], [], "Basic Tower", "Bilder/Tower/00basic5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 130, 1.3, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/fehlt.png", false]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/02slower.png', 0, 0, 100, 0.7, 60, [0], [1.5], [1.5], "Slow Tower", "Bilder/Tower/02slower5.png", true]);
-towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 140, 0.5, 80, [3], [5], [15], "Gift Tower", "Bilder/Tower/03gift5.png", false]);
+towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 140, 0.5, 80, [3], [5], [15], "Gift Tower", "Bilder/Tower/03gift5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/04feuerAoe.png', 10, 0, 140, 1, 150, [2], [10], [5], "FeuerAoe Turm", "Bilder/Tower/04feuerAoe5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 350, 1.7, 200, 3, 200, [1], [1], [0.3], "Anti Boss Tower", "Bilder/Tower/05antiBoss5.png", true]); //andere Base
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 125, 1, 500, 4, 250, [5], [75], [70], "Rocket Launcher", "Bilder/Tower/06rocket5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 60 ,1 , 180,  1, 100, [3], [70], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", false]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 90, 1.7, 160, 1, 90, [2], [100], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", false]);
+towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 60 ,1 , 180,  1, 100, [3], [70], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", true]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 90, 1.7, 160, 1, 90, [2], [100], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [15, 10, 10, 30], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 400, 1, 230, 8, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", false]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 400, 1, 230, 8, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", true]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , [], [], [], "Random", "Bilder/Map/empty.png", false]);
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert
