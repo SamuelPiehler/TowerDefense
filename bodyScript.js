@@ -886,6 +886,7 @@ function deselect() {
 
 //funktion zum bauen eines turmes
 function build() {
+  hideUpgrade();
   var selectRandom = false;
   if (selected != -1) {   //ist ein turmtyp ausgewählt?
     if (selected == towertypen.length - 1) {
@@ -911,7 +912,7 @@ function build() {
         upgradeFenster.style.zIndex=6;
         upgradeFenster.innerHTML += "<img id='typ0' src='Bilder/Icons/schaden.png' title='Schaden'><img id='typ1' src='Bilder/Icons/angriffsGeschwindikeit.png' title='Angriffsgeschwindigkeit'><br>";
         upgradeFenster.innerHTML += "Welchen Suportturm<br>willst du bauen?<br>";
-        upgradeFenster.innerHTML += "<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite1.png' title='Reichweite und Drehgeschwindigkeit'><br>";
+        upgradeFenster.innerHTML += "<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite.png' title='Reichweite und Drehgeschwindigkeit'><br>";
         for (var i = 0; i < 4; i++) {
           document.getElementById("typ"+i).addEventListener("click", function () {
             addGeld(-preis);    //kosten abziehen
