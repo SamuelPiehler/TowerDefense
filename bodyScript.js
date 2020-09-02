@@ -1044,7 +1044,6 @@ function update() {
       roundTime += gameSpeed;   //updade rundenzeit
       for (var i = timers.length - 1; i >= 0; i--) {   //ausführung aller timer
         item = timers[i];
-        tempTimers.forEach((item, i) => {
           if (item[1] <= roundTime) {   //wenn timerzeit abgelaufen ist
             item[0]();    //füge gespeicherte funktion aus
             timers.splice(i, 1);  //lösche timer
