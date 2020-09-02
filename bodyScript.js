@@ -344,7 +344,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2)
           item();
         });
         waitForBildLoad = [];
-        if (updateFinish) {
+        if (updateFinish && !spielEnde) {
           window.requestAnimationFrame(update);
         }
       }
@@ -1036,7 +1036,7 @@ function update() {
       });
     }
   }
-  if (loading == 0) {
+  if (loading == 0 && !spielEnde) {
     window.requestAnimationFrame(update);
   }
   else {

@@ -9,6 +9,7 @@ var map = [[[5, ['Bilder/Map/feld1.jpg','Bilder/Map/start.png']],[1, 'Bilder/Map
 ;
 success= true;
 var randomtiles = true
+var multiStartTyp = "0";
 
 
 

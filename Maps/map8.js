@@ -22,8 +22,12 @@ var map = [[[-1, ['Bilder/Map/feld2.jpg','Bilder/Map/stein3.png']],[-1, ['Bilder
 ]
 ;
 success= true;
-var randomtiles = false
-
+var randomtiles = false;
+var multiStartTyp = "2";
+//0=Nacheinander 
+//1=pro welle
+//2=zufällig
+//3= überall gleichzeitig
 
 
  // hier kommt das preview- Bild 

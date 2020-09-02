@@ -16,6 +16,7 @@ success= true;
 var randomtiles = false
 
 
+var multiStartTyp = "0";
 
  // hier kommt das preview- Bild 
 
