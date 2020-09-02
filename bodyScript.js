@@ -909,9 +909,28 @@ function build() {
         var y = coordinaten[1]*(size-1.2);
         upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
         upgradeFenster.style.zIndex=6;
-        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/schaden.png'><img id='typ1' src='Bilder/angiffsGeschwindkeit.png'><br>";
-        upgradeFenster.innerHTML += "Wähle welchen Suportturm Typ du bauen willst!<br>";
-        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/effeckt.png'><img id='typ1' src='Bilder/reichweite1.png'><br>";
+        upgradeFenster.innerHTML += "<img id='typ0' src='Bilder/Icons/schaden.png' title='Schaden'><img id='typ1' src='Bilder/Icons/angriffsGeschwindikeit.png' title='Angriffsgeschwindigkeit'><br>";
+        upgradeFenster.innerHTML += "Welchen Suportturm<br>willst du bauen?<br>";
+        upgradeFenster.innerHTML += "<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite1.png' title='Reichweite und Drehgeschwindigkeit'><br>";
+        for (var i = 0; i < 4; i++) {
+          document.getElementById("typ"+i).addEventListener("click", function () {
+            addGeld(-preis);    //kosten abziehen
+            var number = 0;   //überprüfe im tuerme array welcher index der kleinste freie ist
+            while (tuerme[number] != undefined) {
+              number++;
+            }
+            var spezialisierung = this.id.charAt(3);
+            tuerme[number] = new Turm(coordinaten[0], coordinaten[1], 9, number, spezialisierung);
+            hideUpgrade(); //
+          });
+        }
+        var closeButton = document.createElement("button");   //button um das fenster zu schliesen
+        upgradeFenster.appendChild(closeButton);
+        closeButton.innerHTML = "x";
+        closeButton.style.position = 'absolute';
+        closeButton.style.right = '0px';
+        closeButton.style.top = '0px';
+        closeButton.addEventListener("click", function(){hideUpgrade();});
         if (x + upgradeFenster.offsetWidth > mapMaxX) {
           upgradeFenster.style.right = '0px';
         }
