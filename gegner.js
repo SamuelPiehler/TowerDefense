@@ -1,0 +1,300 @@
+
+//Konstructor für objekt vom typ gegner
+function Gegner(id, typ, lebenMult){
+  this.letztesFeuer = roundTime;    //wann wurde der gegener das letzte mal von feuerschadentick getroffen
+  this.letztesGift = roundTime;     //wann wurde der gegener das letzte mal von giftschadentick getroffen
+  this.id = id; //nummer in gegner array
+  this.typ = typ;
+  this.leben = gegnertypen[typ][1]*lebenMult;
+  this.maxHP = this.leben;
+  this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
+  this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
+  this.effektTyp = [];    //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
+  this.effektStaerke = [];  //wie stark ist der jeweilige effeckt
+  this.effektStart = [];  //wann wurde der effekt erzeugt
+  this.effektZeit = [];   //wie lang gilt der effeckt
+  this.effektUrsprung = []; //welcher turm hat den effeckt erzeugt (für dmg dealed anzeige)
+  this.permaEffektStaerke = [0];  //wie stark ist der jeweilige dauerhafteEffeckt (index 0 = permaslow)
+  this.strecke = 0;   // wie weit hat sich der gegner auf der map bewegt (für überprüfung welcher der weiteste gegner ist)
+  this.mapx = start[1][0];   //koordinatendes momentanen mapfeldes spalte und zeile
+  this.mapy = start[0][0];
+  this.posx = this.mapx*size;   //koordinaten des gegners
+  this.posy = this.mapy*size;   //koordinaten des gegners
+  this.wert = gegnertypen[typ][5];    //wie viel geld ist der gegner on kill wert
+  this.bewegt = 0;    //wie weit hat sich der gegner auf dem mapfeld schon bewegt zur überprüfung wann der gegner ein neues mapfeld erreicht hat
+  this.baseSpeed = gegnertypen[typ][2]; //wie schnell bewegt sich der gegner
+  this.richtung = map[this.mapy][this.mapx][0] % 4;   //in welche richtung schaut der gegner momentan
+  this.src = gegnertypen[typ][0];   //url des gegnerbildes
+  this.bewegen = function (){   //gametick für gegner
+    var effektStaerken = [];    //erzeuge ein array zum abspeichern des stärksten effeckts von jedem typ
+    var effektUrsprung = [];    //turm der den effeckt erzeugthat
+    for (var i = 0; i < anzahlEffeckte; i++) {
+      effektStaerken[i] = 0;
+    }
+    effektStaerken[15] = 0;
+    for (var i = 0; i < this.effektTyp.length; i++) {   //gehe jeden effeckt durch der den gegner momentan betrifft
+      if (this.effektTyp[i] != undefined) {   //skip falls effeckt gelöscht wurde
+        if (roundTime - this.effektStart[i] <= this.effektZeit[i]) {    //skip falls efecktzeit abgelaufen ist
+          if (this.effektStaerke[i] > effektStaerken[this.effektTyp[i]]) {    //wenn es der bisher stärkste effeckt von diesem typ ist
+            effektStaerken[this.effektTyp[i]] = this.effektStaerke[i];    //wird er abgespeichert
+            effektUrsprung[this.effektTyp[i]] = this.effektUrsprung[i];
+          }
+        }
+        else {    //lösche effeckt wenn zeit abgelaufen ist
+          this.effektTyp[i] = undefined;
+          this.effektStaerke[i] = undefined;
+          this.effektStart[i] = undefined;
+          this.effektZeit[i] = undefined;
+          this.effektUrsprung[i] = undefined;
+        }
+      }
+    }
+    if (effektStaerken[1] != 0) {
+      console.log("test");
+    }
+    if (effektStaerken[1] > 0) {
+      var speed = 0;
+    }
+    else {
+      //berechne geschwindigkeit des gegners      hier speed durch slowstärke      hier speed durch permaslowstärke
+      var speed = gameSpeed * this.baseSpeed / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this.permaEffektStaerke[0] + 1) * (size / 70);
+    }
+    if (effektStaerken[0] != 0) {   //wenn der gegner geslowed wurde bekommt der erzeugende slowturm hier die credits dafür
+      if (tuerme[effektUrsprung[0]] != undefined) {
+        tuerme[effektUrsprung[0]].dmgDealed += gameSpeed;
+      }
+    }
+    if (roundTime - this.letztesFeuer >= 50 && effektStaerken[2] > 0) {   //wenn der letzte feuerdmgtick mehr als eine halbe sec her ist und ein feuerreffeckt auf dem gegner ist
+      if (roundTime - this.letztesFeuer - gameSpeed < 50) {   //setzen der zeit für letzten feuertick
+        this.letztesFeuer += 50;
+      }
+      else {
+        this.letztesFeuer = roundTime;
+      }
+      this.damage(effektStaerken[2]/2, [], [], [], effektUrsprung[2], "red");   //füge schaden für feuertick zu
+      if (this.leben <= 0) {
+        return;   //beende tick wenn gegner tot
+      }
+    }
+    //wiederholung für gift
+    if (roundTime - this.letztesGift >= 50 && (effektStaerken[3] > 0 || effektStaerken[15] > 0)) {
+      if (roundTime - this.letztesGift - gameSpeed < 50) {
+        this.letztesGift += 50;
+      }
+      else {
+        this.letztesGift = roundTime;
+      }
+      var giftSchaden = 0;
+      for (var i = 0; i < this.effektTyp.length; i++) {
+        if (this.effektTyp[i] == 15) {
+          giftSchaden += this.effektStaerke[i];
+          if (this.effektUrsprung[i] == effektUrsprung[3]) {
+            giftSchaden -= Math.min(effektStaerken[3], this.effektStaerke[i]);
+          }
+        }
+      }
+      giftSchaden += effektStaerken[3];
+      this.damage(giftSchaden/2, [], [], [], effektUrsprung[3], "green");
+      if (this.leben <= 0) {
+        return;
+      }
+    } //bewege gegner
+    switch (this.richtung) {
+      case 0:
+        this.posy += -1 * speed;
+        break;
+      case 1:
+        this.posx += 1 * speed;
+        break;
+      case 2:
+        this.posy += 1 * speed;
+        break;
+      case 3:
+        this.posx += -1 * speed;
+        break;
+    }
+    this.bewegt += speed;
+    this.strecke += speed;
+    if (this.bewegt >= size) { //wenn gegner auf neuem mapfeld kommt
+      this.bewegt -= size;
+      switch (this.richtung) {    //berechne neues mapfeld
+        case 0:
+          this.mapy += -1;
+          break;
+        case 1:
+          this.mapx += 1;
+          break;
+        case 2:
+          this.mapy += 1;
+          break;
+        case 3:
+          this.mapx += -1;
+          break;
+      }
+      if (map[this.mapy][this.mapx][0] != -2) {   //wenn nicht kreuzung
+        this.richtung = map[this.mapy][this.mapx][0] % 4;   //setze neue richtung
+      }
+      this.posx = this.mapx*size;   //setze gegner auf mitte des mapfelds
+      this.posy = this.mapy*size;
+      switch (this.richtung) {    //und setze restliche bewegung dann fort
+        case 0:
+          this.posy += -1 * (this.bewegt);
+          break;
+        case 1:
+          this.posx += 1 * (this.bewegt);
+          break;
+        case 2:
+          this.posy += 1 * (this.bewegt );
+          break;
+        case 3:
+          this.posx += -1 * (this.bewegt);
+          break;
+      }
+    }
+    if (map[this.mapy][this.mapx][0] >= 9 && map[this.mapy][this.mapx][0] <= 11) {    //wenn mapfeld das zielfeld
+      if (schwierigkeit != 0) {
+        spielerLeben -= gegnertypen[this.typ][6];   //schade spieler
+      }
+      document.getElementById("Leben").innerHTML = spielerLeben;    //update lebensanzeige
+      this.kill();  //lösche gegner
+      if (spielerLeben <= 0) {    //verloren nachricht wenn leben = 0;
+        alert("Du hast das Spiel Verloren!");
+        spielEnde = true;
+      }
+    }
+  }
+  //funktion um schaden/effeckte am gegner zu berechnen
+  this.damage = function(points, effekt, effektStaerke, effektZeit, ursprung, farbe = "white"){
+    var orginalPoints = points;
+    for (var i = 0; i < effekt.length; i++) {   //gehe alle effekte durch für aoe, tessla und immunitäten
+      if (effekt[i] == 6) {    //suche TeslaEffekt effeckt
+        teslaEffekt(points, effektStaerke[i], effektZeit[i], ursprung, gegner.slice(), this, false);
+      }
+      if (effekt[i] == 5) {    //suche AoE effeckt
+        for (var j = gegner.length - 1; j >= 0; j--) {
+          if (gegner[j] != undefined) {
+            var entfernung = getEntfernung(gegner[i].posx, gegner[i].posy, this.posx, this.posy);  //abstand zu getroffenem gegner
+            if (entfernung <= effektZeit[i]) {   //wenn in AoE range
+              uebergabeEffekt = effekt.slice();
+              uebergabeEffektStaerke = effektStaerke.slice();
+              uebergabeEffektTime = effektZeit.slice();
+              uebergabeEffekt.splice(i,1);
+              uebergabeEffektStaerke.splice(i,1);
+              uebergabeEffektTime.splice(i,1);
+              gegner[j].damage(effektStaerke[i], uebergabeEffekt, uebergabeEffektStaerke, uebergabeEffektTime, ursprung);  //füge gegner den effektschaden zu
+            }
+          }
+        }
+        if (this.leben <= 0) {
+          return false;   //beende funktion wenn gegner tot ist (damit keine aktionen am nicht existierenden gegner mehr ausgeführt werden)
+        }
+      }
+      for (var j = 0; j < this.imunität.length; j++) { //gehe alle immunitäten des gegners durch
+        if (this.imunität[j] == effekt[i]) {   //betrifft diese immunität diesen effeckt?
+          effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);   //reduziere effecktstärke je nach immunität
+          if (this.imunität[j] == 2 && effekt[i] == 2) { //wenn feuerschaden reduziere den schaden je nach immunität
+            points *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+          }
+          if (this.imunität[j] == 3 && effekt[i] == 3) { //wenn giftschaden reduziere den schaden je nach immunität
+            points *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+          }
+          break;
+        }
+        if (this.imunität[j] == 0 && effekt[i] == 4) {    //slow imunität wirkt auf permaslow
+          effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+        }
+        if (this.imunität[j] == 3 && effekt[i] == 15) {   //gift immunität wirkt auf stackbares Gift
+          effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+        }
+      }
+    }
+    for (var j = 0; j < this.imunität.length; j++) {
+      if (this.imunität[j] == 6 && farbe == "white") {   //wenn normalschaden und %dmg mitigation
+        points *= Math.max(1 - this.imunitätStärke[j]/100, 0);
+      }
+      else if (this.imunität[j] == 5 && farbe == "white") {   //wenn normalschaden und flat dmg mitigation
+        points = Math.max(points-this.imunitätStärke[j], 0);
+      }
+    }
+    points = round(points, 2)
+    var anzeige = points; //was für eine schadensanzeige wird erzeugt
+    switch (effekt[0]) {
+      case 0:
+        anzeige = "Slow";
+        farbe = "#7070ff";
+        break;
+      case 1:
+        anzeige = "Stunned";
+        if (points != 0) {
+          anzeige +="<br>"+points;
+        }
+        break;
+      case 2:
+        farbe = "red";
+        break;
+      case 3:
+        farbe = "green";
+        break;
+    }
+    if (anzeige != 0) { //erzeuge schadensanzeige
+      numbers(anzeige, this.posx, this.posy, farbe);
+    }
+    for (var i = 0; i < effekt.length; i++) { //wurden beim schaden effeckte mitgegeben wurde
+      if (effekt[i] > 10 || effekt[i] < 4) { // 4=permaslow und die anderen efeckte werden nicht im gegner gespeichert extra behandelt
+        var handeled = false;   //effeckt schon abgehandelt (bei überschreiben von altem effeckt)
+        for (var j = 0; j < this.effektTyp.length; j++) {   //gehe alle effeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
+          if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] <= effektStaerke[i] && this.effektUrsprung[j] == ursprung) {
+            this.effektZeit[j] = Math.max(effektZeit[i] + roundTime - this.effektStart[j], this.effektZeit[j]);  //wenn ja verängere nur efeckt zeit
+            handeled = true;
+            break;
+          }
+        }
+        if (!handeled) {  //wenn efeckt so noch nicht existiert hat
+          var num = 0;  //suche erste freie stelle im efecktarray
+          while (this.effektTyp[num] != undefined) {
+            num++;
+          }
+          this.effektTyp[num] = effekt[i];   //und schreibe den effeckt mit daten rein
+          this.effektStaerke[num] = effektStaerke[i];
+          this.effektStart[num] = roundTime;
+          this.effektZeit[num] = effektZeit[i];
+          this.effektUrsprung[num] = ursprung;
+        }
+      }
+      else if (effekt[i] == 4) {
+        this.permaEffektStaerke[0] = Math.min(1, this.permaEffektStaerke[0]+effektStaerke[i]);
+        if (tuerme[ursprung] != undefined) {
+          tuerme[ursprung].effecktStacks++;
+        }
+      }
+    }
+    if (tuerme[ursprung] != undefined) {
+      tuerme[ursprung].dmgDealed += Math.min(points, this.leben);   //schaden zugefügt wird bei erzeugerturm aufgerechnet
+    }
+    this.leben -= points; //leben werden abgezogen
+    if (this.leben <= 0) {  //wenn gegner keine leben mehr hat
+      addGeld(this.wert);   //geld für kill hinzufügen
+      this.kill();  //gegner entfernen
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+  this.kill = function(){   //wenn gegner tot oder am ziehl ist entfernen
+    tuerme.forEach((item, i) => {
+      if (item != undefined && item.typ == 5 && item.upgradeStufe == maxUpgrade && towertypen[item.typ][12]) {
+        if (item.target == this.id) {
+          item.target = -1;
+        }
+        else if (item.target > this.id) {
+          item.target--;
+        }
+      }
+    });
+    gegner.splice(this.id, 1);  //aus liste löschen
+    for (var i = this.id; i < gegner.length; i++) {
+      gegner[i].id--;   //gegnerid von anderen gegnern anpassen (damit sie weiterhin vortlaufend ist)
+    }
+  }
+}
