@@ -923,7 +923,6 @@ function build() {
         var y = coordinaten[1]*(size-1.2);
         upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
         upgradeFenster.style.zIndex=6;
-<<<<<<< Updated upstream
         upgradeFenster.innerHTML += "<img id='typ0' src='Bilder/Icons/schaden.png' title='Schaden'><img id='typ1' src='Bilder/Icons/angriffsGeschwindikeit.png' title='Angriffsgeschwindigkeit'><br>";
         upgradeFenster.innerHTML += "Welchen Suportturm<br>willst du bauen?<br>";
         upgradeFenster.innerHTML += "<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite.png' title='Reichweite und Drehgeschwindigkeit'><br>";
@@ -946,10 +945,6 @@ function build() {
         closeButton.style.right = '0px';
         closeButton.style.top = '0px';
         closeButton.addEventListener("click", function(){hideUpgrade();});
-=======
-        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/'>";
-        upgradeFenster.innerHTML += "Wähle welchen Suportturm Typ du bauen willst!";
->>>>>>> Stashed changes
         if (x + upgradeFenster.offsetWidth > mapMaxX) {
           upgradeFenster.style.right = '0px';
         }
