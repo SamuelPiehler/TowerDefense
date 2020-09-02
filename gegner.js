@@ -20,13 +20,21 @@ function Gegner(id, typ, lebenMult){
   this.effektUrsprung = []; //welcher turm hat den effeckt erzeugt (für dmg dealed anzeige)
   this.permaEffektStaerke = [0];  //wie stark ist der jeweilige dauerhafteEffeckt (index 0 = permaslow)
   this.strecke = 0;   // wie weit hat sich der gegner auf der map bewegt (für überprüfung welcher der weiteste gegner ist)
-  this.mapx = start[1][0];   //koordinatendes momentanen mapfeldes spalte und zeile
-  this.mapy = start[0][0];
+  if (multiStartTyp == 2) {
+    var spawnPoint = Math.floor(Math.random()*start[0].length);
+    this.mapx = start[1][spawnPoint];   //koordinatendes momentanen mapfeldes spalte und zeile
+    this.mapy = start[0][spawnPoint];
+  }
+  else {
+    this.mapx = start[1][spawnPointNumber];   //koordinatendes momentanen mapfeldes spalte und zeile
+    this.mapy = start[0][spawnPointNumber];
+  }
   this.posx = this.mapx*size;   //koordinaten des gegners
   this.posy = this.mapy*size;   //koordinaten des gegners
   this.wert = gegnertypen[typ][5];    //wie viel geld ist der gegner on kill wert
   this.bewegt = 0;    //wie weit hat sich der gegner auf dem mapfeld schon bewegt zur überprüfung wann der gegner ein neues mapfeld erreicht hat
   this.baseSpeed = gegnertypen[typ][2]; //wie schnell bewegt sich der gegner
+  this.speedBuff = 1;
   this.richtung = map[this.mapy][this.mapx][0] % 4;   //in welche richtung schaut der gegner momentan
   this.src = gegnertypen[typ][0];   //url des gegnerbildes
   this.bewegen = function (){   //gametick für gegner
@@ -36,16 +44,35 @@ function Gegner(id, typ, lebenMult){
       }
       else if (this.imunität[i] == 10) {
         if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
-          gegner.forEach((item, i) => {
-            var entfernung = getEntfernung(item, this);
-            if (entfernung <= this.imunitätStärke[i][1]) {
-              item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
+          gegner.forEach((item, j) => {
+            if (item != undefined) {
+              var entfernung = getEntfernung(item, this);
+              if (entfernung <= this.imunitätStärke[i][1]) {
+                var alteLeben = item.leben;
+                item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
+                if (alteLeben != item.leben) {
+                  numbers("+"+round(item.leben-alteLeben, 3), item.posx, item.posy, "green");
+                }
+              }
             }
           });
+          if (this.letzterEffeckt[i] + this.imunitätStärke[i][0] + gameSpeed > roundTime) {
+            this.letzterEffeckt[i] += this.imunitätStärke[i][0];
+          }
+          else {
+            this.letzterEffeckt[i] = roundTime;
+          }
         }
       }
       else if (this.imunität[i] == 11) {
-
+        gegner.forEach((item, j) => {
+          if (item != undefined) {
+            var entfernung = getEntfernung(item, this);
+            if (entfernung <= this.imunitätStärke[i][1]) {
+              item.speedBuff += this.imunitätStärke[i][0] / 100;
+            }
+          }
+        });
       }
       else if (this.imunität[i] == 13) {
 
@@ -82,7 +109,8 @@ function Gegner(id, typ, lebenMult){
     }
     else {
       //berechne geschwindigkeit des gegners      hier speed durch slowstärke      hier speed durch permaslowstärke
-      var speed = gameSpeed * this.baseSpeed / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this.permaEffektStaerke[0] + 1) * (size / 70);
+      var speed = gameSpeed * this.baseSpeed * this.speedBuff / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this.permaEffektStaerke[0] + 1) * (size / 70);
+      this.speedBuff = 1;
     }
     if (effektStaerken[0] != 0) {   //wenn der gegner geslowed wurde bekommt der erzeugende slowturm hier die credits dafür
       if (tuerme[effektUrsprung[0]] != undefined) {

@@ -386,6 +386,12 @@ function changeGameSpeed() {
 
 //startet nächste welle
 function spawnWelle() {
+  if (multiStartTyp == 1) {
+    spawnPointNumber++;
+    if (spawnPointNumber >= start[0].length) {
+      spawnPointNumber = 0;
+    }
+  }
   roundTime = 0;
   var warten = 0;
   var nummer = teilWellenNummer;  //nummer der zu behandelnden Teilwelle
@@ -718,21 +724,23 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + (tuerme[id].dmgDealed/100) + "sec verlangsamt<br>";
     }
-    switch (tuerme[id].targetPrio) {
-      case 0:
-        var prio = "ersten"
-        break;
-      case 1:
-        var prio = "letzten"
-        break;
-      case 2:
-        var prio = "stärksten"
-        break;
-      case 3:
-        var prio = "schwächsten"
-        break;
+    if (tuerme[id].drehGeschw != 0) {
+      switch (tuerme[id].targetPrio) {
+        case 0:
+          var prio = "ersten"
+          break;
+        case 1:
+          var prio = "letzten"
+          break;
+        case 2:
+          var prio = "stärksten"
+          break;
+        case 3:
+          var prio = "schwächsten"
+          break;
+      }
+      upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     }
-    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
   }
   if (tuerme[id].drehGeschw != 0) {
     var targetButton = document.createElement("button");  //button um das turm target zu ändern
@@ -941,6 +949,17 @@ function spawn(typ, lebenMult) {
     number++;
   }
   gegner[number] = new Gegner(number, typ, lebenMult);    //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
+  if (multiStartTyp == 0 || multiStartTyp == 3) {
+    spawnPointNumber++;
+    if (spawnPointNumber >= start[0].length) {
+      spawnPointNumber = 0;
+    }
+    else {
+      if (multiStartTyp == 3) {
+        spawn(typ, lebenMult);
+      }
+    }
+  }
 }
 
 //funktion um geld zu bekommen/zu zahlen
@@ -1023,15 +1042,16 @@ function update() {
     if (roundTime >= 0) {   //wenn welle nicht vorbei ist
       draw();   //zeine gegner neu
       roundTime += gameSpeed;   //updade rundenzeit
-      var tempTimers = timers.slice();   //ausführung aller timer (zwischenspeicher in temp timers damit die schleife durchlaufen kann ohne die objekte der schleife zu ändern)
-      tempTimers.forEach((item, i) => {
-        if (item[1] <= roundTime) {   //wenn timerzeit abgelaufen ist
-          item[0]();    //füge gespeicherte funktion aus
-          timers.splice(i, 1);  //lösche timer
-        }
-      });
-      var tempIntervals = intervals.slice();    //ausführung aller intervalle (zwischenspeicher in temp timers damit die schleife durchlaufen kann ohne die objekte der schleife zu ändern)
-      tempIntervals.forEach((item, i) => {
+      for (var i = timers.length - 1; i >= 0; i--) {   //ausführung aller timer
+        item = timers[i];
+        tempTimers.forEach((item, i) => {
+          if (item[1] <= roundTime) {   //wenn timerzeit abgelaufen ist
+            item[0]();    //füge gespeicherte funktion aus
+            timers.splice(i, 1);  //lösche timer
+          }
+      }
+      for (var i = intervals.length - 1; i >= 0 ; i--) {    //ausführung aller intervalle
+        item = intervals[i];
         if (item[2] + item[3] <= roundTime) {   //wenn nächster aufruf des interwalls fällig ist
           item[0](item[1]);   //führe funktion des intervalls aus mit übergabewerte
           item[2] += item[3]; //update letzte ausführungszeit
@@ -1040,7 +1060,7 @@ function update() {
             intervals.splice(i, 1);   //lösche intervall
           }
         }
-      });
+      }
     }
   }
   if (loading == 0 && !spielEnde) {
