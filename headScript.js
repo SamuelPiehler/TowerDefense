@@ -220,19 +220,19 @@ gegnerWellen.push([14, 10, 15, 2, 5]);
 gegnerWellen.push([13, 10, 5, 5, 0]);
 gegnerWellen.push([12, 10, 5, 5, -1]);
 //40
-gegnerWellen.push([2, 10, 15, 1, 17]);
-gegnerWellen.push([4, 10, 15, 0.5, 17]);
-gegnerWellen.push([6, 10, 15, 0.5, 17]);
-gegnerWellen.push([8, 9, 15, 0.5, 17]);
-gegnerWellen.push([10, 9, 15, 0.5, 17]);
+gegnerWellen.push([2, 9, 15, 1, 17]);
+gegnerWellen.push([4, 9, 15, 0.5, 17]);
+gegnerWellen.push([6, 9, 15, 0.5, 17]);
+gegnerWellen.push([8, 8, 15, 0.5, 17]);
+gegnerWellen.push([10, 8, 15, 0.5, 17]);
 gegnerWellen.push([12, 8, 15, 0.5, 17]);
 gegnerWellen.push([13, 6, 15, 0.5, 26]);
-gegnerWellen.push([12, 12, 15, 2, 0]);
-gegnerWellen.push([13, 12, 5, 3, 0]);
-gegnerWellen.push([14, 11, 5, 1, 0]);
+gegnerWellen.push([12, 10, 15, 2, 0]);
+gegnerWellen.push([13, 10, 5, 3, 0]);
+gegnerWellen.push([14, 9, 5, 1, 0]);
 gegnerWellen.push([15, 4, 5, 5, 0]);
 gegnerWellen.push([16, 3, 5, 7, 0]);
-gegnerWellen.push([12, 10, 5, 5, -1]);
+gegnerWellen.push([12, 8, 5, 5, -1]);
 //41
 //42
 //43
