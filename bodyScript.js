@@ -148,26 +148,26 @@ autoStartButton.style.top = 50+'px';
 autoStartButton.addEventListener("click", function(){
   autoStart = !autoStart;
   if (autoStart) {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAnHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAnHover.png";
   }
   else {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAusHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAusHover.png";
   }
 });
 autoStartButton.addEventListener("mouseover", function(){
   if (autoStart) {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAnHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAnHover.png";
   }
   else {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAusHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAusHover.png";
   }
 });
 autoStartButton.addEventListener("mouseleave", function(){
   if (autoStart) {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAn.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAn.png";
   }
   else {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAus.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAus.png";
   }
 });
 

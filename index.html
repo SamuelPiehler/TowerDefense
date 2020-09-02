@@ -158,79 +158,77 @@
         }
         function reset() {
           size = Math.floor(resizekoords(map[0].length,map.length))
-          setTimeout(()=>{
-            startButton.src = "Bilder/Buttons/start.png";
-            mapDiv.innerHTML = "";
-            map = backmap;
-            start = [[], []];
-            teilwellenNummer = 0;
-            wellenNummer = 1;
-            spielerLeben = 100;
-            geld = mapGeld;
-            gamePause = false;
-            wellenEnde = 0;
-            roundTime = -1000;
-            timers = [];
-            intervals = [];
-            deselect();
-            hideUpgrade();
-            gegner = [];
-            objContext = gegnerBild.getContext('2d');
-            objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
-            objContext2 = gegnerBildHidden.getContext('2d');
-            objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
-            tuerme.forEach((item, i) => {
-              if (item != undefined) {
-                item.canvasBase.remove();
-                item.canvasGeschütz.remove();
-              }
-            });
-            tuerme = [];
-            preisMult = 1;
-            for (var i = 0; i < 3 - schwierigkeit; i++) {
-              preisMult -= 0.15;
+          startButton.src = "Bilder/Buttons/start.png";
+          mapDiv.innerHTML = "";
+          map = backmap;
+          start = [[], []];
+          teilwellenNummer = 0;
+          wellenNummer = 1;
+          spielerLeben = 100;
+          geld = mapGeld;
+          gamePause = false;
+          wellenEnde = 0;
+          roundTime = -1000;
+          timers = [];
+          intervals = [];
+          deselect();
+          hideUpgrade();
+          gegner = [];
+          objContext = gegnerBild.getContext('2d');
+          objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+          objContext2 = gegnerBildHidden.getContext('2d');
+          objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+          tuerme.forEach((item, i) => {
+            if (item != undefined) {
+              item.canvasBase.remove();
+              item.canvasGeschütz.remove();
             }
-            if (schwierigkeit == 0) {
-              preisMult = 0;
-            }
-            switch (schwierigkeit) {
-              case 0:
-                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/sandBurg.png";
-                break;
-              case 1:
-                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/einfach.png";
-                break;
-              case 2:
-                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/mittel.png";
-                break;
-              case 3:
-                document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
-                break;
-            }
-            document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
-            document.getElementById("Geld").innerHTML = geld;
-            switch (schwierigkeit) {
-              case 0:
-                document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
-                break;
-              case 1:
-                document.getElementById("Schwierigkeit").innerHTML = "Leicht";
-                break;
-              case 2:
-                document.getElementById("Schwierigkeit").innerHTML = "Mittel";
-                break;
-              case 3:
-                document.getElementById("Schwierigkeit").innerHTML = "Schwer";
-                break;
-            }
-            document.getElementById("Leben").innerHTML = spielerLeben;
-            if (map[0][0][1] == undefined) {
-              buildMap();
-            }
-            else {
-              buildMapNeu();
-            }
-          }, 200);
+          });
+          tuerme = [];
+          preisMult = 1;
+          for (var i = 0; i < 3 - schwierigkeit; i++) {
+            preisMult -= 0.15;
+          }
+          if (schwierigkeit == 0) {
+            preisMult = 0;
+          }
+          switch (schwierigkeit) {
+            case 0:
+              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/sandBurg.png";
+              break;
+            case 1:
+              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/einfach.png";
+              break;
+            case 2:
+              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/mittel.png";
+              break;
+            case 3:
+              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
+              break;
+          }
+          document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
+          document.getElementById("Geld").innerHTML = geld;
+          switch (schwierigkeit) {
+            case 0:
+              document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
+              break;
+            case 1:
+              document.getElementById("Schwierigkeit").innerHTML = "Leicht";
+              break;
+            case 2:
+              document.getElementById("Schwierigkeit").innerHTML = "Mittel";
+              break;
+            case 3:
+              document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+              break;
+          }
+          document.getElementById("Leben").innerHTML = spielerLeben;
+          if (map[0][0][1] == undefined) {
+            buildMap();
+          }
+          else {
+            buildMapNeu();
+          }
         }
         function loadmap(name = "map1.js"){
           getmap(name,
