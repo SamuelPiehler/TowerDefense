@@ -272,6 +272,20 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime[0] += towertypen[9][9][this.effekt[0]-7]*0.5;
               this.reichweite = this.effektTime[0];
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
+              switch (spezialisierung) {
+                case "0":
+                  ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
+                  break;
+                case "1":
+                  ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
+                  break;
+                case "2":
+                  ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
+                  break;
+                case "3":
+                  ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
+                  break;
+              }
               break;
             case 10:   //Tesla
               this.effektStaerke[0] += 3;
