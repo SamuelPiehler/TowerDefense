@@ -900,21 +900,35 @@ function build() {
       var preis =  parseInt(towertypen[selected][6]*preisMult);
     }
     if (preis <= geld) {    //ist genug geld vorhanden?
+      var coordinaten = this.name.split(',');     //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
       if (selected == 9) {    //wenn Supporttower öffne place menü
-        addGeld(-preis);    //kosten abziehen
-        var coordinaten = this.name.split(',');     //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
-        var number = 0;   //überprüfe im tuerme array welcher index der kleinste freie ist
-        while (tuerme[number] != undefined) {
-          number++;
+        upgradeFenster = document.createElement("div");
+        document.body.appendChild(upgradeFenster);
+        upgradeFenster.style.position = 'absolute';
+        var x = coordinaten[0]*(size-1.2);
+        var y = coordinaten[1]*(size-1.2);
+        upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
+        upgradeFenster.style.zIndex=6;
+        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/'>";
+        upgradeFenster.innerHTML += "Wähle welchen Suportturm Typ du bauen willst!";
+        if (x + upgradeFenster.offsetWidth > mapMaxX) {
+          upgradeFenster.style.right = '0px';
         }
-        tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number, prompt("Gieb dan bufftyp an (0-3)")*1);    //erstelle neuen turm mit koordinaten typ und id
+        else {
+          upgradeFenster.style.left = x+'px';
+        }
+        if (y + 100 + upgradeFenster.offsetHeight > screen.height) {
+          upgradeFenster.style.bottom = '0px';
+        }
+        else {
+          upgradeFenster.style.top = y+'px';
+        }
       }
       else {  //ansonste plaziere turm
         if (selected == towertypen.length - 1) {
           selected = Math.floor(Math.random()*(towertypen.length - 1));
         }
         addGeld(-preis);    //kosten abziehen
-        var coordinaten = this.name.split(',');     //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
         var number = 0;   //überprüfe im tuerme array welcher index der kleinste freie ist
         while (tuerme[number] != undefined) {
           number++;
