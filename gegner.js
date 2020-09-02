@@ -3,12 +3,16 @@
 function Gegner(id, typ, lebenMult){
   this.letztesFeuer = roundTime;    //wann wurde der gegener das letzte mal von feuerschadentick getroffen
   this.letztesGift = roundTime;     //wann wurde der gegener das letzte mal von giftschadentick getroffen
+  this.letzterEffeckt = [];  //wann hat der Gegner das letzte mal seinen effekt genutzt
   this.id = id; //nummer in gegner array
   this.typ = typ;
   this.leben = gegnertypen[typ][1]*lebenMult;
   this.maxHP = this.leben;
-  this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
+  this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten/effeckte hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
+  for (var i = 0; i < this.imunität.length; i++) {
+    this.letzterEffeckt[i] = roundTime;
+  }
   this.effektTyp = [];    //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
   this.effektStaerke = [];  //wie stark ist der jeweilige effeckt
   this.effektStart = [];  //wann wurde der effekt erzeugt
@@ -26,6 +30,30 @@ function Gegner(id, typ, lebenMult){
   this.richtung = map[this.mapy][this.mapx][0] % 4;   //in welche richtung schaut der gegner momentan
   this.src = gegnertypen[typ][0];   //url des gegnerbildes
   this.bewegen = function (){   //gametick für gegner
+    for (var i = 0; i < this.imunität.length; i++) {
+      if (this.imunität[i] == 8) {
+
+      }
+      else if (this.imunität[i] == 10) {
+        if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+          gegner.forEach((item, i) => {
+            var entfernung = getEntfernung(item, this);
+            if (entfernung <= this.imunitätStärke[i][1]) {
+              item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
+            }
+          });
+        }
+      }
+      else if (this.imunität[i] == 11) {
+
+      }
+      else if (this.imunität[i] == 13) {
+
+      }
+      else if (this.imunität[i] == 14) {
+
+      }
+    }
     var effektStaerken = [];    //erzeuge ein array zum abspeichern des stärksten effeckts von jedem typ
     var effektUrsprung = [];    //turm der den effeckt erzeugthat
     for (var i = 0; i < anzahlEffeckte; i++) {
@@ -48,9 +76,6 @@ function Gegner(id, typ, lebenMult){
           this.effektUrsprung[i] = undefined;
         }
       }
-    }
-    if (effektStaerken[1] != 0) {
-      console.log("test");
     }
     if (effektStaerken[1] > 0) {
       var speed = 0;
@@ -151,7 +176,7 @@ function Gegner(id, typ, lebenMult){
           break;
       }
     }
-    if (map[this.mapy][this.mapx][0] >= 9 && map[this.mapy][this.mapx][0] <= 11) {    //wenn mapfeld das zielfeld
+    if (map[this.mapy][this.mapx][0] >= 9 && map[this.mapy][this.mapx][0] <= 12) {    //wenn mapfeld das zielfeld
       if (schwierigkeit != 0) {
         spielerLeben -= gegnertypen[this.typ][6];   //schade spieler
       }
@@ -173,7 +198,7 @@ function Gegner(id, typ, lebenMult){
       if (effekt[i] == 5) {    //suche AoE effeckt
         for (var j = gegner.length - 1; j >= 0; j--) {
           if (gegner[j] != undefined) {
-            var entfernung = getEntfernung(gegner[i].posx, gegner[i].posy, this.posx, this.posy);  //abstand zu getroffenem gegner
+            var entfernung = getEntfernung(gegner[i], this);  //abstand zu getroffenem gegner
             if (entfernung <= effektZeit[i]) {   //wenn in AoE range
               uebergabeEffekt = effekt.slice();
               uebergabeEffektStaerke = effektStaerke.slice();
