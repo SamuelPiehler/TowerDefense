@@ -386,6 +386,12 @@ function changeGameSpeed() {
 
 //startet nächste welle
 function spawnWelle() {
+  if (multiStartTyp == 1) {
+    spawnPointNumber++;
+    if (spawnPointNumber >= start[0].length) {
+      spawnPointNumber = 0;
+    }
+  }
   roundTime = 0;
   var warten = 0;
   var nummer = teilWellenNummer;  //nummer der zu behandelnden Teilwelle
@@ -411,8 +417,8 @@ function showStats(evt, object) {
   statFenster = document.createElement("div");
   document.body.appendChild(statFenster);
   statFenster.style.position = 'absolute';
-  var x = evt.srcElement.offsetLeft + 65;
-  var y = evt.srcElement.offsetTop + 60;
+  var x = evt.srcElement.offsetLeft + size*0.9;
+  var y = evt.srcElement.offsetTop + size*0.85;
   statFenster.style.backgroundColor  = '#d5d0ff';
   statFenster.style.zIndex = 10;
   statFenster.innerHTML = towertypen[object.name][10] + "<br>";
@@ -487,8 +493,11 @@ function showStats(evt, object) {
       }
     }
   }
-  if (x + statFenster.offsetWidth > screen.width) {
-    x -= statFenster.offsetWidth + 50;
+  if (x + statFenster.offsetWidth > document.body.offsetWidth) {
+    statFenster.style.right = '0px';
+  }
+  else {
+    statFenster.style.left = x+'px';
   }
   if (y + 100 + statFenster.offsetHeight > screen.height) {
     statFenster.style.bottom = '0px';
@@ -496,7 +505,6 @@ function showStats(evt, object) {
   else {
     statFenster.style.top = y+'px';
   }
-  statFenster.style.left = x+'px';
 }
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
@@ -716,21 +724,23 @@ function showUpgrade(object, id) {
     else {
       upgradeFenster.innerHTML += "Gegner wurden von diesem Turm insgesamt für " + (tuerme[id].dmgDealed/100) + "sec verlangsamt<br>";
     }
-    switch (tuerme[id].targetPrio) {
-      case 0:
-        var prio = "ersten"
-        break;
-      case 1:
-        var prio = "letzten"
-        break;
-      case 2:
-        var prio = "stärksten"
-        break;
-      case 3:
-        var prio = "schwächsten"
-        break;
+    if (tuerme[id].drehGeschw != 0) {
+      switch (tuerme[id].targetPrio) {
+        case 0:
+          var prio = "ersten"
+          break;
+        case 1:
+          var prio = "letzten"
+          break;
+        case 2:
+          var prio = "stärksten"
+          break;
+        case 3:
+          var prio = "schwächsten"
+          break;
+      }
+      upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     }
-    upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
   }
   if (tuerme[id].drehGeschw != 0) {
     var targetButton = document.createElement("button");  //button um das turm target zu ändern
@@ -771,13 +781,18 @@ function showUpgrade(object, id) {
   if (x + upgradeFenster.offsetWidth > mapMaxX) {
     x -= upgradeFenster.offsetWidth + 50;
   }
+  if (x >= 0) {
+    upgradeFenster.style.left = x+'px';
+  }
+  else {
+    upgradeFenster.style.right = '0px';
+  }
   if (y + 100 + upgradeFenster.offsetHeight > screen.height) {
     upgradeFenster.style.bottom = '0px';
   }
   else {
     upgradeFenster.style.top = y+'px';
   }
-  upgradeFenster.style.left = x+'px';
 }
 
 
@@ -934,6 +949,17 @@ function spawn(typ, lebenMult) {
     number++;
   }
   gegner[number] = new Gegner(number, typ, lebenMult);    //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
+  if (multiStartTyp == 0 || multiStartTyp == 3) {
+    spawnPointNumber++;
+    if (spawnPointNumber >= start[0].length) {
+      spawnPointNumber = 0;
+    }
+    else {
+      if (multiStartTyp == 3) {
+        spawn(typ, lebenMult);
+      }
+    }
+  }
 }
 
 //funktion um geld zu bekommen/zu zahlen
@@ -1016,15 +1042,16 @@ function update() {
     if (roundTime >= 0) {   //wenn welle nicht vorbei ist
       draw();   //zeine gegner neu
       roundTime += gameSpeed;   //updade rundenzeit
-      var tempTimers = timers.slice();   //ausführung aller timer (zwischenspeicher in temp timers damit die schleife durchlaufen kann ohne die objekte der schleife zu ändern)
-      tempTimers.forEach((item, i) => {
-        if (item[1] <= roundTime) {   //wenn timerzeit abgelaufen ist
-          item[0]();    //füge gespeicherte funktion aus
-          timers.splice(i, 1);  //lösche timer
-        }
-      });
-      var tempIntervals = intervals.slice();    //ausführung aller intervalle (zwischenspeicher in temp timers damit die schleife durchlaufen kann ohne die objekte der schleife zu ändern)
-      tempIntervals.forEach((item, i) => {
+      for (var i = timers.length - 1; i >= 0; i--) {   //ausführung aller timer
+        item = timers[i];
+        tempTimers.forEach((item, i) => {
+          if (item[1] <= roundTime) {   //wenn timerzeit abgelaufen ist
+            item[0]();    //füge gespeicherte funktion aus
+            timers.splice(i, 1);  //lösche timer
+          }
+      }
+      for (var i = intervals.length - 1; i >= 0 ; i--) {    //ausführung aller intervalle
+        item = intervals[i];
         if (item[2] + item[3] <= roundTime) {   //wenn nächster aufruf des interwalls fällig ist
           item[0](item[1]);   //führe funktion des intervalls aus mit übergabewerte
           item[2] += item[3]; //update letzte ausführungszeit
@@ -1033,7 +1060,7 @@ function update() {
             intervals.splice(i, 1);   //lösche intervall
           }
         }
-      });
+      }
     }
   }
   if (loading == 0 && !spielEnde) {
@@ -1089,7 +1116,7 @@ function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGe
   var targetEntfernung = -1;
   for (var i = targetGegner.length -1; i >= 0; i--) {     //überprüfe jeden gegner
     if (targetGegner[i] != undefined && targetGegner[i].leben >= 0 && targetGegner[i].id != momentanerGegner.id) {
-      var entfernung = getEntfernung(targetGegner[i].posx, targetGegner[i].posy, momentanerGegner.posx, momentanerGegner.posy);    //entfernung zum gegner
+      var entfernung = getEntfernung(targetGegner[i], momentanerGegner);    //entfernung zum gegner
       if (entfernung <= effektReichweite) {
         if (gegner[target] == undefined || targetEntfernung > entfernung) {
           target = targetGegner[i].id;
@@ -1112,8 +1139,8 @@ function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGe
   }
 }
 
-function getEntfernung(x1, y1, x2, y2) {
-  return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2))*70/size;
+function getEntfernung(obj1, obj2) {
+  return Math.sqrt(Math.pow((obj1.posx - obj2.posx), 2) + Math.pow((obj1.posy - obj2.posy), 2))*70/size;
 }
 
 function resizekoords(x,y){
