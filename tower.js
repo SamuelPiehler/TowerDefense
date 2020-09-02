@@ -547,7 +547,10 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       }
       if (this.typ == 4 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {
         if (Math.random() < 0.3) {
-          gegner[parseInt(Math.random()*gegner.length)].damage(this.schaden*(1+this.buffStaerken[2]/100)*10, [this.effekt[0]], [this.effektStaerke[0]*5*(1+this.buffStaerken[2]/100)], [500*(1+this.buffStaerken[2]/100)], this.id);
+          var target = parseInt(Math.random()*gegner.length);
+          if (gegner[target] != undefined) {
+            gegner[target].damage(this.schaden*(1+this.buffStaerken[2]/100)*10, [this.effekt[0]], [this.effektStaerke[0]*5*(1+this.buffStaerken[2]/100)], [500*(1+this.buffStaerken[2]/100)], this.id);
+          }
         }
       }
     }

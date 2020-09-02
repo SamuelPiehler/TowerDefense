@@ -14,6 +14,10 @@ var waitForBildLoad = [];
 var updateFinish = true;
 var loading = 0;
 var start = [[], []];  //array in dem x und y koordinate des startpunktes abgespeichert werden
+var spawnPointNumber = 0;
+if (multiStartTyp == undefined) {
+  var multiStartTyp = 0;   //0=Nacheinander, 1=pro welle, 2=zufällig, 3= überall gleichzeitig
+}
 var teilWellenNummer = 0;   // giebt an welche gegnerwelle aus dem array als nächses gespwned wird
 var wellenNummer = 1;   // giebt an in welcher Tatsächlichen welle man sich befindet
 var spielerLeben = 100;
