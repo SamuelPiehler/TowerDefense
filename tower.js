@@ -68,7 +68,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       if (this.effekt[i] >= 7 && this.effekt[i] <= 10) {
         tuerme.forEach((item, j) => {
           if (item != undefined && j != this.id) {
-            entfernung = getEntfernung(item.posx, item.posy, this.posx, this.posy);
+            entfernung = getEntfernung(item, this);
             if (entfernung <= this.effektTime*(1+this.buffStaerken[3]/100)) {
               if (!(item.effekt[0] == 9)) {
                 if (item.typ == 9 && item.buffStaerken[this.effekt[i]-7] < this.effektStaerke[i]*(1+this.buffStaerken[2]/100)) {
@@ -368,7 +368,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                 var a = -Math.tan((this.richtung+90)/180*Math.PI);    //f(x)=a(x-this.posx)+this.posy funktion der geraden auf der der sniperschuss fliegt   //g(x)=1/a(x-item.posx)+item.posy funktion der gerade gegner und dem nähesten punkt der snipergerade
                 var xPunktNaheGegner = (item.posy-this.posy+a*this.posx-(1/a)*item.posx) / (a-1/a);   //f(x)=g(x) ergiebt x
                 var yPunktNaheGegner = a*(xPunktNaheGegner - this.posx)+this.posy   //x in f(x) ergiebt y
-                entfernung = getEntfernung(xPunktNaheGegner, yPunktNaheGegner, item.posx, item.posy);
+                entfernung = getEntfernung({posx: xPunktNaheGegner, posy: yPunktNaheGegner}, item);
                 if (entfernung <= 35) {
                   if ((this.richtung < 180 && this.posx > item.posx) || (this.richtung > 180 && this.posx < item.posx)) {
                     item.damage(this.schaden*(1+this.buffStaerken[0]/100), [], [], [], this.id);
@@ -426,7 +426,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     target2 = -1;
     gegner.forEach((item, i) => {   //überprüfe jeden gegner
       if (item != undefined) {
-        var entfernung = getEntfernung(item.posx, item.posy, this.posx, this.posy);    //entfernung zum gegner
+        var entfernung = getEntfernung(item, this);    //entfernung zum gegner
         if (entfernung <= this.reichweite*(1+this.buffStaerken[3]/100)) {    //wenn in reichweite
           if (this.drehGeschw == 0) {     //drehgeschwindigkeit 0 trifft alle gegner in reichweite und ziehlt nicht
             if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {     //wenn letzter angriff langenug her war greife gegner an
