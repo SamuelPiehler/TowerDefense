@@ -43,6 +43,12 @@ var wellenEnde = 0;   //Min Zeit bis Welle zuende ist
 
 var gegnerWellen = [];  //liste aller teilwellen
 //0 = Gegnertyp, 1 = Lebenmult, 2 = Anzahl, 3 = ZeitZwischenGegnern, 4 = ZeitBisZurNächstenTeilwelle(-1 für WellenEnde)
+
+gegnerWellen.push([0, 1, 10, 1.6, 0]);
+gegnerWellen.push([0, 1, 10, 1.6, 0]);
+gegnerWellen.push([0, 1, 10, 1.6, 0]);
+gegnerWellen.push([0, 1, 10, 1.6, -1]);
+/*
 // 1
 gegnerWellen.push([0, 1, 10, 1.6, -1]);
 // 2
@@ -193,7 +199,7 @@ gegnerWellen.push([13, 6, 15, 2, 0.5]);
 gegnerWellen.push([15, 2, 5, 5, 2.5]);
 gegnerWellen.push([16, 2, 5, 5, -1]);
 //36
-
+*/
 
 
 
