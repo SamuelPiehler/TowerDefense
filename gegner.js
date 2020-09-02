@@ -184,7 +184,7 @@ function Gegner(id, typ, lebenMult){
       this.kill();  //lösche gegner
       if (spielerLeben <= 0) {    //verloren nachricht wenn leben = 0;
         alert("Du hast das Spiel Verloren!");
-        clearInterval(updateGame);
+        spielEnde = true;
       }
     }
   }

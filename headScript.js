@@ -8,6 +8,7 @@ var anzahlEffeckte = 5;
 var numberallsum = [35, 70];
 
 //Startvariablen
+var spielEnde = false;
 var bildBuffer = [];
 var waitForBildLoad = [];
 var updateFinish = true;
