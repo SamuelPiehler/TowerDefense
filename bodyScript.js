@@ -909,8 +909,9 @@ function build() {
         var y = coordinaten[1]*(size-1.2);
         upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
         upgradeFenster.style.zIndex=6;
-        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/'>";
-        upgradeFenster.innerHTML += "Wähle welchen Suportturm Typ du bauen willst!";
+        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/schaden.png'><img id='typ1' src='Bilder/angiffsGeschwindkeit.png'><br>";
+        upgradeFenster.innerHTML += "Wähle welchen Suportturm Typ du bauen willst!<br>";
+        upgradeFenster.innerHTML += "<img id='typ1' src='Bilder/effeckt.png'><img id='typ1' src='Bilder/reichweite1.png'><br>";
         if (x + upgradeFenster.offsetWidth > mapMaxX) {
           upgradeFenster.style.right = '0px';
         }
