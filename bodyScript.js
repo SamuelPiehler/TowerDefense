@@ -351,6 +351,19 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2)
       loading--;    //gibt an das ein weiteres bufferbild fertig geladen hat
     };
     bild.src = src;
+    bild.onerror = function () {
+      console.log("missing img!!");
+      if (loading == 1) {   //wenn alle buffer bilder fertig geladen sind
+        waitForBildLoad.forEach((item, i) => {    //zeichne alle bilder in der warteliste
+          item();
+        });
+        waitForBildLoad = [];
+        if (updateFinish && !spielEnde) {
+          window.requestAnimationFrame(update);
+        }
+      }
+      loading--;    //gibt an das ein weiteres bufferbild fertig geladen hat
+    };
   }
   else {
     if (loading == 0) {
