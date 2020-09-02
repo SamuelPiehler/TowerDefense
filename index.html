@@ -104,6 +104,10 @@
         }
 
         function loadsettings(mapload = "") {
+            window.onbeforeunload = function () {
+                return "";
+            };
+
             if (mapload == "")
                 map = maplist[document.getElementById("selectmap").selectedIndex];
             else
