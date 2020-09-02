@@ -276,7 +276,7 @@ gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 4000, 0.7, [], [], 35, 20])
 var towertypen = [];
 //0 Base src, 1 Geschütz src, 2 Damage, 3 Drehgeschwindigkeit, 4 Reichweite, 5 Angriffszeit, 6 Preis, 7 Effekt, 8 Effektstärke, 9 EffektDauer/Reichweite, 10 Name, 11 stufe5 geschütz 12 unlockt
 towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/00basic.png', 20, 2, 140, 0.5, 25, [], [], [], "Basic Tower", "Bilder/Tower/00basic5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 130, 1.3, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/fehlt.png", false]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 130, 1.3, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/01sniper5.png", true]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/02slower.png', 0, 0, 100, 0.7, 60, [0], [1.5], [1.5], "Slow Tower", "Bilder/Tower/02slower5.png", true]);
 towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 140, 0.5, 80, [3], [5], [15], "Gift Tower", "Bilder/Tower/03gift5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/04feuerAoe.png', 10, 0, 140, 1, 150, [2], [10], [5], "FeuerAoe Turm", "Bilder/Tower/04feuerAoe5.png", true]);

@@ -1,6 +1,6 @@
 var bullets = [];
 
-function bullet(x1,y1,x2,y2,color = "red", time = 100, l_width = 3){
+function bullet(x1,y1,x2,y2,color = "black", time = 100, l_width = 3){
     var caught = false
     bullets.forEach((el,id)=>{
         if(el[1] === true){
@@ -18,7 +18,7 @@ function bullet(x1,y1,x2,y2,color = "red", time = 100, l_width = 3){
         bullets[id][1] = true;
     }.bind(null,el[0],id), time);
 }
-    });    
+    });
     if (!caught){
     var bull = document.createElementNS("http://www.w3.org/2000/svg","svg");
     bull.setAttribute("style",`position:absolute; top:${0}px; left:${0}px; width:${window.innerWidth}px; height:${window.innerHeight}px;`);
