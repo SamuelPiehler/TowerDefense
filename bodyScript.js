@@ -1072,8 +1072,13 @@ function update() {
       }
     }
     tuerme.forEach((item, i) => {   //turm tick
-      if (tuerme[i] != undefined) {
-        tuerme[i].zielen()
+      if (item != undefined) {
+        item.zielen()
+      }
+    });
+    gegner.forEach((item, i) => {
+      if (item != undefined) {
+        item.shieldedFrom = [];
       }
     });
     if (gegner.length == 0 && roundTime > wellenEnde) {   //wenn welle zuende ist (alle gegener tot)
