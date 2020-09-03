@@ -73,14 +73,16 @@ function Gegner(id, typ, lebenMult){
           }
           break;
         case 11:
-          gegner.forEach((item, j) => {
-            if (item != undefined) {
-              var entfernung = getEntfernung(item, this);
-              if (entfernung <= this.imunitätStärke[i][1]) {
-                item.speedBuff += this.imunitätStärke[i][0] / 100;
+          if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+            gegner.forEach((item, j) => {
+              if (item != undefined) {
+                var entfernung = getEntfernung(item, this);
+                if (entfernung <= this.imunitätStärke[i][1]) {
+                  item.speedBuff += this.imunitätStärke[i][3] / 100;
+                }
               }
-            }
-          });
+            });
+          }
           break;
         case 13:
           tuerme.forEach((item, j) => {
@@ -91,7 +93,17 @@ function Gegner(id, typ, lebenMult){
           });
           break;
         case 14:
-
+          var inRange = [];
+          var countInRange = 0;
+          tuerme.forEach((item, j) => {
+            var entfernung = getEntfernung(item, this);
+            if (entfernung <= this.imunitätStärke[i][1]) {
+              countInRange++;
+              inRange.push(j);
+            }
+          });
+          var target = inRange[Math.floor(Math.random()*countInRange)];
+          tuerme[target].towerStun = Math.max(tuerme[target].towerStun, this.imunitätStärke[i][0]);
           break;
       }
     }
