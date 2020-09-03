@@ -14,7 +14,7 @@ var map = [[[-1, ['Bilder/Map/feld1.jpg','Bilder/Map/stein1.png']],[0, 'Bilder/M
 ;
 success= true;
 mapSchwie= 1;
-MapName = Dosenfisch;
+MapName = "Dosenfisch";
 multiStartTyp = 0;
 var randomtiles = false
 

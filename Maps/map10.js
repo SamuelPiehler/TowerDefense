@@ -14,7 +14,7 @@ var map = [[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[-1, ['Bilde
 ;
 success= true;
 mapSchwie= 2;
-MapName = Schooschkröte;
+MapName = "Schooschkröte";
 multiStartTyp = 0;
 var randomtiles = false
 

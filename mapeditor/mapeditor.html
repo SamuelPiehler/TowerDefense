@@ -599,9 +599,9 @@
           allstring += "var map = " + settings.thismap + ";\n";
           allstring += "success= true;\n";
           allstring += "mapSchwie= "+ settings.difficulty +";\n";
-          allstring += "MapName = "+ settings.Mapname +";\n";
+          allstring += "MapName = '"+ settings.Mapname +"';\n";
           allstring += "multiStartTyp = "+ settings.starthandle +";\n";
-          
+          allstring += "if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';"
 
           allstring += "var randomtiles = " + JSON.stringify(settings.randomtiles) +
             "\n\n\n\n \/\/ hier kommt das preview- Bild \n\n\n";

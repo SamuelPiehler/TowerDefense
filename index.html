@@ -98,6 +98,7 @@
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
       <script type="text/javascript">
+      var alreadyl = false;
         mapsloaded = false;
         var mapSchwie;
         var MapName;
@@ -151,9 +152,10 @@
             image = "undefined";
             mapSchwie = "undefined";
             MapName = "undefined";
-            getmaps(func);
           }
           if (!success){
+            alreadyl = true;
+            func(maplist);
             mapsloaded = true;
           }
           el.remove();
@@ -163,6 +165,10 @@
         }
 
         function getmaps(func = (() => {})) {
+          if(alreadyl == true){
+            func(maplist);
+
+          }else{
           mapold = map;
           geldold = geld;
           var script = document.createElement("script");
@@ -178,6 +184,7 @@
           script.onload = function (el, func) {
             handle(el, func)
           }.bind(null, script, func);
+        }
         }
 
         function loadsettings(mapload = "") {
