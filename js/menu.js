@@ -9,7 +9,7 @@ function printMaps() {
       <p>Map1</p>
     </div>
   </div>`;
-    
+
         if(mapsloaded){
             clearInterval(inter);
             setTimeout(function(){
@@ -17,17 +17,20 @@ function printMaps() {
             inn.innerHTML = `<button onclick="EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
             ////console.log(maplist);
             maplist.forEach((element) => {
+              // if(!element[3]){
+              //   element[3] = "Bilder/Icons/sorry.png";
+              // }
                 inn.innerHTML += `<div class=map onclick="showselectedindex(${element[2]});">
                     <div class=outer-frame>
                     <div class=inner-frame>
-                        <img src="${element[3]}">
+                        <img src="${element[3]}" onerror="this.src='Bilder/Icons/sorry.png'">
                     </div>
                     <p>Map${element[2]}, StartGeld: ${element[1]}</p>
                     </div>
                 </div>`;
             });
             setTimeout(fixBrokenImages,100);},1);
-        
+
         }
 }
 var inter = setInterval(printMaps, 100);
@@ -38,7 +41,7 @@ fixBrokenImages = function( url ){
         var t = img[i];
         if(t.naturalWidth === 0){
             //this image is broken
-            t.src = "/Bilder/Map/empty.png";
+            t.src = "Bilder/Map/empty.png";
             t.setAttribute("class","error");
         }
     }
@@ -74,7 +77,7 @@ function showselectedindex(i, d =false){
           schwierigkeitIcon = "Bilder/Icons/schwer.png";
           innertext = "schwer"
           break;
-          
+
         case 4:
             schwierigkeitIcon = "Bilder/Icons/schwer.png";
             innertext = "sehr-schwer"
@@ -95,19 +98,19 @@ function switchdifficulty(diffi){
         element.setAttribute("class","menubutton");
     })
     switch(diffi){
-        case 0: 
+        case 0:
         schwierigkeit = 0;
         document.getElementById("Sandbox").setAttribute("class","menubutton selected");
         break;
-        case 1: 
+        case 1:
         schwierigkeit = 1;
         document.getElementById("Leicht").setAttribute("class","menubutton selected");
         break;
-        case 2: 
+        case 2:
         schwierigkeit = 2;
         document.getElementById("Mittel").setAttribute("class","menubutton selected");
         break;
-        case 3: 
+        case 3:
         schwierigkeit = 3;
         document.getElementById("Schwer").setAttribute("class","menubutton selected");
         break;
