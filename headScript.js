@@ -40,46 +40,50 @@ var statFenster;  //anzeige beim hovern über türme bei turmauswahl
 var upgradeFenster; //anzeigeFenster fürr stats beim andrücken eines gebauten turms
 var rangeDiv;   //anzeige der range von dem tower der gehovert wird
 var wellenEnde = 0;   //Min Zeit bis Welle zuende ist
+var lebenMult = 1;
 
 var gegnerWellen = [];  //liste aller teilwellen
 //0 = Gegnertyp, 1 = Lebenmult, 2 = Anzahl, 3 = ZeitZwischenGegnern, 4 = ZeitBisZurNächstenTeilwelle(-1 für WellenEnde)
 // 1
-gegnerWellen.push([0, 1, 10, 1.6, -1]);
+gegnerWellen.push([0, lebenMult, 10, 1.6, -1]);
 // 2
-gegnerWellen.push([0, 1, 12, 1, -1]);
+gegnerWellen.push([0, lebenMult, 12, 1, -1]);
 // 3
-gegnerWellen.push([0, 1, 15 , 0.6, -1]);
+gegnerWellen.push([0, lebenMult, 15 , 1 , -1]);
 // 4
-gegnerWellen.push([1, 1, 8, 0.6, -1]);
+gegnerWellen.push([1, lebenMult, 8, 1, -1]);
 // 5
-gegnerWellen.push([0, 1, 10, 0.5, 4.2]);
-gegnerWellen.push([3, 1, 5, 1, -1]);
+gegnerWellen.push([0, lebenMult, 10, 0.7, 4.2]);
+gegnerWellen.push([3, lebenMult, 5, 1, -1]);
 // 6
-gegnerWellen.push([0, 1, 17, 0.5, 5.25]);
-gegnerWellen.push([2, 1, 3, 1, -1]);
+gegnerWellen.push([0, lebenMult, 17, 0.5, 5.25]);
+gegnerWellen.push([2, lebenMult, 3, 1, -1]);
 // 7
-gegnerWellen.push([1, 1, 12, 0.7, 8]);
-gegnerWellen.push([3, 1, 5, 1, -1]);
+gegnerWellen.push([1, lebenMult, 12, 0.7, 8]);
+gegnerWellen.push([3, lebenMult, 5, 1, -1]);
 // 8
-gegnerWellen.push([0, 1, 45, 0.3, -1]);
+gegnerWellen.push([0, lebenMult, 45, 0.3, -1]);
 // 9
-gegnerWellen.push([2, 1, 8, 1, 10]);
-gegnerWellen.push([3, 1, 7, 1, -1]);
+gegnerWellen.push([2, lebenMult, 8, 1, 10]);
+gegnerWellen.push([3, lebenMult, 7, 1, -1]);
 // 10
+lebenMult += 0.2;
 gegnerWellen.push([0, 1.2, 16, 0.4, 0.2]);
 gegnerWellen.push([1, 1.2, 15, 0.4, 3.1]);
 gegnerWellen.push([3, 1.2, 10, 0.6, -1]);
 // 11
+lebenMult += 0.3;
 gegnerWellen.push([2, 1.5, 10, 0.5, 11]);
 gegnerWellen.push([3, 1.5, 10, 0.2, 0.3]);
 gegnerWellen.push([0, 1.5, 10, 0.2, 0.1]);
 gegnerWellen.push([1, 1.5, 10, 0.6, -1]);
 // 12
-gegnerWellen.push([2, 2, 10, 3, 1]);
-gegnerWellen.push([0, 2, 10, 0.2, 0.1]);
-gegnerWellen.push([1, 2, 10, 0.6, 0.6]);
-gegnerWellen.push([3, 2, 8, 0.6 , -1 ]);
+gegnerWellen.push([2, 1.5, 10, 3, 1]);
+gegnerWellen.push([0, 1.5, 10, 0.2, 0.1]);
+gegnerWellen.push([1, 1.5, 10, 0.6, 0.6]);
+gegnerWellen.push([3, 1.5, 8, 0.6 , -1 ]);
 // 13
+lebenMult += 0.5;
 gegnerWellen.push([3, 2, 8, 3, 0.5]);
 gegnerWellen.push([2, 2, 10, 3, 0.5]);
 gegnerWellen.push([1, 2, 20, 5, -1]);
@@ -93,6 +97,7 @@ gegnerWellen.push([5, 2, 13, 0.8, 1]);
 gegnerWellen.push([4, 2, 8, 3, 0.6]);
 gegnerWellen.push([0, 2, 20, 0.5, -1]);
 // 16
+lebenMult += 0.5;
 gegnerWellen.push([5, 2.5, 10, 0.5, 0.25]);
 gegnerWellen.push([3, 2.5, 10, 0.5, 0.25]);
 gegnerWellen.push([0, 2.5, 10, 0.25, 0.5]);
@@ -105,6 +110,7 @@ gegnerWellen.push([3, 2.5, 7, 4.2, 0.1]);
 gegnerWellen.push([5, 2.5, 7, 4.2, 0.1]);
 gegnerWellen.push([4, 2.5, 7, 4.2, -1]);
 // 18
+lebenMult += 0.5;
 gegnerWellen.push([0, 3, 7, 0.1, 7]);
 gegnerWellen.push([1, 3, 7, 0.1, 7]);
 gegnerWellen.push([2, 3, 7, 0.1, 7]);
@@ -112,6 +118,7 @@ gegnerWellen.push([3, 3, 7, 0.1, 7]);
 gegnerWellen.push([5, 3, 7, 0.1, 7]);
 gegnerWellen.push([4, 3, 7, 0.1, -1]);
 // 19
+lebenMult += 0.5;
 gegnerWellen.push([4, 3.5, 15, 0.7, 7]);
 gegnerWellen.push([3, 3.5, 15, 0.7, -1]);
 // 20
@@ -127,55 +134,60 @@ gegnerWellen.push([2, 3.5, 6, 0.5, -1]);
 //22
 gegnerWellen.push([0, 3.5, 10, 0.5, 2]);
 gegnerWellen.push([3, 3.5, 20, 0.6, 3]);
-gegnerWellen.push([5,  4,   15, 0.2, -1]);
+gegnerWellen.push([5,  3.5,   15, 0.2, -1]);
 //23
 gegnerWellen.push([2, 3.5, 20,  1, 1]);
-gegnerWellen.push([1,  4,  15,  1, 0.5]);
+gegnerWellen.push([1,  3.5,  15,  1, 0.5]);
 gegnerWellen.push([4, 3.5, 10, 0.4, 4]);
 gegnerWellen.push([5, 3.5, 8,  0.2, -1]);
 //24
+lebenMult += 0.5;
 gegnerWellen.push([0,  4, 20, 1, 1]);
 gegnerWellen.push([4,  4, 10, 1, 0.5]);
 gegnerWellen.push([3,  4, 10, 0.5, -1]);
 //25
-gegnerWellen.push([6, 3.5, 3, 0.5, 2]);
-gegnerWellen.push([0, 5, 20,  0.2, 0.5]);
-gegnerWellen.push([6, 3.5, 3, 1.5, -1]);
+gegnerWellen.push([6, 4, 3, 0.5, 2]);
+gegnerWellen.push([0, 4, 20,  0.2, 0.5]);
+gegnerWellen.push([6, 4, 3, 1.5, -1]);
 //26
+lebenMult += 0.5;
 gegnerWellen.push([3, 4.5, 20, 0.5, 1]);
 gegnerWellen.push([5, 4.5, 10, 0.2, 1,5]);
 gegnerWellen.push([4, 4.5,  5, 1, -1]);
 //27
-gegnerWellen.push([1, 4.5, 30, 0.5, 1]);
+lebenMult += 0.5;
+gegnerWellen.push([1,  5, 30, 0.5, 1]);
 gegnerWellen.push([2,  5,  20, 0.6, 2]);
 gegnerWellen.push([3,  5,  20, 0.4, -1]);
 //28
 gegnerWellen.push([0, 5,  30, 0.2, 1]);
 gegnerWellen.push([5, 5,  20, 0.5, 6]);
-gegnerWellen.push([2, 5.5, 10, 0.1, 2]);
-gegnerWellen.push([4, 5.5, 10 ,1 ,-1 ]);
+gegnerWellen.push([2, 5, 10, 0.1, 2]);
+gegnerWellen.push([4, 5, 10 ,1 ,-1 ]);
 //29
 gegnerWellen.push([4, 5, 20, 1, 1]);
 gegnerWellen.push([3, 5, 30, 0.4, 2]);
 gegnerWellen.push([1, 5, 20, 0.5, 0.5]);
-gegnerWellen.push([6, 4,  2, 0.5, -1]);
+gegnerWellen.push([6, 5,  2, 0.5, -1]);
 //30
-gegnerWellen.push([6, 4, 5, 1.5, 8]);
+gegnerWellen.push([6, 5, 5, 1.5, 8]);
 gegnerWellen.push([5, 5, 10, 1 , 0.5]);
-gegnerWellen.push([4, 6, 15, 0.5, 0.5]);
-gegnerWellen.push([6, 4 , 5 , 2, 3]);
-gegnerWellen.push([2, 6, 20, 0.5 ,-1]);
+gegnerWellen.push([4, 5, 15, 0.5, 0.5]);
+gegnerWellen.push([6, 5 , 5 , 2, 3]);
+gegnerWellen.push([2, 5, 20, 0.5 ,-1]);
 //31
-gegnerWellen.push([7, 5, 10, 1.5, 7]);
-gegnerWellen.push([8, 5, 5, 2, 6]);
-gegnerWellen.push([10, 5, 5, 0.5, 5]);
-gegnerWellen.push([14, 5, 10, 2, -1]);
+lebenMult += 0.5;
+gegnerWellen.push([7, 5.5, 10, 1.5, 7]);
+gegnerWellen.push([8, 5.5, 5, 2, 6]);
+gegnerWellen.push([10, 5.5, 5, 0.5, 5]);
+gegnerWellen.push([14, 5.5, 10, 2, -1]);
 //32
-gegnerWellen.push([9, 5, 10, 2, 3]);
-gegnerWellen.push([11, 5, 10, 3, 1]);
-gegnerWellen.push([12, 5, 10, 1, 4]);
-gegnerWellen.push([13, 5, 10, 1, -1]);
+gegnerWellen.push([9, 5.5, 10, 2, 3]);
+gegnerWellen.push([11, 5.5, 10, 3, 1]);
+gegnerWellen.push([12, 5.5, 10, 1, 4]);
+gegnerWellen.push([13, 5.5, 10, 1, -1]);
 //33
+lebenMult += 0.5;
 gegnerWellen.push([5, 6, 10, 1, 0.5]);
 gegnerWellen.push([10, 6, 10, 2, 1]);
 gegnerWellen.push([12, 6, 10, 0.4, 2]);
@@ -187,52 +199,57 @@ gegnerWellen.push([4, 6, 18, 0.9, 3]);
 gegnerWellen.push([3, 6, 15, 1, 3.5]);
 gegnerWellen.push([1, 6, 20, 2, -1]);
 //35
-gegnerWellen.push([11, 6, 12, 2, 1]);
-gegnerWellen.push([12, 6, 13, 1, 1.5]);
-gegnerWellen.push([13, 6, 15, 2, 0.5]);
-gegnerWellen.push([15, 2, 5, 5, 2.5]);
-gegnerWellen.push([16, 2, 5, 5, -1]);
+lebenMult -= 0.5;
+gegnerWellen.push([11, 5.5, 12, 2, 1]);
+gegnerWellen.push([12, 5.5, 13, 1, 1.5]);
+gegnerWellen.push([13, 5.5, 15, 2, 0.5]);
+gegnerWellen.push([15, 5.5, 5, 5, 2.5]);
+gegnerWellen.push([16, 5.5, 5, 5, -1]);
 //36
-gegnerWellen.push([1, 15, 20, 0.2, 4]);
-gegnerWellen.push([10, 9, 12, 2, 1]);
-gegnerWellen.push([11, 9, 13, 1, 1.5]);
-gegnerWellen.push([12, 9, 15, 2, 0.5]);
-gegnerWellen.push([13, 9, 5, 1, 2.5]);
-gegnerWellen.push([14, 9, 5, 0.2, -1]);
+lebenMult += 0.5;
+gegnerWellen.push([1,  6, 20, 0.2, 4]);
+gegnerWellen.push([10, 6, 12, 2, 1]);
+gegnerWellen.push([11, 6, 13, 1, 1.5]);
+gegnerWellen.push([12, 6, 15, 2, 0.5]);
+gegnerWellen.push([13, 6, 5, 1, 2.5]);
+gegnerWellen.push([14, 6, 5, 0.2, -1]);
 //37
-gegnerWellen.push([0, 11, 12, 1, 1]);
-gegnerWellen.push([7, 11, 7, 2, 0.5]);
-gegnerWellen.push([3, 11, 10, 3, 1.2]);
-gegnerWellen.push([5, 9, 12, 2, 1.5]);
-gegnerWellen.push([11, 8, 12, 2, 1]);
-gegnerWellen.push([12, 7, 10, 1, 1.5]);
-gegnerWellen.push([13, 7, 10, 2, -1]);
+lebenMult += 0.5;
+gegnerWellen.push([0,  6.5, 12, 1, 1]);
+gegnerWellen.push([7,  6.5, 7, 2, 0.5]);
+gegnerWellen.push([3,  6.5, 10, 3, 1.2]);
+gegnerWellen.push([5,  6.5, 12, 2, 1.5]);
+gegnerWellen.push([11, 6.5, 12, 2, 1]);
+gegnerWellen.push([12, 6.5, 10, 1, 1.5]);
+gegnerWellen.push([13, 6.5, 10, 2, -1]);
 //38
-gegnerWellen.push([3, 10, 12, 2, 1]);
-gegnerWellen.push([5, 10, 13, 1, 1.5]);
-gegnerWellen.push([8, 10, 15, 2, 0.5]);
-gegnerWellen.push([9, 10, 5, 5, 2.5]);
-gegnerWellen.push([14, 10, 5, 5, -1]);
+lebenMult += 0.5;
+gegnerWellen.push([3, 7, 12, 2, 1]);
+gegnerWellen.push([5, 7, 13, 1, 1.5]);
+gegnerWellen.push([8, 7, 15, 2, 0.5]);
+gegnerWellen.push([9, 7, 5, 5, 2.5]);
+gegnerWellen.push([14, 7, 5, 5, -1]);
 //39
-gegnerWellen.push([10, 10, 12, 2, 0]);
-gegnerWellen.push([4, 10, 20, 0.5, 0]);
-gegnerWellen.push([14, 10, 15, 2, 5]);
-gegnerWellen.push([13, 10, 5, 5, 0]);
-gegnerWellen.push([12, 10, 5, 5, -1]);
+gegnerWellen.push([10, 7, 12, 2, 0]);
+gegnerWellen.push([4,  7, 20, 0.5, 0]);
+gegnerWellen.push([14,  7, 15, 2, 5]);
+gegnerWellen.push([13,  7, 5, 5, 0]);
+gegnerWellen.push([12,  7, 5, 5, -1]);
 //40
-gegnerWellen.push([2, 10, 15, 1, 17]);
-gegnerWellen.push([4, 10, 15, 0.5, 17]);
-gegnerWellen.push([6, 10, 15, 0.5, 17]);
-gegnerWellen.push([8, 9, 15, 0.5, 17]);
-gegnerWellen.push([10, 9, 15, 0.5, 17]);
-gegnerWellen.push([12, 8, 15, 0.5, 17]);
-gegnerWellen.push([13, 6, 15, 0.5, 26]);
-gegnerWellen.push([12, 12, 15, 2, 0]);
-gegnerWellen.push([13, 12, 5, 3, 0]);
-gegnerWellen.push([14, 11, 5, 1, 0]);
-gegnerWellen.push([15, 4, 5, 5, 0]);
-gegnerWellen.push([16, 3, 5, 7, 0]);
-gegnerWellen.push([12, 10, 5, 5, -1]);
+lebenMult += 0.5;
+gegnerWellen.push([2,  7.5, 15, 1, 17]);
+gegnerWellen.push([4,  7.5, 15, 0.5, 17]);
+gegnerWellen.push([6,  7.5, 15, 0.5, 17]);
+gegnerWellen.push([8,  7.5, 15, 0.5, 17]);
+gegnerWellen.push([10, 7.5, 15, 0.5, 17]);
+gegnerWellen.push([12, 7.5, 15, 0.5, 17]);
+gegnerWellen.push([13, 7.5, 15, 0.5, 26]);
+gegnerWellen.push([12, 7.5, 15, 2, 0]);
+gegnerWellen.push([13, 7.5, 5, 3, 0]);
+gegnerWellen.push([14, 7.5, 5, 1, 0]);
+gegnerWellen.push([15, 7.5, 5, 5, 0]);
+gegnerWellen.push([16, 7.5, 5, 7, 0]);
+gegnerWellen.push([12, 7.5, 5, 5, -1]);
 //41
 //42
 //43
