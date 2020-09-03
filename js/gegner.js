@@ -102,7 +102,7 @@ function Gegner(id, typ, lebenMult){
               inRange.push(j);
             }
           });
-          var target = Math.floor(Math.random()*countInRange)
+          var target = inRange[Math.floor(Math.random()*countInRange)];
           tuerme[target].towerStun = Math.max(tuerme[target].towerStun, this.imunitätStärke[i][0]);
           break;
       }
