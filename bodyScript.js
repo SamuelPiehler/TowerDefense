@@ -21,11 +21,11 @@ gegnerBildHidden.height = size*map.length;
 
 //erzeugt den Tower select bereich
 var towerSelect = [];
-if (size*1.7*5+100+size < screen.height) {
+if (size*1.7*6+100+size < screen.height) {
   var selectSize = size;
 }
 else {
-  var selectSize = (screen.height - 100) / (1.7 * 5 + 1);
+  var selectSize = (screen.height - 100) / (1.7 * 6 + 1);
 }
 for (var i = 0; i < towertypen.length; i++) {
   towerSelect[i] = [];
