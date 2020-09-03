@@ -8,10 +8,11 @@ function Gegner(id, typ, lebenMult){
   this.typ = typ;
   this.leben = gegnertypen[typ][1]*lebenMult;
   this.maxHP = this.leben;
+  this.lebenMult = lebenMult;
   this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten/effeckte hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
-    this.letzterEffeckt[i] = roundTime;
+    this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
   }
   this.effektTyp = [];    //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
   this.effektStaerke = [];  //wie stark ist der jeweilige effeckt
@@ -39,46 +40,71 @@ function Gegner(id, typ, lebenMult){
   this.src = gegnertypen[typ][0];   //url des gegnerbildes
   this.bewegen = function (){   //gametick für gegner
     for (var i = 0; i < this.imunität.length; i++) {
-      if (this.imunität[i] == 8) {
-
-      }
-      else if (this.imunität[i] == 10) {
-        if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
-          gegner.forEach((item, j) => {
-            if (item != undefined) {
-              var entfernung = getEntfernung(item, this);
-              if (entfernung <= this.imunitätStärke[i][1]) {
-                var alteLeben = item.leben;
-                item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
-                if (alteLeben != item.leben) {
-                  numbers("+"+round(item.leben-alteLeben, 3), item.posx, item.posy, "green");
+      switch (this.imunität[i]) {
+        case 8:
+          if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+            this.letzterEffeckt[i] += this.imunitätStärke[i][0];
+            var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult);
+            gegner[spawnId].strecke = this.strecke;
+            gegner[spawnId].mapx = this.mapx;
+            gegner[spawnId].mapy = this.mapy;
+            gegner[spawnId].posx = this.posx;
+            gegner[spawnId].posy = this.posy;
+            gegner[spawnId].richtung = this.richtung;
+            gegner[spawnId].bewegt = this.bewegt;
+            gegner[spawnId].wert = 0;
+          }
+          break;
+        case 10:
+          if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+            gegner.forEach((item, j) => {
+              if (item != undefined) {
+                var entfernung = getEntfernung(item, this);
+                if (entfernung <= this.imunitätStärke[i][1]) {
+                  var alteLeben = item.leben;
+                  item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
+                  if (alteLeben != item.leben) {
+                    numbers("+"+round(item.leben-alteLeben, 3), item.posx, item.posy, "green");
+                  }
                 }
               }
-            }
-          });
-          if (this.letzterEffeckt[i] + this.imunitätStärke[i][0] + gameSpeed > roundTime) {
+            });
             this.letzterEffeckt[i] += this.imunitätStärke[i][0];
           }
-          else {
-            this.letzterEffeckt[i] = roundTime;
+          break;
+        case 11:
+          if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+            gegner.forEach((item, j) => {
+              if (item != undefined) {
+                var entfernung = getEntfernung(item, this);
+                if (entfernung <= this.imunitätStärke[i][1]) {
+                  item.speedBuff += this.imunitätStärke[i][3] / 100;
+                }
+              }
+            });
           }
-        }
-      }
-      else if (this.imunität[i] == 11) {
-        gegner.forEach((item, j) => {
-          if (item != undefined) {
+          break;
+        case 13:
+          tuerme.forEach((item, j) => {
             var entfernung = getEntfernung(item, this);
             if (entfernung <= this.imunitätStärke[i][1]) {
-              item.speedBuff += this.imunitätStärke[i][0] / 100;
+              item.towerSlow += this.imunitätStärke[i][0] / 100;
             }
-          }
-        });
-      }
-      else if (this.imunität[i] == 13) {
-
-      }
-      else if (this.imunität[i] == 14) {
-
+          });
+          break;
+        case 14:
+          var inRange = [];
+          var countInRange = 0;
+          tuerme.forEach((item, j) => {
+            var entfernung = getEntfernung(item, this);
+            if (entfernung <= this.imunitätStärke[i][1]) {
+              countInRange++;
+              inRange.push(j);
+            }
+          });
+          var target = Math.floor(Math.random()*countInRange)
+          tuerme[target].towerStun = Math.max(tuerme[target].towerStun, this.imunitätStärke[i][0]);
+          break;
       }
     }
     var effektStaerken = [];    //erzeuge ein array zum abspeichern des stärksten effeckts von jedem typ
@@ -348,6 +374,35 @@ function Gegner(id, typ, lebenMult){
     gegner.splice(this.id, 1);  //aus liste löschen
     for (var i = this.id; i < gegner.length; i++) {
       gegner[i].id--;   //gegnerid von anderen gegnern anpassen (damit sie weiterhin vortlaufend ist)
+    }
+    for (var i = 0; i < this.imunität.length; i++) {
+      if (this.imunität == 7) {
+        for (var j = 0; j < this.imunitätStärke[i]; j++) {
+          var spawnId = spawn(11, this.lebenMult);
+          var posDifference = 20;
+          gegner[spawnId].strecke = this.strecke - j * posDifference / 70 * size;
+          gegner[spawnId].mapx = this.mapx;
+          gegner[spawnId].mapy = this.mapy;
+          gegner[spawnId].posx = this.posx;
+          gegner[spawnId].posy = this.posy;
+          gegner[spawnId].richtung = this.richtung;
+          gegner[spawnId].bewegt = this.bewegt - j * posDifference / 70 * size;
+          switch (this.richtung) {
+            case 0:
+              gegner[spawnId].posy += 1 * (j * posDifference / 70 * size);
+              break;
+            case 1:
+              gegner[spawnId].posx += -1 * (j * posDifference / 70 * size);
+              break;
+            case 2:
+              gegner[spawnId].posy += -1 * (j * posDifference / 70 * size);
+              break;
+            case 3:
+              gegner[spawnId].posx += 1 * (j * posDifference / 70 * size);
+              break;
+          }
+        }
+      }
     }
   }
 }

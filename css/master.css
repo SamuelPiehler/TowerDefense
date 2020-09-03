@@ -1,7 +1,11 @@
 body{
   overflow: hidden;
+  box-sizing: border-box;
 }
 
+body *{
+  box-sizing: border-box;
+}
 .button{
   box-shadow: 3px 2px 3px  #972742, -3px -2px 3px #972742, -3px 2px 3px  #972742, 3px -2px 3px #972742;
   border-radius: 20%;

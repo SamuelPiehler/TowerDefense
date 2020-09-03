@@ -30,6 +30,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       this.effektTime[i] *= 100;
     }
   }
+  this.towerSlow = 1;
+  this.towerStun = 0;
   this.buffStaerken = [0, 0, 0, 0];  //buffs von Supporttowern 0 = Dmg, 1 = Attackspeed, 2 = Effeckt, 3 = Range/Drehspeed
   this.letzterAngriff = roundTime;    //wann hat der turm zuletzt angegriffen
   this.letzterAngriff2;    //wann hat der turm zuletzt angegriffen gilt für lauf 2 für basic turm stufe 5
@@ -63,6 +65,20 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.canvasGeschütz.addEventListener('mouseover', function(evt){showRange(evt, this, id);});  //zeige reichweite des turms bei hover
   this.canvasGeschütz.addEventListener('click', function(){showUpgrade(this, id);});    //wenn angeklickt zeige stats und upgrade infos
   ladeBild(towertypen[this.typ][1], this.canvasGeschütz, 0);
+  switch (spezialisierung) {
+    case "0":
+      ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
+      break;
+    case "1":
+      ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
+      break;
+    case "2":
+      ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
+      break;
+    case "3":
+      ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
+      break;
+  }
   this.buffTuerme = function(){
     for (var i = 0; i < this.effekt.length; i++) {
       if (this.effekt[i] >= 7 && this.effekt[i] <= 10) {
@@ -258,6 +274,20 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime[0] += towertypen[9][9][this.effekt[0]-7]*0.5;
               this.reichweite = this.effektTime[0];
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
+              switch (spezialisierung) {
+                case "0":
+                  ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
+                  break;
+                case "1":
+                  ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
+                  break;
+                case "2":
+                  ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
+                  break;
+                case "3":
+                  ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
+                  break;
+              }
               break;
             case 10:   //Tesla
               this.effektStaerke[0] += 3;
@@ -312,7 +342,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       while (grad2 - this.richtung2 > 180) {
         this.richtung2 += 360;
       }
-      if (Math.abs(this.richtung2 - grad2) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)) {   //wenn sich der turm lauf2 bis zum gegner2 drehen kann in diesem gametick
+      if (Math.abs(this.richtung2 - grad2) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow && this.towerStun <= 0) {   //wenn sich der turm lauf2 bis zum gegner2 drehen kann in diesem gametick
         this.richtung2 = grad2;
         if (roundTime - this.letzterAngriff2 >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
           gegner[target2].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
@@ -325,13 +355,17 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         }
       }
       else if (this.richtung2 > grad2) {    //drehe richtung gegner
-        this.richtung2 -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+        if (this.towerStun <= 0) {
+          this.richtung2 -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
+        }
       }
       else {
-        this.richtung2 += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+        if (this.towerStun <= 0) {
+          this.richtung2 += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
+        }
       }
     }
-    if (Math.abs(this.richtung - grad) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)) {   //wenn sich der turm bis zum gegner drehen kann in diesem gametick
+    if (Math.abs(this.richtung - grad) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow && this.towerStun <= 0) {   //wenn sich der turm bis zum gegner drehen kann in diesem gametick
       this.richtung = grad;
       while (this.richtung >= 360) {
         this.richtung -= 360;
@@ -397,10 +431,14 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       }
     }
     else if (this.richtung > grad) {    //drehe richtung gegner
-      this.richtung -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+      if (this.towerStun <= 0) {
+        this.richtung -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
+      }
     }
     else {
-      this.richtung += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+      if (this.towerStun <= 0) {
+        this.richtung += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
+      }
     }
     //erzeuge turmbild in richtige richtung gedreht
     if (this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {//wenn stufe5 special upgrade
@@ -416,18 +454,34 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     }
   };
   this.zielen = function() {    //wird 1 mal pro gametick ausgeführt
+    if (this.towerStun > 0) {
+      this.letzterAngriff += gameSpeed;
+      this.letzterAngriff2 += gameSpeed;
+    }
+    else {
+      this.letzterAngriff += gameSpeed*(1-1/this.towerSlow);
+      this.letzterAngriff2 += gameSpeed*(1-1/this.towerSlow);
+    }
     var uebergabeEffektStaerke = this.effektStaerke.slice();    //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
     var uebergabeEffektTime = this.effektTime.slice();
     for (var i = 0; i < this.effekt.length; i++) {
       uebergabeEffektStaerke[i] *= (1+this.buffStaerken[2]/100);
       uebergabeEffektTime[i] *= (1+this.buffStaerken[2]/100);
     }
-    target = -1;
-    target2 = -1;
+    var target = -1;
+    var targetAgro = false;
+    var target2 = -1;
+    var target2Agro = false;
     gegner.forEach((item, i) => {   //überprüfe jeden gegner
       if (item != undefined) {
         var entfernung = getEntfernung(item, this);    //entfernung zum gegner
         if (entfernung <= this.reichweite*(1+this.buffStaerken[3]/100)) {    //wenn in reichweite
+          itemAgro = false;
+          for (var j = 0; j < item.imunität.length; j++) {
+            if (item.imunität[j] == 9) {
+              itemAgro = true;
+            }
+          }
           if (this.drehGeschw == 0) {     //drehgeschwindigkeit 0 trifft alle gegner in reichweite und ziehlt nicht
             if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {     //wenn letzter angriff langenug her war greife gegner an
               gegner[i].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
@@ -439,68 +493,90 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               target = i;
             }
             else {
-              switch (this.targetPrio) {
-                case 0:
-                  if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].strecke < item.strecke) {
-                    target2 = i;
-                  }
-                  break;
-                case 1:
-                  if (gegner[target].strecke > item.strecke) {   //update targets so dass der letzte gegner immer target 1 ist und der zweite von hinten  target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].strecke > item.strecke) {
-                    target2 = i;
-                  }
-                  break;
-                case 2:
-                  if (gegner[target].leben < item.leben) {   //update targets so dass der gegner mit den meisten leben immer target 1 ist und der zweite target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].leben < item.leben) {
-                    target2 = i;
-                  }
-                  break;
-                case 3:
-                  if (gegner[target].leben > item.leben) {   //update targets so dass der gegner mit den wenigsten leben immer target 1 ist und der zweite target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].leben > item.leben) {
-                    target2 = i;
-                  }
-                  break;
+              if ((targetAgro && itemAgro) || (!targetAgro && !itemAgro)) {
+                switch (this.targetPrio) {
+                  case 0:
+                    if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].strecke < item.strecke && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 1:
+                    if (gegner[target].strecke > item.strecke) {   //update targets so dass der letzte gegner immer target 1 ist und der zweite von hinten  target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].strecke > item.strecke && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 2:
+                    if (gegner[target].leben < item.leben) {   //update targets so dass der gegner mit den meisten leben immer target 1 ist und der zweite target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].leben < item.leben && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 3:
+                    if (gegner[target].leben > item.leben) {   //update targets so dass der gegner mit den wenigsten leben immer target 1 ist und der zweite target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].leben > item.leben && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                }
+              }
+              else if (itemAgro && !targetAgro) {
+                target2 = target;
+                target = i;
+                target2Agro = targetAgro;
+                targetAgro = itemAgro;
               }
             }
           }
           else {
-            switch (this.targetPrio) {
-              case 0:
-                if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {
-                  target = i;
-                }
-                break;
-              case 1:
-                if (gegner[target] == undefined || gegner[target].strecke > item.strecke) {
-                  target = i;
-                }
-                break;
-              case 2:
-                if (gegner[target] == undefined || gegner[target].leben < item.leben) {
-                  target = i;
-                }
-                break;
-              case 3:
-                if (gegner[target] == undefined || gegner[target].leben > item.leben) {
-                  target = i;
-                }
-                break;
+            if ((targetAgro && itemAgro) || (!targetAgro && !itemAgro)) {
+              switch (this.targetPrio) {
+                case 0:
+                  if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {
+                    target = i;
+                  }
+                  break;
+                case 1:
+                  if (gegner[target] == undefined || gegner[target].strecke > item.strecke) {
+                    target = i;
+                  }
+                  break;
+                case 2:
+                  if (gegner[target] == undefined || gegner[target].leben < item.leben) {
+                    target = i;
+                  }
+                  break;
+                case 3:
+                  if (gegner[target] == undefined || gegner[target].leben > item.leben) {
+                    target = i;
+                  }
+                  break;
+              }
+            }
+            else if (itemAgro && !targetAgro) {
+              target = i;
+              targetAgro = itemAgro;
             }
           }
         }
@@ -554,5 +630,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         }
       }
     }
+    this.towerStun -= gameSpeed;
+    this.towerSlow = 1;
   };
 }
