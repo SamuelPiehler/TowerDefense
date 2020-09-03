@@ -120,3 +120,8 @@ img{
     width:fit-content;
     margin:auto;
 }
+#zusatz{
+    position: absolute;
+    top: 70px;
+    left: 480px;
+}

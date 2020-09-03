@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src=req/save.js></script>
-  <style>
-      @import url("../css/maps.css") screen;
-  </style>
-  <script src="req/html2canvas.js"></script>
+  <script src=req/save.js> </script> <style>
+    @import url("../css/maps.css") screen; 
+    </style> 
+    <script src ="req/html2canvas.js" >
+  </script>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
     /************************************************************************************************************
     (C) www.dhtmlgoodies.com, October 2005
     
@@ -26,72 +27,113 @@
     www.dhtmlgoodies.com
     Alf Magne Kalleland
     
-    ************************************************************************************************************/	
+    ************************************************************************************************************/
     function getScreenshotOfElement(element, posX, posY, width, height, callback) {
       window.scrollTo(0, 0);
-    html2canvas(element, {
-        
+      html2canvas(element, {
+
         width: width,
         height: height,
         useCORS: true,
         taintTest: false,
         allowTaint: false
-    }).then(function (canvas) {
-            callback(canvas.toDataURL().replace("data:image/png;base64,", ""));
-        });
-}
-
-    
-    </script>
+      }).then(function (canvas) {
+        callback(canvas.toDataURL().replace("data:image/png;base64,", ""));
+      });
+    }
+  </script>
 </head>
+
 <body>
   <div id=information>
     <div id="randomrotation">
       <lable>
         Zufällige Drehung vom Hintergrund?
-      <input type=checkbox onclick="settings.randomtiles = this.checked;"id=rando>
-    </lable>
+        <input type=checkbox onclick="settings.randomtiles = this.checked;" id=rando>
+      </lable>
+      <br>
+      <br>
+      <lable>
+        wie sollen mehrere StartPunkte <br> behandelt werden?
+        <select onchange="changesetting(this);">
+          <option>
+            Alle Abwechselnd?
+          </option>
+          <option>
+            Alle Zufällig?
+          </option>
+          <option>
+            Alle Auf einmal?
+          </option>
+        </select>
+      </lable>
     </div>
     <div class="infoopacity">
-        <lable class=slide>
-          <div id=text>Startgeld der Map</div>
-          <div id=valb></div>
-          <div class=s>          75
-          <input id=sliding oninput="settings.geld=this.value; document.getElementById('valb').innerHTML= this.value;"type="range" min="50" max="200" value="75" step="1">
+      <lable class=slide>
+        <div id=text>Startgeld der Map</div>
+        <div id=valb></div>
+        <div class=s> 75
+          <input id=sliding oninput="settings.geld=this.value; document.getElementById('valb').innerHTML= this.value;"
+            type="range" min="50" max="200" value="75" step="1">
           200 </div>
       </lable>
     </div>
     <div class="infoopacity">
-        <lable class=slide>
-          <div id=text>Sichtbarkeit der Pfeile im Bild</div>
-          <div id=val></div>
-          <div class= s>          0
+      <lable class=slide>
+        <div id=text>Sichtbarkeit der Pfeile im Bild</div>
+        <div id=val></div>
+        <div class=s> 0
           <input id=slider type="range" min="0" max="1" value=1 step="0.01">
           1 </div>
       </lable>
-      </div>
-      <div class="infoopacity">
-          <lable>
-            <div id=text>Map als Vorlage Exportieren</div>
-            <input type="button" onclick="exportmap();"value="Exportieren!">
-            <button onclick="exportmap(true)" id="asdf">als Datei herunterladen</button>
-            <input id=filename type=filename placeholder="Dateiname?">
-          </lable>
-        </div>
-        <div class="infoopacity">
-            <lable>
-              <div id=text>Map als js format herunterladen</div>
-              <input type="button" onclick="generatemapstring();"value="Map.js herunterladen!">
-            </lable>
-          </div>
-          <div class="infoopacity">
-              <lable>
-                <div id=text>Mapfile hochladen</div>
-                <p><input type="file" id="dateien" name="files[]" multiple=""></p>
-                <output id="dateiListe"></output> 
-            <button onclick="importmap(true)" id="asdf">File hochladen</button>
-              </lable>
-            </div>
+    </div>
+    <div class="infoopacity">
+      <lable>
+        <div id=text>Map als Vorlage Exportieren</div>
+        <input type="button" onclick="exportmap();" value="Exportieren!">
+        <button onclick="exportmap(true)" id="asdf">als Datei herunterladen</button>
+        <input id=filename type=filename placeholder="Dateiname?">
+      </lable>
+    </div>
+    <div class="infoopacity">
+      <lable>
+        <div id=text>Map als js format herunterladen</div>
+        <input type="button" onclick="generatemapstring();" value="Map.js herunterladen!">
+      </lable>
+    </div>
+    <div class="infoopacity">
+      <lable>
+        <div id=text>Mapfile hochladen</div>
+        <p><input type="file" id="dateien" name="files[]" multiple=""></p>
+        <output id="dateiListe"></output>
+        <button onclick="importmap(true)" id="asdf">File hochladen</button>
+      </lable>
+    </div>
+    <div class="infoopacity" id ="zusatz">
+      <lable>
+        <div id=text>Zusätze</div>
+        <input type="text" id="mapname" placeholder="Mapnamen Eingeben">
+        Mapschwierigkeit einschatzen und auswählen
+        <select id="diffiin">
+          <option>
+            sehr-leicht
+          </option>
+          <option>
+            Einfach
+          </option>
+          <option>
+            Mittel
+          </option>
+          <option>
+            Schwer
+          </option>
+          <option>
+            Sehr Schwer
+          </option>
+        </select>
+        <button onclick="updateextra();" id="asdf">Abschicken</button>
+      </lable>
+    </div>
   </div>
   <div id=buttons>
 
@@ -102,165 +144,174 @@
     </div>
   </div>
   <div id=inwrap>
-  <div class=inventory>
-    <div class=intile>
-      <div class="inimage selected" id="1" invno="0">
-        <img src="../Bilder/Map/feld1.jpg">
-        <div class=inlable>
-        Leeres Feld/Bau-Feld
-      </div>  
-      </div>
-      <div class=floaties>
-          <img src="../Bilder/Map/feld1.jpg"class="true">
-        <img src="../Bilder/Map/feld2.jpg"class="false">
-      </div>
-    </div>
-    <div class=intile>
-        <div class=inimage id="2" invno="1">
-          <img width=74 height=74 src="../Bilder/Map/weg1.jpg">
+    <div class=inventory>
+      <div class=intile>
+        <div class="inimage selected" id="1" invno="0">
+          <img src="../Bilder/Map/feld1.jpg">
           <div class=inlable>
-              Gegner-weg
-            </div> 
+            Leeres Feld/Bau-Feld
+          </div>
         </div>
         <div class=floaties>
-            <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
-            <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
-            <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+          <img src="../Bilder/Map/feld1.jpg" class="true">
+          <img src="../Bilder/Map/feld2.jpg" class="false">
         </div>
       </div>
       <div class=intile>
-          <div class=inimage id="3" invno="-1">
-            <img src="../Bilder/Map/stein1.png">
-            <div class=inlable>
-                Landschaft
-              </div> 
+        <div class=inimage id="2" invno="1">
+          <img width=74 height=74 src="../Bilder/Map/weg1.jpg">
+          <div class=inlable>
+            Gegner-weg
           </div>
-          <div class=floaties>
-              <img src="../Bilder/Map/stein1.png" class="false">
-              <img src="../Bilder/Map/stein2.png" class="false">
-              <img src="../Bilder/Map/stein3.png" class="false">
-              <img src="../Bilder/Icons/sandBurg.png" class="false">
-              <img src="../Bilder/Icons/welle.png" class="false">
-            </div>
         </div>
-        <div class=intile>
-            <div class=inimage id="4" invno="12">
-              <img src="../Bilder/Map/zwischenPortal1.png">
-              <div class=inlable>
-                  Portal_1
-                </div> 
-            </div>
-            <div class=floaties>
-                <img src="../Bilder/Map/zwischenPortal1.png">
-            </div>
+        <div class=floaties>
+          <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+          <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+          <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="3" invno="-1">
+          <img src="../Bilder/Map/stein1.png">
+          <div class=inlable>
+            Landschaft
           </div>
-          <div class=intile>
-              <div class=inimage id="5" invno="16">
-                <img src="../Bilder/Map/zwischenPortal2.png">
-                <div class=inlable>
-                    Portal_2
-                  </div> 
-              </div>
-              <div class=floaties>
-                  <img src="../Bilder/Map/zwischenPortal2.png">
-              </div>
-            </div>
-          <div class=intile>
-              <div class=inimage id="6" invno="-2">
-                <img src="../Bilder/Map/weg1.jpg">
-                <div class=inlable>
-                    Kreuzung
-                  </div> 
-              </div>
-              <div class=floaties>
-            <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
-            <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
-            <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
-              </div>
-            </div>
-            <div class=intile>
-                <div class=inimage id="7" invno="5">
-                  <img src="../Bilder/Map/start.png">
-                  <div class=inlable>
-                      Start-Feld
-                    </div> 
-                </div>
-                <div class=floaties>
-                    <img src="../Bilder/Map/start.png">
-                </div>
-              </div>
-              <div class=intile>
-                  <div class=inimage id="8" invno="9">
-                    <img src="../Bilder/Map/ziel1.png">
-                    <div class=inlable>
-                        Ziel-Feld
-                      </div> 
-                  </div>
-                  <div class=floaties>
-                      <img src="../Bilder/Map/ziel1.png">
-                  </div>
-                </div>
-                <div class=intile>
-                    <div class=inimage id="9" invno="-1234">
-                      <img src="../Bilder/Map/feld1.jpg">
-                      <div class=inlable>
-                          settings.hintergrund- tool
-                        </div> 
-                    </div>
-                    <div class=floaties>
-                        <img src="../Bilder/Map/feld1.jpg">
-                        <img src="../Bilder/Map/feld2.jpg">
-                        <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
-                        <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
-                        <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
-                      </div>
-                  </div>
-                  <div class=intile style="display:none;">
-                      <div class=inimage id=0>
-                        <img src="../Bilder/Map">
-                      </div>
-                      <div class=floaties></div>
-                    </div>
-                 </div>
-            </div>
-            <textarea id=output>Hier wird deine datei gezeigt!</textarea>
-            <textarea id=input>hier kannst du deine Map-Vorlage laden</textarea>
-            
+        </div>
+        <div class=floaties>
+          <img src="../Bilder/Map/stein1.png" class="false">
+          <img src="../Bilder/Map/stein2.png" class="false">
+          <img src="../Bilder/Map/stein3.png" class="false">
+          <img src="../Bilder/Icons/sandBurg.png" class="false">
+          <img src="../Bilder/Icons/welle.png" class="false">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="4" invno="12">
+          <img src="../Bilder/Map/zwischenPortal1.png">
+          <div class=inlable>
+            Portal_1
+          </div>
+        </div>
+        <div class=floaties>
+          <img src="../Bilder/Map/zwischenPortal1.png">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="5" invno="16">
+          <img src="../Bilder/Map/zwischenPortal2.png">
+          <div class=inlable>
+            Portal_2
+          </div>
+        </div>
+        <div class=floaties>
+          <img src="../Bilder/Map/zwischenPortal2.png">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="6" invno="-2">
+          <img src="../Bilder/Map/weg1.jpg">
+          <div class=inlable>
+            Kreuzung
+          </div>
+        </div>
+        <div class=floaties>
+          <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+          <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+          <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="7" invno="5">
+          <img src="../Bilder/Map/start.png">
+          <div class=inlable>
+            Start-Feld
+          </div>
+        </div>
+        <div class=floaties>
+          <img src="../Bilder/Map/start.png">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="8" invno="9">
+          <img src="../Bilder/Map/ziel1.png">
+          <div class=inlable>
+            Ziel-Feld
+          </div>
+        </div>
+        <div class=floaties>
+          <img src="../Bilder/Map/ziel1.png">
+        </div>
+      </div>
+      <div class=intile>
+        <div class=inimage id="9" invno="-1234">
+          <img src="../Bilder/Map/feld1.jpg">
+          <div class=inlable>
+            settings.hintergrund- tool
+          </div>
+        </div>
+        <div class=floaties>
+          <img src="../Bilder/Map/feld1.jpg">
+          <img src="../Bilder/Map/feld2.jpg">
+          <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+          <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+          <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+        </div>
+      </div>
+      <div class=intile style="display:none;">
+        <div class=inimage id=0>
+          <img src="../Bilder/Map">
+        </div>
+        <div class=floaties></div>
+      </div>
+    </div>
+  </div>
+  <textarea id=output>Hier wird deine datei gezeigt!</textarea>
+  <textarea id=input>hier kannst du deine Map-Vorlage laden</textarea>
+
   <img id="screenshot">
   <script>
-  
-    var dataURL =false;
-var ismaptrue = false;
-    function exportmap(safe=false){
-if(safe){
-var code = "[" + JSON.stringify(tiles) + "," + JSON.stringify(settings) + "]";
-var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
-var fn = document.getElementById("filename").value;
-if( fn == "" || fn == undefined){
-fn = "mapfile" + Math.round(Math.random()*10000000000);
-}
-saveAs(blob, fn + ".mapfile");
-}else
-      document.getElementById("output").value = "[" + JSON.stringify(tiles) + "," + JSON.stringify(settings) + "]";
+    function updateextra(){
+      settings.difficulty = document.getElementById("diffiin").selectedIndex;
+      settings.Mapname = document.getElementById("mapname").value;
     }
-    function importmap(te){
+    var dataURL = false;
+    var ismaptrue = false;
+    function changesetting(el){
+      settings.starthandle = el.selectedIndex;
+    }
+    function exportmap(safe = false) {
+      if (safe) {
+        var code = "[" + JSON.stringify(tiles) + "," + JSON.stringify(settings) + "]";
+        var blob = new Blob([code], {
+          type: "text/plain;charset=utf-8"
+        });
+        var fn = document.getElementById("filename").value;
+        if (fn == "" || fn == undefined) {
+          fn = "mapfile" + Math.round(Math.random() * 10000000000);
+        }
+        saveAs(blob, fn + ".mapfile");
+      } else
+        document.getElementById("output").value = "[" + JSON.stringify(tiles) + "," + JSON.stringify(settings) + "]";
+    }
+
+    function importmap(te) {
       var getfile = false
-      if(te === true){
-        if(ismaptrue === true){
-          if(dataURL != false)
-getfile = true;
+      if (te === true) {
+        if (ismaptrue === true) {
+          if (dataURL != false)
+            getfile = true;
         }
       }
       var inputted;
-      if(getfile)
-      inputted = dataURL;
+      if (getfile)
+        inputted = dataURL;
       else
-      inputted = document.getElementById("input").value;
+        inputted = document.getElementById("input").value;
       var out = JSON.parse(inputted);
       settings = out[1];
       out = out[0];
       console.log(out);
-      out.forEach((ele)=>{
+      out.forEach((ele) => {
         ele.update = update;
       });
 
@@ -268,446 +319,502 @@ getfile = true;
       var spl = id.split(",");
       generate(spl[1] - -1, spl[0] - -1);
       tiles = out;
-      tiles.forEach((el)=>{
+      tiles.forEach((el) => {
         el.update("gen");
       })
     }
     var settings = {
-      selectedstyle :"",
-      portal1 : false,
-      portal2 : false,
-      wi : null,
-      hei :null,
-      randomtiles : false,
-      Xkoordinaten:15,
-      Ykoordinaten:5,
-      backchanged : true,
-      hintergrund : false,
-      selectedinv : 1,
+      starthandle: 0,
+      difficulty: false,
+      Mapname: false,
+      selectedstyle: "",
+      portal1: false,
+      portal2: false,
+      wi: null,
+      hei: null,
+      randomtiles: false,
+      Xkoordinaten: 15,
+      Ykoordinaten: 5,
+      backchanged: true,
+      hintergrund: false,
+      selectedinv: 1,
       lastbackground: "../Bilder/Map/feld1.jpg",
       geld: 75,
       mapstring: "",
-      imagedata : "",
-      lastid : "0",
-      clickindex:0,
-      opacity:1,
+      imagedata: "",
+      lastid: "0",
+      clickindex: 0,
+      opacity: 1,
     };
-  //  var settings.selectedstyle ="";
-  //  var settings.portal1 = false;
-//    var settings.portal2 = false;
-//var wi;
- //   var settings.hei;
- //   var settings.randomtiles = false;
-  //  var settings.Xkoordinaten=15;
- //   var settings.Ykoordinaten=5;
-  //  var settings.backchanged = true;
- //   var settings.hintergrund = false;
- //   var settings.selectedinv = 1;
-//    var settings.lastbackground= "../Bilder/Map/feld1.jpg";
+    //  var settings.selectedstyle ="";
+    //  var settings.portal1 = false;
+    //    var settings.portal2 = false;
+    //var wi;
+    //   var settings.hei;
+    //   var settings.randomtiles = false;
+    //  var settings.Xkoordinaten=15;
+    //   var settings.Ykoordinaten=5;
+    //  var settings.backchanged = true;
+    //   var settings.hintergrund = false;
+    //   var settings.selectedinv = 1;
+    //    var settings.lastbackground= "../Bilder/Map/feld1.jpg";
     /* eslint no-console: ["error", { allow: ["log"] }] */
     /* eslint no-console: "error" */
     var map;
-        //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
-        var schwierigkeit;
-        //hier werden alle verfügbaren maps gespeichert
-        var maplist = [];
-        //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben
-        var allsucceeded = true;
-        var success = false;
-        //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche
-        var checkerturn = 1;
-        //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;
-        var firstTimeLoad = true;
-        //backmap ist die momentan geladene karte
-        var backmap = "";
-        //funktionsaufruf um alle karten anzuzeigen
-//    var settings.geld= 75;
-//    var settings.mapstring= "";
-//    var settings.imagedata = "";
-//    var settings.thismap = [];
+    //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
+    var schwierigkeit;
+    //hier werden alle verfügbaren maps gespeichert
+    var maplist = [];
+    //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben
+    var allsucceeded = true;
+    var success = false;
+    //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche
+    var checkerturn = 1;
+    //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;
+    var firstTimeLoad = true;
+    //backmap ist die momentan geladene karte
+    var backmap = "";
+    //funktionsaufruf um alle karten anzuzeigen
+    //    var settings.geld= 75;
+    //    var settings.mapstring= "";
+    //    var settings.imagedata = "";
+    //    var settings.thismap = [];
     var tiles = [];
-//    var settings.lastid = "0";
- //   var settings.clickindex=0;
+    //    var settings.lastid = "0";
+    //   var settings.clickindex=0;
     function handle(el, func) {
-          //success wird immer beim erfolgre
-          if (success) {
-            maplist.push([map, settings.geld, checkerturn]);
-            checkerturn++;
-            map = mapold;
-            settings.geld= geldold;
-            getmaps(func);
-          }
-          if (success == false){
-            func(maplist);  
-          el.remove();
-          }
-          succcess = false
-          map = mapold;
-          settings.geld= geldold;
-          
+      //success wird immer beim erfolgre
+      if (success) {
+        maplist.push([map, settings.geld, checkerturn]);
+        checkerturn++;
+        map = mapold;
+        settings.geld = geldold;
+        getmaps(func);
+      }
+      if (success == false) {
+        func(maplist);
+        el.remove();
+      }
+      succcess = false
+      map = mapold;
+      settings.geld = geldold;
+
+    }
+
+    function update(tile_id, bi) {
+
+
+      if (settings.hintergrund != false) {
+        var bottom = document.getElementById("" + this.id + "bottom");
+        bottom.src = settings.hintergrund;
+        this.hinter = settings.hintergrund.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+        settings.hintergrund = false;
+      } else {
+        if (settings.clickindex > 3) {
+          settings.clickindex = 0;
         }
-        function update(tile_id, bi){
 
-    
-          if(settings.hintergrund != false){
-      var bottom = document.getElementById("" + this.id + "bottom");
-    bottom.src= settings.hintergrund;
-    this.hinter = settings.hintergrund.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-    settings.hintergrund = false;
-    }else{
-    if(settings.clickindex > 3){
-      settings.clickindex = 0;
+        console.log(settings.clickindex, bi)
+        var doc = document.getElementById(this.id);
+        var top = document.getElementById("" + this.id + "top");
+
+        var bild = doc;
+        if (tile_id >= 1 && tile_id <= 4) {
+          if (settings.lastid == this.id)
+            settings.clickindex++;
+          if (settings.clickindex == 4)
+            settings.clickindex = 0;
+          console.log(settings.clickindex)
+          bild.src = bi;
+          top.src = "../Bilder/Map/pfeil.png";
+          rotateIt(top, settings.clickindex * 90);
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.tile = tile_id + settings.clickindex;
+          this.istwo = false;
+        } else if (tile_id >= 5 && tile_id <= 8) {
+          if (settings.lastid == this.id)
+            settings.clickindex++;
+          if (settings.clickindex == 4)
+            settings.clickindex = 0;
+          bild.src = bi;
+          top.src = "../Bilder/Map/startPfeil.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          rotateIt(top, settings.clickindex * 90);
+          this.istwo = true;
+          if (settings.backchanged) {
+            var bottom = document.getElementById("" + this.id + "bottom");
+            bottom.src = settings.lastbackground;
+            this.hinter = settings.lastbackground;
+          }
+          this.tile = tile_id + settings.clickindex;
+
+        } else if (tile_id >= 9 && tile_id <= 11) {
+          bild.src = bi;
+          top.src = "../Bilder/Map/zielPfeil.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          rotateIt(top, settings.clickindex * 90);
+          this.istwo = true;
+          if (settings.backchanged) {
+            var bottom = document.getElementById("" + this.id + "bottom");
+            bottom.src = settings.lastbackground;
+            this.hinter = settings.lastbackground;
+          }
+          this.tile = tile_id;
+        } else if (tile_id == 0) {
+          bild.src = bi;
+          top.src = "../Bilder/Map/empty.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.istwo = false;
+          this.tile = 0;
+        } else if (tile_id == -1) {
+          bild.src = bi;
+          top.src = "../Bilder/Map/empty.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          if (settings.backchanged) {
+            var bottom = document.getElementById("" + this.id + "bottom");
+            bottom.src = settings.lastbackground;
+            this.hinter = settings.lastbackground;
+          }
+          this.istwo = true;
+          this.tile = -1;
+        } else if (tile_id == -2) {
+          bild.src = bi;
+          top.src = "../Bilder/Map/kreuzung.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          rotateIt(top, settings.clickindex * 90);
+          this.tile = -2;
+          this.istwo = false;
+        } else if (tile_id >= 12 && tile_id <= 15) {
+          if (settings.lastid == this.id)
+            settings.clickindex++;
+          if (settings.clickindex == 12)
+            settings.clickindex = 0;
+          console.log(settings.clickindex)
+          bild.src = bi;
+          top.src = "../Bilder/Map/pfeil.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.tile = tile_id + settings.clickindex;
+          this.istwo = false;
+          if (settings.backchanged) {
+            var bottom = document.getElementById("" + this.id + "bottom");
+            bottom.src = settings.lastbackground;
+            this.hinter = settings.lastbackground;
+          }
+        } else if (tile_id >= 16 && tile_id <= 19) {
+          if (settings.lastid == this.id)
+            settings.clickindex++;
+          if (settings.clickindex == 4)
+            settings.clickindex = 0;
+          console.log(settings.clickindex)
+          bild.src = bi;
+          top.src = "../Bilder/Map/pfeil.png";
+          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          rotateIt(top, settings.clickindex * 90);
+          this.tile = tile_id + settings.clickindex;
+          this.istwo = false;
+          if (settings.backchanged) {
+            var bottom = document.getElementById("" + this.id + "bottom");
+            bottom.src = settings.lastbackground;
+            this.hinter = settings.lastbackground;
+          }
+        } else if (tile_id == -1234) {
+          var bottom = document.getElementById("" + this.id + "bottom");
+          bottom.src = bi;
+          settings.lastbackground = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.hinter = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+        } else if (tile_id = "gen") {
+          bild.src = this.image;
+          top.src = this.top
+          var bottom = document.getElementById("" + this.id + "bottom");
+          bottom.src = this.hinter;
+          rotateIt(top, (this.tile - this.rtile) * 90);
+          console.log(this.tile - this.rtile)
+        }
+        if (tile_id != -1234 && tile_id != "gen")
+          this.rtile = tile_id;
+        this.image = bild.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "")
+        settings.lastid = this.id;
+      }
     }
-    
-    console.log(settings.clickindex,bi)
-    var doc = document.getElementById(this.id);
-    var top = document.getElementById("" + this.id + "top");
-    
-    var bild = doc;
-      if (tile_id >= 1 && tile_id <= 4) {
-        if(settings.lastid == this.id)
-        settings.clickindex++;
-        if(settings.clickindex == 4)
-        settings.clickindex=0;
-        console.log(settings.clickindex)
-        bild.src = bi;
-        top.src="../Bilder/Map/pfeil.png";
-        rotateIt(top, settings.clickindex * 90);
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");
-        this.tile = tile_id + settings.clickindex;
-        this.istwo = false;
-      }
-      else if (tile_id >= 5 && tile_id <= 8) {
-        if(settings.lastid == this.id)
-        settings.clickindex++;
-        if(settings.clickindex == 4)
-        settings.clickindex=0;
-        bild.src = bi;
-        top.src="../Bilder/Map/startPfeil.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");
-        rotateIt(top, settings.clickindex * 90);
-        this.istwo = true;
-        if(settings.backchanged){
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= settings.lastbackground;
-        this.hinter = settings.lastbackground;}
-        this.tile = tile_id + settings.clickindex;
 
-      }
-      else if (tile_id >= 9 && tile_id <= 11) {
-        bild.src = bi;
-        top.src="../Bilder/Map/zielPfeil.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-        rotateIt(top, settings.clickindex * 90);
-        this.istwo = true;
-        if(settings.backchanged){
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= settings.lastbackground;
-        this.hinter = settings.lastbackground;}
-        this.tile = tile_id;
-      }
-      else if (tile_id == 0) {
-        bild.src = bi;
-        top.src="../Bilder/Map/empty.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-        this.istwo = false;
-        this.tile = 0;
-      }
-      else if (tile_id == -1) {
-        bild.src = bi;
-        top.src="../Bilder/Map/empty.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-        if(settings.backchanged){
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= settings.lastbackground;
-        this.hinter = settings.lastbackground;}
-        this.istwo = true;
-        this.tile = -1;
-      }else if (tile_id == -2) {
-        bild.src = bi;
-        top.src="../Bilder/Map/kreuzung.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-        rotateIt(top, settings.clickindex * 90);
-        this.tile = -2;
-        this.istwo = false;
-      }else if (tile_id >= 12 && tile_id <=15) {
-        if(settings.lastid == this.id)
-        settings.clickindex++;
-        if(settings.clickindex == 12)
-        settings.clickindex=0;
-        console.log(settings.clickindex)
-        bild.src = bi;
-        top.src="../Bilder/Map/pfeil.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-        this.tile = tile_id + settings.clickindex;
-        this.istwo = false;
-        if(settings.backchanged){
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= settings.lastbackground;
-        this.hinter = settings.lastbackground;}
-      }
-      else if (tile_id >= 16 && tile_id <=19) {
-        if(settings.lastid == this.id)
-        settings.clickindex++;
-        if(settings.clickindex == 4)
-        settings.clickindex=0;
-        console.log(settings.clickindex)
-        bild.src = bi;
-        top.src="../Bilder/Map/pfeil.png";
-        this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-        rotateIt(top, settings.clickindex * 90);
-        this.tile = tile_id + settings.clickindex;
-        this.istwo = false;
-        if(settings.backchanged){
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= settings.lastbackground;
-        this.hinter = settings.lastbackground;}
-      }else if (tile_id == -1234) {
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= bi;
-        settings.lastbackground = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");
-        this.hinter = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"");;
-      }
-      else if (tile_id= "gen"){
-        bild.src = this.image;
-        top.src=this.top
-        var bottom = document.getElementById("" + this.id + "bottom");
-        bottom.src= this.hinter;
-        rotateIt(top, (this.tile - this.rtile) * 90);
-        console.log(this.tile-this.rtile)
-      }
-      if(tile_id != -1234 && tile_id != "gen")
-      this.rtile = tile_id;
-      this.image = bild.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm,"")
-      settings.lastid= this.id;
-  }}
-        
-function tile(id){
-  this.rtile = 0;
-  this.tile = 0;
-  this.image = "../Bilder/Map/feld2.jpg";
-  this.hinter= "../Bilder/Map/feld1.jpg";
-  this.id=id;
-  this.last = "../Bilder/Map/feld2.jpg";
-  this.istwo = false;
-  this.update = update;
-  this.top ="../Bilder/Map/empty.png";
-}
-  function tilebyId(tid){
-    var res ="";
-     tiles.forEach(element => {
-      if(element.id == tid){
-        res = element;
-      }
-      
-});
-return res;
-  } 
-  function clix(el,right = false,ev = ""){
-    if(right){
-      event.preventDefault();
-      tilebyId(el).update(0,settings.lastbackground);
-    }else{
-  tilebyId(el).update(settings.selectedinv,settings.selectedstyle);}
-  }
-  function generatemapstring(call = () => {}){
-    var map = "[";
-    var all = document.querySelectorAll("#allall .row");
-    all.forEach(element => {
-    var row= document.querySelectorAll( "#allall #" + element.getAttribute("id") + " div");
-    //console.log(row);
-    var sub = "[";
-    row.forEach(elementb => {
-      //console.log(elementb);
-      if(tilebyId(elementb.getAttribute("identi")).istwo)
-      sub += ( "[" + tilebyId(elementb.getAttribute("identi")).tile + ", ['" + tilebyId(elementb.getAttribute("identi")).hinter.replace(/.*(?=Bilder.*\....)/gm,"") + "','" + tilebyId(elementb.getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm,"") + "']],");
-      else
-      sub += ( "[" + tilebyId(elementb.getAttribute("identi")).tile + ", '" + tilebyId(elementb.getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm,"") + "'],");
-    });
-    map += sub +"], \n";
-    });
-    settings.thismap = map + "]\n";
-    takescreenshot();
-  getmaps((amount) => {
-    setTimeout(function (amount) {
-      
-    
-    var allstring = "var geld= " + settings.geld + ";\n";
-    
-    allstring += "var map = " + settings.thismap + ";\n";
-    allstring += "success= true;\n";
-    allstring += "var randomtiles = " + JSON.stringify(settings.randomtiles) + "\n\n\n\n \/\/ hier kommt das preview- Bild \n\n\n";
-    allstring +=  "var image = '" +document.getElementById("screenshot").getAttribute("src") + "';\n";
-    
-    settings.mapstring = allstring;
-    var blob = new Blob([allstring], {type: "text/plain;charset=utf-8"});
-    
-    saveAs(blob, "map" + (amount.length + 1) + ".js");
-
-  }.bind(null, amount), 500)
-  })}
-    function takescreenshot(){
-
-      getScreenshotOfElement(document.getElementById("allall"),0,0,document.getElementById("allall").getBoundingClientRect().width,document.getElementById("allall").getBoundingClientRect().height,function(data){document.getElementById("screenshot").setAttribute("src", "data:image/png;base64,"+data);});
+    function tile(id) {
+      this.rtile = 0;
+      this.tile = 0;
+      this.image = "../Bilder/Map/feld2.jpg";
+      this.hinter = "../Bilder/Map/feld1.jpg";
+      this.id = id;
+      this.last = "../Bilder/Map/feld2.jpg";
+      this.istwo = false;
+      this.update = update;
+      this.top = "../Bilder/Map/empty.png";
     }
-    
-    function resizekoords(x,y){
-        settings.wi = Math.round(window.innerWidth - window.innerWidth * 0.044);
-        settings.hei = Math.round(window.innerHeight - window.innerHeight * 0.51);
-        console.log(settings.wi + "," + settings.hei + "," + Math.round(window.innerWidth * 0.044) + "," + (settings.wi > settings.hei / x ? settings.hei / y : settings.wi));
-        //(wi > hei / x ? hei / y : wi)
-        //wi > hei ? hei / y : wi / x
-      return (settings.wi / x > settings.hei /y ? settings.hei / y : settings.wi /x);
+
+    function tilebyId(tid) {
+      var res = "";
+      tiles.forEach(element => {
+        if (element.id == tid) {
+          res = element;
+        }
+
+      });
+      return res;
+    }
+
+    function clix(el, right = false, ev = "") {
+      if (right) {
+        event.preventDefault();
+        tilebyId(el).update(0, settings.lastbackground);
+      } else {
+        tilebyId(el).update(settings.selectedinv, settings.selectedstyle);
+      }
+    }
+
+    function generatemapstring(call = () => {}) {
+      var map = "[";
+      var all = document.querySelectorAll("#allall .row");
+      all.forEach(element => {
+        var row = document.querySelectorAll("#allall #" + element.getAttribute("id") + " div");
+        //console.log(row);
+        var sub = "[";
+        row.forEach(elementb => {
+          //console.log(elementb);
+          if (tilebyId(elementb.getAttribute("identi")).istwo)
+            sub += ("[" + tilebyId(elementb.getAttribute("identi")).tile + ", ['" + tilebyId(elementb
+              .getAttribute("identi")).hinter.replace(/.*(?=Bilder.*\....)/gm, "") + "','" + tilebyId(elementb
+              .getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm, "") + "']],");
+          else
+            sub += ("[" + tilebyId(elementb.getAttribute("identi")).tile + ", '" + tilebyId(elementb
+              .getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm, "") + "'],");
+        });
+        map += sub + "], \n";
+      });
+      settings.thismap = map + "]\n";
+      takescreenshot();
+      getmaps((amount) => {
+        setTimeout(function (amount) {
+
+
+          var allstring = "var geld= " + settings.geld + ";\n";
+
+          allstring += "var map = " + settings.thismap + ";\n";
+          allstring += "success= true;\n";
+          allstring += "mapSchwie= "+ settings.difficulty +";\n";
+          allstring += "MapName = "+ settings.Mapname +";\n";
+          allstring += "multiStartTyp = "+ settings.starthandle +";\n";
+          
+
+          allstring += "var randomtiles = " + JSON.stringify(settings.randomtiles) +
+            "\n\n\n\n \/\/ hier kommt das preview- Bild \n\n\n";
+          allstring += "var image = '" + document.getElementById("screenshot").getAttribute("src") + "';\n";
+          console.log(document.getElementById("screenshot").getAttribute("src"))
+          settings.mapstring = allstring;
+          var blob = new Blob([allstring], {
+            type: "text/plain;charset=utf-8"
+          });
+
+          saveAs(blob, "map" + (amount.length + 1) + ".js");
+
+        }.bind(null, amount), 4000)
+      })
+    }
+
+    function takescreenshot() {
+
+      getScreenshotOfElement(document.getElementById("allall"), 0, 0, document.getElementById("allall")
+        .getBoundingClientRect().width, document.getElementById("allall").getBoundingClientRect().height,
+        function (data) {
+          document.getElementById("screenshot").setAttribute("src", "data:image/png;base64," + data);
+        });
+    }
+
+    function resizekoords(x, y) {
+      settings.wi = Math.round(window.innerWidth - window.innerWidth * 0.044);
+      settings.hei = Math.round(window.innerHeight - window.innerHeight * 0.51);
+      console.log(settings.wi + "," + settings.hei + "," + Math.round(window.innerWidth * 0.044) + "," + (settings.wi >
+        settings.hei / x ? settings.hei / y : settings.wi));
+      //(wi > hei / x ? hei / y : wi)
+      //wi > hei ? hei / y : wi / x
+      return (settings.wi / x > settings.hei / y ? settings.hei / y : settings.wi / x);
       //diese Funktion gibt die richtige Grösse aus
     }
 
-    do{    settings.Xkoordinaten = parseInt(window.prompt("wie viele X-koordinaten soll das Spiel haben?", ""), 10);}while(isNaN(settings.Xkoordinaten) || settings.Xkoordinaten > 50 || settings.Xkoordinaten < 5);do{    settings.Ykoordinaten = parseInt(window.prompt("wie viele Y-koordinaten soll das Spiel haben?", ""), 10);}while(isNaN(settings.Ykoordinaten) || settings.Ykoordinaten > 50 || settings.Ykoordinaten < 5);
-    generate(settings.Xkoordinaten,settings.Ykoordinaten);
- function generate(Xkoordinaten,Ykoordinaten){
-   tiles = [];
-  document.getElementById("area").innerHTML = "";   
+    do {
+      settings.Xkoordinaten = parseInt(window.prompt("wie viele X-koordinaten soll das Spiel haben?", ""), 10);
+    } while (isNaN(settings.Xkoordinaten) || settings.Xkoordinaten > 50 || settings.Xkoordinaten < 5);
+    do {
+      settings.Ykoordinaten = parseInt(window.prompt("wie viele Y-koordinaten soll das Spiel haben?", ""), 10);
+    } while (isNaN(settings.Ykoordinaten) || settings.Ykoordinaten > 50 || settings.Ykoordinaten < 5);
+    generate(settings.Xkoordinaten, settings.Ykoordinaten);
 
-var size = resizekoords(settings.Xkoordinaten,settings.Ykoordinaten);
- //document.body.innerHTML += `<div id=assa style="position:absolute; top:5px; left:5px; width:${settings.wi}px; height:${settings.hei}px; border:4px solid rgba(255,0,0,.5);"></div>`;
-    var all ="<div id=allall style='width:" + size * settings.Xkoordinaten + "px; height: "  + size * settings.Ykoordinaten +"px;'>";
-    for(var i = 0 ; i<settings.Ykoordinaten; i++){
-    all += `<div class="row" id="row${i}" style="height:${size}px; width:${size * settings.Xkoordinaten}px;margin-right:0px;">`
-      for(var j = 0 ; j<settings.Xkoordinaten; j++){
-        all += `<div identi="${i + "," + j}" class=feld style="height:${size}px; width:${size}px;" " >
+    function generate(Xkoordinaten, Ykoordinaten) {
+      tiles = [];
+      document.getElementById("area").innerHTML = "";
+
+      var size = resizekoords(settings.Xkoordinaten, settings.Ykoordinaten);
+      //document.body.innerHTML += `<div id=assa style="position:absolute; top:5px; left:5px; width:${settings.wi}px; height:${settings.hei}px; border:4px solid rgba(255,0,0,.5);"></div>`;
+      var all = "<div id=allall style='width:" + size * settings.Xkoordinaten + "px; height: " + size * settings
+        .Ykoordinaten + "px;'>";
+      for (var i = 0; i < settings.Ykoordinaten; i++) {
+        all +=
+          `<div class="row" id="row${i}" style="height:${size}px; width:${size * settings.Xkoordinaten}px;margin-right:0px;">`
+        for (var j = 0; j < settings.Xkoordinaten; j++) {
+          all += `<div identi="${i + "," + j}" class=feld style="height:${size}px; width:${size}px;" " >
       <input id=${"a" + i + "," + j} class=tile type="hidden" value=0>
       <input id=${"b" + i + "," + j} class=design type="hidden" value=0>
       <img id=${i + "," + j + "bottom"} class="bottom" src="../Bilder/Map/feld1.jpg" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
       <img id=${i + "," + j} src="../Bilder/Map/feld1.jpg" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
       <img id=${i + "," + j + "top"} class=top src="../Bilder/Map/empty.png" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
     </div>`
-    tiles.push(new tile(i + "," + j));
+          tiles.push(new tile(i + "," + j));
+        }
+        all += "</div>";
+      }
+      all += "</div>";
+      document.getElementById("area").innerHTML = all;
+      tiles.forEach(element => {
+        element.update(0, "../Bilder/Map/feld1.jpg");
+      });
     }
-    all+= "</div>";
-  }
-  all+= "</div>";
-document.getElementById("area").innerHTML = all;  
-tiles.forEach(element => {
-  element.update(0,"../Bilder/Map/feld1.jpg");
-});}
 
-function rotateIt(image, rotateAngle) {
-  var old = image.getAttribute("style").split(";;")
-  console.log(image);
-  image.setAttribute("style", old[0] + ";;transform: rotate(" + rotateAngle + "deg)");
-  rotateAngle = rotateAngle + 90;
-}
-function convert(){
-var leng = tiles.length;
+    function rotateIt(image, rotateAngle) {
+      var old = image.getAttribute("style").split(";;")
+      console.log(image);
+      image.setAttribute("style", old[0] + ";;transform: rotate(" + rotateAngle + "deg)");
+      rotateAngle = rotateAngle + 90;
+    }
 
-}
-getmaps();
-function getmaps(func=(()=>{})) {
-          mapold = map;
-          geldold = settings.geld;
-          var script = document.createElement("script");
-          script.src = "../Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
-          //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-          // eslint-disable-next-line no-console
-          document.body.appendChild(script);
-          script.onerror = function(el, func) {
-            success = false;
-            handle(el, func, (function() {
-              success = false;
-            })());
-          }.bind(null, script, func);
-          script.onload = function(el, func) {
-              handle(el, func)
-          }.bind(null, script, func);
+    function convert() {
+      var leng = tiles.length;
+
+    }
+    getmaps();
+
+    function getmaps(func = (() => {})) {
+      mapold = map;
+      geldold = settings.geld;
+      var script = document.createElement("script");
+      script.src = "../Maps/map" + checkerturn +
+        `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
+      //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+      // eslint-disable-next-line no-console
+      document.body.appendChild(script);
+      script.onerror = function (el, func) {
+        success = false;
+        handle(el, func, (function () {
+          success = false;
+        })());
+      }.bind(null, script, func);
+      script.onload = function (el, func) {
+        handle(el, func)
+      }.bind(null, script, func);
+    }
+    document.addEventListener("click", function (event) {
+      try {
+        if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")) {
+          clix(event.target.id.replace("top", ""));
+        } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage")) {
+          settings.selectedinv = parseInt(event.path[1].getAttribute("invno"));
+          document.querySelectorAll(".inimage").forEach((element) => {
+            element.setAttribute("class", "inimage");
+            element.setAttribute("style", "");
+          })
+          event.path[1].setAttribute("class", "inimage selected");
+          event.path[1].setAttribute("style", "z-index:10000");
+          settings.selectedstyle = event.path[0].getAttribute("src");
+        } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("floaties")) {
+          settings.selectedinv = parseInt(event.path[2].children[0].getAttribute("invno"));
+          //console.log(event.path[2].getAttribute("invno"));
+          document.querySelectorAll(".inimage").forEach((element) => {
+            element.setAttribute("class", "inimage");
+            element.setAttribute("style", "");
+          })
+          event.path[2].children[0].children[0].setAttribute("src", event.path[0].getAttribute("src"));
+          settings.selectedstyle = event.path[0].getAttribute("src");
+          var c = Array.prototype.slice.call(event.path[1].children);
+          c.forEach((el) => {
+            el.setAttribute("class", "false")
+          });
+          event.path[0].setAttribute("class", "true");
+          event.path[1].style.display = "none";
+          document.querySelectorAll(".inimage").forEach((element) => {
+            element.setAttribute("class", "inimage");
+            element.setAttribute("style", "");
+          })
+          event.path[2].children[0].setAttribute("class", "inimage selected");
+          event.path[2].children[0].setAttribute("style", "z-index:10000");
         }
-document.addEventListener("click",function(event){
-  try{
-  if(JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")){
-          clix(event.target.id.replace("top",""));
-        }else if(JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage")){
-         settings.selectedinv = parseInt(event.path[1].getAttribute("invno"));
-         document.querySelectorAll(".inimage").forEach((element)=> {element.setAttribute("class","inimage");element.setAttribute("style","");})
-         event.path[1].setAttribute("class", "inimage selected");
-         event.path[1].setAttribute("style", "z-index:10000");
-         settings.selectedstyle = event.path[0].getAttribute("src");
-        }else if(JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("floaties")){
-         settings.selectedinv = parseInt(event.path[2].children[0].getAttribute("invno"));
-         //console.log(event.path[2].getAttribute("invno"));
-         document.querySelectorAll(".inimage").forEach((element)=> {element.setAttribute("class","inimage");element.setAttribute("style","");})
-         event.path[2].children[0].children[0].setAttribute("src", event.path[0].getAttribute("src"));
-         settings.selectedstyle = event.path[0].getAttribute("src");
-         var c =Array.prototype.slice.call(event.path[1].children);
-         c.forEach((el)=>{el.setAttribute("class", "false")});
-         event.path[0].setAttribute("class", "true");
-         event.path[1].style.display ="none";
-         document.querySelectorAll(".inimage").forEach((element)=> {element.setAttribute("class","inimage");element.setAttribute("style","");})
-         event.path[2].children[0].setAttribute("class", "inimage selected");
-         event.path[2].children[0].setAttribute("style", "z-index:10000");
-        }
 
-      }catch(Error){
-console.log(Error);
+      } catch (Error) {
+        console.log(Error);
       }
-        document.querySelectorAll(".floaties").forEach((el)=>{el.style.display="none";})
-        });
-        document.addEventListener("contextmenu",function(event){
-          try{
-  if(JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")){
-    console.log(event.path[1].getAttribute("class")) == JSON.stringify("feld")
-          clix(event.target.id.replace("top",""),true,event);
+      document.querySelectorAll(".floaties").forEach((el) => {
+        el.style.display = "none";
+      })
+    });
+    document.addEventListener("contextmenu", function (event) {
+      try {
+        if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")) {
+          console.log(event.path[1].getAttribute("class")) == JSON.stringify("feld")
+          clix(event.target.id.replace("top", ""), true, event);
+        } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage") || JSON
+          .stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage selected")) {
+          event.path[2].children[1].style.display = "block";
+          event.preventDefault();
         }
-        else if(JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage")||JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage selected")){
-        event.path[2].children[1].style.display = "block";
-        event.preventDefault();
-        }
-      }catch(Error){
-console.log(Error);
+      } catch (Error) {
+        console.log(Error);
       }
-        });
-        settings.selectedinv = 0;
-        settings.selectedstyle = "../Bilder/Map/feld1.jpg";
-        document.getElementById("slider").addEventListener ("input", function () {
-   settings.opacity = this.value;
-   document.getElementById("val").innerHTML = this.value;
-   document.querySelectorAll(".top").forEach((element)=>{element.style.opacity=this.value;})
-});
-function dateiauswahl(evt) {
-  // FileList-Objekt des input-Elements auslesen, auf dem 
-  // das change-Event ausgelöst wurde (event.target)
-  var files = evt.target.files; 
+    });
+    settings.selectedinv = 0;
+    settings.selectedstyle = "../Bilder/Map/feld1.jpg";
+    document.getElementById("slider").addEventListener("input", function () {
+      settings.opacity = this.value;
+      document.getElementById("val").innerHTML = this.value;
+      document.querySelectorAll(".top").forEach((element) => {
+        element.style.opacity = this.value;
+      })
+    });
 
-  // Deklarierung eines Array Objekts mit Namen "fragmente". Hier werden die Bausteine
-  // für die erzeugte Listenausgabe gesammelt.
-  var fragmente = [];
-  // Zählschleife; bei jedem Durchgang den Namen, Typ und 
-  // die Dateigröße der ausgewählten Dateien zum Array hinzufügen
-  for (var i = 0, f; f = files[i]; i++) {
-    fragmente.push('<li><strong>', f.name, '</strong> (', f.type || 'n/a', ') - ',
-                   f.size, ' bytes</li>');
-  }
-  if(/.*\.mapfile$/.test(files[0].name)){
-    ismaptrue = true;
-    var reader = new FileReader();
-    reader.onload = function(){
-      dataURL = reader.result;
-    };
-    reader.readAsText(files[0]);
-  }else{
-    dataURL = false;
-    ismaptrue = false;
-  }
-  // Alle Fragmente im fragmente Array aneinanderhängen, in eine unsortierte Liste einbetten
-  // und das alles als HTML-Inhalt in das output-Elements mit id='dateiListe' einsetzen.
-  document.getElementById('dateiListe').innerHTML = '<ul>' + fragmente.join('') + '</ul>';
-}
+    function dateiauswahl(evt) {
+      // FileList-Objekt des input-Elements auslesen, auf dem 
+      // das change-Event ausgelöst wurde (event.target)
+      var files = evt.target.files;
 
-// UI-Events erst registrieren wenn das DOM bereit ist!
-document.addEventListener("DOMContentLoaded", function() {
-  // Falls neue Eingabe, neuer Aufruf der Auswahlfunktion
-  document.getElementById('dateien').addEventListener('change', dateiauswahl, false);
-});
-function convertfromjs(){
-  
-}
+      // Deklarierung eines Array Objekts mit Namen "fragmente". Hier werden die Bausteine
+      // für die erzeugte Listenausgabe gesammelt.
+      var fragmente = [];
+      // Zählschleife; bei jedem Durchgang den Namen, Typ und 
+      // die Dateigröße der ausgewählten Dateien zum Array hinzufügen
+      for (var i = 0, f; f = files[i]; i++) {
+        fragmente.push('<li><strong>', f.name, '</strong> (', f.type || 'n/a', ') - ',
+          f.size, ' bytes</li>');
+      }
+      if (/.*\.mapfile$/.test(files[0].name)) {
+        ismaptrue = true;
+        var reader = new FileReader();
+        reader.onload = function () {
+          dataURL = reader.result;
+        };
+        reader.readAsText(files[0]);
+      } else {
+        dataURL = false;
+        ismaptrue = false;
+      }
+      // Alle Fragmente im fragmente Array aneinanderhängen, in eine unsortierte Liste einbetten
+      // und das alles als HTML-Inhalt in das output-Elements mit id='dateiListe' einsetzen.
+      document.getElementById('dateiListe').innerHTML = '<ul>' + fragmente.join('') + '</ul>';
+    }
+
+    // UI-Events erst registrieren wenn das DOM bereit ist!
+    document.addEventListener("DOMContentLoaded", function () {
+      // Falls neue Eingabe, neuer Aufruf der Auswahlfunktion
+      document.getElementById('dateien').addEventListener('change', dateiauswahl, false);
+    });
+
+    function convertfromjs() {
+
+    }
   </script>
 </body>
+
 </html>
