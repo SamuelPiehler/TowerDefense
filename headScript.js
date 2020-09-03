@@ -323,7 +323,8 @@ gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png', 500, 0.9 ,[7], [3] , 12
 gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png', 250, 1.4 ,[], [] , 1, 1]); // 11 wird von anderen gegnern gespawned
 gegnertypen.push(['Bilder/Gegner/gegner12Speedbuff.png', 400, 1.2 ,[11], [[5, 140]], 14 , 2]); //12 Bufft speed von anderen Gegner um 5% 140 reichweite
 gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 800 , 1.6, [12], [[50, 140]], 20, 6]); //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
-gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 1000, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 10 , 4]); //14 slowed die Türme in 140 reichweite um 2%
+gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 1000, 0.7, [14], [[500, 140, 100]], 10 , 4]); //14 slowed die Türme in 140 reichweite um 2%
+// gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 1000, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 10 , 4]); //14 slowed die Türme in 140 reichweite um 2%
 gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png', 3000, 0.8, [], [], 30 , 15]); //15 Boss2
 gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 2500, 0.7, [8], [[500, 8]], 35, 20]); // 16 Boss3 spawnt alle 5 sec gegner 8 (heiler)
 

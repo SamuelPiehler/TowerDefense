@@ -97,19 +97,21 @@ function Gegner(id, typ, lebenMult){
             var inRange = [];
             var countInRange = 0;
             tuerme.forEach((item, j) => {
-              var entfernung = getEntfernung(item, this);
-              if (entfernung <= this.imunitätStärke[i][1]) {
-                countInRange++;
-                inRange.push(j);
+              if (item != undefined) {
+                var entfernung = getEntfernung(item, this);
+                if (entfernung <= this.imunitätStärke[i][1]) {
+                  countInRange++;
+                  inRange.push(j);
+                }
               }
             });
             if (countInRange > 0) {
               var target = inRange[Math.floor(Math.random()*countInRange)];
-              tuerme[target].towerStun = Math.max(tuerme[target].towerStun, this.imunitätStärke[i][0]);
+              tuerme[target].towerStun = Math.max(tuerme[target].towerStun, this.imunitätStärke[i][2]);
             }
-            break;
-          this.letzterEffeckt[i] += this.imunitätStärke[i][0];
-        }
+            this.letzterEffeckt[i] += this.imunitätStärke[i][0];
+          }
+          break;
       }
     }
     var effektStaerken = [];    //erzeuge ein array zum abspeichern des stärksten effeckts von jedem typ
