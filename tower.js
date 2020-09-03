@@ -450,12 +450,20 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       uebergabeEffektStaerke[i] *= (1+this.buffStaerken[2]/100);
       uebergabeEffektTime[i] *= (1+this.buffStaerken[2]/100);
     }
-    target = -1;
-    target2 = -1;
+    var target = -1;
+    var targetAgro = false;
+    var target2 = -1;
+    var target2Agro = false;
     gegner.forEach((item, i) => {   //überprüfe jeden gegner
       if (item != undefined) {
         var entfernung = getEntfernung(item, this);    //entfernung zum gegner
         if (entfernung <= this.reichweite*(1+this.buffStaerken[3]/100)) {    //wenn in reichweite
+          itemAgro = false;
+          for (var j = 0; j < item.imunität.length; j++) {
+            if (item.imunität[j] == 9) {
+              itemAgro = true;
+            }
+          }
           if (this.drehGeschw == 0) {     //drehgeschwindigkeit 0 trifft alle gegner in reichweite und ziehlt nicht
             if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {     //wenn letzter angriff langenug her war greife gegner an
               gegner[i].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
@@ -467,68 +475,90 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               target = i;
             }
             else {
-              switch (this.targetPrio) {
-                case 0:
-                  if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].strecke < item.strecke) {
-                    target2 = i;
-                  }
-                  break;
-                case 1:
-                  if (gegner[target].strecke > item.strecke) {   //update targets so dass der letzte gegner immer target 1 ist und der zweite von hinten  target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].strecke > item.strecke) {
-                    target2 = i;
-                  }
-                  break;
-                case 2:
-                  if (gegner[target].leben < item.leben) {   //update targets so dass der gegner mit den meisten leben immer target 1 ist und der zweite target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].leben < item.leben) {
-                    target2 = i;
-                  }
-                  break;
-                case 3:
-                  if (gegner[target].leben > item.leben) {   //update targets so dass der gegner mit den wenigsten leben immer target 1 ist und der zweite target 2
-                    target2 = target;
-                    target = i;
-                  }
-                  else if (gegner[target2] == undefined || gegner[target2].leben > item.leben) {
-                    target2 = i;
-                  }
-                  break;
+              if ((targetAgro && itemAgro) || (!targetAgro && !itemAgro)) {
+                switch (this.targetPrio) {
+                  case 0:
+                    if (gegner[target].strecke < item.strecke) {   //update targets so dass der weiteste gegner immer target 1 ist und der zweit weiteste gegner target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].strecke < item.strecke && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 1:
+                    if (gegner[target].strecke > item.strecke) {   //update targets so dass der letzte gegner immer target 1 ist und der zweite von hinten  target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].strecke > item.strecke && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 2:
+                    if (gegner[target].leben < item.leben) {   //update targets so dass der gegner mit den meisten leben immer target 1 ist und der zweite target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].leben < item.leben && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 3:
+                    if (gegner[target].leben > item.leben) {   //update targets so dass der gegner mit den wenigsten leben immer target 1 ist und der zweite target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].leben > item.leben && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                }
+              }
+              else if (itemAgro && !targetAgro) {
+                target2 = target;
+                target = i;
+                target2Agro = targetAgro;
+                targetAgro = itemAgro;
               }
             }
           }
           else {
-            switch (this.targetPrio) {
-              case 0:
-                if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {
-                  target = i;
-                }
-                break;
-              case 1:
-                if (gegner[target] == undefined || gegner[target].strecke > item.strecke) {
-                  target = i;
-                }
-                break;
-              case 2:
-                if (gegner[target] == undefined || gegner[target].leben < item.leben) {
-                  target = i;
-                }
-                break;
-              case 3:
-                if (gegner[target] == undefined || gegner[target].leben > item.leben) {
-                  target = i;
-                }
-                break;
+            if ((targetAgro && itemAgro) || (!targetAgro && !itemAgro)) {
+              switch (this.targetPrio) {
+                case 0:
+                  if (gegner[target] == undefined || gegner[target].strecke < item.strecke) {
+                    target = i;
+                  }
+                  break;
+                case 1:
+                  if (gegner[target] == undefined || gegner[target].strecke > item.strecke) {
+                    target = i;
+                  }
+                  break;
+                case 2:
+                  if (gegner[target] == undefined || gegner[target].leben < item.leben) {
+                    target = i;
+                  }
+                  break;
+                case 3:
+                  if (gegner[target] == undefined || gegner[target].leben > item.leben) {
+                    target = i;
+                  }
+                  break;
+              }
+            }
+            else if (itemAgro && !targetAgro) {
+              target = i;
+              targetAgro = itemAgro;
             }
           }
         }
