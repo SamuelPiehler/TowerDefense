@@ -45,7 +45,7 @@ var lebenMult = 1;
 var gegnerWellen = [];  //liste aller teilwellen
 //0 = Gegnertyp, 1 = Lebenmult, 2 = Anzahl, 3 = ZeitZwischenGegnern, 4 = ZeitBisZurNächstenTeilwelle(-1 für WellenEnde)
 // 1
-gegnerWellen.push([0, lebenMult, 10, 1.6, -1]);
+gegnerWellen.push([14, lebenMult, 10, 16, -1]);
 // 2
 gegnerWellen.push([0, lebenMult, 12, 1, -1]);
 // 3
