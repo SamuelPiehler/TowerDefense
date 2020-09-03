@@ -12,7 +12,7 @@ function Gegner(id, typ, lebenMult){
   this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten/effeckte hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
-    this.letzterEffeckt[i] = roundTime;
+    this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
   }
   this.effektTyp = [];    //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
   this.effektStaerke = [];  //wie stark ist der jeweilige effeckt
@@ -41,7 +41,18 @@ function Gegner(id, typ, lebenMult){
   this.bewegen = function (){   //gametick für gegner
     for (var i = 0; i < this.imunität.length; i++) {
       if (this.imunität[i] == 8) {
-
+        if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+          this.letzterEffeckt[i] += this.imunitätStärke[i][0];
+          var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult);
+          gegner[spawnId].strecke = this.strecke;
+          gegner[spawnId].mapx = this.mapx;
+          gegner[spawnId].mapy = this.mapy;
+          gegner[spawnId].posx = this.posx;
+          gegner[spawnId].posy = this.posy;
+          gegner[spawnId].richtung = this.richtung;
+          gegner[spawnId].bewegt = this.bewegt;
+          gegner[spawnId].wert = 0;
+        }
       }
       else if (this.imunität[i] == 10) {
         if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
@@ -57,12 +68,7 @@ function Gegner(id, typ, lebenMult){
               }
             }
           });
-          if (this.letzterEffeckt[i] + this.imunitätStärke[i][0] + gameSpeed > roundTime) {
-            this.letzterEffeckt[i] += this.imunitätStärke[i][0];
-          }
-          else {
-            this.letzterEffeckt[i] = roundTime;
-          }
+          this.letzterEffeckt[i] += this.imunitätStärke[i][0];
         }
       }
       else if (this.imunität[i] == 11) {
@@ -354,7 +360,7 @@ function Gegner(id, typ, lebenMult){
       if (this.imunität == 7) {
         for (var j = 0; j < this.imunitätStärke[i]; j++) {
           var spawnId = spawn(11, this.lebenMult);
-          var posDifference = 10;
+          var posDifference = 20;
           gegner[spawnId].strecke = this.strecke - j * posDifference / 70 * size;
           gegner[spawnId].mapx = this.mapx;
           gegner[spawnId].mapy = this.mapy;
