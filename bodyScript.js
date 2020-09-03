@@ -363,7 +363,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
     };
     bild.src = src;
     bild.onerror = function () {
-      console.log("missing img!!");
+      console.error("missing img!!", src, "loading = " + loading);
       if (loading == 1) {   //wenn alle buffer bilder fertig geladen sind
         waitForBildLoad.forEach((item, i) => {    //zeichne alle bilder in der warteliste
           item();
