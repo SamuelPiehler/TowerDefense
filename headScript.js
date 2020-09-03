@@ -311,7 +311,7 @@ var gegnertypen = [];
 //0 = Bild, 1 = Leben, 2 = Geschwindigkeit, 3 = Imunität/effekt, 4 = Imunität%/effecktstärke, 5 = GeldBeiKill, 6= Spielerschaden
 gegnertypen.push(['Bilder/Gegner/gegner00Basic.png', 150, 1, [], [], 1, 1]);   //0 Basic
 gegnertypen.push(['Bilder/Gegner/gegner01BonusHp.png', 250, 1, [], [], 2, 1]);   //1 Basic mit etwas mehr Leben
-gegnertypen.push(['Bilder/Gegner/gegner02langsamTank.png', 550, 0.6, [0], [50], 6, 1]);  //2 Langsamer Gegner mit viel Leben slowimmunität
+gegnertypen.push(['Bilder/Gegner/gegner02LangsamTank.png', 550, 0.6, [0], [50], 6, 1]);  //2 Langsamer Gegner mit viel Leben slowimmunität
 gegnertypen.push(['Bilder/Gegner/gegner03Schnell.png', 250, 1.6, [], [], 4, 1]);   //3 Schneller Gegner
 gegnertypen.push(['Bilder/Gegner/gegner04Immunitaeten.png', 450, 0.8, [2,3,5], [75,100,20], 8, 1]);   //4 etwas Langsamer Gegner mit vielen Immunitäten
 gegnertypen.push(['Bilder/Gegner/gegner05GiftImmun.png', 350, 0.8, [3], [75], 5, 1]);  //5 Gift immuner Gegner
@@ -321,7 +321,7 @@ gegnertypen.push(['Bilder/Gegner/gegner08Heiler.png', 750, 1.6 ,[10], [[100, 140
 gegnertypen.push(['Bilder/Gegner/gegner09SpawnTimer.png', 600, 0.7, [8], [[150, 0]], 15, 6]); //9 spawnt Gegner 1 alle 0.5 sec (=50)
 gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png', 500, 0.9 ,[7], [3] , 12, 4]); //10 nach dem Tod spawnt er 3 mal Gegner 11
 gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png', 250, 1.4 ,[], [] , 1, 1]); // 11 wird von anderen gegnern gespawned
-gegnertypen.push(['Bilder/Gegner/gegner12Speedbuff.png', 400, 1.2 ,[11], [[5, 140]], 14 , 2]); //12 Bufft speed von anderen Gegner um 5% 140 reichweite
+gegnertypen.push(['Bilder/Gegner/gegner12SpeedBuff.png', 400, 1.2 ,[11], [[5, 140]], 14 , 2]); //12 Bufft speed von anderen Gegner um 5% 140 reichweite
 gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 800 , 1.6, [12], [[50, 140]], 20, 6]); //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
 gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 1000, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 10 , 4]); //14 slowed die Türme in 350 reichweite um 5% und stunned alle 5 sec einen turm in 140 reichweite für 1 sec
 gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png', 3000, 0.8, [], [], 30 , 15]); //15 Boss2
