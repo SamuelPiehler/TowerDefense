@@ -355,22 +355,24 @@ function Gegner(id, typ, lebenMult){
         for (var j = 0; j < this.imunitätStärke[i]; j++) {
           var spawnId = spawn(11, this.lebenMult);
           gegner[spawnId].strecke = this.strecke - j * 5 / 70 * size;
+          gegner[spawnId].mapx = this.mapx;
+          gegner[spawnId].mapy = this.mapy;
           gegner[spawnId].posx = this.posx;
           gegner[spawnId].posy = this.posy;
           gegner[spawnId].richtung = this.richtung;
           gegner[spawnId].bewegt = this.bewegt - j * 5 / 70 * size;
           switch (this.richtung) {
             case 0:
-              this.posy += 1 * (j * 5 / 70 * size);
+              gegner[spawnId].posy += 1 * (j * 5 / 70 * size);
               break;
             case 1:
-              this.posx += -1 * (j * 5 / 70 * size);
+              gegner[spawnId].posx += -1 * (j * 5 / 70 * size);
               break;
             case 2:
-              this.posy += -1 * (j * 5 / 70 * size);
+              gegner[spawnId].posy += -1 * (j * 5 / 70 * size);
               break;
             case 3:
-              this.posx += 1 * (j * 5 / 70 * size);
+              gegner[spawnId].posx += 1 * (j * 5 / 70 * size);
               break;
           }
         }

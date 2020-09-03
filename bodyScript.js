@@ -432,7 +432,9 @@ function spawnTeilWelle() {
   var welle = gegnerWellen[teilWellenNummer];
   wellenEnde = Math.max(wellenEnde, roundTime + (welle[3]*100*(welle[2]-0.5)));  //setzt eine zeit wann die welle frühestens zuende sein kann (wann spawned letzter gegner der teilwelle)
   spawn(welle[0], welle[1]);  //spawned ersten gegner der teilwelle
-  intervals.push([function(übergabe){spawn(übergabe[0], übergabe[1]);}, [welle[0], welle[1]], roundTime, welle[3]*100, welle[2] - 1]);  //intervall wann gegner dieser teilwelle spawnen
+  if (welle[2] > 1) {
+    intervals.push([function(übergabe){spawn(übergabe[0], übergabe[1]);}, [welle[0], welle[1]], roundTime, welle[3]*100, welle[2] - 1]);  //intervall wann gegner dieser teilwelle spawnen
+  }
   teilWellenNummer++;
 }
 
