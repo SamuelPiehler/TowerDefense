@@ -149,7 +149,7 @@ speedButton.addEventListener("mouseleave", function(){
 //erzeugt geschwindigkeits button mit eventlistener
 var autoStartButton = document.createElement("img");
 document.body.appendChild(autoStartButton);
-autoStartButton.src = "Bilder/Buttons/AutoStartAus.png";
+autoStartButton.src = "Bilder/Buttons/autoStartAus.png";
 autoStartButton.className  = "button";
 autoStartButton.style.position = 'absolute';
 
@@ -1072,8 +1072,13 @@ function update() {
       }
     }
     tuerme.forEach((item, i) => {   //turm tick
-      if (tuerme[i] != undefined) {
-        tuerme[i].zielen()
+      if (item != undefined) {
+        item.zielen()
+      }
+    });
+    gegner.forEach((item, i) => {
+      if (item != undefined) {
+        item.shieldedFrom = [];
       }
     });
     if (gegner.length == 0 && roundTime > wellenEnde) {   //wenn welle zuende ist (alle gegener tot)
