@@ -272,6 +272,10 @@
           objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
           objContext2 = gegnerBildHidden.getContext('2d');
           objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+          gegnerBildHidden.width = size*map[0].length;
+          gegnerBildHidden.height = size*map.length;
+          gegnerBild.width = size*map[0].length;
+          gegnerBild.height = size*map.length;
           tuerme.forEach((item, i) => {
             if (item != undefined) {
               item.canvasBase.remove();
