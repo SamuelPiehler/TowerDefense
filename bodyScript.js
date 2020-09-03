@@ -21,28 +21,35 @@ gegnerBildHidden.height = size*map.length;
 
 //erzeugt den Tower select bereich
 var towerSelect = [];
+if (size*1.7*5+100+size < screen.height) {
+  var selectSize = size;
+}
+else {
+  var selectSize = (screen.height - 100) / (1.7 * 5 + 1);
+}
 for (var i = 0; i < towertypen.length; i++) {
   towerSelect[i] = [];
-  for (var j = 0; j < 3; j = j+2) {
+  for (var j = 0; j < 2; j++) {
     towerSelect[i][j] = document.createElement("canvas");
     document.body.appendChild(towerSelect[i][j]);
-    towerSelect[i][j].width = size;
-    towerSelect[i][j].height = size;
+    towerSelect[i][j].width = selectSize;
+    towerSelect[i][j].height = selectSize;
     towerSelect[i][j].style.position = 'absolute';
-    var x = size * (map[0].length) + 90;
-    var y = size*1.7*i+100;
+    var x = size * map[0].length + 90;
+    var y = selectSize*1.7*i+100;
     if (i >= 6) {
       x += 120;
-      y -= 6*size*1.7;
+      y -= 6*selectSize*1.7;
     }
     towerSelect[i][j].style.left = x +'px';
     towerSelect[i][j].style.top = y +'px';
+    towerSelect[i][j].style.zIndex = j;
   }
-  ladeBild(towertypen[i][1], towerSelect[i][2], 0);
-  towerSelect[i][2].name = i;
-  towerSelect[i][2].addEventListener('click', select);
-  towerSelect[i][2].addEventListener('mouseover', function(evt){showStats(evt, this);});
-  towerSelect[i][2].addEventListener('mouseleave', function(){hideStats();});
+  ladeBild(towertypen[i][1], towerSelect[i][1], 0, false, 0, 0, undefined, selectSize);
+  towerSelect[i][1].name = i;
+  towerSelect[i][1].addEventListener('click', select);
+  towerSelect[i][1].addEventListener('mouseover', function(evt){showStats(evt, this);});
+  towerSelect[i][1].addEventListener('mouseleave', function(){hideStats();});
 }
 
 //erzeugt start/pause button mit eventlistener
@@ -51,7 +58,8 @@ document.body.appendChild(startButton);
 startButton.src = "Bilder/Buttons/start.png";
 startButton.className  = "button";
 startButton.style.position = 'absolute';
-startButton.style.left = (size * (map[0].length+1.5))+'px';
+startButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 4 + 5 + 'px';
+// startButton.style.left = (size * (map[0].length+1.5))+'px';
 startButton.style.top = 50+'px';
 startButton.addEventListener("click", function(){
   startAndPause();  //funktion zum wechseln zwischen start und pause (anzeige von button und pause variable)
@@ -113,7 +121,8 @@ document.body.appendChild(speedButton);
 speedButton.src = "Bilder/Buttons/speedx1.png";
 speedButton.className  = "button";
 speedButton.style.position = 'absolute';
-speedButton.style.left = (size * (map[0].length+2) + 45)+'px';
+speedButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 2 + 45 + 5 + 'px';
+// speedButton.style.left = (size * (map[0].length+2) + 45)+'px';
 speedButton.style.top = 50+'px';
 speedButton.addEventListener("click", function(){
   changeGameSpeed();
@@ -143,31 +152,33 @@ document.body.appendChild(autoStartButton);
 autoStartButton.src = "Bilder/Buttons/AutoStartAus.png";
 autoStartButton.className  = "button";
 autoStartButton.style.position = 'absolute';
-autoStartButton.style.left = (size * (map[0].length+2.5) + 45 + 77)+'px';
+
+autoStartButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 4 * 3 + 45 + 77 + 5 + 'px';
+// autoStartButton.style.left = (size * (map[0].length+2.5) + 45 + 77)+'px';
 autoStartButton.style.top = 50+'px';
 autoStartButton.addEventListener("click", function(){
   autoStart = !autoStart;
   if (autoStart) {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAnHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAnHover.png";
   }
   else {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAusHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAusHover.png";
   }
 });
 autoStartButton.addEventListener("mouseover", function(){
   if (autoStart) {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAnHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAnHover.png";
   }
   else {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAusHover.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAusHover.png";
   }
 });
 autoStartButton.addEventListener("mouseleave", function(){
   if (autoStart) {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAn.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAn.png";
   }
   else {
-    autoStartButton.src = "Bilder/Buttons/AutoStartAus.png";
+    autoStartButton.src = "Bilder/Buttons/autoStartAus.png";
   }
 });
 
@@ -329,7 +340,7 @@ function buildMap() {
 }
 
 //warte bis bild geladen und zeichne es dann (um this. variablen für onload vorzubereiten weil this.bei onload eine andere bedeutung hat)
-function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2) {
+function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 = undefined, bildSize = size) {
   if (bildBuffer[src] == undefined) {     //wenn das bild noch nicht im buffer
     bildBuffer[src] = document.createElement('canvas');   //erzeuge neues kanvas im buffer in dem das bild dann abgespeichert wird
     bildBuffer[src].width = 70;
@@ -338,7 +349,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2)
     loading++;
     bild.onload = function(){
       zeichneBufferBild(bildBuffer[src], this, 0);    //zeiche das bild in den buffer
-      zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2);    //hole das bild aus dem buffer und zeichne es
+      zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2, bildSize);    //hole das bild aus dem buffer und zeichne es
       if (loading == 1) {   //wenn alle buffer bilder fertig geladen sind
         waitForBildLoad.forEach((item, i) => {    //zeichne alle bilder in der warteliste
           item();
@@ -367,10 +378,10 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2)
   }
   else {
     if (loading == 0) {
-      zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2);
+      zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2, bildSize);
     }
     else {    //wenn buffer gerade ein neues bild läd warte bis dieser fertig ist und zeichne das bild erst dann
-      waitForBildLoad.push(function(){zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2)});
+      waitForBildLoad.push(function(){zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2, bildSize)});
     }
   }
 }
@@ -421,7 +432,9 @@ function spawnTeilWelle() {
   var welle = gegnerWellen[teilWellenNummer];
   wellenEnde = Math.max(wellenEnde, roundTime + (welle[3]*100*(welle[2]-0.5)));  //setzt eine zeit wann die welle frühestens zuende sein kann (wann spawned letzter gegner der teilwelle)
   spawn(welle[0], welle[1]);  //spawned ersten gegner der teilwelle
-  intervals.push([function(übergabe){spawn(übergabe[0], übergabe[1]);}, [welle[0], welle[1]], roundTime, welle[3]*100, welle[2] - 1]);  //intervall wann gegner dieser teilwelle spawnen
+  if (welle[2] > 1) {
+    intervals.push([function(übergabe){spawn(übergabe[0], übergabe[1]);}, [welle[0], welle[1]], roundTime, welle[3]*100, welle[2] - 1]);  //intervall wann gegner dieser teilwelle spawnen
+  }
   teilWellenNummer++;
 }
 
@@ -430,8 +443,8 @@ function showStats(evt, object) {
   statFenster = document.createElement("div");
   document.body.appendChild(statFenster);
   statFenster.style.position = 'absolute';
-  var x = evt.srcElement.offsetLeft + size*0.9;
-  var y = evt.srcElement.offsetTop + size*0.85;
+  var x = evt.srcElement.offsetLeft + selectSize*0.9;
+  var y = evt.srcElement.offsetTop + selectSize*0.85;
   statFenster.style.backgroundColor  = '#d5d0ff';
   statFenster.style.zIndex = 10;
   statFenster.innerHTML = towertypen[object.name][10] + "<br>";
@@ -507,7 +520,13 @@ function showStats(evt, object) {
     }
   }
   if (x + statFenster.offsetWidth > document.body.offsetWidth) {
-    statFenster.style.right = '0px';
+    x -= statFenster.offsetWidth + selectSize*0.8;
+    if (x < 0) {
+      statFenster.style.left = '0px';
+    }
+    else {
+      statFenster.style.left = x+'px';
+    }
   }
   else {
     statFenster.style.left = x+'px';
@@ -817,26 +836,26 @@ function hideUpgrade(){
   }
 }
 
-function zeicheBild(canvas, objImg, winkel, clear, x = 0, y = 0, richtung2 = undefined){
+function zeicheBild(canvas, objImg, winkel, clear, x = 0, y = 0, richtung2 = undefined, bildSize){
   objContext = canvas.getContext('2d');   //wähle inhalt des canvas zum verändern aus
-  objContext.translate(size/2*Math.sqrt(2)*Math.sin((winkel-45)*Math.PI/180), -size/2*Math.sqrt(2)*Math.cos((winkel-45)*Math.PI/180));           // Ursprung verschieben damit bei drehung um den ursprung die mitte des bildes an der gewollten position bleibt
-  objContext.translate(x+size/2, y+ size/2);           // Ursprung verschieben um angegebene koordinaten +35 damit das bild in der mitte eines 70x70 felden ist
+  objContext.translate(bildSize/2*Math.sqrt(2)*Math.sin((winkel-45)*Math.PI/180), -bildSize/2*Math.sqrt(2)*Math.cos((winkel-45)*Math.PI/180));           // Ursprung verschieben damit bei drehung um den ursprung die mitte des bildes an der gewollten position bleibt
+  objContext.translate(x+bildSize/2, y+ bildSize/2);           // Ursprung verschieben um angegebene koordinaten +35 damit das bild in der mitte eines 70x70 felden ist
   objContext.rotate(winkel*Math.PI/180);  // Context drehen
   if (clear) {
-    objContext.clearRect(0, 0, size, size);   //löschen des inhalts des canvas wenn gewollt
+    objContext.clearRect(0, 0, bildSize, bildSize);   //löschen des inhalts des canvas wenn gewollt
   }
-  objContext.drawImage(objImg, 0, 0, objImg.width, objImg.height,0, 0, size, size);   // Bild zeichnen
+  objContext.drawImage(objImg, 0, 0, objImg.width, objImg.height,0, 0, bildSize, bildSize);   // Bild zeichnen
   objContext.rotate(-winkel*Math.PI/180);  // objektContext zurücksetzen um die funktion bei dem nächsten aufrufen nicht verändern zu müssen (canvas speicher drehungen und verschiebungen und es gilt für jedes zeichnen nach der drehung/verschiebung)
-  objContext.translate(-x-size/2, -y-size/2);           // deswegen müssen die drehungen und verschiebungen genau um die negative zahl nochmal ausgeführt werden um es zu resetten
-  objContext.translate(-size/2*Math.sqrt(2)*Math.sin((winkel-45)*Math.PI/180), size/2*Math.sqrt(2)*Math.cos((winkel-45)*Math.PI/180));
+  objContext.translate(-x-bildSize/2, -y-bildSize/2);           // deswegen müssen die drehungen und verschiebungen genau um die negative zahl nochmal ausgeführt werden um es zu resetten
+  objContext.translate(-bildSize/2*Math.sqrt(2)*Math.sin((winkel-45)*Math.PI/180), bildSize/2*Math.sqrt(2)*Math.cos((winkel-45)*Math.PI/180));
   if (richtung2 != undefined) {   //für basic turm upgradestufe 5 bild wird 2 mal gezeichnet mit unterschiedlichen richtungen
-    objContext.translate(size/2*Math.sqrt(2)*Math.sin((richtung2-45)*Math.PI/180), -size/2*Math.sqrt(2)*Math.cos((richtung2-45)*Math.PI/180));
-    objContext.translate(x+size/2, y+size/2);   //gleiche verschiebungen/drehungen wie oben
+    objContext.translate(bildSize/2*Math.sqrt(2)*Math.sin((richtung2-45)*Math.PI/180), -bildSize/2*Math.sqrt(2)*Math.cos((richtung2-45)*Math.PI/180));
+    objContext.translate(x+bildSize/2, y+bildSize/2);   //gleiche verschiebungen/drehungen wie oben
     objContext.rotate(richtung2*Math.PI/180);
-    objContext.drawImage(objImg, 0, 0, size, size);
+    objContext.drawImage(objImg, 0, 0, bildSize, bildSize);
     objContext.rotate(-richtung2*Math.PI/180);
-    objContext.translate(-x-size/2, -y-size/2);
-    objContext.translate(-size/2*Math.sqrt(2)*Math.sin((richtung2-45)*Math.PI/180), size/2*Math.sqrt(2)*Math.cos((richtung2-45)*Math.PI/180));
+    objContext.translate(-x-bildSize/2, -y-bildSize/2);
+    objContext.translate(-bildSize/2*Math.sqrt(2)*Math.sin((richtung2-45)*Math.PI/180), bildSize/2*Math.sqrt(2)*Math.cos((richtung2-45)*Math.PI/180));
   }
 }
 function zeichneBufferBild(canvas, objImg, winkel, clear = false, x = 0, y = 0, richtung2){
@@ -1008,6 +1027,7 @@ function spawn(typ, lebenMult) {
       }
     }
   }
+  return number;
 }
 
 //funktion um geld zu bekommen/zu zahlen
