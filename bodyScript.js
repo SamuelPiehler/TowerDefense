@@ -1025,7 +1025,7 @@ function spawn(typ, lebenMult) {
       }
     }
   }
-  return nummer;
+  return number;
 }
 
 //funktion um geld zu bekommen/zu zahlen
