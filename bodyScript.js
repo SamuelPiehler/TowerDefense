@@ -149,7 +149,7 @@ speedButton.addEventListener("mouseleave", function(){
 //erzeugt geschwindigkeits button mit eventlistener
 var autoStartButton = document.createElement("img");
 document.body.appendChild(autoStartButton);
-autoStartButton.src = "Bilder/Buttons/AutoStartAus.png";
+autoStartButton.src = "Bilder/Buttons/autoStartAus.png";
 autoStartButton.className  = "button";
 autoStartButton.style.position = 'absolute';
 
