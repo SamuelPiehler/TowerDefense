@@ -8,6 +8,7 @@ function Gegner(id, typ, lebenMult){
   this.typ = typ;
   this.leben = gegnertypen[typ][1]*lebenMult;
   this.maxHP = this.leben;
+  this.lebenMult = lebenMult;
   this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten/effeckte hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
@@ -348,6 +349,31 @@ function Gegner(id, typ, lebenMult){
     gegner.splice(this.id, 1);  //aus liste löschen
     for (var i = this.id; i < gegner.length; i++) {
       gegner[i].id--;   //gegnerid von anderen gegnern anpassen (damit sie weiterhin vortlaufend ist)
+    }
+    for (var i = 0; i < this.imunität.length; i++) {
+      if (this.imunität == 7) {
+        for (var j = 0; j < this.imunitätStärke[i]; j++) {
+          var spawnId = spawn(11, this.lebenMult);
+          gegner[spawnId].strecke = this.strecke - j * 5 / 70 * size;
+          gegner[spawnId].posx = this.posx;
+          gegner[spawnId].posy = this.posy;
+          gegner[spawnId].richtung = this.richtung;
+          gegner[spawnId].bewegt = this.bewegt - j * 5 / 70 * size;
+          switch (this.richtung) {
+            case 0:
+              this.posy += 1 * (j * 5 / 70 * size);
+              break;
+            case 1:
+              this.posx += -1 * (j * 5 / 70 * size);
+              break;
+            case 2:
+              this.posy += -1 * (j * 5 / 70 * size);
+              break;
+            case 3:
+              this.posx += 1 * (j * 5 / 70 * size);
+              break;
+        }
+      }
     }
   }
 }
