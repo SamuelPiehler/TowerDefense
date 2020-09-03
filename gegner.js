@@ -40,52 +40,59 @@ function Gegner(id, typ, lebenMult){
   this.src = gegnertypen[typ][0];   //url des gegnerbildes
   this.bewegen = function (){   //gametick für gegner
     for (var i = 0; i < this.imunität.length; i++) {
-      if (this.imunität[i] == 8) {
-        if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
-          this.letzterEffeckt[i] += this.imunitätStärke[i][0];
-          var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult);
-          gegner[spawnId].strecke = this.strecke;
-          gegner[spawnId].mapx = this.mapx;
-          gegner[spawnId].mapy = this.mapy;
-          gegner[spawnId].posx = this.posx;
-          gegner[spawnId].posy = this.posy;
-          gegner[spawnId].richtung = this.richtung;
-          gegner[spawnId].bewegt = this.bewegt;
-          gegner[spawnId].wert = 0;
-        }
-      }
-      else if (this.imunität[i] == 10) {
-        if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+      switch (this.imunität[i]) {
+        case 8:
+          if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+            this.letzterEffeckt[i] += this.imunitätStärke[i][0];
+            var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult);
+            gegner[spawnId].strecke = this.strecke;
+            gegner[spawnId].mapx = this.mapx;
+            gegner[spawnId].mapy = this.mapy;
+            gegner[spawnId].posx = this.posx;
+            gegner[spawnId].posy = this.posy;
+            gegner[spawnId].richtung = this.richtung;
+            gegner[spawnId].bewegt = this.bewegt;
+            gegner[spawnId].wert = 0;
+          }
+          break;
+        case 10:
+          if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
+            gegner.forEach((item, j) => {
+              if (item != undefined) {
+                var entfernung = getEntfernung(item, this);
+                if (entfernung <= this.imunitätStärke[i][1]) {
+                  var alteLeben = item.leben;
+                  item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
+                  if (alteLeben != item.leben) {
+                    numbers("+"+round(item.leben-alteLeben, 3), item.posx, item.posy, "green");
+                  }
+                }
+              }
+            });
+            this.letzterEffeckt[i] += this.imunitätStärke[i][0];
+          }
+          break;
+        case 11:
           gegner.forEach((item, j) => {
             if (item != undefined) {
               var entfernung = getEntfernung(item, this);
               if (entfernung <= this.imunitätStärke[i][1]) {
-                var alteLeben = item.leben;
-                item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
-                if (alteLeben != item.leben) {
-                  numbers("+"+round(item.leben-alteLeben, 3), item.posx, item.posy, "green");
-                }
+                item.speedBuff += this.imunitätStärke[i][0] / 100;
               }
             }
           });
-          this.letzterEffeckt[i] += this.imunitätStärke[i][0];
-        }
-      }
-      else if (this.imunität[i] == 11) {
-        gegner.forEach((item, j) => {
-          if (item != undefined) {
+          break;
+        case 13:
+          tuerme.forEach((item, j) => {
             var entfernung = getEntfernung(item, this);
             if (entfernung <= this.imunitätStärke[i][1]) {
-              item.speedBuff += this.imunitätStärke[i][0] / 100;
+              item.towerSlow += this.imunitätStärke[i][0] / 100;
             }
-          }
-        });
-      }
-      else if (this.imunität[i] == 13) {
+          });
+          break;
+        case 14:
 
-      }
-      else if (this.imunität[i] == 14) {
-
+          break;
       }
     }
     var effektStaerken = [];    //erzeuge ein array zum abspeichern des stärksten effeckts von jedem typ

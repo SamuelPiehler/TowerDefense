@@ -30,6 +30,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       this.effektTime[i] *= 100;
     }
   }
+  this.towerSlow = 1;
   this.buffStaerken = [0, 0, 0, 0];  //buffs von Supporttowern 0 = Dmg, 1 = Attackspeed, 2 = Effeckt, 3 = Range/Drehspeed
   this.letzterAngriff = roundTime;    //wann hat der turm zuletzt angegriffen
   this.letzterAngriff2;    //wann hat der turm zuletzt angegriffen gilt für lauf 2 für basic turm stufe 5
@@ -340,7 +341,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       while (grad2 - this.richtung2 > 180) {
         this.richtung2 += 360;
       }
-      if (Math.abs(this.richtung2 - grad2) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)) {   //wenn sich der turm lauf2 bis zum gegner2 drehen kann in diesem gametick
+      if (Math.abs(this.richtung2 - grad2) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow) {   //wenn sich der turm lauf2 bis zum gegner2 drehen kann in diesem gametick
         this.richtung2 = grad2;
         if (roundTime - this.letzterAngriff2 >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
           gegner[target2].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
@@ -353,13 +354,13 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         }
       }
       else if (this.richtung2 > grad2) {    //drehe richtung gegner
-        this.richtung2 -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+        this.richtung2 -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
       }
       else {
-        this.richtung2 += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+        this.richtung2 += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
       }
     }
-    if (Math.abs(this.richtung - grad) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)) {   //wenn sich der turm bis zum gegner drehen kann in diesem gametick
+    if (Math.abs(this.richtung - grad) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow) {   //wenn sich der turm bis zum gegner drehen kann in diesem gametick
       this.richtung = grad;
       while (this.richtung >= 360) {
         this.richtung -= 360;
@@ -425,10 +426,10 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       }
     }
     else if (this.richtung > grad) {    //drehe richtung gegner
-      this.richtung -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+      this.richtung -= this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
     }
     else {
-      this.richtung += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100);
+      this.richtung += this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow;
     }
     //erzeuge turmbild in richtige richtung gedreht
     if (this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {//wenn stufe5 special upgrade
@@ -444,6 +445,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     }
   };
   this.zielen = function() {    //wird 1 mal pro gametick ausgeführt
+    this.letzterAngriff += gameSpeed*(1-1/this.towerSlow);
+    this.letzterAngriff2 += gameSpeed*(1-1/this.towerSlow);
     var uebergabeEffektStaerke = this.effektStaerke.slice();    //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
     var uebergabeEffektTime = this.effektTime.slice();
     for (var i = 0; i < this.effekt.length; i++) {
@@ -612,5 +615,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         }
       }
     }
+    this.towerSlow = 1;
   };
 }
