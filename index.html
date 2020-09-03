@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
   <head>
     <meta charset="utf-8">
     <title></title>
@@ -11,14 +10,11 @@
     <script src="js/gegner.js"></script>
     <script src="js/tower.js"></script>
   </head>
-
   <body>
-    
-<button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>
-    Menü
-  </button>
+    <button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>
+      Menü
+    </button>
     <div id=menu>
-      
       <div id=innermenu>
         <div id=main class="contain visible">
           <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
@@ -32,7 +28,7 @@
           <div class="menubutton mbutton-normal">Settings</div>
         </div>
         <div id=start class="contain invisible">
-            <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
           <div class=map>
             <div class=outer-frame>
               <div class=inner-frame>
@@ -41,10 +37,9 @@
               <p>Map1</p>
             </div>
           </div>
-  
         </div>
         <div id="schwierigkeiten" style="display: none;">
-            <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
           <div id=Mapname>
             Map 1
           </div>
@@ -52,12 +47,12 @@
             <div id =qw>
               <img id=mapbig src="/Bilder/Icons/sorry.png" onerror="this.src='/Bilder/Icons/sorry.png'; this.height =390">
               <div id=money>
-                   <img src="Bilder/Icons/coin.png">
-                  <font id=dGeld>100</font>
+                <img src="Bilder/Icons/coin.png">
+                <font id=dGeld>100</font>
               </div>
               <div id = diffi>
-                  <img  id="DSIco" src='Bilder/Icons/einfach.png'>
-                  <font id = "DS">Leicht</font> 
+                <img  id="DSIco" src='Bilder/Icons/einfach.png'>
+                <font id = "DS">Leicht</font>
               </div>
               <div id=size>
                 Mapgrösse: <span id="MSO">11 x 16</span>
@@ -79,20 +74,12 @@
             </div>
           </div>
           <div id=Start class=menubutton onclick="startTheGame();">
-              Spiel Starten!!
-            </div>
+            Spiel Starten!!
+          </div>
         </div>
       </div>
-  
     </div>
     <script src="js/menu.js"></script>
-  
-  
-  
-  
-  
-  
-  
     <div id="bullets">
     </div>
     <span id=selections>
@@ -111,10 +98,9 @@
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
       <script type="text/javascript">
-      var schwierigkeit = 0;
-      mapsloaded = false;
-      var mapSchwie = "undefined";
-      var MapName = "undefined";
+        mapsloaded = false;
+        var mapSchwie;
+        var MapName;
         //speichern der zuletzt genutzten map
         var mapold;
         //speichern der zuletzt gesetzten geldmenge
@@ -156,22 +142,19 @@
         function handle(el, func) {
           //success wird immer beim erfolgre
           if (success) {
-            if (true)
             maplist.push([map, geld, checkerturn, image,mapSchwie,MapName]);
-          else
-            maplist.push([map, geld, checkerturn]);
             checkerturn++;
             map = mapold;
             geld = geldold;
             setTimeout(getmaps.bind(null, func), 100);
-          geld = "undefined";
-          image = "undefined";
-          mapSchwie = "undefined";
-          MapName = "undefined";
+            geld = "undefined";
+            image = "undefined";
+            mapSchwie = "undefined";
+            MapName = "undefined";
+            getmaps(func);
           }
-          if (success == false) {
-          mapsloaded = true;
-            func();
+          if (!success){
+            mapsloaded = true;
           }
           el.remove();
           succcess = false
@@ -359,8 +342,7 @@
         }
 
         function loadmap(name = "map1.js") {
-          getmap(name,
-          function (arr) {
+          getmap(name, function (arr) {
             map = arr;
             mapGeld = map[1];
             geld = map[1];
@@ -370,7 +352,6 @@
             // map = map.replace(/("\])/gm, "]");
             // map = eval(map);
             backmap = map;
-            
             if (firstTimeLoad) {
               firstTimeLoad = false;
               var script = document.createElement("script");
@@ -378,7 +359,6 @@
               //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
               document.body.appendChild(script);
               script.onload = function () {
-                setTimeout(function () {
                 var scriptb = document.createElement("script");
                 scriptb.src = "bodyScript.js";
                 //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
@@ -389,8 +369,7 @@
                   } else {
                     buildMapNeu();
                   }
-                  document.getElementById("selections").innerHTML +=
-                      `<input type=button value="Neustart" onclick="reset()">`
+                  document.getElementById("selections").innerHTML += `<input type=button value="Neustart" onclick="reset()">`
                 }
                 document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
                 document.getElementById("Geld").innerHTML = geld;
@@ -409,7 +388,6 @@
                     break;
                 }
                 document.getElementById("Leben").innerHTML = spielerLeben;
-              }, 10);
               };
             }
             else {
