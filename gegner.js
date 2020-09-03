@@ -372,6 +372,7 @@ function Gegner(id, typ, lebenMult){
             case 3:
               this.posx += 1 * (j * 5 / 70 * size);
               break;
+          }
         }
       }
     }
