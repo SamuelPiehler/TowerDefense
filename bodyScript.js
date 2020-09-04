@@ -1201,18 +1201,93 @@ function round(zahl, stellen) {
 
 //erzeugen einer neuen schadensnummer mit laden von standartwerten
 function numbers(num = false, x = 0, y = 0, color = "white", css = "") {
-  if (num != false) { //wenn anzeige nicht lehr
-    var el = document.createElement("div");   //erzeuge eine div in der die nummer abgebildet wird
-    el.style.pointerEvents = "none";    //ignoriert klicks damit objeklte dahinter angeklickt werden können
-    el.innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
-    el.setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
-    document.body.appendChild(el);
-    setTimeout(function(el) {   //lösche nach 2 sec
-        el.remove();
-    }.bind(null, el), 2000);
-  }
+
+
+
 }
 
+
+function TextCanvas() {
+  /// canvas besorgen
+  this.canvas = document.querySelector("#NumberCanvas");
+  this.ctx = this.canvas.getContext("2d");
+  this.textElemente = [];
+  this.spawnText = (text, x, y, color) => {
+    this.textElemente.push({
+      text,
+      progress: 1.0,
+      x,
+      y,
+      color,
+    });
+  };
+  this.render = () => {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    var r = 0;
+    for (let i = 0; i < this.textElemente.length + r; i++) {
+      const el = this.textElemente[i];
+      
+      const y = el.y - 20 * el.progress;// + this.canvas.offsetTop;
+      const x = el.x;// + this.canvas.offsetLeft;
+      // Text malen
+      this.ctx.font = "30px Comic Sans MS";
+      this.ctx.fillStyle = el.color;
+      this.ctx.fillText(el.text, x, y);
+      if (el.progress === 0.0) {
+        // element entfernen
+        this.textElemente.splice(i,1);
+        r--;
+        i--;
+      }
+    }
+  };
+}
+
+/*
+
+var caught = false;
+numbersall.forEach((el,id)=>{
+
+    if(el[1] == true){
+      if(!caught){
+      caught = true;
+      if (num != false) {
+        console.log(el);
+        //wenn anzeige nicht lehr
+              //erzeuge eine div in der die nummer abgebildet wird
+        el[0].style.pointerEvents = "none";
+        el[0].children[0].setAttribute("class","floating_number");
+        el[0].children[0].innerHTML = num;
+        //ignoriert klicks damit objeklte dahinter angeklickt werden können
+        el[0].innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
+        el[0].setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
+        el[1] = false;
+        setTimeout(function(el, id) {   //lösche nach 2 sec
+            el[0].style.display = "none";
+            console.log(id);
+            el[1] = true;
+            el[0].children[0].setAttribute("class","");
+        }.bind(null, el,id), 2000);
+      }
+}}});
+if (!caught){
+if (num != false) { //wenn anzeige nicht lehr
+var el = document.createElement("div");   //erzeuge eine div in der die nummer abgebildet wird
+el.style.pointerEvents = "none";    //ignoriert klicks damit objeklte dahinter angeklickt werden können
+el.innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
+el.setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
+document.body.appendChild(el);
+var id = numbersall.length;
+numbersall.push([el,false,id]);
+setTimeout(function(el, id) {   //lösche nach 2 sec
+    el.style.display = "none";
+    numbersall[id][1] = true;
+    el.children[0].setAttribute("class","");
+
+}.bind(null, el,id), 2000);
+}
+}
+*/
 function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGegner, momentanerGegner, schaden = true){
   var target = -1;
   var targetEntfernung = -1;
