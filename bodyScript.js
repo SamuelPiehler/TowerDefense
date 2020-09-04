@@ -21,11 +21,11 @@ gegnerBildHidden.height = size*map.length;
 
 //erzeugt den Tower select bereich
 var towerSelect = [];
-if (size*1.7*5+100+size < screen.height) {
+if (size*1.7*6+100+size < screen.height) {
   var selectSize = size;
 }
 else {
-  var selectSize = (screen.height - 100) / (1.7 * 5 + 1);
+  var selectSize = (screen.height - 100) / (1.7 * 6 + 1);
 }
 for (var i = 0; i < towertypen.length; i++) {
   towerSelect[i] = [];
@@ -149,7 +149,7 @@ speedButton.addEventListener("mouseleave", function(){
 //erzeugt geschwindigkeits button mit eventlistener
 var autoStartButton = document.createElement("img");
 document.body.appendChild(autoStartButton);
-autoStartButton.src = "Bilder/Buttons/AutoStartAus.png";
+autoStartButton.src = "Bilder/Buttons/autoStartAus.png";
 autoStartButton.className  = "button";
 autoStartButton.style.position = 'absolute';
 
@@ -363,7 +363,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
     };
     bild.src = src;
     bild.onerror = function () {
-      console.log("missing img!!");
+      console.error("missing img!!", src, "loading = " + loading);
       if (loading == 1) {   //wenn alle buffer bilder fertig geladen sind
         waitForBildLoad.forEach((item, i) => {    //zeichne alle bilder in der warteliste
           item();
@@ -1072,8 +1072,13 @@ function update() {
       }
     }
     tuerme.forEach((item, i) => {   //turm tick
-      if (tuerme[i] != undefined) {
-        tuerme[i].zielen()
+      if (item != undefined) {
+        item.zielen()
+      }
+    });
+    gegner.forEach((item, i) => {
+      if (item != undefined) {
+        item.shieldedFrom = [];
       }
     });
     if (gegner.length == 0 && roundTime > wellenEnde) {   //wenn welle zuende ist (alle gegener tot)
