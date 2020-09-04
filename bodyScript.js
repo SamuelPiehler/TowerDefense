@@ -1,9 +1,11 @@
-
 //setzt die map größe und map part größe
 var size = Math.floor(resizekoords(map[0].length, map.length));
 var mapMaxX = size * map[0].length;
 var mapMaxY = size * map.length;
-
+var TCN = new TextCanvas();
+const queue = new UpdateQueue();
+queue.queue.push(TCN);
+queue.start();
 //Canvas in dem alle Gegner Angezeigt werden
 var gegnerBild = document.createElement('canvas');
 document.body.appendChild(gegnerBild);
@@ -1202,14 +1204,38 @@ function round(zahl, stellen) {
 //erzeugen einer neuen schadensnummer mit laden von standartwerten
 function numbers(num = false, x = 0, y = 0, color = "white", css = "") {
 
-
+  TCN.spawnText(num,x,y,color);
 
 }
 
+function UpdateQueue() {
+  this.queue = [];
+  this.delta = new Delta();
+  this.update = () => {
+    this.delta.step();
+    this.queue.forEach(item => item.update());
+    window.requestAnimationFrame(this.update);
+  };
+  this.start = () => window.requestAnimationFrame(this.update);
+}
+
+function Delta() {
+  this.start = new Date().getTime();
+  this.last = new Date().getTime();
+  this.delta = 0;
+  this.step = () => {
+    const now = new Date().getTime();
+    this.delta = (now - this.last) / 1000.0;
+    this.last = now;
+  }
+}
 
 function TextCanvas() {
   /// canvas besorgen
   this.canvas = document.querySelector("#NumberCanvas");
+  this.canvas.width = size * map[0].length;
+  this.canvas.offsetLeft = 
+  this.canvas.height = size * map.length;
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
   this.spawnText = (text, x, y, color) => {
@@ -1217,34 +1243,41 @@ function TextCanvas() {
       text,
       progress: 1.0,
       x,
-      y,
+      y: y + Math.random() * 5,
       color,
     });
   };
-  this.render = () => {
+  this.update = () => {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    var r = 0;
-    for (let i = 0; i < this.textElemente.length + r; i++) {
+    for (let i = 0; i < this.textElemente.length; i++) {
       const el = this.textElemente[i];
-      
-      const y = el.y - 20 * el.progress;// + this.canvas.offsetTop;
-      const x = el.x;// + this.canvas.offsetLeft;
-      // Text malen
-      this.ctx.font = "30px Comic Sans MS";
-      this.ctx.fillStyle = el.color;
-      this.ctx.fillText(el.text, x, y);
-      if (el.progress === 0.0) {
-        // element entfernen
-        this.textElemente.splice(i,1);
-        r--;
-        i--;
+
+      el.progress -= queue.delta.delta;
+      if (el.progress <= 0.0) {
+        this.textElemente.splice(i--, 1);
+        continue;
       }
+
+      const total = (new Date().getTime() - queue.delta.start) / 1000;
+      const y = el.y - 20 * (1 - el.progress);// + this.canvas.offsetTop;
+      const x = el.x + Math.sin((total + el.progress) * 4) * 5 + numberallsum[0] / 2;// + this.canvas.offsetLeft;
+      // Text malen
+      this.ctx.font = size / 4 + "px 'Comic Sans MS'";
+      const offset = this.ctx.measureText(el.text).width / 4;
+      this.ctx.lineWidth = 3;
+      this.ctx.fillStyle = el.color;
+      this.ctx.save();
+      this.ctx.globalAlpha = el.progress;
+      this.ctx.strokeText(el.text, x + offset, y);
+      this.ctx.fillText(el.text, x + offset, y);
+      this.ctx.restore();
     }
   };
 }
 
-/*
 
+/*
+////alte numbers funktion
 var caught = false;
 numbersall.forEach((el,id)=>{
 
