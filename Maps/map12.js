@@ -18,7 +18,7 @@ var map = [[[-1, ['Bilder/Map/feld1.jpg','Bilder/Map/stein2.png']],[0, 'Bilder/M
 ]
 ;
 success= true;
-mapSchwie= 1;
+mapSchwie= 4;
 MapName = "Creative!!!!! Ain't I?";
 multiStartTyp = 0;
 if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';var randomtiles = false

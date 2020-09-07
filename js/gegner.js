@@ -233,6 +233,48 @@ function Gegner(id, typ, lebenMult){
           this.mapx += -1;
           break;
       }
+      if (map[this.mapy][this.mapx][0] >= 13 && map[this.mapy][this.mapx][0] <= 20) {
+        if (map[this.mapy][this.mapx][0] <= 16) {
+          portalNummer = -1;
+          for (var i = 0; i < portal1[0].length; i++) {
+            if (portal1[0][i] == this.mapx && portal1[1][i] == this.mapy) {
+              portalNummer = i;
+              break;
+            }
+          }
+          if (portal1[2][portalNummer] != undefined) {
+            portalNummer = portal1[2][portalNummer];
+          }
+          else {
+            portalNummer++;
+            if (portalNummer >= portal1[0].length) {
+              portalNummer = 0;
+            }
+          }
+          this.mapx = portal1[0][portalNummer];
+          this.mapy = portal1[1][portalNummer];
+        }
+        else {
+          portalNummer = -1;
+          for (var i = 0; i < portal1[0].length; i++) {
+            if (portal2[0][i] == this.mapx && portal2[1][i] == this.mapy) {
+              portalNummer = i;
+              break;
+            }
+          }
+          if (portal2[2][portalNummer] != undefined) {
+            portalNummer = portal2[2][portalNummer];
+          }
+          else {
+            portalNummer++;
+            if (portalNummer >= portal2[0].length) {
+              portalNummer = 0;
+            }
+          }
+          this.mapx = portal2[0][portalNummer];
+          this.mapy = portal2[1][portalNummer];
+        }
+      }
       if (map[this.mapy][this.mapx][0] != -2) {   //wenn nicht kreuzung
         this.richtung = map[this.mapy][this.mapx][0] % 4;   //setze neue richtung
       }
@@ -296,7 +338,7 @@ function Gegner(id, typ, lebenMult){
         if (effekt[i] == 5) {    //suche AoE effeckt
           for (var j = gegner.length - 1; j >= 0; j--) {
             if (gegner[j] != undefined) {
-              var entfernung = getEntfernung(gegner[i], this);  //abstand zu getroffenem gegner
+              var entfernung = getEntfernung(gegner[j], this);  //abstand zu getroffenem gegner
               if (entfernung <= effektZeit[i]) {   //wenn in AoE range
                 uebergabeEffekt = effekt.slice();
                 uebergabeEffektStaerke = effektStaerke.slice();
