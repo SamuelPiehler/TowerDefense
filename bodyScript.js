@@ -1240,7 +1240,7 @@ function TextCanvas() {
   this.textElemente = [];
   this.spawnText = (text, x, y, color) => {
     this.textElemente.push({
-      text,
+      text: text.replace("<br>","\n"),
       progress: 1.0,
       x,
       y: y + Math.random() * 5,
