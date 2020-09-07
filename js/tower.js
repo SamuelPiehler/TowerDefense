@@ -251,11 +251,11 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effektTime[0] = 120;
               break;
-            case 6:   //rocketLauncher Stunned Gegner für 0,5 sec
+            case 6:   //rocketLauncher Stunned Gegner für 0,25 sec
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effekt.push(1);
               this.effektStaerke.push(1);
-              this.effektTime.push(50);
+              this.effektTime.push(25);
               break;
             case 7:   //singleGift
               this.effektStaerke[0] *= 2;
@@ -583,7 +583,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     if (target > -1) {    // wenn ein target gewählt werden konnte
       if(this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]){
         if (gegner[this.target] != undefined) {
-          var entfernung = getEntfernung(gegner[this.target].posx, gegner[this.target].posy, this.posx, this.posy);
+          var entfernung = getEntfernung(gegner[this.target], this);
           if (entfernung <= this.reichweite*(1+this.buffStaerken[3]/100)) {
             target = this.target;
           }

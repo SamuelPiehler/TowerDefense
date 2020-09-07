@@ -376,22 +376,48 @@ function save() {
   var geld1 = Math.floor((geld-geld2*Math.pow(94, 2))/Math.pow(94,1));
   var geld0 = geld-geld2*Math.pow(94, 2)-geld1*Math.pow(94, 1);
   savecode += String.fromCharCode(33+geld2, 33+geld1, 33+geld0);
-  var welle1 = Math.floor(welle/Math.pow(94,1));
-  var welle0 = spielerLeben-welle1*Math.pow(94, 1);
+  var welle1 = Math.floor(wellenNummer/Math.pow(94,1));
+  var welle0 = wellenNummer-welle1*Math.pow(94, 1);
   savecode += String.fromCharCode(33+welle1, 33+welle0);
   for (var i = 0; i < tuerme.length; i++) {
     savecode += String.fromCharCode(33+tuerme[i].typ);
-    tuerme[i].stufe;
-    tuerme[i].posx;
-    tuerme[i].posy;
-    tuerme[i].richtung;
-    tuerme[i].richtung2;
-    tuerme[i].targetPrio;
-    tuerme[i].dmgDealed;
-    tuerme[i].effecktStacks;
+    savecode += String.fromCharCode(33+tuerme[i].upgradeStufe);
+    savecode += String.fromCharCode(33+tuerme[i].posx/size);
+    savecode += String.fromCharCode(33+tuerme[i].posy/size);
+    while (tuerme[i].richtung1 < 0) {
+      tuerme[i].richtung1+360;
+    }
+    while (tuerme[i].richtung1 > 360) {
+      tuerme[i].richtung1-360;
+    }
+    var richtung2 = Math.floor(tuerme[i].richtung/Math.pow(94,2));
+    var richtung1 = Math.floor((tuerme[i].richtung-richtung2*Math.pow(94, 2))/Math.pow(94,1));
+    var richtung0 = Math.floor(tuerme[i].richtung-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
+    savecode += String.fromCharCode(33+richtung2, 33+richtung1, 33+richtung0);
+    while (tuerme[i].richtung2 < 0) {
+      tuerme[i].richtung2+360;
+    }
+    while (tuerme[i].richtung2 > 360) {
+      tuerme[i].richtung2-360;
+    }
+    richtung2 = Math.floor(tuerme[i].richtung2*100/Math.pow(94,2));
+    richtung1 = Math.floor((tuerme[i].richtung2*100-richtung2*Math.pow(94, 2))/Math.pow(94,1));
+    richtung0 = Math.floor(tuerme[i].richtung2*100-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
+    savecode += String.fromCharCode(33+richtung2, 33+richtung1, 33+richtung0);
+    savecode += String.fromCharCode(33+tuerme[i].targetPrio);
+    var dmgDealed5 = Math.floor(tuerme[i].dmgDealed*100/Math.pow(94,5));
+    var dmgDealed4 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5))/Math.pow(94,4));
+    var dmgDealed3 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4))/Math.pow(94,3));
+    var dmgDealed2 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3))/Math.pow(94,2));
+    var dmgDealed1 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2))/Math.pow(94,1));
+    var dmgDealed0 = Math.floor(tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2)-dmgDealed1*Math.pow(94, 1));
+    savecode += String.fromCharCode(33+dmgDealed3, 33+dmgDealed2, 33+dmgDealed1, 33+dmgDealed0);
+    effecktStacks2 = Math.floor(tuerme[i].effecktStacks*100/Math.pow(94,2));
+    effecktStacks1 = Math.floor((tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2))/Math.pow(94,1));
+    effecktStacks0 = Math.floor(tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2)-effecktStacks1*Math.pow(94, 1));
+    savecode += String.fromCharCode(33+effecktStacks2, 33+effecktStacks1, 33+effecktStacks0);
   }
-  // console.log(tuerme);
-  // typ stufe x, y, richtung, richtung2, targetPrio, dmgDealed, effecktStacks
+  console.log(savecode);
 }
 
 //warte bis bild geladen und zeichne es dann (um this. variablen für onload vorzubereiten weil this.bei onload eine andere bedeutung hat)
@@ -1145,7 +1171,7 @@ function update() {
       }
       if (teilWellenNummer == gegnerWellen.length) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
         alert("Du hast das Spiel Gewonnen!");
-        clearInterval(updateGame);
+        spielEnde = true;
       }
       else {
         objContext = gegnerBild.getContext('2d');   //löschen des gegnerbildes
