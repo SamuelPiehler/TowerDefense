@@ -262,38 +262,34 @@ function tasteLosgelassen(evt) {
 function buildMapNeu() {
   for (var i = 0; i < map.length; i++) {  //mapzeile
     for (var j = 0; j < map[i].length; j++) { //mapspalte
-      nummer = 2;
-      while (map[i][j][nummer] != undefined) {
-        nummer++;
-      }
-      map[i][j][nummer] = document.createElement('canvas');
-      mapDiv.appendChild(map[i][j][nummer]);
-      map[i][j][nummer].width = size;
-      map[i][j][nummer].height = size;
-      map[i][j][nummer].style.position = 'absolute';
-      map[i][j][nummer].style.left = (size*j)+'px';
-      map[i][j][nummer].style.top = (size*i)+'px';
+      map[i][j]["map"] = document.createElement('canvas');
+      mapDiv.appendChild(map[i][j]["map"]);
+      map[i][j]["map"].width = size;
+      map[i][j]["map"].height = size;
+      map[i][j]["map"].style.position = 'absolute';
+      map[i][j]["map"].style.left = (size*j)+'px';
+      map[i][j]["map"].style.top = (size*i)+'px';
       if (Array.isArray(map[i][j][1])) {
-        ladeBild(map[i][j][1][0], map[i][j][nummer], parseInt(Math.random()*4)*90);
-        map[i][j][nummer+1] = document.createElement('canvas');
-        mapDiv.appendChild(map[i][j][3])
-        map[i][j][nummer+1].width = size;
-        map[i][j][nummer+1].height = size;
-        map[i][j][nummer+1].style.position = 'absolute';
-        map[i][j][nummer+1].style.left = (size*j)+'px';
-        map[i][j][nummer+1].style.top = (size*i)+'px';
-        ladeBild(map[i][j][1][1], map[i][j][nummer+1], 0);
+        ladeBild(map[i][j][1][0], map[i][j]["map"], parseInt(Math.random()*4)*90);
+        map[i][j]["object"] = document.createElement('canvas');
+        mapDiv.appendChild(map[i][j]["object"])
+        map[i][j]["object"].width = size;
+        map[i][j]["object"].height = size;
+        map[i][j]["object"].style.position = 'absolute';
+        map[i][j]["object"].style.left = (size*j)+'px';
+        map[i][j]["object"].style.top = (size*i)+'px';
+        ladeBild(map[i][j][1][1], map[i][j]["object"], 0);
       }
       else {
-        ladeBild(map[i][j][1], map[i][j][nummer], parseInt(Math.random()*4)*90);
+        ladeBild(map[i][j][1], map[i][j]["map"], parseInt(Math.random()*4)*90);
       }
       if (map[i][j][0] >= 5 && map[i][j][0] <= 8) {
         start[0].push(i);
         start[1].push(j);
       }
       else if (map[i][j][0] == 0) {
-        map[i][j][nummer].name = j+','+i;
-        map[i][j][nummer].addEventListener('click', build);
+        map[i][j]["map"].name = j+','+i;
+        map[i][j]["map"].addEventListener('click', build);
       }
       else if (map[i][j][0] >= 13 && map[i][j][0] <= 16) {
         if (!isNaN(map[i][j][2])) {
@@ -369,6 +365,33 @@ function buildMap() {
       }
     }
   }
+}
+
+function save() {
+  var savecode = String.fromCharCode(33+schwierigkeit);
+  var leben1 = Math.floor(spielerLeben/Math.pow(94,1));
+  var leben0 = spielerLeben-leben1*Math.pow(94, 1);
+  savecode += String.fromCharCode(33+leben1, 33+leben0);
+  var geld2 = Math.floor(geld/Math.pow(94,2));
+  var geld1 = Math.floor((geld-geld2*Math.pow(94, 2))/Math.pow(94,1));
+  var geld0 = geld-geld2*Math.pow(94, 2)-geld1*Math.pow(94, 1);
+  savecode += String.fromCharCode(33+geld2, 33+geld1, 33+geld0);
+  var welle1 = Math.floor(welle/Math.pow(94,1));
+  var welle0 = spielerLeben-welle1*Math.pow(94, 1);
+  savecode += String.fromCharCode(33+welle1, 33+welle0);
+  for (var i = 0; i < tuerme.length; i++) {
+    savecode += String.fromCharCode(33+tuerme[i].typ);
+    tuerme[i].stufe;
+    tuerme[i].posx;
+    tuerme[i].posy;
+    tuerme[i].richtung;
+    tuerme[i].richtung2;
+    tuerme[i].targetPrio;
+    tuerme[i].dmgDealed;
+    tuerme[i].effecktStacks;
+  }
+  // console.log(tuerme);
+  // typ stufe x, y, richtung, richtung2, targetPrio, dmgDealed, effecktStacks
 }
 
 //warte bis bild geladen und zeichne es dann (um this. variablen für onload vorzubereiten weil this.bei onload eine andere bedeutung hat)

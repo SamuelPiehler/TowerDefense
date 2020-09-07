@@ -43,7 +43,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.effecktStacks = 0; //wie viele effecktstacks hat dieser turm verursacht
   this.canvasBase = document.createElement("canvas");   //bild der turmbase
   document.body.appendChild(this.canvasBase);
-  this.canvasBase.id = "TurmBase"+this.id;
   this.canvasBase.width = size;
   this.canvasBase.height = size;
   this.canvasBase.style.position = 'absolute';
@@ -53,7 +52,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   ladeBild(towertypen[this.typ][0], this.canvasBase, 0);
   this.canvasGeschütz = document.createElement("canvas"); //bild für geschütz
   document.body.appendChild(this.canvasGeschütz);
-  this.canvasGeschütz.id = "TurmGeschütz"+this.id;
   this.canvasGeschütz.width = size;
   this.canvasGeschütz.height = size;
   this.canvasGeschütz.style.position = 'absolute';
