@@ -210,8 +210,8 @@ lebenMult += 0.5;
 gegnerWellen.push([11, lebenMult, 12, 2, 1]);  //  12 Gold
 gegnerWellen.push([12, lebenMult, 13, 1, 1.5]); //182 Gold
 gegnerWellen.push([13, lebenMult, 15, 2, 0.5]); // 300 Gold
-gegnerWellen.push([15, lebenMult, 5, 5, 2.5]); // 150  Gold
-gegnerWellen.push([16, lebenMult, 5, 5, -1]); //175 Gold
+gegnerWellen.push([15, lebenMult, 5, 3, 2.5]); // 150  Gold
+gegnerWellen.push([16, lebenMult, 5, 3, -1]); //175 Gold
 //36
 lebenMult += 0.5;
 gegnerWellen.push([1,  lebenMult, 20, 0.2, 4]); // 40 Gold
@@ -234,8 +234,8 @@ lebenMult += 0.5;
 gegnerWellen.push([3,  lebenMult, 12, 2, 1]); // 48 Gold
 gegnerWellen.push([5,  lebenMult, 13, 1, 1.5]); // 65  Gold
 gegnerWellen.push([8,  lebenMult, 15, 2, 0.5]); // 150 Gold
-gegnerWellen.push([9,  lebenMult, 5, 5, 2.5]); // 75 Gold
-gegnerWellen.push([14, lebenMult, 5, 5, -1]);// 100 Gold
+gegnerWellen.push([9,  lebenMult, 5, 4, 2.5]); // 75 Gold
+gegnerWellen.push([14, lebenMult, 5, 4, -1]);// 100 Gold
 //39
 gegnerWellen.push([10,  lebenMult, 12, 2, 0]); // 120 Gold
 gegnerWellen.push([4,   lebenMult, 20, 0.5, 0]);// 160 Gold
