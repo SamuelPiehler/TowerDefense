@@ -210,8 +210,8 @@ lebenMult += 0.5;
 gegnerWellen.push([11, lebenMult, 12, 2, 1]);  //  12 Gold
 gegnerWellen.push([12, lebenMult, 13, 1, 1.5]); //182 Gold
 gegnerWellen.push([13, lebenMult, 15, 2, 0.5]); // 300 Gold
-gegnerWellen.push([15, lebenMult, 5, 5, 2.5]); // 150  Gold
-gegnerWellen.push([16, lebenMult, 5, 5, -1]); //175 Gold
+gegnerWellen.push([15, lebenMult, 5, 3, 2.5]); // 150  Gold
+gegnerWellen.push([16, lebenMult, 5, 3, -1]); //175 Gold
 //36
 lebenMult += 0.5;
 gegnerWellen.push([1,  lebenMult, 20, 0.2, 4]); // 40 Gold
@@ -234,8 +234,8 @@ lebenMult += 0.5;
 gegnerWellen.push([3,  lebenMult, 12, 2, 1]); // 48 Gold
 gegnerWellen.push([5,  lebenMult, 13, 1, 1.5]); // 65  Gold
 gegnerWellen.push([8,  lebenMult, 15, 2, 0.5]); // 150 Gold
-gegnerWellen.push([9,  lebenMult, 5, 5, 2.5]); // 75 Gold
-gegnerWellen.push([14, lebenMult, 5, 5, -1]);// 100 Gold
+gegnerWellen.push([9,  lebenMult, 5, 4, 2.5]); // 75 Gold
+gegnerWellen.push([14, lebenMult, 5, 4, -1]);// 100 Gold
 //39
 gegnerWellen.push([10,  lebenMult, 12, 2, 0]); // 120 Gold
 gegnerWellen.push([4,   lebenMult, 20, 0.5, 0]);// 160 Gold
@@ -326,8 +326,8 @@ gegnertypen.push(['Bilder/Gegner/gegner06Boss1.png', 1000, 0.5, [0,6], [65,25], 
 gegnertypen.push(['Bilder/Gegner/gegner07Agro.png', 800,  1 ,[9] , [1], 5 , 3]);  //7 zieht die Tower auf sich
 gegnertypen.push(['Bilder/Gegner/gegner08Heiler.png', 650, 1 ,[10], [[100, 140, 1]], 10 , 4]);  //8 soll die Gegner heilen 1% jede sec(100 spielticks) mit 140 reichweite
 gegnertypen.push(['Bilder/Gegner/gegner09SpawnTimer.png', 550, 0.6, [8], [[150, 0]], 15, 6]); //9 spawnt Gegner 1 alle 0.5 sec (=50)
-gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png', 400, 0.9 ,[7], [3] , 10, 4]); //10 nach dem Tod spawnt er 3 mal Gegner 11
-gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png', 300, 1.4 ,[], [] , 5, 5]); // 11 wird von anderen gegnern gespawned
+gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png', 400, 0.9 ,[7], [3] , 10, 6]); //10 nach dem Tod spawnt er 3 mal Gegner 11
+gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png', 300, 1.4 ,[], [] , 5, 1]); // 11 wird von anderen gegnern gespawned
 gegnertypen.push(['Bilder/Gegner/gegner12SpeedBuff.png', 375, 1.2 ,[11], [[5, 140]], 10 , 6]); //12 Bufft speed von anderen Gegner um 5% 140 reichweite
 gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 650 , 1.6, [12], [[40, 140]], 10, 6]); //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
 gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 750, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 15 , 5]); //14 slowed die Türme in 350 reichweite um 5% und stunned alle 5 sec einen turm in 140 reichweite für 1 sec

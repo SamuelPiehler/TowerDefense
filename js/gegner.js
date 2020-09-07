@@ -13,7 +13,7 @@ function Gegner(id, typ, lebenMult){
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
     this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
-    if (this.imunität[i] = 12) {
+    if (this.imunität[i] == 12) {
       this.shieldAmount = this.imunitätStärke[i][0]*this.leben/100;
     }
   }
@@ -82,7 +82,7 @@ function Gegner(id, typ, lebenMult){
               if (item != undefined) {
                 var entfernung = getEntfernung(item, this);
                 if (entfernung <= this.imunitätStärke[i][1]) {
-                  item.speedBuff += this.imunitätStärke[i][3] / 100;
+                  item.speedBuff += this.imunitätStärke[i][0] / 100;
                 }
               }
             });
@@ -315,7 +315,7 @@ function Gegner(id, typ, lebenMult){
       for (var i = 0; i < this.shieldedFrom.length; i++) {
         if (gegner[this.shieldedFrom[i]] != undefined) {
           gegner[this.shieldedFrom[i]].shieldAmount -= points;
-          if (points >= 0) { //erzeuge schadensanzeige
+          if (points > 0) { //erzeuge schadensanzeige
             numbers(points, this.posx, this.posy, "yellow");
           }
           if (gegner[this.shieldedFrom[i]].shieldAmount <= 0) {
