@@ -296,29 +296,29 @@ function buildMapNeu() {
         map[i][j][nummer].addEventListener('click', build);
       }
       else if (map[i][j][0] >= 13 && map[i][j][0] <= 16) {
-        if (!isNaN(map[i][j][3])) {
-          portal1[0][parseInt(map[i][j][3])] = i;
-          portal1[1][parseInt(map[i][j][3])] = j;
-          if (!isNaN(map[i][j][4])) {
-            portal1[2][parseInt(map[i][j][3])] = parseInt(map[i][j][4]);
+        if (!isNaN(map[i][j][2])) {
+          portal1[0][parseInt(map[i][j][2])] = j;
+          portal1[1][parseInt(map[i][j][2])] = i;
+          if (!isNaN(map[i][j][3])) {
+            portal1[2][parseInt(map[i][j][2])] = parseInt(map[i][j][3]);
           }
         }
         else {
-          portal1[0].push(i);
-          portal1[1].push(j);
+          portal1[0].push(j);
+          portal1[1].push(i);
         }
       }
       else if (map[i][j][0] >= 17 && map[i][j][0] <= 20) {
-        if (!isNaN(map[i][j][3])) {
-          portal2[0][parseInt(map[i][j][3])] = i;
-          portal2[1][parseInt(map[i][j][3])] = j;
-          if (!isNaN(map[i][j][4])) {
-            portal2[2][parseInt(map[i][j][3])] = parseInt(map[i][j][4]);
+        if (!isNaN(map[i][j][2])) {
+          portal2[0][parseInt(map[i][j][2])] = j;
+          portal2[1][parseInt(map[i][j][2])] = i;
+          if (!isNaN(map[i][j][3])) {
+            portal2[2][parseInt(map[i][j][2])] = parseInt(map[i][j][3]);
           }
         }
         else {
-          portal2[0].push(i);
-          portal2[1].push(j);
+          portal2[0].push(j);
+          portal2[1].push(i);
         }
       }
     }
@@ -1234,7 +1234,7 @@ function TextCanvas() {
   /// canvas besorgen
   this.canvas = document.querySelector("#NumberCanvas");
   this.canvas.width = size * map[0].length;
-  this.canvas.offsetLeft = 
+  this.canvas.offsetLeft =
   this.canvas.height = size * map.length;
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
