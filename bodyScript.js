@@ -1287,22 +1287,16 @@ function TextCanvas() {
   this.canvas.height = size * map.length;
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
-  this.transformColor = (color) => {
-    if (color.startsWith("#")) {
-      return hexToRgb(color);
-    }
-    return resolveColor();
-  };
   this.spawnText = (text, x, y, color) => {
-    this.textElemente.push({
-      text: JSON.stringify(text).replace("<br>","\n"),
-      progress: 1.0,
-      x,
-      y: y + Math.random() * 5,
-      color: this.transformColor(color),
-      st: (new Date().getTime() - queue.delta.start) / 1000,
-      colorize: () => `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.progress})`,
-    });
+    this.textElemente.push(new (function() {
+      this.text = JSON.stringify(text).replace("<br>","\n");
+      this.progress = 1.0;
+      this.x = x;
+      this.y = y + Math.random() * 5;
+      this.color = resolveColor(color);
+      this.st = (new Date().getTime() - queue.delta.start) / 1000;
+      this.colorize = () => `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.progress})`;
+    })());
   };
   this.update = () => {
     const delta = queue.delta.delta;
@@ -1310,20 +1304,23 @@ function TextCanvas() {
       .map((el) => {
         el.progress -= delta;
         return el;
-      }).filter((el) => el.progress <= 0);
+      }).filter((el) => el.progress > 0);
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.font = size / 4 + "px 'Comic Neue','Arial'";
+    this.ctx.font = size / 4 + "px 'Arial'";
     this.ctx.lineWidth = 3;
 
     this.textElemente.forEach((el) => {
+      console.log(el);
       const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;
       const y = el.y - (1 - el.progress) * size / 2 + size;
       const color = el.colorize();
       this.ctx.fillStyle = color;
       const offset = this.ctx.measureText(el.text).width / 2;
+      console.log(x, y, color, offset);
       this.ctx.strokeText(el.text, x - offset, y - size / 2);
       this.ctx.fillText(el.text, x - offset, y - size / 2);
+      console.log("render!");
     });
 
   };
@@ -1339,6 +1336,9 @@ function hexToRgb(hex) {
 }
 
 function resolveColor(color) {
+  if (color.startsWith("#")) {
+    return hexToRgb(color);
+  }
   switch (color.toLowerCase()) {
     case "aliceblue": return {"r":240,"g":248,"b":255}; break;
     case "antiquewhite": return {"r":250,"g":235,"b":215}; break;
@@ -1488,6 +1488,10 @@ function resolveColor(color) {
     case "whitesmoke": return {"r":245,"g":245,"b":245}; break;
     case "yellow": return {"r":255,"g":255,"b":0}; break;
     case "yellowgreen": return {"r":154,"g":205,"b":50}; break;
+    default:
+      console.error(`'${color}' unknown color`);
+      return {"r":255,"g":255,"b":255};
+      break;
   }
 }
 
