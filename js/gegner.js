@@ -296,7 +296,7 @@ function Gegner(id, typ, lebenMult){
         if (effekt[i] == 5) {    //suche AoE effeckt
           for (var j = gegner.length - 1; j >= 0; j--) {
             if (gegner[j] != undefined) {
-              var entfernung = getEntfernung(gegner[i], this);  //abstand zu getroffenem gegner
+              var entfernung = getEntfernung(gegner[j], this);  //abstand zu getroffenem gegner
               if (entfernung <= effektZeit[i]) {   //wenn in AoE range
                 uebergabeEffekt = effekt.slice();
                 uebergabeEffektStaerke = effektStaerke.slice();
