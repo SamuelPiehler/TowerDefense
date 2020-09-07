@@ -82,7 +82,7 @@ function Gegner(id, typ, lebenMult){
               if (item != undefined) {
                 var entfernung = getEntfernung(item, this);
                 if (entfernung <= this.imunitätStärke[i][1]) {
-                  item.speedBuff += this.imunitätStärke[i][3] / 100;
+                  item.speedBuff += this.imunitätStärke[i][0] / 100;
                 }
               }
             });
