@@ -583,7 +583,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     if (target > -1) {    // wenn ein target gewählt werden konnte
       if(this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]){
         if (gegner[this.target] != undefined) {
-          var entfernung = getEntfernung(gegner[this.target].posx, gegner[this.target].posy, this.posx, this.posy);
+          var entfernung = getEntfernung(gegner[this.target], this);
           if (entfernung <= this.reichweite*(1+this.buffStaerken[3]/100)) {
             target = this.target;
           }
