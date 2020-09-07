@@ -13,7 +13,7 @@ function Gegner(id, typ, lebenMult){
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
     this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
-    if (this.imunität[i] = 12) {
+    if (this.imunität[i] == 12) {
       this.shieldAmount = this.imunitätStärke[i][0]*this.leben/100;
     }
   }
