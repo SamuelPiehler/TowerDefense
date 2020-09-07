@@ -1043,6 +1043,11 @@ function build() {
             }
             var spezialisierung = this.id.charAt(3);
             tuerme[number] = new Turm(coordinaten[0], coordinaten[1], 9, number, spezialisierung);
+            if (strg) {
+              for (var i = 0; i < maxUpgrade; i++) {
+                tuerme[number].upgrade();
+              }
+            }
             hideUpgrade(); //
           });
         }
@@ -1085,6 +1090,7 @@ function build() {
           for (var i = 0; i < maxUpgrade; i++) {
             tuerme[number].upgrade();
           }
+          hideUpgrade();
         }
         //if 1/1000 chance full upgraded bei randomturm??
       }
