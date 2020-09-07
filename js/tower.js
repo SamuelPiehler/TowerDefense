@@ -251,11 +251,11 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effektTime[0] = 120;
               break;
-            case 6:   //rocketLauncher Stunned Gegner für 0,5 sec
+            case 6:   //rocketLauncher Stunned Gegner für 0,25 sec
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effekt.push(1);
               this.effektStaerke.push(1);
-              this.effektTime.push(10);
+              this.effektTime.push(25);
               break;
             case 7:   //singleGift
               this.effektStaerke[0] *= 2;
