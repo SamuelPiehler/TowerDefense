@@ -193,6 +193,9 @@ function tasteGedrueckt(evt) {
     case "Shift":
       shift = true;
       break;
+    case "Control":
+      strg = true;
+      break;
     case "Escape":
       deselect();
       hideUpgrade();
@@ -254,8 +257,13 @@ function tasteGedrueckt(evt) {
   }
 }
 function tasteLosgelassen(evt) {
-  if (evt.key == "Shift") {
-    shift = false;
+  switch (evt.key) {
+    case "Control":
+      strg = false;
+      break;
+    case "Shift":
+      shift = false;
+      break;
   }
 }
 //die maps werde nach dem  Neuen Formart  gelanden
@@ -430,7 +438,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
     loading++;
     bild.onload = function(){
       zeichneBufferBild(bildBuffer[src], this, 0);    //zeiche das bild in den buffer
-      zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2, bildSize);    //hole das bild aus dem buffer und zeichne es
+      ladeBild(src, canvas, richtung, clear, x, y, richtung2, bildSize);    //hole das bild aus dem buffer und zeichne es
       if (loading == 1) {   //wenn alle buffer bilder fertig geladen sind
         waitForBildLoad.forEach((item, i) => {    //zeichne alle bilder in der warteliste
           item();
@@ -1072,6 +1080,11 @@ function build() {
         }
         else {
           tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number);    //erstelle neuen turm mit koordinaten typ und id
+        }
+        if (strg) {
+          for (var i = 0; i < maxUpgrade; i++) {
+            tuerme[number].upgrade();
+          }
         }
         //if 1/1000 chance full upgraded bei randomturm??
       }
