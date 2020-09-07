@@ -1245,6 +1245,7 @@ function TextCanvas() {
       x,
       y: y + Math.random() * 5,
       color,
+      st: (new Date().getTime() - queue.delta.start) / 1000,
     });
   };
   this.update = () => {
@@ -1258,18 +1259,17 @@ function TextCanvas() {
         continue;
       }
 
-      const total = (new Date().getTime() - queue.delta.start) / 1000;
-      const y = el.y - 20 * (1 - el.progress);// + this.canvas.offsetTop;
-      const x = el.x + Math.sin((total + el.progress) * 4) * 5 + numberallsum[0] / 2;// + this.canvas.offsetLeft;
+      const y = el.y - (1 - el.progress) * size / 2 + size;// + this.canvas.offsetTop;
+      const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;// + this.canvas.offsetLeft;
       // Text malen
-      this.ctx.font = size / 4 + "px 'Comic Sans MS'";
-      const offset = this.ctx.measureText(el.text).width / 4;
+      this.ctx.font = size / 4 + "px 'Comic Neue','Arial'";
+      const offset = this.ctx.measureText(el.text).width / 2;
       this.ctx.lineWidth = 3;
       this.ctx.fillStyle = el.color;
       this.ctx.save();
       this.ctx.globalAlpha = el.progress;
-      this.ctx.strokeText(el.text, x + offset, y);
-      this.ctx.fillText(el.text, x + offset, y);
+      this.ctx.strokeText(el.text, x - offset, y - size / 2);
+      this.ctx.fillText(el.text, x - offset, y - size / 2);
       this.ctx.restore();
     }
   };
