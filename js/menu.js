@@ -20,7 +20,7 @@ function printMaps() {
               // if(!element[3]){
               //   element[3] = "Bilder/Icons/sorry.png";
               // }
-                inn.innerHTML += `<div class=map onclick="showselectedindex(${element[2]});">
+                inn.innerHTML += `<div class=map onclick="showselectedindex(${element[2]}); style='border: 3px groove '">
                     <div class=outer-frame>
                     <div class=inner-frame>
                         <img src="${element[3]}" onerror="this.src='Bilder/Icons/sorry.png'">

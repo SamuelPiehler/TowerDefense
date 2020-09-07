@@ -1,9 +1,11 @@
-
 //setzt die map größe und map part größe
 var size = Math.floor(resizekoords(map[0].length, map.length));
 var mapMaxX = size * map[0].length;
 var mapMaxY = size * map.length;
-
+var TCN = new TextCanvas();
+const queue = new UpdateQueue();
+queue.queue.push(TCN);
+queue.start();
 //Canvas in dem alle Gegner Angezeigt werden
 var gegnerBild = document.createElement('canvas');
 document.body.appendChild(gegnerBild);
@@ -1201,18 +1203,124 @@ function round(zahl, stellen) {
 
 //erzeugen einer neuen schadensnummer mit laden von standartwerten
 function numbers(num = false, x = 0, y = 0, color = "white", css = "") {
-  if (num != false) { //wenn anzeige nicht lehr
-    var el = document.createElement("div");   //erzeuge eine div in der die nummer abgebildet wird
-    el.style.pointerEvents = "none";    //ignoriert klicks damit objeklte dahinter angeklickt werden können
-    el.innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
-    el.setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
-    document.body.appendChild(el);
-    setTimeout(function(el) {   //lösche nach 2 sec
-        el.remove();
-    }.bind(null, el), 2000);
+
+  TCN.spawnText(num,x,y,color);
+
+}
+
+function UpdateQueue() {
+  this.queue = [];
+  this.delta = new Delta();
+  this.update = () => {
+    this.delta.step();
+    this.queue.forEach(item => item.update());
+    window.requestAnimationFrame(this.update);
+  };
+  this.start = () => window.requestAnimationFrame(this.update);
+}
+
+function Delta() {
+  this.start = new Date().getTime();
+  this.last = new Date().getTime();
+  this.delta = 0;
+  this.step = () => {
+    const now = new Date().getTime();
+    this.delta = (now - this.last) / 1000.0;
+    this.last = now;
   }
 }
 
+function TextCanvas() {
+  /// canvas besorgen
+  this.canvas = document.querySelector("#NumberCanvas");
+  this.canvas.width = size * map[0].length;
+  this.canvas.offsetLeft = 
+  this.canvas.height = size * map.length;
+  this.ctx = this.canvas.getContext("2d");
+  this.textElemente = [];
+  this.spawnText = (text, x, y, color) => {
+    this.textElemente.push({
+      text,
+      progress: 1.0,
+      x,
+      y: y + Math.random() * 5,
+      color,
+      st: (new Date().getTime() - queue.delta.start) / 1000,
+    });
+  };
+  this.update = () => {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    for (let i = 0; i < this.textElemente.length; i++) {
+      const el = this.textElemente[i];
+
+      el.progress -= queue.delta.delta;
+      if (el.progress <= 0.0) {
+        this.textElemente.splice(i--, 1);
+        continue;
+      }
+
+      const y = el.y - (1 - el.progress) * size / 2 + size;// + this.canvas.offsetTop;
+      const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;// + this.canvas.offsetLeft;
+      // Text malen
+      this.ctx.font = size / 4 + "px 'Comic Neue','Arial'";
+      const offset = this.ctx.measureText(el.text).width / 2;
+      this.ctx.lineWidth = 3;
+      this.ctx.fillStyle = el.color;
+      this.ctx.save();
+      this.ctx.globalAlpha = el.progress;
+      this.ctx.strokeText(el.text, x - offset, y - size / 2);
+      this.ctx.fillText(el.text, x - offset, y - size / 2);
+      this.ctx.restore();
+    }
+  };
+}
+
+
+/*
+////alte numbers funktion
+var caught = false;
+numbersall.forEach((el,id)=>{
+
+    if(el[1] == true){
+      if(!caught){
+      caught = true;
+      if (num != false) {
+        console.log(el);
+        //wenn anzeige nicht lehr
+              //erzeuge eine div in der die nummer abgebildet wird
+        el[0].style.pointerEvents = "none";
+        el[0].children[0].setAttribute("class","floating_number");
+        el[0].children[0].innerHTML = num;
+        //ignoriert klicks damit objeklte dahinter angeklickt werden können
+        el[0].innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
+        el[0].setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
+        el[1] = false;
+        setTimeout(function(el, id) {   //lösche nach 2 sec
+            el[0].style.display = "none";
+            console.log(id);
+            el[1] = true;
+            el[0].children[0].setAttribute("class","");
+        }.bind(null, el,id), 2000);
+      }
+}}});
+if (!caught){
+if (num != false) { //wenn anzeige nicht lehr
+var el = document.createElement("div");   //erzeuge eine div in der die nummer abgebildet wird
+el.style.pointerEvents = "none";    //ignoriert klicks damit objeklte dahinter angeklickt werden können
+el.innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
+el.setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
+document.body.appendChild(el);
+var id = numbersall.length;
+numbersall.push([el,false,id]);
+setTimeout(function(el, id) {   //lösche nach 2 sec
+    el.style.display = "none";
+    numbersall[id][1] = true;
+    el.children[0].setAttribute("class","");
+
+}.bind(null, el,id), 2000);
+}
+}
+*/
 function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGegner, momentanerGegner, schaden = true){
   var target = -1;
   var targetEntfernung = -1;
