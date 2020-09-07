@@ -260,34 +260,64 @@ function tasteLosgelassen(evt) {
 function buildMapNeu() {
   for (var i = 0; i < map.length; i++) {  //mapzeile
     for (var j = 0; j < map[i].length; j++) { //mapspalte
-      map[i][j][2] = document.createElement('canvas');
-      mapDiv.appendChild(map[i][j][2]);
-      map[i][j][2].width = size;
-      map[i][j][2].height = size;
-      map[i][j][2].style.position = 'absolute';
-      map[i][j][2].style.left = (size*j)+'px';
-      map[i][j][2].style.top = (size*i)+'px';
+      nummer = 2;
+      while (map[i][j][nummer] != undefined) {
+        nummer++;
+      }
+      map[i][j][nummer] = document.createElement('canvas');
+      mapDiv.appendChild(map[i][j][nummer]);
+      map[i][j][nummer].width = size;
+      map[i][j][nummer].height = size;
+      map[i][j][nummer].style.position = 'absolute';
+      map[i][j][nummer].style.left = (size*j)+'px';
+      map[i][j][nummer].style.top = (size*i)+'px';
       if (Array.isArray(map[i][j][1])) {
-        ladeBild(map[i][j][1][0], map[i][j][2], parseInt(Math.random()*4)*90);
-        map[i][j][3] = document.createElement('canvas');
+        ladeBild(map[i][j][1][0], map[i][j][nummer], parseInt(Math.random()*4)*90);
+        map[i][j][nummer+1] = document.createElement('canvas');
         mapDiv.appendChild(map[i][j][3])
-        map[i][j][3].width = size;
-        map[i][j][3].height = size;
-        map[i][j][3].style.position = 'absolute';
-        map[i][j][3].style.left = (size*j)+'px';
-        map[i][j][3].style.top = (size*i)+'px';
-        ladeBild(map[i][j][1][1], map[i][j][3], 0);
+        map[i][j][nummer+1].width = size;
+        map[i][j][nummer+1].height = size;
+        map[i][j][nummer+1].style.position = 'absolute';
+        map[i][j][nummer+1].style.left = (size*j)+'px';
+        map[i][j][nummer+1].style.top = (size*i)+'px';
+        ladeBild(map[i][j][1][1], map[i][j][nummer+1], 0);
       }
       else {
-        ladeBild(map[i][j][1], map[i][j][2], parseInt(Math.random()*4)*90);
+        ladeBild(map[i][j][1], map[i][j][nummer], parseInt(Math.random()*4)*90);
       }
       if (map[i][j][0] >= 5 && map[i][j][0] <= 8) {
         start[0].push(i);
         start[1].push(j);
       }
       else if (map[i][j][0] == 0) {
-        map[i][j][2].name = j+','+i;
-        map[i][j][2].addEventListener('click', build);
+        map[i][j][nummer].name = j+','+i;
+        map[i][j][nummer].addEventListener('click', build);
+      }
+      else if (map[i][j][0] >= 13 && map[i][j][0] <= 16) {
+        if (!isNaN(map[i][j][3])) {
+          portal1[0][parseInt(map[i][j][3])] = i;
+          portal1[1][parseInt(map[i][j][3])] = j;
+          if (!isNaN(map[i][j][4])) {
+            portal1[2][parseInt(map[i][j][3])] = parseInt(map[i][j][4]);
+          }
+        }
+        else {
+          portal1[0].push(i);
+          portal1[1].push(j);
+        }
+      }
+      else if (map[i][j][0] >= 17 && map[i][j][0] <= 20) {
+        if (!isNaN(map[i][j][3])) {
+          portal2[0][parseInt(map[i][j][3])] = i;
+          portal2[1][parseInt(map[i][j][3])] = j;
+          if (!isNaN(map[i][j][4])) {
+            portal2[2][parseInt(map[i][j][3])] = parseInt(map[i][j][4]);
+          }
+        }
+        else {
+          portal2[0].push(i);
+          portal2[1].push(j);
+        }
       }
     }
   }

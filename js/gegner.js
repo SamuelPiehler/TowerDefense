@@ -233,6 +233,14 @@ function Gegner(id, typ, lebenMult){
           this.mapx += -1;
           break;
       }
+      if (map[this.mapy][this.mapx][0] >= 13 && map[this.mapy][this.mapx][0] <= 20) {
+        if (map[this.mapy][this.mapx][0] <= 16) {
+
+        }
+        else {
+
+        }
+      }
       if (map[this.mapy][this.mapx][0] != -2) {   //wenn nicht kreuzung
         this.richtung = map[this.mapy][this.mapx][0] % 4;   //setze neue richtung
       }
