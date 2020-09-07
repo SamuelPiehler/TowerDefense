@@ -255,7 +255,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effekt.push(1);
               this.effektStaerke.push(1);
-              this.effektTime.push(50);
+              this.effektTime.push(10);
               break;
             case 7:   //singleGift
               this.effektStaerke[0] *= 2;

@@ -1171,7 +1171,7 @@ function update() {
       }
       if (teilWellenNummer == gegnerWellen.length) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
         alert("Du hast das Spiel Gewonnen!");
-        clearInterval(updateGame);
+        spielEnde = true;
       }
       else {
         objContext = gegnerBild.getContext('2d');   //löschen des gegnerbildes
