@@ -343,6 +343,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       if (Math.abs(this.richtung2 - grad2) < this.drehGeschw*gameSpeed*(1+this.buffStaerken[3]/100)/this.towerSlow && this.towerStun <= 0) {   //wenn sich der turm lauf2 bis zum gegner2 drehen kann in diesem gametick
         this.richtung2 = grad2;
         if (roundTime - this.letzterAngriff2 >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
+          bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet
           gegner[target2].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
           if (roundTime - this.letzterAngriff2 -gameSpeed < 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {
             this.letzterAngriff2 += 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100);
@@ -373,44 +374,77 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       }
       if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
         if (this.typ == 1 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn sniper stufe 5
-          for (var i = gegner.length - 1; i >= 0 ; i--) {
-            var item = gegner[i];
-            if (item != undefined) {
-              if (this.richtung == 0) {   //wenn der sniper exact nach oben zeigt
-                if (this.posy > item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                  item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-                }
+          switch (this.richtung) {
+            case 0:   //wenn der sniper exact nach oben zeigt
+                bullet(this.posx, this.posy, this.posx, -size/2, 100/gameSpeed);   //add bullet
+              break;
+            case 90:   //wenn der sniper exact nach links zeigt
+              bullet(this.posx, this.posy, -size/2, this.posy, 100/gameSpeed);   //add bullet
+              break;
+            case 180:   //wenn der sniper nach unten zeigt
+              bullet(this.posx, this.posy, this.posx, size * map.length - size/2, 100/gameSpeed);   //add bullet
+              break;
+            case 270:  //wenn der sniper nach rechts zeigt
+              bullet(this.posx, this.posy, size * map[0].length - size/2, this.posy, 100/gameSpeed);   //add bullet
+              break;
+            default:
+              var a = -Math.tan((this.richtung+90)/180*Math.PI);    //f(x)=a(x-this.posx)+this.posy funktion der geraden auf der der sniperschuss fliegt   //g(x)=1/a(x-item.posx)+item.posy funktion der gerade gegner und dem nähesten punkt der snipergerade
+              if ((this.richtung < 180 && a * (-size/2-this.posx) + this.posy < -size/2) || (this.richtung > 180 && a * (size * map[0].length - size/2 - this.posx) + this.posy < -size/2)) {//falsch   //add bullet mit endpunkt (f(x)|0)
+                bullet(this.posx, this.posy, (-size/2-this.posy)/a + this.posx, - size/2, 100/gameSpeed);   //add bullet mit endpunkt f(x) = -size/2
               }
-              else if (this.richtung == 90) {   //wenn der sniper exact nach links zeigt
-                if (this.posx > item.posx && Math.abs(this.posy-item.posy) <= size/2) {
-                  item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-                }
-              }
-              else if (this.richtung == 180) {   //wenn der sniper nach unten zeigt
-                if (this.posy < item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                  item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-                }
-              }
-              else if (this.richtung == 270) {  //wenn der sniper nach rechts zeigt
-                if (this.posx < item.posx && Math.abs(this.posy-item.posy) <= size/2) {
-                  item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-                }
+              else if ((this.richtung < 180 && a * (-size/2 - this.posx) + this.posy > size * map.length - size/2) || (this.richtung > 180 && a * (size * map[0].length + this.posx) + this.posy > size * map.length-size/2)) {//falsch   //add bullet mit endpunkt (f(x)|MapHight)
+                bullet(this.posx, this.posy, (size*map.length-size/2-this.posy)/a + this.posx, size * map.length - size/2, 100/gameSpeed);   //add bullet mit endpunkt f(x) = mapy -size/2
               }
               else {
-                var a = -Math.tan((this.richtung+90)/180*Math.PI);    //f(x)=a(x-this.posx)+this.posy funktion der geraden auf der der sniperschuss fliegt   //g(x)=1/a(x-item.posx)+item.posy funktion der gerade gegner und dem nähesten punkt der snipergerade
-                var xPunktNaheGegner = (item.posy-this.posy+a*this.posx-(1/a)*item.posx) / (a-1/a);   //f(x)=g(x) ergiebt x
-                var yPunktNaheGegner = a*(xPunktNaheGegner - this.posx)+this.posy   //x in f(x) ergiebt y
-                entfernung = getEntfernung({posx: xPunktNaheGegner, posy: yPunktNaheGegner}, item);
-                if (entfernung <= 35) {
-                  if ((this.richtung < 180 && this.posx > item.posx) || (this.richtung > 180 && this.posx < item.posx)) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), [], [], [], this.id);
-                  }
+                if (this.richtung < 180) {
+                  bullet(this.posx, this.posy, -size/2, a * (- size/2 - this.posx) + this.posy, 100/gameSpeed);   //add bullet mit endpunkt (-size/2|f(-size/2))
                 }
+                else {
+                  bullet(this.posx, this.posy, size * map[0].length - size/2, a * (size * map[0].length - size/2 - this.posx) + this.posy, 100/gameSpeed);   //add bullet mit endpunkt (mapWidth - size/2|f(mapWidth-size/2))
+                }
+              }
+              break;
+          }
+          for (var i = gegner.length - 1; i >= 0 ; i--) {   //bullet nach ausen schieben und berechnung von a auch!!!!!
+            var item = gegner[i];
+            if (item != undefined) {
+              switch (this.richtung) {
+                case 0:   //wenn der sniper exact nach oben zeigt
+                    if (this.posy > item.posy && Math.abs(this.posx-item.posx) <= size/2) {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    }
+                  break;
+                case 90:   //wenn der sniper exact nach links zeigt
+                  if (this.posx > item.posx && Math.abs(this.posy-item.posy) <= size/2) {
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                  }
+                  break;
+                case 180:   //wenn der sniper nach unten zeigt
+                  if (this.posy < item.posy && Math.abs(this.posx-item.posx) <= size/2) {
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                  }
+                  break;
+                case 270:  //wenn der sniper nach rechts zeigt
+                  if (this.posx < item.posx && Math.abs(this.posy-item.posy) <= size/2) {
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                  }
+                  break;
+                default:   //f(x)=a(x-this.posx)+this.posy funktion der geraden auf der der sniperschuss fliegt   //g(x)=1/a(x-item.posx)+item.posy funktion der gerade gegner und dem nähesten punkt der snipergerade
+                  var xPunktNaheGegner = (item.posy-this.posy+a*this.posx-(1/a)*item.posx) / (a-1/a);   //f(x)=g(x) ergiebt x
+                  var yPunktNaheGegner = a*(xPunktNaheGegner - this.posx)+this.posy   //x in f(x) ergiebt y
+                  entfernung = getEntfernung({posx: xPunktNaheGegner, posy: yPunktNaheGegner}, item);
+                  if (entfernung <= 35) {
+                    if ((this.richtung < 180 && this.posx > item.posx) || (this.richtung > 180 && this.posx < item.posx)) {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100), [], [], [], this.id);
+                    }
+                  }
+                  break;
               }
             }
           }
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
+          bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet
           //füge schaden und effeckt auf gegner zu
           gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
           if (target != -1) {
@@ -418,6 +452,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           }
         }
         else {
+          bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);   //add bullet
           gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
         }
         if (roundTime - this.letzterAngriff -gameSpeed < 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {

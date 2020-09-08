@@ -1,7 +1,5 @@
 //setzt die map größe und map part größe
 var size = Math.floor(resizekoords(map[0].length, map.length));
-var mapMaxX = size * map[0].length;
-var mapMaxY = size * map.length;
 var TCN = new TextCanvas();
 const queue = new UpdateQueue();
 queue.queue.push(TCN);
@@ -899,7 +897,7 @@ function showUpgrade(object, id) {
   upgradeFehlerDiv.hidden = true;
 
 
-  if (x + upgradeFenster.offsetWidth > mapMaxX) {
+  if (x + upgradeFenster.offsetWidth > size * map[0].length) {
     x -= upgradeFenster.offsetWidth + 50;
   }
   if (x >= 0) {
@@ -1058,7 +1056,7 @@ function build() {
         closeButton.style.right = '0px';
         closeButton.style.top = '0px';
         closeButton.addEventListener("click", function(){hideUpgrade();});
-        if (x + upgradeFenster.offsetWidth > mapMaxX) {
+        if (x + upgradeFenster.offsetWidth > size * map[0].length) {
           upgradeFenster.style.right = '0px';
         }
         else {
