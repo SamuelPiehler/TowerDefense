@@ -1,10 +1,12 @@
 var bullets = [];
-
+var stopParty = false;
 function bullet(x1,y1,x2,y2,color = "black", time = 100, l_width = 3){
     var caught = false
     bullets.forEach((el,id)=>{
-        if(el[1] === true){
+        if(el[1] == true && !caught){
+            console.log("jaaaaa")
             caught = true;
+            el[1] = false;
             var line = el[0].children[0];
             line.setAttribute("x1", x1);
     line.setAttribute("x2", x2);
@@ -42,3 +44,28 @@ function bullet(x1,y1,x2,y2,color = "black", time = 100, l_width = 3){
         bullets[id][1] = true;
     }.bind(null,bull,id), time);}
 }
+function party(){
+    bullet(Math.random() * window.innerWidth,Math.random() * window.innerHeight,Math.random() * window.innerWidth,Math.random() * window.innerHeight,getRandomColor(),Math.random() * 1000)
+    if(!stopParty)
+    setTimeout(party, 100);
+    if(stopParty)
+    stopParty = false;
+}
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+  function stop_Party(){
+      stopParty = false;
+  }
+  function getOffset(el) {
+    const rect = el.getBoundingClientRect();
+    return {
+      left: rect.left + window.scrollX,
+      top: rect.top + window.scrollY
+    };
+  }

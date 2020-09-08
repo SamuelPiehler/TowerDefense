@@ -30,6 +30,7 @@ var autoStart = false;    // soll die nächste welle bei abschluss dieser welle 
 var startHover = false;   // wird der Startbutton gerade gehovert
 var speedHover = false;   // wird der speedbutton gerade gehovert
 var shift = false;    // ist die shift taste gerade gedrückt
+var strg = false;
 var roundTime = -1000;  // wie lang läuft die momentane welle schon -1000 wenn gerade keine welle läuft
 // 0 = funktion, 1 = executionTime
 var timers = [];
@@ -341,7 +342,7 @@ towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 140, 0.6
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/02slower.png', 0, 0, 90, 0.7, 60, [0], [1.5], [1.5], "Slow Tower", "Bilder/Tower/02slower5.png", true]);
 towertypen.push(['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 100, 0.5, 80, [3], [7], [15], "Gift Tower", "Bilder/Tower/03gift5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/04feuerAoe.png', 25, 0, 100, 1, 150, [2], [10], [5], "FeuerAoe Turm", "Bilder/Tower/04feuerAoe5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 350, 1.3, 170, 2.5, 200, [1], [1], [0.3], "Anti Boss Tower", "Bilder/Tower/05antiBoss5.png", true]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 500, 1.3, 170, 4, 200, [1], [1], [0.35], "Anti Boss Tower", "Bilder/Tower/05antiBoss5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 140, 0.7, 400, 4, 250, [5], [75], [70], "Rocket Launcher", "Bilder/Tower/06rocket5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 70, 0.9, 140,  1, 100, [3], [70], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 70, 1, 140, 1, 90, [2], [100], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", true]);

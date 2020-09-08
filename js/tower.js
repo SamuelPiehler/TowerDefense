@@ -249,7 +249,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             case 5:   //Anti boss extra stunn duration, targetlock, extra schaden pro treffer
               ladeBild("Bilder/Tower/05antiBoss5Base.png", this.canvasBase, 0, true);
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
-              this.effektTime[0] = 120;
+              this.effektTime[0] = 100;
               break;
             case 6:   //rocketLauncher Stunned Gegner für 0,25 sec
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -412,7 +412,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
           //füge schaden und effeckt auf gegner zu
-          gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+50*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+          gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
           if (target != -1) {
             this.effecktStacks++;
           }
