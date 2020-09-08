@@ -202,17 +202,25 @@ gegnerWellen.push([12, lebenMult, 10, 0.4, 2]); // 140 Gold
 gegnerWellen.push([9,  lebenMult, 10, 0.7, -1]); //  150 Gold
 //34
 gegnerWellen.push([10, lebenMult, 10, 2 , 2]); // 120 Gold
-gegnerWellen.push([8,  lebenMult ,10, 1.5, 0.5]); // 100 Gold
+gegnerWellen.push([8,  lebenMult ,5, 1.5, 0.5]); // 50 Gold
 gegnerWellen.push([4,  lebenMult, 18, 0.9, 3]); // 144 Gold
 gegnerWellen.push([3,  lebenMult, 15, 1, 3.5]); //60 Gold
 gegnerWellen.push([1,  lebenMult, 20, 2, -1]); // 40 Gold
 //35
 lebenMult += 0.5;
+<<<<<<< Updated upstream
 gegnerWellen.push([11, lebenMult, 12, 2, 1]);  //  12 Gold
 gegnerWellen.push([12, lebenMult, 13, 1, 1.5]); //182 Gold
 gegnerWellen.push([13, lebenMult, 15, 2, 0.5]); // 300 Gold
 gegnerWellen.push([15, lebenMult, 5, 3, 2.5]); // 150  Gold
 gegnerWellen.push([16, lebenMult, 1, 3, -1]); //175 Gold
+=======
+gegnerWellen.push([10, lebenMult, 10, 2, 1]);  //  150 Gold
+gegnerWellen.push([12, lebenMult, 10, 1, 1.5]); //100 Gold
+gegnerWellen.push([13, lebenMult, 8, 2, 0.5]); // 80 Gold
+gegnerWellen.push([15, lebenMult, 4, 3, 2.5]); // 120  Gold
+gegnerWellen.push([16, lebenMult, 1, 3, -1]); // 70 Gold
+>>>>>>> Stashed changes
 //36
 lebenMult += 0.5;
 gegnerWellen.push([1,  lebenMult, 20, 0.2, 4]); // 40 Gold
@@ -251,7 +259,6 @@ gegnerWellen.push([6,   lebenMult, 15, 0.5, 17]);// 375 Gold
 gegnerWellen.push([8,   lebenMult, 15, 0.5, 17]);// 150 Gold
 gegnerWellen.push([10,  lebenMult, 15, 0.5, 17]);//  180 Gold
 gegnerWellen.push([12,  lebenMult, 15, 0.5, 17]);// 210 Gold
-gegnerWellen.push([13,  lebenMult, 15, 0.5, 26]);// 300 Gold
 gegnerWellen.push([12,  lebenMult, 15, 2, 0]);//  210 Gold
 gegnerWellen.push([13,  lebenMult, 5, 3, 0]);//  100 Gold
 gegnerWellen.push([14,  lebenMult, 5, 1, 0]);// 100 Gold
@@ -259,10 +266,46 @@ gegnerWellen.push([15,  lebenMult, 5, 2.5, 0]);// 150 Gold
 gegnerWellen.push([16,  lebenMult, 5, 2, 0]);//  175 Gold
 gegnerWellen.push([12,  lebenMult, 5, 3, -1]);// 70 Gold
 //41
+gegnerWellen.push([14,  lebenMult, 3, 0.5, 1]); //45 Gold
+gegnerWellen.push([2,   lebenMult, 11, 1.5, 2]); //33 Gold
+gegnerWellen.push([10,  lebenMult, 7, 0.5, 1]); // 105 Gold
+gegnerWellen.push([4,   lebenMult, 9, 1.5, 2]); // 45 Gold
+gegnerWellen.push([7,   lebenMult, 6, 0.5, 1]); // 30 Gold
+gegnerWellen.push([1,   lebenMult, 15, 1.5, -1]); // 30 Gold
 //42
+gegnerWellen.push([7,   lebenMult, 7, 2, 1 ]); // 35  Gold
+gegnerWellen.push([9,   lebenMult, 13, 0.6, 2]); //195 Gold
+gegnerWellen.push([2,   lebenMult, 15, 3, 1.2]); //45 Gold
+gegnerWellen.push([4,   lebenMult, 14, 1, 1.5]); //70 Gold
+gegnerWellen.push([8,   lebenMult, 11, 2,  2]); //110 Gold
+gegnerWellen.push([10,  lebenMult, 9, 4, 2]); //135 Gold
+gegnerWellen.push([13,  lebenMult, 11, 0.3, 2]); //110 Gold
+gegnerWellen.push([3,   lebenMult, 17, 0.5, -1]); //85 Gold
 //43
+gegnerWellen.push([14,  lebenMult, 4, 0.8, 1]); //60 Gold
+gegnerWellen.push([7,   lebenMult,  9, 1.5, 0.5]); //45 Gold
+gegnerWellen.push([3,   lebenMult, 20, 0.9, 2.5]); //80 Gold
+gegnerWellen.push([2,   lebenMult,  9, 0.5, 1.4]); //27 Gold
+gegnerWellen.push([10,  lebenMult, 5, 0.7, 2.8]); //75 Gold
+gegnerWellen.push([4,   lebenMult, 12, 3, 3]); //60 Gold
+gegnerWellen.push([8,   lebenMult, 10, 3.1, 0.8]); //100 Gold
+gegnerWellen.push([5,   lebenMult, 15, 2.2,-1]); //75 Gold
 //44
+gegnerWellen.push([9 ,  lebenMult ,6 , 0.5 ,0.6 ]); // 90 Gold
+gegnerWellen.push([12 , lebenMult ,10 , 0.8 , 0.6 ]); // 140 Gold
+gegnerWellen.push([4 ,  lebenMult , 11 , 1.2 , 3 ]); // 55 Gold
+gegnerWellen.push([10 , lebenMult ,12  , 1.5 , 2.5 ]); // 180 Gold
+gegnerWellen.push([5 ,  lebenMult , 20 , 1.6 ,2 ]); //  100 Gold
+gegnerWellen.push([8 ,  lebenMult , 10 , 2 , 1.2 ]); // 100  Gold
+gegnerWellen.push([1 ,  lebenMult , 14 , 2.3 , 1 ]); // 28 Gold
+gegnerWellen.push([3 ,  lebenMult ,20 , 2.4 , -1 ]); // 80 Gold
 //45
+gegnerWellen.push([6,  lebenMult, 15, 1 , 1]); //  300 Gold
+gegnerWellen.push([15, lebenMult, 15, 1.5 ,1.2 ]); // 450 Gold
+gegnerWellen.push([16, lebenMult, 15, 2 , 1.3 ]); // 525 Gold
+gegnerWellen.push([13, lebenMult, 15, 2.5 , 1.5 ]); // 150 Gold
+gegnerWellen.push([8,  lebenMult, 15,  1,  1.6]); //  150 Gold
+gegnerWellen.push([9,  lebenMult, 15,  1,  -1]); // 225 Gold
 //46
 //47
 //48
@@ -333,7 +376,7 @@ gegnertypen.push(['Bilder/Gegner/gegner12SpeedBuff.png', 375, 1.2 ,[11], [[5, 14
 gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 650 , 1.6, [12], [[40, 140]], 10, 6]); //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
 gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 750, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 15 , 5]); //14 slowed die Türme in 350 reichweite um 5% und stunned alle 5 sec einen turm in 140 reichweite für 1 sec
 gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png', 2000, 0.8, [], [], 30 , 15]); //15 Boss2
-gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 2500, 0.7, [8], [[500, 8]], 35, 15]); // 16 Boss3 spawnt alle 5 sec gegner 8 (heiler)
+gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 2500, 0.7, [8], [[1000, 8]], 35, 15]); // 16 Boss3 spawnt alle 5 sec gegner 8 (heiler)
 
 var towertypen = [];
 //0 Base src, 1 Geschütz src, 2 Damage, 3 Drehgeschwindigkeit, 4 Reichweite, 5 Angriffszeit, 6 Preis, 7 Effekt, 8 Effektstärke, 9 EffektDauer/Reichweite, 10 Name, 11 stufe5 geschütz 12 unlockt
