@@ -1,7 +1,5 @@
 //setzt die map größe und map part größe
 var size = Math.floor(resizekoords(map[0].length, map.length));
-var mapMaxX = size * map[0].length;
-var mapMaxY = size * map.length;
 var TCN = new TextCanvas();
 const queue = new UpdateQueue();
 queue.queue.push(TCN);
@@ -899,7 +897,7 @@ function showUpgrade(object, id) {
   upgradeFehlerDiv.hidden = true;
 
 
-  if (x + upgradeFenster.offsetWidth > mapMaxX) {
+  if (x + upgradeFenster.offsetWidth > size * map[0].length) {
     x -= upgradeFenster.offsetWidth + 50;
   }
   if (x >= 0) {
@@ -1058,7 +1056,7 @@ function build() {
         closeButton.style.right = '0px';
         closeButton.style.top = '0px';
         closeButton.addEventListener("click", function(){hideUpgrade();});
-        if (x + upgradeFenster.offsetWidth > mapMaxX) {
+        if (x + upgradeFenster.offsetWidth > size * map[0].length) {
           upgradeFenster.style.right = '0px';
         }
         else {
@@ -1262,18 +1260,17 @@ function draw(){
 
 //funktion um zahlen auf x nachkommastellen zu runden
 function round(zahl, stellen) {
-  mult = Math.pow(10, stellen);
-  zahl *= mult;
-  zahl = Math.round(zahl);
-  zahl /= mult;
-  return zahl;
+  const e = 10 ** stellen;
+  return Math.round(zahl * e) / e;
 }
 
-//erzeugen einer neuen schadensnummer mit laden von standartwerten
-function numbers(num = false, x = 0, y = 0, color = "white", css = "") {
-
-  TCN.spawnText(num,x,y,color);
-
+//erzeugen einer neuen schadensnummer
+function numbers(num, x, y, color = "white") {
+  if (typeof num === "number")
+    num = round(num, 2);
+  if (num.toString !== undefined)
+    num = num.toString();
+  TCN.spawnText(num, x, y, color);
 }
 
 function UpdateQueue() {
@@ -1364,7 +1361,6 @@ function TextCanvas() {
     const renderTime = (new Date().getTime() - start);
     if (renderTime > 0)
       this.performanceLimiter = Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30; // min ~33 fps
-    console.log(renderTime, this.performanceLimiter);
   };
 }
 // Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb

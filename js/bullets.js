@@ -1,6 +1,11 @@
 var bullets = [];
 var stopParty = false;
-function bullet(x1,y1,x2,y2,color = "black", time = 100, l_width = 3){
+
+function bullet(x1, y1, x2, y2, time = 100, color = "black", l_width = 3){
+    x1 += size/2+10;
+    y1 += size/2+50;
+    x2 += size/2+10;
+    y2 += size/2+50;
     var caught = false
     bullets.forEach((el,id)=>{
         if(el[1] == true && !caught){
