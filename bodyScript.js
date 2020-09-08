@@ -1306,6 +1306,7 @@ function TextCanvas() {
       this.canvas.height = size * map.length;
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
+  this.performanceLimiter = 200;
   this.spawnText = (text, x, y, color) => {
     this.textElemente.push(new (function() {
       this.text = text.toString().replace("<br>","\n");
@@ -1324,37 +1325,46 @@ function TextCanvas() {
         .map((el) => {
           el.progress -= delta;
           return el;
-        }).filter((el) => el.progress > 0);
+        }).filter((el) => el.progress > 0)
+        .filter((_, index) => index < this.performanceLimiter);
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.font = size / 4 + "px 'Arial'";
     this.ctx.lineWidth = 3;
 
-    this.textElemente.map((el) => {
-      const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;
+    const start = new Date().getTime();
 
-      const yMod = el.curve(Math.min(el.progress, 0.7));
-      const y = el.y - (1 - yMod) * size + size;
+    this.textElemente
+        .map((el) => {
+          const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;
 
-      const color = el.colorize();
-      const offset = this.ctx.measureText(el.text).width / 2;
-      return {
-        el,
-        x,
-        y,
-        color,
-        offset
-      }
-    }).forEach((el) => {
-      const x = Math.floor(el.x - el.offset);
-      const y = Math.floor(el.y - size / 2);
+          const yMod = el.curve(Math.min(el.progress, 0.7));
+          const y = el.y - (1 - yMod) * size + size;
 
-      this.ctx.strokeStyle  = `rgba(0, 0, 0, ${el.el.curve() / 1.5})`;
-      this.ctx.strokeText(el.el.text, x, y);
-      this.ctx.fillStyle = el.color;
-      this.ctx.fillText(el.el.text, x, y);
-    });
+          const color = el.colorize();
+          const offset = this.ctx.measureText(el.text).width / 2;
+          return {
+            el,
+            x,
+            y,
+            color,
+            offset
+          }
+        })
+        .forEach((el) => {
+          const x = Math.floor(el.x - el.offset);
+          const y = Math.floor(el.y - size / 2);
 
+          this.ctx.strokeStyle  = `rgba(0, 0, 0, ${el.el.curve() / 1.5})`;
+          this.ctx.strokeText(el.el.text, x, y);
+          this.ctx.fillStyle = el.color;
+          this.ctx.fillText(el.el.text, x, y);
+        });
+
+    const renderTime = (new Date().getTime() - start);
+    if (renderTime > 0)
+      this.performanceLimiter = Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30; // min ~33 fps
+    console.log(renderTime, this.performanceLimiter);
   };
 }
 // Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
