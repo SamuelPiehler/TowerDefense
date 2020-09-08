@@ -1203,6 +1203,7 @@ function update() {
         tuerme.forEach((item, i) => {   //resette angriffsZeit aller türme
           if (item != undefined) {
             item.letzterAngriff = -1000;
+            item.letzterAngriff2 = -1000;
           }
         });
         if (autoStart) {    //wenn autostart ausgewählt wurde starte nächste welle

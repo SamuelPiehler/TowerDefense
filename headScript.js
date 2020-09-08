@@ -208,19 +208,11 @@ gegnerWellen.push([3,  lebenMult, 15, 1, 3.5]); //60 Gold
 gegnerWellen.push([1,  lebenMult, 20, 2, -1]); // 40 Gold
 //35
 lebenMult += 0.5;
-<<<<<<< Updated upstream
-gegnerWellen.push([11, lebenMult, 12, 2, 1]);  //  12 Gold
-gegnerWellen.push([12, lebenMult, 13, 1, 1.5]); //182 Gold
-gegnerWellen.push([13, lebenMult, 15, 2, 0.5]); // 300 Gold
-gegnerWellen.push([15, lebenMult, 5, 3, 2.5]); // 150  Gold
-gegnerWellen.push([16, lebenMult, 1, 3, -1]); //175 Gold
-=======
 gegnerWellen.push([10, lebenMult, 10, 2, 1]);  //  150 Gold
 gegnerWellen.push([12, lebenMult, 10, 1, 1.5]); //100 Gold
 gegnerWellen.push([13, lebenMult, 8, 2, 0.5]); // 80 Gold
 gegnerWellen.push([15, lebenMult, 4, 3, 2.5]); // 120  Gold
 gegnerWellen.push([16, lebenMult, 1, 3, -1]); // 70 Gold
->>>>>>> Stashed changes
 //36
 lebenMult += 0.5;
 gegnerWellen.push([1,  lebenMult, 20, 0.2, 4]); // 40 Gold
