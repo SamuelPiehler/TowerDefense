@@ -774,7 +774,7 @@
           allstring += "var randomtiles = " + JSON.stringify(settings.randomtiles) +
             "\n\n\n\n \/\/ hier kommt das preview- Bild \n\n\n";
             var imfolder = "map_" + (amount.length + 1) + new Date().getTime() + "Bild";
-            allstring += "var image = '" + imfolder + "/Bild.png';"
+            allstring += "var image = 'Maps/" + imfolder + "/Bild.png';"
             var im  = document.getElementById("screenshot").getAttribute("src");
           //console.log(document.getElementById("screenshot").getAttribute("src"))
           settings.mapstring = allstring;
