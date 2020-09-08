@@ -229,6 +229,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               ladeBild("Bilder/Tower/00basic5Base.png", this.canvasBase, 0, true);
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, -this.richtung, true, 0, 0, -this.richtung2);
               this.reichweite += 10;
+              this.letzterAngriff2 = roundTime;
             break;
             case 1:   //sniper  trifft alle gegner in der linie
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -405,7 +406,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               }
               break;
           }
-          for (var i = gegner.length - 1; i >= 0 ; i--) {   //bullet nach ausen schieben und berechnung von a auch!!!!!
+          for (var i = gegner.length - 1; i >= 0 ; i--) {
             var item = gegner[i];
             if (item != undefined) {
               switch (this.richtung) {
