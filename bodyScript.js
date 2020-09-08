@@ -1303,43 +1303,56 @@ function TextCanvas() {
   this.canvas = document.querySelector("#NumberCanvas");
   this.canvas.width = size * map[0].length;
   this.canvas.offsetLeft =
-  this.canvas.height = size * map.length;
+      this.canvas.height = size * map.length;
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
   this.spawnText = (text, x, y, color) => {
     this.textElemente.push(new (function() {
-      this.text = JSON.stringify(text).replace("<br>","\n");
+      this.text = text.toString().replace("<br>","\n");
       this.progress = 1.0;
+      this.curve = (prog = this.progress) => Math.sqrt(Math.sin(prog ** 2 * Math.PI));
       this.x = x;
       this.y = y + Math.random() * 5;
       this.color = resolveColor(color);
-      this.st = (new Date().getTime() - queue.delta.start) / 1000;
-      this.colorize = () => `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.progress})`;
+      this.st = (new Date().getTime() - queue.delta.start) / 1000 - Math.random() * 1000;
+      this.colorize = () => `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.curve()})`;
     })());
   };
   this.update = () => {
     const delta = queue.delta.delta;
     this.textElemente = this.textElemente
-      .map((el) => {
-        el.progress -= delta;
-        return el;
-      }).filter((el) => el.progress > 0);
+        .map((el) => {
+          el.progress -= delta;
+          return el;
+        }).filter((el) => el.progress > 0);
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.font = size / 4 + "px 'Arial'";
     this.ctx.lineWidth = 3;
 
-    this.textElemente.forEach((el) => {
-      console.log(el);
+    this.textElemente.map((el) => {
       const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;
-      const y = el.y - (1 - el.progress) * size / 2 + size;
+
+      const yMod = el.curve(Math.min(el.progress, 0.7));
+      const y = el.y - (1 - yMod) * size + size;
+
       const color = el.colorize();
-      this.ctx.fillStyle = color;
       const offset = this.ctx.measureText(el.text).width / 2;
-      console.log(x, y, color, offset);
-      this.ctx.strokeText(el.text, x - offset, y - size / 2);
-      this.ctx.fillText(el.text, x - offset, y - size / 2);
-      console.log("render!");
+      return {
+        el,
+        x,
+        y,
+        color,
+        offset
+      }
+    }).forEach((el) => {
+      const x = Math.floor(el.x - el.offset);
+      const y = Math.floor(el.y - size / 2);
+
+      this.ctx.strokeStyle  = `rgba(0, 0, 0, ${el.el.curve() / 1.5})`;
+      this.ctx.strokeText(el.el.text, x, y);
+      this.ctx.fillStyle = el.color;
+      this.ctx.fillText(el.el.text, x, y);
     });
 
   };
