@@ -771,6 +771,12 @@ function showUpgrade(object, id) {
         case 3:
           var prio = "schwächsten"
           break;
+        case 4:
+          var prio = "schnellsten"
+          break;
+        case 5:
+          var prio = "langsamsten"
+          break;
       }
       upgradeFenster.innerHTML += "Der Turm ziehlt auf den " + prio + " Gegner<br>";
     }
