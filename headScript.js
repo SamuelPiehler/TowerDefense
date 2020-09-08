@@ -1,4 +1,4 @@
-//Konfig
+B N //Konfig
 var maxUpgrade = 5;
 var anzahlEffeckte = 5;
 //TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport, 15 = stackbares Gift
@@ -292,12 +292,12 @@ gegnerWellen.push([8 ,  lebenMult , 10 , 2 , 1.2 ]); // 100  Gold
 gegnerWellen.push([1 ,  lebenMult , 14 , 2.3 , 1 ]); // 28 Gold
 gegnerWellen.push([3 ,  lebenMult ,20 , 2.4 , -1 ]); // 80 Gold
 //45
-gegnerWellen.push([6,  lebenMult, 15, 1 , 1]); //  300 Gold
-gegnerWellen.push([15, lebenMult, 15, 1.5 ,1.2 ]); // 450 Gold
-gegnerWellen.push([16, lebenMult, 15, 2 , 1.3 ]); // 525 Gold
-gegnerWellen.push([13, lebenMult, 15, 2.5 , 1.5 ]); // 150 Gold
-gegnerWellen.push([8,  lebenMult, 15,  1,  1.6]); //  150 Gold
-gegnerWellen.push([9,  lebenMult, 15,  1,  -1]); // 225 Gold
+gegnerWellen.push([6,   lebenMult, 15, 1 , 1]); //  300 Gold
+gegnerWellen.push([15,  lebenMult, 15, 1.5 ,1.2 ]); // 450 Gold
+gegnerWellen.push([16,  lebenMult, 5, 2 , 1.3 ]); // 525 Gold
+gegnerWellen.push([13,  lebenMult, 15, 2.5 , 1.5 ]); // 150 Gold
+gegnerWellen.push([8,   lebenMult, 15,  1,  1.6]); //  150 Gold
+gegnerWellen.push([9,   lebenMult, 15,  1,  -1]); // 225 Gold
 //46
 //47
 //48
