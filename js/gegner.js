@@ -13,7 +13,7 @@ function Gegner(id, typ, lebenMult){
   this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
     this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
-    if (this.imunität[i] = 12) {
+    if (this.imunität[i] == 12) {
       this.shieldAmount = this.imunitätStärke[i][0]*this.leben/100;
     }
   }
@@ -82,7 +82,7 @@ function Gegner(id, typ, lebenMult){
               if (item != undefined) {
                 var entfernung = getEntfernung(item, this);
                 if (entfernung <= this.imunitätStärke[i][1]) {
-                  item.speedBuff += this.imunitätStärke[i][3] / 100;
+                  item.speedBuff += this.imunitätStärke[i][0] / 100;
                 }
               }
             });
@@ -235,10 +235,44 @@ function Gegner(id, typ, lebenMult){
       }
       if (map[this.mapy][this.mapx][0] >= 13 && map[this.mapy][this.mapx][0] <= 20) {
         if (map[this.mapy][this.mapx][0] <= 16) {
-
+          portalNummer = -1;
+          for (var i = 0; i < portal1[0].length; i++) {
+            if (portal1[0][i] == this.mapx && portal1[1][i] == this.mapy) {
+              portalNummer = i;
+              break;
+            }
+          }
+          if (portal1[2][portalNummer] != undefined) {
+            portalNummer = portal1[2][portalNummer];
+          }
+          else {
+            portalNummer++;
+            if (portalNummer >= portal1[0].length) {
+              portalNummer = 0;
+            }
+          }
+          this.mapx = portal1[0][portalNummer];
+          this.mapy = portal1[1][portalNummer];
         }
         else {
-
+          portalNummer = -1;
+          for (var i = 0; i < portal1[0].length; i++) {
+            if (portal2[0][i] == this.mapx && portal2[1][i] == this.mapy) {
+              portalNummer = i;
+              break;
+            }
+          }
+          if (portal2[2][portalNummer] != undefined) {
+            portalNummer = portal2[2][portalNummer];
+          }
+          else {
+            portalNummer++;
+            if (portalNummer >= portal2[0].length) {
+              portalNummer = 0;
+            }
+          }
+          this.mapx = portal2[0][portalNummer];
+          this.mapy = portal2[1][portalNummer];
         }
       }
       if (map[this.mapy][this.mapx][0] != -2) {   //wenn nicht kreuzung
@@ -281,7 +315,7 @@ function Gegner(id, typ, lebenMult){
       for (var i = 0; i < this.shieldedFrom.length; i++) {
         if (gegner[this.shieldedFrom[i]] != undefined) {
           gegner[this.shieldedFrom[i]].shieldAmount -= points;
-          if (points >= 0) { //erzeuge schadensanzeige
+          if (points > 0) { //erzeuge schadensanzeige
             numbers(points, this.posx, this.posy, "yellow");
           }
           if (gegner[this.shieldedFrom[i]].shieldAmount <= 0) {

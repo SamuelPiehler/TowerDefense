@@ -43,7 +43,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.effecktStacks = 0; //wie viele effecktstacks hat dieser turm verursacht
   this.canvasBase = document.createElement("canvas");   //bild der turmbase
   document.body.appendChild(this.canvasBase);
-  this.canvasBase.id = "TurmBase"+this.id;
   this.canvasBase.width = size;
   this.canvasBase.height = size;
   this.canvasBase.style.position = 'absolute';
@@ -53,7 +52,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   ladeBild(towertypen[this.typ][0], this.canvasBase, 0);
   this.canvasGeschütz = document.createElement("canvas"); //bild für geschütz
   document.body.appendChild(this.canvasGeschütz);
-  this.canvasGeschütz.id = "TurmGeschütz"+this.id;
   this.canvasGeschütz.width = size;
   this.canvasGeschütz.height = size;
   this.canvasGeschütz.style.position = 'absolute';
@@ -251,13 +249,13 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             case 5:   //Anti boss extra stunn duration, targetlock, extra schaden pro treffer
               ladeBild("Bilder/Tower/05antiBoss5Base.png", this.canvasBase, 0, true);
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
-              this.effektTime[0] = 120;
+              this.effektTime[0] = 100;
               break;
-            case 6:   //rocketLauncher Stunned Gegner für 0,5 sec
+            case 6:   //rocketLauncher Stunned Gegner für 0,25 sec
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effekt.push(1);
               this.effektStaerke.push(1);
-              this.effektTime.push(50);
+              this.effektTime.push(25);
               break;
             case 7:   //singleGift
               this.effektStaerke[0] *= 2;
@@ -414,7 +412,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
           //füge schaden und effeckt auf gegner zu
-          gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+50*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+          gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
           if (target != -1) {
             this.effecktStacks++;
           }
@@ -585,7 +583,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     if (target > -1) {    // wenn ein target gewählt werden konnte
       if(this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]){
         if (gegner[this.target] != undefined) {
-          var entfernung = getEntfernung(gegner[this.target].posx, gegner[this.target].posy, this.posx, this.posy);
+          var entfernung = getEntfernung(gegner[this.target], this);
           if (entfernung <= this.reichweite*(1+this.buffStaerken[3]/100)) {
             target = this.target;
           }
