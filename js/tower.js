@@ -119,7 +119,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
     upgradeFenster.style.zIndex=6;
     upgradeFenster.style.width="150px";
-    upgradeFenster.style.height="50px";
+    upgradeFenster.style.height="80px";
     var closeButton = document.createElement("button");   //button um das upgradefenster zu schliesen
     upgradeFenster.appendChild(closeButton);
     closeButton.innerHTML = "x";
@@ -147,15 +147,29 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     strongButton.innerHTML = "strong";
     strongButton.style.position = 'absolute';
     strongButton.style.left = (0)+'px';
-    strongButton.style.bottom = (0)+'px';
+    strongButton.style.top = (30)+'px';
     strongButton.addEventListener("click", function(){tuerme[id].targetPrio=2;hideUpgrade();});
     var weakButton = document.createElement("button");
     upgradeFenster.appendChild(weakButton);
     weakButton.innerHTML = "weak";
     weakButton.style.position = 'absolute';
     weakButton.style.left = (60)+'px';
-    weakButton.style.bottom = (0)+'px';
+    weakButton.style.top = (30)+'px';
     weakButton.addEventListener("click", function(){tuerme[id].targetPrio=3;hideUpgrade();});
+    var fastButton = document.createElement("button");
+    upgradeFenster.appendChild(fastButton);
+    fastButton.innerHTML = "fast";
+    fastButton.style.position = 'absolute';
+    fastButton.style.left = (0)+'px';
+    fastButton.style.top = (60)+'px';
+    fastButton.addEventListener("click", function(){tuerme[id].targetPrio=4;hideUpgrade();});
+    var slowButton = document.createElement("button");
+    upgradeFenster.appendChild(slowButton);
+    slowButton.innerHTML = "slow";
+    slowButton.style.position = 'absolute';
+    slowButton.style.left = (60)+'px';
+    slowButton.style.top = (60)+'px';
+    slowButton.addEventListener("click", function(){tuerme[id].targetPrio=5;hideUpgrade();});
   }
   this.sell = function(){   //funktion um turm zu verkaufen
     this.canvasBase.remove();
@@ -570,6 +584,28 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                       targetAgro = itemAgro;
                     }
                     else if (gegner[target2] == undefined || (gegner[target2].leben > item.leben && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 4:
+                    if (gegner[target].baseSpeed < item.baseSpeed) {   //update targets so dass der schnellste immer target 1 ist und der zweite target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].baseSpeed < item.baseSpeed && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
+                      target2 = i;
+                    }
+                    break;
+                  case 5:
+                    if (gegner[target].baseSpeed > item.baseSpeed) {   //update targets so dass der langsamste gegner immer target 1 ist und der zweite target 2
+                      target2 = target;
+                      target = i;
+                      target2Agro = targetAgro;
+                      targetAgro = itemAgro;
+                    }
+                    else if (gegner[target2] == undefined || (gegner[target2].baseSpeed > item.baseSpeed && ((target2Agro && itemAgro) || (!target2Agro && !itemAgro))) || (itemAgro && !target2Agro)) {
                       target2 = i;
                     }
                     break;

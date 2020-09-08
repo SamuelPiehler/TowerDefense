@@ -23,31 +23,18 @@ function printMaps() {
                 inn.innerHTML += `<div class=map onclick="showselectedindex(${element[2]});" style='border: 5px groove beige'>
                     <div class=outer-frame>
                     <div class=inner-frame>
-                        <img src="${element[3]}" onerror="this.style.display ='none';this.src='Bilder/Icons/sorry.png'; setTimeout(()=>{this.style.display='block'},10);">
+                        <img src="${element[3]}" onerror="t.src = "Bilder/Map/empty.png";t.setAttribute("class","error");">
                     </div>
                     <p>Map${element[2]}, StartGeld: ${element[1]}</p>
                     </div>
                 </div>`;
             });
-            setTimeout(fixBrokenImages,20000);},1);
+            },1);
 
         }
 }
 var inter = setInterval(printMaps, 100);
-fixBrokenImages = function( url ){
-    var img = document.querySelectorAll(".inner-frame img");
-    var i=0, l=img.length;
-    for(;i<l;i++){
-        var t = img[i];
-        if(t.naturalWidth === 0){
-            //this image is broken
-            t.src = "Bilder/Map/empty.png";
-            t.setAttribute("class","error");
-        }
-    }
-    mapbig.src = document.querySelector(".inner-frame img").getAttribute("src");
 
-}
 function showselectedindex(i, d =false){
     if(!d)
     document.getElementById('schwierigkeiten').style.display = 'block';
