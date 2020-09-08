@@ -29,7 +29,7 @@ function printMaps() {
                     </div>
                 </div>`;
             });
-            setTimeout(fixBrokenImages,2000);},1);
+            setTimeout(fixBrokenImages,20000);},1);
 
         }
 }
