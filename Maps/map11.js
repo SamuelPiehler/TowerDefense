@@ -23,4 +23,4 @@ var randomtiles = false
  // hier kommt das preview- Bild 
 
 
-var image = 'Maps/map11/image.png';
+var image = 'Maps/map11/image.webp';

@@ -8,4 +8,4 @@ success= true;
 var multiStartTyp = "0";
 
 var randomtiles = false;
-var image = 'Maps/map4/image.png';
+var image = 'Maps/map4/image.webp';
