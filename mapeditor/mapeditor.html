@@ -441,7 +441,7 @@
       if (settings.hintergrund != false) {
         var bottom = document.getElementById("" + this.id + "bottom");
         bottom.src = settings.hintergrund;
-        this.hinter = settings.hintergrund.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+        this.hinter = settings.hintergrund.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
         settings.hintergrund = false;
       } else {
         if (settings.clickindex > 3) {
@@ -464,7 +464,7 @@
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
           rotateIt(top, settings.clickindex * 90);
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
           gotchanged = true;
@@ -475,7 +475,7 @@
             settings.clickindex = 0;
           bild.src = bi;
           top.src = "../Bilder/Map/startPfeil.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");
           rotateIt(top, settings.clickindex * 90);
           this.istwo = true;
           if (settings.backchanged) {
@@ -489,7 +489,7 @@
         } else if (tile_id == 9) {
           bild.src = bi;
           top.src = "../Bilder/Map/zielPfeil.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.istwo = true;
           if (settings.backchanged) {
@@ -502,14 +502,14 @@
         } else if (tile_id == 0) {
           bild.src = bi;
           top.src = "../Bilder/Map/empty.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           this.istwo = false;
           this.tile = 0;
           gotchanged = true;
         } else if (tile_id == -1) {
           bild.src = bi;
           top.src = "../Bilder/Map/empty.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           if (settings.backchanged) {
             var bottom = document.getElementById("" + this.id + "bottom");
             bottom.src = settings.lastbackground;
@@ -521,7 +521,7 @@
         } else if (tile_id == -2) {
           bild.src = bi;
           top.src = "../Bilder/Map/kreuzung.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.tile = -2;
           this.istwo = false;
@@ -548,7 +548,7 @@
           this.istwo = true;
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");
           rotateIt(top, settings.clickindex * 90);
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
@@ -567,7 +567,7 @@
             settings.portalamount++;
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
-          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
@@ -579,8 +579,8 @@
         }*/ else if (tile_id == -1234) {
           var bottom = document.getElementById("" + this.id + "bottom");
           bottom.src = bi;
-          settings.lastbackground = bi.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
-          this.hinter = bi.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          settings.lastbackground = bi.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");
+          this.hinter = bi.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           gotchanged = true;
         } else if (tile_id == "gen") {
           bild.src = this.image;
@@ -598,7 +598,7 @@
         
         if (tile_id != -1234 && tile_id != "gen" && tile_id != "image" && tile_id != "bottom")
           this.rtile = tile_id;
-        this.image = bild.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "")
+        this.image = bild.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "")
         settings.lastid = this.id;
         if (gotchanged && (this.rtile != 13) && wasbefore) {
           settings.portalamount--;
@@ -896,12 +896,12 @@
           //do stuff
         } else if (JSON.stringify(event.path[1].getAttribute("asl")) == JSON.stringify("asl")) {
           //do stuff
-          var from = document.getElementById("from").src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "");
-          var to = document.getElementById("to").src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "");
+          var from = document.getElementById("from").src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "").replace("../", "");
+          var to = document.getElementById("to").src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "").replace("../", "");
 
           tiles.forEach(elem => {
-            console.log(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "") , from);
-            if(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "") == from){
+            console.log(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "").replace("../", "") , from);
+            if(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "").replace("../", "") == from){
               settings.selectedstyle = "../" + to;
               elem.update("image","../" + to);
             
