@@ -1260,18 +1260,17 @@ function draw(){
 
 //funktion um zahlen auf x nachkommastellen zu runden
 function round(zahl, stellen) {
-  mult = Math.pow(10, stellen);
-  zahl *= mult;
-  zahl = Math.round(zahl);
-  zahl /= mult;
-  return zahl;
+  const e = 10 ** stellen;
+  return Math.round(zahl * e) / e;
 }
 
-//erzeugen einer neuen schadensnummer mit laden von standartwerten
-function numbers(num = false, x = 0, y = 0, color = "white", css = "") {
-
-  TCN.spawnText(num,x,y,color);
-
+//erzeugen einer neuen schadensnummer
+function numbers(num, x, y, color = "white") {
+  if (typeof num === "number")
+    num = round(num, 2);
+  if (num.toString !== undefined)
+    num = num.toString();
+  TCN.spawnText(num, x, y, color);
 }
 
 function UpdateQueue() {
@@ -1301,45 +1300,67 @@ function TextCanvas() {
   this.canvas = document.querySelector("#NumberCanvas");
   this.canvas.width = size * map[0].length;
   this.canvas.offsetLeft =
-  this.canvas.height = size * map.length;
+      this.canvas.height = size * map.length;
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
+  this.performanceLimiter = 200;
   this.spawnText = (text, x, y, color) => {
     this.textElemente.push(new (function() {
-      this.text = JSON.stringify(text).replace("<br>","\n");
+      this.text = text.toString().replace("<br>","\n");
       this.progress = 1.0;
+      this.curve = (prog = this.progress) => Math.sqrt(Math.sin(prog ** 2 * Math.PI));
       this.x = x;
       this.y = y + Math.random() * 5;
       this.color = resolveColor(color);
-      this.st = (new Date().getTime() - queue.delta.start) / 1000;
-      this.colorize = () => `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.progress})`;
+      this.st = (new Date().getTime() - queue.delta.start) / 1000 - Math.random() * 1000;
+      this.colorize = () => `rgba(${this.color.r}, ${this.color.g}, ${this.color.b}, ${this.curve()})`;
     })());
   };
   this.update = () => {
     const delta = queue.delta.delta;
     this.textElemente = this.textElemente
-      .map((el) => {
-        el.progress -= delta;
-        return el;
-      }).filter((el) => el.progress > 0);
+        .map((el) => {
+          el.progress -= delta;
+          return el;
+        }).filter((el) => el.progress > 0)
+        .filter((_, index) => index < this.performanceLimiter);
 
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.font = size / 4 + "px 'Arial'";
     this.ctx.lineWidth = 3;
 
-    this.textElemente.forEach((el) => {
-      console.log(el);
-      const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;
-      const y = el.y - (1 - el.progress) * size / 2 + size;
-      const color = el.colorize();
-      this.ctx.fillStyle = color;
-      const offset = this.ctx.measureText(el.text).width / 2;
-      console.log(x, y, color, offset);
-      this.ctx.strokeText(el.text, x - offset, y - size / 2);
-      this.ctx.fillText(el.text, x - offset, y - size / 2);
-      console.log("render!");
-    });
+    const start = new Date().getTime();
 
+    this.textElemente
+        .map((el) => {
+          const x = el.x + Math.sin(el.st + el.progress * 5) * size / 15 + size / 2;
+
+          const yMod = el.curve(Math.min(el.progress, 0.7));
+          const y = el.y - (1 - yMod) * size + size;
+
+          const color = el.colorize();
+          const offset = this.ctx.measureText(el.text).width / 2;
+          return {
+            el,
+            x,
+            y,
+            color,
+            offset
+          }
+        })
+        .forEach((el) => {
+          const x = Math.floor(el.x - el.offset);
+          const y = Math.floor(el.y - size / 2);
+
+          this.ctx.strokeStyle  = `rgba(0, 0, 0, ${el.el.curve() / 1.5})`;
+          this.ctx.strokeText(el.el.text, x, y);
+          this.ctx.fillStyle = el.color;
+          this.ctx.fillText(el.el.text, x, y);
+        });
+
+    const renderTime = (new Date().getTime() - start);
+    if (renderTime > 0)
+      this.performanceLimiter = Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30; // min ~33 fps
   };
 }
 // Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb

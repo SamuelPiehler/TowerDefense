@@ -6,9 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src=req/save.js> </script> <style>
+  <script src=req/save.js>
+   </script> 
+   <script src="req/jszipmin.js"> </script>
+  <style>
     @import url("../css/maps.css") screen; </style>  <script src = "req/html2canvas.js" >
-  </script>
+    </script>
 
   <script type="text/javascript">
     /************************************************************************************************************
@@ -191,9 +194,11 @@
           </div>
         </div>
         <div class=floaties>
-          <img src="../Bilder/Map/zwischenPortal1.png">
+          <img src="../Bilder/Map/zwischenPortal1.png" class="true">
+          <img src="../Bilder/Map/zwischenPortal2.png" class="false">
         </div>
       </div>
+      <!--
       <div class=intile>
         <div class=inimage id="5" invno="17">
           <img src="../Bilder/Map/zwischenPortal2.png">
@@ -204,7 +209,7 @@
         <div class=floaties>
           <img src="../Bilder/Map/zwischenPortal2.png">
         </div>
-      </div>
+      </div> -->
       <div class=intile>
         <div class=inimage id="6" invno="-2">
           <img src="../Bilder/Map/weg1.jpg">
@@ -255,12 +260,36 @@
           <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
         </div>
       </div>
-      <div class=intile style="display:none;">
-        <div class=inimage id=0>
-          <img src="../Bilder/Map">
+      <div class=intile>
+          <div class=inimage asl="aslb" id="9" invno="-1234">
+            <img id="from" src="../Bilder/Map/feld1.jpg">
+            <div class=inlable>
+              Von diesem Aussehen
+            </div>
+          </div>
+          <div class=floaties>
+            <img src="../Bilder/Map/feld1.jpg">
+            <img src="../Bilder/Map/feld2.jpg">
+            <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+            <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+            <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+          </div>
         </div>
-        <div class=floaties></div>
-      </div>
+        <div class=intile>
+            <div class="inimage" asl="asl" id="9" invno="-1234">
+              <img id="to" src="../Bilder/Map/feld1.jpg">
+              <div class=inlable>
+                Zu diesem hier!!
+              </div>
+            </div>
+            <div class=floaties>
+              <img src="../Bilder/Map/feld1.jpg">
+              <img src="../Bilder/Map/feld2.jpg">
+              <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+              <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+              <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+            </div>
+          </div>
     </div>
   </div>
   <textarea id=output>Hier wird deine datei gezeigt!</textarea>
@@ -323,7 +352,11 @@
         el.update("gen");
       })
     }
+    var shift = false;
     var settings = {
+      pid: 0,
+      portalamount: 0,
+      nextmove: false,
       starthandle: 0,
       difficulty: false,
       Mapname: false,
@@ -358,8 +391,9 @@
     //   var settings.hintergrund = false;
     //   var settings.selectedinv = 1;
     //    var settings.lastbackground= "../Bilder/Map/feld1.jpg";
-    /* eslint no-console: ["error", { allow: ["log"] }] */
-    /* eslint no-console: "error" */
+    /* eslint no-//console: ["error", { allow: ["log"] }] */
+    /* eslint no-//console: "error" */
+    var currentportal = "";
     var map;
     //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
     var schwierigkeit;
@@ -402,12 +436,12 @@
     }
 
     function update(tile_id, bi) {
-
+//console.log(tile_id,bi);
 
       if (settings.hintergrund != false) {
         var bottom = document.getElementById("" + this.id + "bottom");
         bottom.src = settings.hintergrund;
-        this.hinter = settings.hintergrund.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+        this.hinter = settings.hintergrund.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
         settings.hintergrund = false;
       } else {
         if (settings.clickindex > 3) {
@@ -417,8 +451,10 @@
         //console.log(settings.clickindex, bi)
         var doc = document.getElementById(this.id);
         var top = document.getElementById("" + this.id + "top");
-
+        var gotchanged = false;
+        var wasbefore = (this.rtile == 13);
         var bild = doc;
+        var portal = document.getElementById("info" + this.id);
         if (tile_id >= 1 && tile_id <= 4) {
           if (settings.lastid == this.id)
             settings.clickindex++;
@@ -428,9 +464,10 @@
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
           rotateIt(top, settings.clickindex * 90);
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
+          gotchanged = true;
         } else if (tile_id >= 5 && tile_id <= 8) {
           if (settings.lastid == this.id)
             settings.clickindex++;
@@ -438,7 +475,7 @@
             settings.clickindex = 0;
           bild.src = bi;
           top.src = "../Bilder/Map/startPfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
           rotateIt(top, settings.clickindex * 90);
           this.istwo = true;
           if (settings.backchanged) {
@@ -448,10 +485,11 @@
           }
           this.tile = tile_id + settings.clickindex;
 
+          gotchanged = true;
         } else if (tile_id == 9) {
           bild.src = bi;
           top.src = "../Bilder/Map/zielPfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.istwo = true;
           if (settings.backchanged) {
@@ -460,16 +498,18 @@
             this.hinter = settings.lastbackground;
           }
           this.tile = tile_id;
+          gotchanged = true;
         } else if (tile_id == 0) {
           bild.src = bi;
           top.src = "../Bilder/Map/empty.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           this.istwo = false;
           this.tile = 0;
+          gotchanged = true;
         } else if (tile_id == -1) {
           bild.src = bi;
           top.src = "../Bilder/Map/empty.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           if (settings.backchanged) {
             var bottom = document.getElementById("" + this.id + "bottom");
             bottom.src = settings.lastbackground;
@@ -477,38 +517,38 @@
           }
           this.istwo = true;
           this.tile = -1;
+          gotchanged = true;
         } else if (tile_id == -2) {
           bild.src = bi;
           top.src = "../Bilder/Map/kreuzung.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.tile = -2;
           this.istwo = false;
+          gotchanged = true;
         } else if (tile_id >= 13 && tile_id <= 16) {
           if (settings.lastid == this.id)
             settings.clickindex++;
           if (settings.clickindex == 12)
             settings.clickindex = 0;
-          //console.log(settings.clickindex)
-          bild.src = bi;
-          top.src = "../Bilder/Map/pfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
-          this.tile = tile_id + settings.clickindex;
-          this.istwo = false;
+          if (this.rtile != 13)
+            settings.portalamount++;//console.log(settings.clickindex)
+          if (!this.pid) {
+            settings.pid++;
+            this.pid = settings.pid;
+            portal.children[0].innerHTML = this.pid;
+          }
+          portal.children[1].innerHTML = this.portallink;
+          portal.style.display = "block";
           if (settings.backchanged) {
             var bottom = document.getElementById("" + this.id + "bottom");
             bottom.src = settings.lastbackground;
             this.hinter = settings.lastbackground;
           }
-        } else if (tile_id >= 17 && tile_id <= 20) {
-          if (settings.lastid == this.id)
-            settings.clickindex++;
-          if (settings.clickindex == 4)
-            settings.clickindex = 0;
-          //console.log(settings.clickindex)
+          this.istwo = true;
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
           rotateIt(top, settings.clickindex * 90);
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
@@ -517,40 +557,111 @@
             bottom.src = settings.lastbackground;
             this.hinter = settings.lastbackground;
           }
-        } else if (tile_id == -1234) {
+        } /* else if (tile_id >= 17 && tile_id <= 20) {
+          if (settings.lastid == this.id)
+            settings.clickindex++;
+          if (settings.clickindex == 4)
+            settings.clickindex = 0;
+          //console.log(settings.clickindex)
+          if (this.rtile != 13 && this.rtile != 17)
+            settings.portalamount++;
+          bild.src = bi;
+          top.src = "../Bilder/Map/pfeil.png";
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          rotateIt(top, settings.clickindex * 90);
+          this.tile = tile_id + settings.clickindex;
+          this.istwo = false;
+          if (settings.backchanged) {
+            var bottom = document.getElementById("" + this.id + "bottom");
+            bottom.src = settings.lastbackground;
+            this.hinter = settings.lastbackground;
+          }
+        }*/ else if (tile_id == -1234) {
           var bottom = document.getElementById("" + this.id + "bottom");
           bottom.src = bi;
-          settings.lastbackground = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
-          this.hinter = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
-        } else if (tile_id = "gen") {
+          settings.lastbackground = bi.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
+          this.hinter = bi.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
+          gotchanged = true;
+        } else if (tile_id == "gen") {
           bild.src = this.image;
           top.src = this.top
           var bottom = document.getElementById("" + this.id + "bottom");
           bottom.src = this.hinter;
           rotateIt(top, (this.tile - this.rtile) * 90);
+          if (this.rtile == 13) {
+            portal.children[0].innerHTML = this.pid;
+            portal.children[1].innerHTML = this.portallink;
+            portal.style.display = "block";
+          }
           //console.log(this.tile - this.rtile)
         }
-        if (tile_id != -1234 && tile_id != "gen")
+        
+        if (tile_id != -1234 && tile_id != "gen" && tile_id != "image" && tile_id != "bottom")
           this.rtile = tile_id;
-        this.image = bild.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "")
+        this.image = bild.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "")
         settings.lastid = this.id;
+        if (gotchanged && (this.rtile != 13) && wasbefore) {
+          settings.portalamount--;
+          portal.style.display = "none";
+        }
+        if (tile_id == "image") {
+          bild.src = "../" + bi.replace("../", "");
+          this.image = "../" +  bi.replace("../", "");
+          //console.log("this.image");
+        }else if (tile_id == "bottom") {
+          //console.log("bottom")
+          this.hinter = "../" +  bi.replace("../", "");
+          var bottom = document.getElementById("" + this.id + "bottom");
+          bottom.src = this.hinter;
+        }
       }
     }
-  
-function showportals(){
-  console.log(this.rtile);
-if ( this.rtile == 13 || this.rtile == 17){
-  console.log("test");
-}
-}
-function portalsall(type = "show"){
-  if( type == "show"){
-    tiles.forEach(elem =>{
-      elem.showportals();
-    });
-}
-}
+
+    function showportals() {
+      //console.log(this.rtile);
+      if (this.rtile == 13) {
+        //console.log("test");
+        document.getElementById("block" + this.id + "").style.display = "none";
+      } else {
+        document.getElementById("block" + this.id + "").style.display = "block";
+      }
+    }
+    function hideportals() {
+      document.getElementById("block" + this.id + "").style.display = "none";
+    }
+    function portalsall(type = "show") {
+      if (type == "show") {
+        tiles.forEach(elem => {
+          elem.showportals();
+        });
+      }
+      if (type == "background") {
+        tiles.forEach(elem => {
+          elem.showportals();
+        });
+      }
+      if (type == "hide") {
+        tiles.forEach(elem => {
+          elem.hideportals();
+        });
+      }
+    }
+    function showextras(el) {
+      if (settings.portalamount > 1) {
+        settings.nextmove = true;
+        portalsall("show");
+        currentportal = el;
+      }
+    }
+    function hideextras(el) {
+      settings.nextmove = false;
+      portalsall("hide");
+      currentportal = el;
+    }
     function tile(id) {
+      this.portallink = "unset";
+      this.pid = undefined;
+      this.toptop = "";
       this.rtile = 0;
       this.tile = 0;
       this.image = "../Bilder/Map/feld2.jpg";
@@ -559,6 +670,7 @@ function portalsall(type = "show"){
       this.last = "../Bilder/Map/feld2.jpg";
       this.istwo = false;
       this.showportals = showportals;
+      this.hideportals = hideportals;
       this.update = update;
       this.top = "../Bilder/Map/empty.png";
     }
@@ -575,27 +687,68 @@ function portalsall(type = "show"){
     }
 
     function clix(el, right = false, ev = "") {
-      if (right) {
+      var cont = true;
+      if (right)
         event.preventDefault();
-        tilebyId(el).update(0, settings.lastbackground);
-      } else {
-        tilebyId(el).update(settings.selectedinv, settings.selectedstyle);
-      }
+      if (el.search("block") == -1)
+        if (settings.nextmove && settings.portalamount > 1 && (!shift)) {
+
+          tilebyId(currentportal).portallink = tilebyId(el).pid;
+          if (tilebyId(el).portallink == "unset")
+          tilebyId(el).portallink = tilebyId(currentportal).pid;
+          tilebyId(currentportal).update("gen");
+          tilebyId(el).update("gen");
+          hideextras(el);
+          cont = false;
+        }
+        else
+          if ((settings.selectedinv == 13)) {
+          cont = false;
+            if (right) {
+              if (shift && ((tilebyId(el).rtile == 13))) {
+                showextras(el);
+              }else
+          cont = true;
+
+            } else {
+              if (tilebyId(el).rtile != settings.selectedinv) {
+                  tilebyId(el).update(settings.selectedinv, settings.selectedstyle);
+                showextras(el);
+              }
+              else
+                tilebyId(el).update(settings.selectedinv, settings.selectedstyle);
+            }
+
+          }
+
+          if (cont)
+          if (right) {
+              //console.log("oops")
+              event.preventDefault();
+              tilebyId(el).update(0, settings.lastbackground);
+            } else {
+              tilebyId(el).update(settings.selectedinv, settings.selectedstyle);
+            }
     }
 
-    function generatemapstring(call = () => {}) {
+    function generatemapstring(call = () => { }) {
       var map = "[";
       var all = document.querySelectorAll("#allall .row");
       all.forEach(element => {
-        var row = document.querySelectorAll("#allall #" + element.getAttribute("id") + " div");
+        var row = document.querySelectorAll("#allall #" + element.getAttribute("id") + " > div");
         //console.log(row);
         var sub = "[";
         row.forEach(elementb => {
           //console.log(elementb);
+          if(tilebyId(elementb.getAttribute("identi")).rtile == 13)
+          sub += ("[" + tilebyId(elementb.getAttribute("identi")).tile + ", ['" + tilebyId(elementb
+              .getAttribute("identi")).hinter.replace(/.*(?=Bilder.*\....)/gm, "") + "','" + tilebyId(elementb
+                .getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm, "") + "']," + tilebyId(elementb.getAttribute("identi")).pid + "," + (tilebyId(elementb.getAttribute("identi")).portallink == "unset" ? tilebyId(elementb.getAttribute("identi")).pid : tilebyId(elementb.getAttribute("identi")).portallink ) + "],");
+                else
           if (tilebyId(elementb.getAttribute("identi")).istwo)
             sub += ("[" + tilebyId(elementb.getAttribute("identi")).tile + ", ['" + tilebyId(elementb
               .getAttribute("identi")).hinter.replace(/.*(?=Bilder.*\....)/gm, "") + "','" + tilebyId(elementb
-              .getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm, "") + "']],");
+                .getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm, "") + "']],");
           else
             sub += ("[" + tilebyId(elementb.getAttribute("identi")).tile + ", '" + tilebyId(elementb
               .getAttribute("identi")).image.replace(/.*(?=Bilder.*\....)/gm, "") + "'],");
@@ -620,15 +773,21 @@ function portalsall(type = "show"){
 
           allstring += "var randomtiles = " + JSON.stringify(settings.randomtiles) +
             "\n\n\n\n \/\/ hier kommt das preview- Bild \n\n\n";
-          allstring += "var image = '" + document.getElementById("screenshot").getAttribute("src") + "';\n";
+            var imfolder = "map_" + (amount.length + 1) + new Date().getTime() + "Bild";
+            allstring += "var image = 'Maps/" + imfolder + "/Bild.png';"
+            var im  = document.getElementById("screenshot").getAttribute("src");
           //console.log(document.getElementById("screenshot").getAttribute("src"))
           settings.mapstring = allstring;
-          var blob = new Blob([allstring], {
-            type: "text/plain;charset=utf-8"
-          });
-
-          saveAs(blob, "map" + (amount.length + 1) + ".js");
-
+          var zip = new JSZip();
+          zip.file("map" + (amount.length + 1) + ".js", allstring);
+          var img = zip.folder(imfolder);
+          img.file("Bild.png", im.substring(22), {base64: true});
+          zip.generateAsync({type:"blob"})
+                .then(function(content) {
+                    // see FileSaver.js
+                    //console.log("test");
+                    saveAs(content, "map" + (amount.length + 1) + ".mapinstallment");
+                });
         }.bind(null, amount), 4000)
       })
     }
@@ -651,15 +810,15 @@ function portalsall(type = "show"){
       return (settings.wi / x > settings.hei / y ? settings.hei / y : settings.wi / x);
       //diese Funktion gibt die richtige Grösse aus
     }
-/*
-    do {
-      settings.Xkoordinaten = parseInt(window.prompt("wie viele X-koordinaten soll das Spiel haben?", ""), 10);
-    } while (isNaN(settings.Xkoordinaten) || settings.Xkoordinaten > 50 || settings.Xkoordinaten < 5);
-    do {
-      settings.Ykoordinaten = parseInt(window.prompt("wie viele Y-koordinaten soll das Spiel haben?", ""), 10);
-    } while (isNaN(settings.Ykoordinaten) || settings.Ykoordinaten > 50 || settings.Ykoordinaten < 5);
-    */
-   
+   // /*
+        do {
+          settings.Xkoordinaten = parseInt(window.prompt("wie viele X-koordinaten soll das Spiel haben?", ""), 10);
+        } while (isNaN(settings.Xkoordinaten) || settings.Xkoordinaten > 50 || settings.Xkoordinaten < 5);
+        do {
+          settings.Ykoordinaten = parseInt(window.prompt("wie viele Y-koordinaten soll das Spiel haben?", ""), 10);
+        } while (isNaN(settings.Ykoordinaten) || settings.Ykoordinaten > 50 || settings.Ykoordinaten < 5);
+      //  */
+
     generate(settings.Xkoordinaten, settings.Ykoordinaten);
 
     function generate(Xkoordinaten, Ykoordinaten) {
@@ -680,7 +839,13 @@ function portalsall(type = "show"){
       <img id=${i + "," + j + "bottom"} class="bottom" src="../Bilder/Map/feld1.jpg" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
       <img id=${i + "," + j} src="../Bilder/Map/feld1.jpg" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
       <img id=${i + "," + j + "top"} class=top src="../Bilder/Map/empty.png" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
-    </div>`
+      <div id="block${i + "," + j}" class="blockers" style="width:${size}px; height:${size}px; display:none;" width=${size} height=${size} ></div>
+        <div id="info${i + "," + j}" class="portinfo" style="width:${size}px; height:${size}px; display:none;" width=${size} height=${size} >
+        <div class=left>121</div>
+        <div class=right>345</div>
+        </div>
+      
+      </div>`
           tiles.push(new tile(i + "," + j));
         }
         all += "</div>";
@@ -705,14 +870,14 @@ function portalsall(type = "show"){
     }
     getmaps();
 
-    function getmaps(func = (() => {})) {
+    function getmaps(func = (() => { })) {
       mapold = map;
       geldold = settings.geld;
       var script = document.createElement("script");
       script.src = "../Maps/map" + checkerturn +
         `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
       //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-//console
       document.body.appendChild(script);
       script.onerror = function (el, func) {
         success = false;
@@ -726,6 +891,38 @@ function portalsall(type = "show"){
     }
     document.addEventListener("click", function (event) {
       try {
+        
+        if (JSON.stringify(event.path[1].getAttribute("asl")) == JSON.stringify("aslb")) {
+          //do stuff
+        } else if (JSON.stringify(event.path[1].getAttribute("asl")) == JSON.stringify("asl")) {
+          //do stuff
+          var from = document.getElementById("from").src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "");
+          var to = document.getElementById("to").src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "");
+
+          tiles.forEach(elem => {
+            console.log(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "") , from);
+            if(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "") == from){
+              settings.selectedstyle = "../" + to;
+              elem.update("image","../" + to);
+            
+            }
+            if(elem.hinter.replace("../", "") == from){
+              settings.lastbackground = "../" + to;
+            elem.update("bottom","../" + to);
+            }
+        });
+        } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("floaties")) {
+          //console.log(event.path[2].getAttribute("invno"));
+          event.path[2].children[0].children[0].setAttribute("src", event.path[0].getAttribute("src"));
+          var c = Array.prototype.slice.call(event.path[1].children);
+          c.forEach((el) => {
+            el.setAttribute("class", "false")
+          });
+          event.path[0].setAttribute("class", "true");
+          event.path[1].style.display = "none";
+        }
+else
+
         if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")) {
           clix(event.target.id.replace("top", ""));
         } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage")) {
@@ -733,7 +930,7 @@ function portalsall(type = "show"){
           document.querySelectorAll(".inimage").forEach((element) => {
             element.setAttribute("class", "inimage");
             element.setAttribute("style", "");
-          })
+          });
           event.path[1].setAttribute("class", "inimage selected");
           event.path[1].setAttribute("style", "z-index:10000");
           settings.selectedstyle = event.path[0].getAttribute("src");
@@ -743,7 +940,7 @@ function portalsall(type = "show"){
           document.querySelectorAll(".inimage").forEach((element) => {
             element.setAttribute("class", "inimage");
             element.setAttribute("style", "");
-          })
+          });
           event.path[2].children[0].children[0].setAttribute("src", event.path[0].getAttribute("src"));
           settings.selectedstyle = event.path[0].getAttribute("src");
           var c = Array.prototype.slice.call(event.path[1].children);
@@ -761,7 +958,7 @@ function portalsall(type = "show"){
         }
 
       } catch (Error) {
-        //console.log(Error);
+        console.error(Error);
       }
       document.querySelectorAll(".floaties").forEach((el) => {
         el.style.display = "none";
@@ -830,6 +1027,15 @@ function portalsall(type = "show"){
     function convertfromjs() {
 
     }
+    document.addEventListener("keydown", function (event) {
+      if (event.key == "Shift")
+        shift = true;
+    })
+    document.addEventListener("keyup", function (event) {
+
+      if (event.key == "Shift")
+        shift = false;
+    })
   </script>
 </body>
 

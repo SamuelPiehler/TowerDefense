@@ -51,7 +51,7 @@ body{
 }
 
 #assa{
-    z-index: -10000;
+    z-index: -2;
 }
 .inlable{
     position:relative;
@@ -125,4 +125,35 @@ img{
     top: 70px;
     left: 480px;
     color: rgb(97, 174, 251);
+}
+.blockers{
+    background-color: rgba(255, 0, 0, 0.376);
+    z-index: 3;
+}
+#inwrap * {
+    z-index: 8;
+}
+#inwrap{
+    position: absolute;
+    z-index: 8;
+}
+.portinfo .left{
+    position: absolute;
+    left: 0px;
+    background-size: contain;
+    background-color:orange;
+    color: red;
+    font-size: 1.2em;
+}
+.portinfo .right{
+    position: absolute;
+    right: 0px;
+    background-size: contain;
+    background-color:lightblue;
+    color: blue;
+    font-size: 1.2em;
+}
+.portinfo{
+    pointer-events: none;
+
 }
