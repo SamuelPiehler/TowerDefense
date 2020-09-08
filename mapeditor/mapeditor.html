@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src=req/save.js> </script> <style>
+  <script src=req/save.js>
+   </script> 
+   <script src="req/jszipmin.js"> </script>
+  <style>
     @import url("../css/maps.css") screen; </style>  <script src = "req/html2canvas.js" >
     </script>
 
@@ -257,12 +260,36 @@
           <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
         </div>
       </div>
-      <div class=intile style="display:none;">
-        <div class=inimage id=0>
-          <img src="../Bilder/Map">
+      <div class=intile>
+          <div class=inimage asl="aslb" id="9" invno="-1234">
+            <img id="from" src="../Bilder/Map/feld1.jpg">
+            <div class=inlable>
+              Von diesem Aussehen
+            </div>
+          </div>
+          <div class=floaties>
+            <img src="../Bilder/Map/feld1.jpg">
+            <img src="../Bilder/Map/feld2.jpg">
+            <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+            <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+            <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+          </div>
         </div>
-        <div class=floaties></div>
-      </div>
+        <div class=intile>
+            <div class="inimage" asl="asl" id="9" invno="-1234">
+              <img id="to" src="../Bilder/Map/feld1.jpg">
+              <div class=inlable>
+                Zu diesem hier!!
+              </div>
+            </div>
+            <div class=floaties>
+              <img src="../Bilder/Map/feld1.jpg">
+              <img src="../Bilder/Map/feld2.jpg">
+              <img width=74 height=74 src="../Bilder/Map/weg1.jpg" class="false">
+              <img width=74 height=74 src="../Bilder/Map/weg2.jpg" class="false">
+              <img width=74 height=74 src="../Bilder/Map/weg3.png" class="false">
+            </div>
+          </div>
     </div>
   </div>
   <textarea id=output>Hier wird deine datei gezeigt!</textarea>
@@ -364,8 +391,8 @@
     //   var settings.hintergrund = false;
     //   var settings.selectedinv = 1;
     //    var settings.lastbackground= "../Bilder/Map/feld1.jpg";
-    /* eslint no-console: ["error", { allow: ["log"] }] */
-    /* eslint no-console: "error" */
+    /* eslint no-//console: ["error", { allow: ["log"] }] */
+    /* eslint no-//console: "error" */
     var currentportal = "";
     var map;
     //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
@@ -409,12 +436,12 @@
     }
 
     function update(tile_id, bi) {
-
+//console.log(tile_id,bi);
 
       if (settings.hintergrund != false) {
         var bottom = document.getElementById("" + this.id + "bottom");
         bottom.src = settings.hintergrund;
-        this.hinter = settings.hintergrund.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+        this.hinter = settings.hintergrund.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
         settings.hintergrund = false;
       } else {
         if (settings.clickindex > 3) {
@@ -437,7 +464,7 @@
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
           rotateIt(top, settings.clickindex * 90);
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
           gotchanged = true;
@@ -448,7 +475,7 @@
             settings.clickindex = 0;
           bild.src = bi;
           top.src = "../Bilder/Map/startPfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
           rotateIt(top, settings.clickindex * 90);
           this.istwo = true;
           if (settings.backchanged) {
@@ -462,7 +489,7 @@
         } else if (tile_id == 9) {
           bild.src = bi;
           top.src = "../Bilder/Map/zielPfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.istwo = true;
           if (settings.backchanged) {
@@ -475,14 +502,14 @@
         } else if (tile_id == 0) {
           bild.src = bi;
           top.src = "../Bilder/Map/empty.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           this.istwo = false;
           this.tile = 0;
           gotchanged = true;
         } else if (tile_id == -1) {
           bild.src = bi;
           top.src = "../Bilder/Map/empty.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           if (settings.backchanged) {
             var bottom = document.getElementById("" + this.id + "bottom");
             bottom.src = settings.lastbackground;
@@ -494,7 +521,7 @@
         } else if (tile_id == -2) {
           bild.src = bi;
           top.src = "../Bilder/Map/kreuzung.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.tile = -2;
           this.istwo = false;
@@ -521,7 +548,7 @@
           this.istwo = true;
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
           rotateIt(top, settings.clickindex * 90);
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
@@ -540,7 +567,7 @@
             settings.portalamount++;
           bild.src = bi;
           top.src = "../Bilder/Map/pfeil.png";
-          this.top = top.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          this.top = top.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           rotateIt(top, settings.clickindex * 90);
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
@@ -552,10 +579,10 @@
         }*/ else if (tile_id == -1234) {
           var bottom = document.getElementById("" + this.id + "bottom");
           bottom.src = bi;
-          settings.lastbackground = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");
-          this.hinter = bi.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "");;
+          settings.lastbackground = bi.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");
+          this.hinter = bi.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "");;
           gotchanged = true;
-        } else if (tile_id = "gen") {
+        } else if (tile_id == "gen") {
           bild.src = this.image;
           top.src = this.top
           var bottom = document.getElementById("" + this.id + "bottom");
@@ -568,21 +595,32 @@
           }
           //console.log(this.tile - this.rtile)
         }
-        if (tile_id != -1234 && tile_id != "gen")
+        
+        if (tile_id != -1234 && tile_id != "gen" && tile_id != "image" && tile_id != "bottom")
           this.rtile = tile_id;
-        this.image = bild.src.replace(/(http:\/\/|https:\/\/).*\/towerdefens\/(?=Bilder\/.*)/gm, "")
+        this.image = bild.src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "")
         settings.lastid = this.id;
         if (gotchanged && (this.rtile != 13) && wasbefore) {
           settings.portalamount--;
           portal.style.display = "none";
         }
+        if (tile_id == "image") {
+          bild.src = "../" + bi.replace("../", "");
+          this.image = "../" +  bi.replace("../", "");
+          //console.log("this.image");
+        }else if (tile_id == "bottom") {
+          //console.log("bottom")
+          this.hinter = "../" +  bi.replace("../", "");
+          var bottom = document.getElementById("" + this.id + "bottom");
+          bottom.src = this.hinter;
+        }
       }
     }
 
     function showportals() {
-      console.log(this.rtile);
+      //console.log(this.rtile);
       if (this.rtile == 13) {
-        console.log("test");
+        //console.log("test");
         document.getElementById("block" + this.id + "").style.display = "none";
       } else {
         document.getElementById("block" + this.id + "").style.display = "block";
@@ -593,6 +631,11 @@
     }
     function portalsall(type = "show") {
       if (type == "show") {
+        tiles.forEach(elem => {
+          elem.showportals();
+        });
+      }
+      if (type == "background") {
         tiles.forEach(elem => {
           elem.showportals();
         });
@@ -680,7 +723,7 @@
 
           if (cont)
           if (right) {
-              console.log("oops")
+              //console.log("oops")
               event.preventDefault();
               tilebyId(el).update(0, settings.lastbackground);
             } else {
@@ -713,7 +756,6 @@
         map += sub + "], \n";
       });
       settings.thismap = map + "]\n";
-      return map;
       takescreenshot();
       getmaps((amount) => {
         setTimeout(function (amount) {
@@ -731,15 +773,21 @@
 
           allstring += "var randomtiles = " + JSON.stringify(settings.randomtiles) +
             "\n\n\n\n \/\/ hier kommt das preview- Bild \n\n\n";
-          allstring += "var image = '" + document.getElementById("screenshot").getAttribute("src") + "';\n";
+            var imfolder = "map_" + (amount.length + 1) + new Date().getTime() + "Bild";
+            allstring += "var image = '" + imfolder + "/Bild.png';"
+            var im  = document.getElementById("screenshot").getAttribute("src");
           //console.log(document.getElementById("screenshot").getAttribute("src"))
           settings.mapstring = allstring;
-          var blob = new Blob([allstring], {
-            type: "text/plain;charset=utf-8"
-          });
-
-          saveAs(blob, "map" + (amount.length + 1) + ".js");
-
+          var zip = new JSZip();
+          zip.file("map" + (amount.length + 1) + ".js", allstring);
+          var img = zip.folder(imfolder);
+          img.file("Bild.png", im.substring(22), {base64: true});
+          zip.generateAsync({type:"blob"})
+                .then(function(content) {
+                    // see FileSaver.js
+                    //console.log("test");
+                    saveAs(content, "map" + (amount.length + 1) + ".mapinstallment");
+                });
         }.bind(null, amount), 4000)
       })
     }
@@ -762,14 +810,14 @@
       return (settings.wi / x > settings.hei / y ? settings.hei / y : settings.wi / x);
       //diese Funktion gibt die richtige Grösse aus
     }
-    /*
+   // /*
         do {
           settings.Xkoordinaten = parseInt(window.prompt("wie viele X-koordinaten soll das Spiel haben?", ""), 10);
         } while (isNaN(settings.Xkoordinaten) || settings.Xkoordinaten > 50 || settings.Xkoordinaten < 5);
         do {
           settings.Ykoordinaten = parseInt(window.prompt("wie viele Y-koordinaten soll das Spiel haben?", ""), 10);
         } while (isNaN(settings.Ykoordinaten) || settings.Ykoordinaten > 50 || settings.Ykoordinaten < 5);
-        */
+      //  */
 
     generate(settings.Xkoordinaten, settings.Ykoordinaten);
 
@@ -829,7 +877,7 @@
       script.src = "../Maps/map" + checkerturn +
         `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
       //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-//console
       document.body.appendChild(script);
       script.onerror = function (el, func) {
         success = false;
@@ -843,6 +891,38 @@
     }
     document.addEventListener("click", function (event) {
       try {
+        
+        if (JSON.stringify(event.path[1].getAttribute("asl")) == JSON.stringify("aslb")) {
+          //do stuff
+        } else if (JSON.stringify(event.path[1].getAttribute("asl")) == JSON.stringify("asl")) {
+          //do stuff
+          var from = document.getElementById("from").src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "");
+          var to = document.getElementById("to").src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "");
+
+          tiles.forEach(elem => {
+            console.log(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "") , from);
+            if(document.getElementById(elem.id).src.replace(/(http:|https:|[A-Z]:).*\/(towerdefens|TD)\/(?=Bilder\/.*)/gm, "").replace("../", "") == from){
+              settings.selectedstyle = "../" + to;
+              elem.update("image","../" + to);
+            
+            }
+            if(elem.hinter.replace("../", "") == from){
+              settings.lastbackground = "../" + to;
+            elem.update("bottom","../" + to);
+            }
+        });
+        } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("floaties")) {
+          //console.log(event.path[2].getAttribute("invno"));
+          event.path[2].children[0].children[0].setAttribute("src", event.path[0].getAttribute("src"));
+          var c = Array.prototype.slice.call(event.path[1].children);
+          c.forEach((el) => {
+            el.setAttribute("class", "false")
+          });
+          event.path[0].setAttribute("class", "true");
+          event.path[1].style.display = "none";
+        }
+else
+
         if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")) {
           clix(event.target.id.replace("top", ""));
         } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage")) {
@@ -850,7 +930,7 @@
           document.querySelectorAll(".inimage").forEach((element) => {
             element.setAttribute("class", "inimage");
             element.setAttribute("style", "");
-          })
+          });
           event.path[1].setAttribute("class", "inimage selected");
           event.path[1].setAttribute("style", "z-index:10000");
           settings.selectedstyle = event.path[0].getAttribute("src");
@@ -860,7 +940,7 @@
           document.querySelectorAll(".inimage").forEach((element) => {
             element.setAttribute("class", "inimage");
             element.setAttribute("style", "");
-          })
+          });
           event.path[2].children[0].children[0].setAttribute("src", event.path[0].getAttribute("src"));
           settings.selectedstyle = event.path[0].getAttribute("src");
           var c = Array.prototype.slice.call(event.path[1].children);
@@ -878,7 +958,7 @@
         }
 
       } catch (Error) {
-        //console.log(Error);
+        console.error(Error);
       }
       document.querySelectorAll(".floaties").forEach((el) => {
         el.style.display = "none";
