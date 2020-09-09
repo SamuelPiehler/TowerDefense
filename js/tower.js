@@ -64,17 +64,17 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.canvasGeschütz.addEventListener('mouseover', function(evt){showRange(evt, this, id);});  //zeige reichweite des turms bei hover
   this.canvasGeschütz.addEventListener('click', function(){showUpgrade(this, id);});    //wenn angeklickt zeige stats und upgrade infos
   ladeBild(towertypen[this.typ][1], this.canvasGeschütz, 0);
-  switch (spezialisierung) {
-    case "0":
+  switch (spezialisierung*1) {
+    case 0:
       ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
       break;
-    case "1":
+    case 1:
       ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
       break;
-    case "2":
+    case 2:
       ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
       break;
-    case "3":
+    case 3:
       ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
       break;
   }
