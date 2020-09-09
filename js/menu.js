@@ -151,6 +151,7 @@ function laden() {
         setTimeout(funcAfterMapLoad, 5);
         return;
       }
+      schwierigkeit = getContent(1);
       spielerLeben = getContent(2,2);
       document.getElementById("Leben").innerHTML = spielerLeben;    //update lebensanzeige
       geld = getContent(4,3);

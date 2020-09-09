@@ -304,6 +304,7 @@ function Gegner(id, typ, lebenMult){
       if (spielerLeben <= 0) {    //verloren nachricht wenn leben = 0;
         alert("Du hast das Spiel Verloren!");
         spielEnde = true;
+        localStorage.removeItem("saveCode");
       }
     }
   }
