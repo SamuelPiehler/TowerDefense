@@ -28,4 +28,4 @@ if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!mu
  // hier kommt das preview- Bild 
 
 
-var image = 'Maps/map12/image.png';
+var image = 'Maps/map12/image.webp';
