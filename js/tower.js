@@ -337,7 +337,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
     while (grad - this.richtung > 180) {
       this.richtung += 360;
     }
-    if (this.upgradeStufe == maxUpgrade && this.typ == 0 && towertypen[this.typ][12] && target2 != -1) {    // wenn basic turm stufe 5
+    if (this.upgradeStufe == maxUpgrade && this.typ == 0 && towertypen[this.typ][12] && target2 !== -1) {    // wenn basic turm stufe 5
       while (this.richtung - grad2 > 180) {
         grad2 += 360;
       }
@@ -425,9 +425,9 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             if (item != undefined) {
               switch (this.richtung) {
                 case 0:   //wenn der sniper exact nach oben zeigt
-                    if (this.posy > item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                      item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
-                    }
+                  if (this.posy > item.posy && Math.abs(this.posx-item.posx) <= size/2) {
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                  }
                   break;
                 case 90:   //wenn der sniper exact nach links zeigt
                   if (this.posx > item.posx && Math.abs(this.posy-item.posy) <= size/2) {
@@ -458,7 +458,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             }
           }
         }
-        else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
+        else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12] && target2 !== -1) {    //wenn antiBoss stufe 5
           bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet
           //füge schaden und effeckt auf gegner zu
           gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);

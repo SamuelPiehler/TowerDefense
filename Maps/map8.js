@@ -22,4 +22,4 @@ var multiStartTyp = "0";
  // hier kommt das preview- Bild 
 
 
-var image = 'Maps/map8/image.png';
+var image = 'Maps/map8/image.webp';

@@ -636,7 +636,7 @@ function hideStats() {
 function showRange(evt, object, id) {
   range = tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100);
   rangeDiv = document.createElement("div");
-  document.body.appendChild(rangeDiv);
+  document.getElementById("range").appendChild(rangeDiv);
   rangeDiv.style.position = 'absolute';
   rangeDiv.style.left = (evt.srcElement.offsetLeft + size/2 - (range*size/70))+'px';
   rangeDiv.style.top = (evt.srcElement.offsetTop + size/2 - (range*size/70))+'px';

@@ -19,4 +19,4 @@ var randomtiles = false
  // hier kommt das preview- Bild
 
 
-var image = 'Maps/map5/image.png';
+var image = 'Maps/map5/image.webp';
