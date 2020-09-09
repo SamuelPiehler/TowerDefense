@@ -433,7 +433,7 @@ towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert
 var preisMult = 1;
 for (var i = 0; i < 3-schwierigkeit; i++) {
-  preisMult -= 0.15
+  preisMult -= 0.15;
 }
 if (schwierigkeit == 0) {
   preisMult = 0;
