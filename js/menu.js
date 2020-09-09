@@ -111,6 +111,65 @@ function EBI(e){
 }
 function startTheGame(id){
     ////console.log(id);
+    mapId = id;
     EBI("menu").style.display ="none"
     loadmap('map'+ id +'.js');
+}
+
+function laden() {
+  saveCode = localStorage.getItem("saveCode");
+  if (saveCode != undefined && saveCode.length >= 9) {
+    EBI("menu").style.display = "none";
+    schwierigkeit = getContent(1);
+    startTheGame(getContent(0));
+    setTimeout(funcAfterMapLoad, 5);
+    function funcAfterMapLoad() {
+      if (scriptLoaded < 3) {
+        setTimeout(funcAfterMapLoad, 5);
+        return;
+      }
+      spielerLeben = getContent(2,2);
+      document.getElementById("Leben").innerHTML = spielerLeben;    //update lebensanzeige
+      geld = getContent(4,3);
+      document.getElementById("Geld").innerHTML = geld;   //update geldanzeige
+      wellenNummer = getContent(7,2);
+      document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;   //update wellenanzeige
+      teilWellenNummer = 0;
+      for (var i = 1; i < wellenNummer; i++) {
+        do {
+          teilWellenNummer++;
+        } while (gegnerWellen[teilWellenNummer][4] =! -1);
+      }
+      var towerNum = 0;
+      var towerDataLength = 21;
+      while (saveCode.length > towerNum*towerDataLength + 9) {
+        if (saveCode.length < towerNum*towerDataLength + 30) {
+          console.log("fehlerhafte saveCode length");
+          return;
+        }
+        spezialisierung = getContent(towerNum*towerDataLength + 9);
+        if (spezialisierung == 93) {
+          spezialisierung = undefined;
+        }
+        tuerme[towerNum] = new Turm(getContent(towerNum*towerDataLength + 12), getContent(towerNum*towerDataLength + 13), getContent(towerNum*towerDataLength + 10), towerNum, spezialisierung);
+        tuerme[towerNum].richtung = getContent(towerNum*towerDataLength + 14, 3);
+        tuerme[towerNum].richtung2 = getContent(towerNum*towerDataLength + 17, 3);
+        tuerme[towerNum].targetPrio = getContent(towerNum*towerDataLength + 20);
+        tuerme[towerNum].dmgDealed = getContent(towerNum*towerDataLength + 21, 6)/100;
+        tuerme[towerNum].effecktStacks = getContent(towerNum*towerDataLength + 27, 3);
+        ladeBild(towertypen[tuerme[towerNum].typ][1], tuerme[towerNum].canvasGeschütz, -tuerme[towerNum].richtung, true);
+        for (var i = 0; i < getContent(towerNum*towerDataLength + 11); i++) {
+          tuerme[towerNum].upgrade(true);
+        }
+        towerNum++
+      }
+    }
+    function getContent(num, count = 1) {
+      var wert = 0;
+      for (var i = 0; i < count; i++) {
+        wert += (saveCode.charCodeAt(num+i)-33)*Math.pow(94, count-i-1);
+      }
+      return wert;
+    }
+  }
 }

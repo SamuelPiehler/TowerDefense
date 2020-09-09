@@ -420,3 +420,5 @@ mapDiv.style.position = 'absolute';
 mapDiv.style.left = '10px';
 mapDiv.style.top = '50px';
 mapDiv.style.zIndex = 0;
+
+scriptLoaded++;

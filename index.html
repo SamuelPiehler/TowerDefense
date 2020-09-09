@@ -11,9 +11,8 @@
     <script src="js/tower.js"></script>
   </head>
   <body>
-      <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <canvas id=NumberCanvas style="position:absolute;pointer-events:none;z-index:3;left: 10px;
-    top: 50px;"></canvas>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <canvas id=NumberCanvas style="position:absolute;pointer-events:none;z-index:6;left: 10px;top: 50px;"></canvas>
     <button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>
       Menü
     </button>
@@ -22,7 +21,7 @@
         <div id=main class="contain visible">
           <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
           <div class="menubutton mbutton-normal">Challanges</div>
-          <div class="menubutton mbutton-normal">Laden</div>
+          <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
           <div class="menubutton mbutton-normal">Skill-Tree</div>
           <div class="menubutton mbutton-half">
             <div class="menubutton mbutton-half-left">Gegner</div>
@@ -103,7 +102,8 @@
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
       <script type="text/javascript">
-      var alreadyl = false;
+        var scriptLoaded = 0;
+        var alreadyl = false;
         mapsloaded = false;
         var mapSchwie;
         var MapName;
@@ -113,6 +113,7 @@
         var mapGeld;
         //die map und das geld vorbereiten
         var map;
+        var mapId = 1;
         var geld;
         //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
         var schwierigkeit;
@@ -199,6 +200,7 @@
 
           if (mapload == ""){
             map = maplist[document.getElementById("selectmap").selectedIndex];
+            mapId = document.getElementById("selectmap").selectedIndex + 1;
           }
           else{
             map = mapload;
@@ -440,7 +442,6 @@
           }
           el.remove();
         }
-
       </script>
     </span>
   </body>

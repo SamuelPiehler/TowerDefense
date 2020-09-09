@@ -18,7 +18,7 @@ body *{
     -1px -1px black;
   offset-position: left top;
   position: absolute;
-  z-index: 5;
+  z-index: 6;
   animation: slideup 2s linear forwards;
 }
 
@@ -55,7 +55,7 @@ body *{
 
 #bullets *{
   pointer-events: none;
-  z-index: 3;
+  z-index: 4;
 }
 
 #range {
@@ -65,6 +65,6 @@ body *{
   left: 0;
   bottom:0;
   right:0;
-  z-index: 4;
+  z-index: 9;
   overflow: hidden;
 }
