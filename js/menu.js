@@ -23,7 +23,7 @@ function printMaps() {
         inn.innerHTML += `<div class=map onclick="showselectedindex(${element[2]});" style='border: 5px groove beige'>
                             <div class=outer-frame>
                             <div class=inner-frame>
-                                <img src="${element[3]}" onerror="t.src = "Bilder/Map/empty.png";t.setAttribute("class","error");">
+                                <img src="${element[3]}" onerror='t.src = "Bilder/Map/empty.png";t.setAttribute("class","error");'>
                             </div>
                             <p>Map${element[2]}, StartGeld: ${element[1]}</p>
                             </div>
