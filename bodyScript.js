@@ -374,6 +374,9 @@ function buildMap() {
 }
 
 function save() {
+  var prüf1 = 0;
+  var prüf2 = 0;
+  var prüf3 = 1;
   var saveCode = nextChar(mapId);
   saveCode += nextChar(schwierigkeit);
   var leben1 = Math.floor(spielerLeben/Math.pow(94,1));
@@ -435,12 +438,24 @@ function save() {
     effecktStacks1 = Math.floor((tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2))/Math.pow(94,1));
     effecktStacks0 = Math.floor(tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2)-effecktStacks1*Math.pow(94, 1));
     saveCode += nextChar(effecktStacks2, effecktStacks1, effecktStacks0);
+    console.log(prüf2);
+    saveCode += nextChar(prüf2);
   }
+  console.log(prüf1);
+  saveCode += nextChar(prüf1);
+  console.log(prüf3);
+  saveCode += nextChar(prüf3);
   localStorage.setItem('saveCode', saveCode);
   console.log(saveCode);
   function nextChar(...content) {
     var string = "";
     for (var i = 0; i < content.length; i++) {
+      prüf3 *= content[i] + 1;
+      prüf3 %= 93;
+      prüf2 += content[i] * prüf1;
+      prüf2 %= 93;
+      prüf1 += content[i] + 1;
+      prüf1 %= 93;
       string += String.fromCharCode(33+content[i]);
     }
     return string;
