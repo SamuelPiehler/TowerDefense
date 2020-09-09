@@ -469,7 +469,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               }
             }
           }
-          console.log(anzalHits);
+          maxHit = Math.max(maxHit, anzalHits);
+          console.log(maxHit);
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12] && target2 !== -1) {    //wenn antiBoss stufe 5
           bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet
