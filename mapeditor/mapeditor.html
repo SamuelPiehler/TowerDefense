@@ -583,8 +583,8 @@
           this.hinter = bi.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "");;
           gotchanged = true;
         } else if (tile_id == "gen") {
-          bild.src = this.image;
-          top.src = this.top
+          bild.src = "../" + this.image.replace("../", "");
+          top.src = "../" + this.top.replace("../", "");
           var bottom = document.getElementById("" + this.id + "bottom");
           bottom.src = this.hinter;
           rotateIt(top, (this.tile - this.rtile) * 90);
