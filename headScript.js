@@ -1,4 +1,4 @@
-B N //Konfig
+
 var maxUpgrade = 5;
 var anzahlEffeckte = 5;
 //TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport, 15 = stackbares Gift
@@ -347,7 +347,7 @@ gegnerWellen.push([12, lebenMult , 20, 1, 0.9]); // Gold
 gegnerWellen.push([13, lebenMult , 20, 1, 0.9]); // Gold
 gegnerWellen.push([14, lebenMult , 20, 1, 0.9]); // Gold
 gegnerWellen.push([15, lebenMult , 20, 1, 0.9]); // Gold
-gegnerWellen.push([16, lebenMult , 20, 1, -1]); // Gold      
+gegnerWellen.push([16, lebenMult , 20, 1, -1]); // Gold
 //testwelle
 var testWellen = [];
 testWellen.push([1, 6, 20, 0.2,-1]);
