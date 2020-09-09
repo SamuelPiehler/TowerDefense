@@ -134,7 +134,7 @@ border-radius: 0px;
     width: 100%;
     height:100%;
     content: ' ';
-    background-image: url("Bilder/Icons/sorry.png");
+    background-image: url("../Bilder/Icons/sorry.png");
     background-repeat: no-repeat;
     background-size: cover;
 
