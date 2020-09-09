@@ -346,8 +346,8 @@ gegnerWellen.push([11, lebenMult , 20, 1, 0.9]); // Gold
 gegnerWellen.push([12, lebenMult , 20, 1, 0.9]); // Gold
 gegnerWellen.push([13, lebenMult , 20, 1, 0.9]); // Gold
 gegnerWellen.push([14, lebenMult , 20, 1, 0.9]); // Gold
-gegnerWellen.push([15, lebenMult , 20, 1, 0.9]); // Gold
-gegnerWellen.push([16, lebenMult , 20, 1, -1]); // Gold
+gegnerWellen.push([15, lebenMult , 10, 1, 0.9]); // Gold
+gegnerWellen.push([16, lebenMult , 10, 1, -1]); // Gold
 //testwelle
 var testWellen = [];
 testWellen.push([1, 6, 20, 0.2,-1]);
