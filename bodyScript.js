@@ -417,10 +417,10 @@ function save() {
     var richtung0 = Math.floor(tuerme[i].richtung-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
     saveCode += nextChar(richtung2, richtung1, richtung0);
     while (tuerme[i].richtung2 < 0) {
-      tuerme[i].richtung2+360;
+      tuerme[i].richtung2 += 360;
     }
     while (tuerme[i].richtung2 > 360) {
-      tuerme[i].richtung2-360;
+      tuerme[i].richtung2 -= 360;
     }
     richtung2 = Math.floor(tuerme[i].richtung2*100/Math.pow(94,2));
     richtung1 = Math.floor((tuerme[i].richtung2*100-richtung2*Math.pow(94, 2))/Math.pow(94,1));

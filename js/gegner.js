@@ -300,7 +300,7 @@ function Gegner(id, typ, lebenMult){
         spielerLeben -= gegnertypen[this.typ][6];   //schade spieler
       }
       document.getElementById("Leben").innerHTML = spielerLeben;    //update lebensanzeige
-      this.kill();  //lösche gegner
+      this.kill(true);  //lösche gegner
       if (spielerLeben <= 0) {    //verloren nachricht wenn leben = 0;
         alert("Du hast das Spiel Verloren!");
         spielEnde = true;
@@ -447,7 +447,7 @@ function Gegner(id, typ, lebenMult){
       }
     }
   }
-  this.kill = function(){   //wenn gegner tot oder am ziehl ist entfernen
+  this.kill = function(amZiel = false){   //wenn gegner tot oder am ziehl ist entfernen
     tuerme.forEach((item, i) => {
       if (item != undefined && item.typ == 5 && item.upgradeStufe == maxUpgrade && towertypen[item.typ][12]) {
         if (item.target == this.id) {
@@ -462,31 +462,33 @@ function Gegner(id, typ, lebenMult){
     for (var i = this.id; i < gegner.length; i++) {
       gegner[i].id--;   //gegnerid von anderen gegnern anpassen (damit sie weiterhin vortlaufend ist)
     }
-    for (var i = 0; i < this.imunität.length; i++) {
-      if (this.imunität == 7) {
-        for (var j = 0; j < this.imunitätStärke[i]; j++) {
-          var spawnId = spawn(11, this.lebenMult);
-          var posDifference = 20;
-          gegner[spawnId].strecke = this.strecke - j * posDifference / 70 * size;
-          gegner[spawnId].mapx = this.mapx;
-          gegner[spawnId].mapy = this.mapy;
-          gegner[spawnId].posx = this.posx;
-          gegner[spawnId].posy = this.posy;
-          gegner[spawnId].richtung = this.richtung;
-          gegner[spawnId].bewegt = this.bewegt - j * posDifference / 70 * size;
-          switch (this.richtung) {
-            case 0:
-              gegner[spawnId].posy += 1 * (j * posDifference / 70 * size);
-              break;
-            case 1:
-              gegner[spawnId].posx += -1 * (j * posDifference / 70 * size);
-              break;
-            case 2:
-              gegner[spawnId].posy += -1 * (j * posDifference / 70 * size);
-              break;
-            case 3:
-              gegner[spawnId].posx += 1 * (j * posDifference / 70 * size);
-              break;
+    if (!amZiel) {
+      for (var i = 0; i < this.imunität.length; i++) {
+        if (this.imunität == 7) {
+          for (var j = 0; j < this.imunitätStärke[i]; j++) {
+            var spawnId = spawn(11, this.lebenMult);
+            var posDifference = 20;
+            gegner[spawnId].strecke = this.strecke - j * posDifference / 70 * size;
+            gegner[spawnId].mapx = this.mapx;
+            gegner[spawnId].mapy = this.mapy;
+            gegner[spawnId].posx = this.posx;
+            gegner[spawnId].posy = this.posy;
+            gegner[spawnId].richtung = this.richtung;
+            gegner[spawnId].bewegt = this.bewegt - j * posDifference / 70 * size;
+            switch (this.richtung) {
+              case 0:
+                gegner[spawnId].posy += 1 * (j * posDifference / 70 * size);
+                break;
+              case 1:
+                gegner[spawnId].posx += -1 * (j * posDifference / 70 * size);
+                break;
+              case 2:
+                gegner[spawnId].posy += -1 * (j * posDifference / 70 * size);
+                break;
+              case 3:
+                gegner[spawnId].posx += 1 * (j * posDifference / 70 * size);
+                break;
+            }
           }
         }
       }
