@@ -255,7 +255,7 @@ gegnerWellen.push([12,  lebenMult, 15, 2, 0]);//  210 Gold
 gegnerWellen.push([13,  lebenMult, 5, 3, 0]);//  100 Gold
 gegnerWellen.push([14,  lebenMult, 5, 1, 0]);// 100 Gold
 gegnerWellen.push([15,  lebenMult, 5, 2.5, 0]);// 150 Gold
-gegnerWellen.push([16,  lebenMult, 5, 2, 0]);//  175 Gold
+gegnerWellen.push([16,  lebenMult, 2, 2, 0]);//  175 Gold
 gegnerWellen.push([12,  lebenMult, 5, 3, -1]);// 70 Gold
 //41
 gegnerWellen.push([14,  lebenMult, 3, 0.5, 1]); //45 Gold
