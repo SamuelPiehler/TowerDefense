@@ -12,7 +12,7 @@ gegnerBild.height = size*map.length;
 gegnerBild.style.position = 'absolute';
 gegnerBild.style.left = '10px';
 gegnerBild.style.top = '50px';
-gegnerBild.style.zIndex = 1;
+gegnerBild.style.zIndex = 5;
 gegnerBild.style.pointerEvents = "none";
 //canvas zur zeichnung aller gegner wird nicht selbst angezeigt sondern nur wenn fertig gezeichnet in gegnerbild kopiert verhinder blinken von gegnern beim löschen und neuzeichnen
 var gegnerBildHidden = document.createElement('canvas');
@@ -374,22 +374,29 @@ function buildMap() {
 }
 
 function save() {
-  var savecode = String.fromCharCode(33+schwierigkeit);
+  var saveCode = nextChar(mapId);
+  saveCode += nextChar(schwierigkeit);
   var leben1 = Math.floor(spielerLeben/Math.pow(94,1));
   var leben0 = spielerLeben-leben1*Math.pow(94, 1);
-  savecode += String.fromCharCode(33+leben1, 33+leben0);
+  saveCode += nextChar(leben1, leben0);
   var geld2 = Math.floor(geld/Math.pow(94,2));
   var geld1 = Math.floor((geld-geld2*Math.pow(94, 2))/Math.pow(94,1));
   var geld0 = geld-geld2*Math.pow(94, 2)-geld1*Math.pow(94, 1);
-  savecode += String.fromCharCode(33+geld2, 33+geld1, 33+geld0);
+  saveCode += nextChar(geld2, geld1, geld0);
   var welle1 = Math.floor(wellenNummer/Math.pow(94,1));
   var welle0 = wellenNummer-welle1*Math.pow(94, 1);
-  savecode += String.fromCharCode(33+welle1, 33+welle0);
+  saveCode += nextChar(welle1, welle0);
   for (var i = 0; i < tuerme.length; i++) {
-    savecode += String.fromCharCode(33+tuerme[i].typ);
-    savecode += String.fromCharCode(33+tuerme[i].upgradeStufe);
-    savecode += String.fromCharCode(33+tuerme[i].posx/size);
-    savecode += String.fromCharCode(33+tuerme[i].posy/size);
+    if (tuerme[i].spezialisierung == undefined) {
+      saveCode += nextChar(93);
+    }
+    else {
+      saveCode += nextChar(tuerme[i].spezialisierung);
+    }
+    saveCode += nextChar(tuerme[i].typ);
+    saveCode += nextChar(tuerme[i].upgradeStufe);
+    saveCode += nextChar(tuerme[i].posx/size);
+    saveCode += nextChar(tuerme[i].posy/size);
     while (tuerme[i].richtung1 < 0) {
       tuerme[i].richtung1+360;
     }
@@ -399,7 +406,7 @@ function save() {
     var richtung2 = Math.floor(tuerme[i].richtung/Math.pow(94,2));
     var richtung1 = Math.floor((tuerme[i].richtung-richtung2*Math.pow(94, 2))/Math.pow(94,1));
     var richtung0 = Math.floor(tuerme[i].richtung-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
-    savecode += String.fromCharCode(33+richtung2, 33+richtung1, 33+richtung0);
+    saveCode += nextChar(richtung2, richtung1, richtung0);
     while (tuerme[i].richtung2 < 0) {
       tuerme[i].richtung2+360;
     }
@@ -409,21 +416,29 @@ function save() {
     richtung2 = Math.floor(tuerme[i].richtung2*100/Math.pow(94,2));
     richtung1 = Math.floor((tuerme[i].richtung2*100-richtung2*Math.pow(94, 2))/Math.pow(94,1));
     richtung0 = Math.floor(tuerme[i].richtung2*100-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
-    savecode += String.fromCharCode(33+richtung2, 33+richtung1, 33+richtung0);
-    savecode += String.fromCharCode(33+tuerme[i].targetPrio);
+    saveCode += nextChar(richtung2, richtung1, richtung0);
+    saveCode += nextChar(tuerme[i].targetPrio);
     var dmgDealed5 = Math.floor(tuerme[i].dmgDealed*100/Math.pow(94,5));
     var dmgDealed4 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5))/Math.pow(94,4));
     var dmgDealed3 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4))/Math.pow(94,3));
     var dmgDealed2 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3))/Math.pow(94,2));
     var dmgDealed1 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2))/Math.pow(94,1));
     var dmgDealed0 = Math.floor(tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2)-dmgDealed1*Math.pow(94, 1));
-    savecode += String.fromCharCode(33+dmgDealed3, 33+dmgDealed2, 33+dmgDealed1, 33+dmgDealed0);
+    saveCode += nextChar(dmgDealed5, dmgDealed4, dmgDealed3, dmgDealed2, dmgDealed1, dmgDealed0);
     effecktStacks2 = Math.floor(tuerme[i].effecktStacks*100/Math.pow(94,2));
     effecktStacks1 = Math.floor((tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2))/Math.pow(94,1));
     effecktStacks0 = Math.floor(tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2)-effecktStacks1*Math.pow(94, 1));
-    savecode += String.fromCharCode(33+effecktStacks2, 33+effecktStacks1, 33+effecktStacks0);
+    saveCode += nextChar(effecktStacks2, effecktStacks1, effecktStacks0);
   }
-  console.log(savecode);
+  localStorage.setItem('saveCode', saveCode);
+  console.log(saveCode);
+  function nextChar(...content) {
+    var string = "";
+    for (var i = 0; i < content.length; i++) {
+      string += String.fromCharCode(33+content[i]);
+    }
+    return string;
+  }
 }
 
 //warte bis bild geladen und zeichne es dann (um this. variablen für onload vorzubereiten weil this.bei onload eine andere bedeutung hat)
@@ -445,6 +460,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
         if (updateFinish && !spielEnde) {
           window.requestAnimationFrame(update);
         }
+        scriptLoaded++;
       }
       loading--;    //gibt an das ein weiteres bufferbild fertig geladen hat
     };
@@ -647,7 +663,7 @@ function showRange(evt, object, id) {
   rangeDiv.style.borderStyle = 'solid';
   rangeDiv.style.borderWidth = '1px';
   rangeDiv.style.borderColor = '#000000';
-  rangeDiv.style.zIndex = 4;
+  rangeDiv.style.zIndex = 9;
   rangeDiv.style.overflow = "hidden";
 }
 
@@ -667,7 +683,7 @@ function showUpgrade(object, id) {
   var x = tuerme[id].posx + 75;
   var y = tuerme[id].posy + 110;
   upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
-  upgradeFenster.style.zIndex=6;
+  upgradeFenster.style.zIndex = 10;
   upgradeFenster.innerHTML += towertypen[typ][10] + "<br>";
   if (tuerme[id].upgradeStufe < maxUpgrade) {   //ist der Turm auf der maximalen upgradestufe
     if (tuerme[id].upgradeStufe == maxUpgrade - 1) {
@@ -1034,7 +1050,7 @@ function build() {
         var x = coordinaten[0]*(size-1.2);
         var y = coordinaten[1]*(size-1.2);
         upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
-        upgradeFenster.style.zIndex=6;
+        upgradeFenster.style.zIndex = 10;
         upgradeFenster.innerHTML += "<img id='typ0' src='Bilder/Icons/schaden.png' title='Schaden'><img id='typ1' src='Bilder/Icons/angriffsGeschwindikeit.png' title='Angriffsgeschwindigkeit'><br>";
         upgradeFenster.innerHTML += "Welchen Suportturm<br>willst du bauen?<br>";
         upgradeFenster.innerHTML += "<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite.png' title='Reichweite und Drehgeschwindigkeit'><br>";
@@ -1605,6 +1621,7 @@ function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGe
   if (gegner[target] != undefined) {
     effektStaerke--;
     if (effektStaerke > 0) {
+      bullet(momentanerGegner.posx, momentanerGegner.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);
       teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGegner, gegner[target]);
     }
   }
@@ -1625,3 +1642,5 @@ function resizekoords(x,y){
   return Math.floor(wi / x > hei /y ? hei / y : wi /x);
   //diese Funktion gibt die richtige Grösse aus
 }
+
+scriptLoaded++;

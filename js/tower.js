@@ -11,7 +11,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.drehGeschw = towertypen[this.typ][3];
   this.schaden = towertypen[this.typ][2];
   this.angriffsZeit = towertypen[this.typ][5];
-  if (spezialisierung == undefined) {
+  this.spezialisierung = spezialisierung;
+  if (this.spezialisierung == undefined) {
     this.effekt = towertypen[this.typ][7].slice();
     this.effektStaerke = towertypen[this.typ][8].slice();
     this.effektTime = towertypen[this.typ][9].slice();
@@ -190,7 +191,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       });
     }
   };
-  this.upgrade = function(){    //funktion um turm aufzuwerten
+  this.upgrade = function(free = false){    //funktion um turm aufzuwerten
     var successUp = false;      //konnte der turm aufgewertet werden
     if (this.upgradeStufe < maxUpgrade){
       if (this.upgradeStufe == maxUpgrade - 1){    //berechne upgrade preis
@@ -199,9 +200,11 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       else {
         preis = parseInt(parseInt(towertypen[this.typ][6]*preisMult)*(25+10*this.upgradeStufe)/100);
       }
-      if (geld >= preis) {  //genug geld vorhanden?
+      if (geld >= preis || free) {  //genug geld vorhanden?
         successUp = true;
-        addGeld(-preis);
+        if (!free) {
+          addGeld(-preis);
+        }
         this.upgradeStufe++;    //erhöhe werte des turms
         this.wert = round(this.wert+parseInt(preis*0.8), 4);
         this.drehGeschw = round(this.drehGeschw+towertypen[this.typ][3]/10, 4);
@@ -317,11 +320,13 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       hideUpgrade();    //verstecke upgradefenster
       if (shift) {      //wenn shift gedrückt ist
         showUpgrade(this.canvasGeschütz, this.id);    //zeige geupdatetes upgradefenster
-          document.getElementById("fehler"+this.id).hidden = true;    //verstecke fehleranzeige
+        document.getElementById("fehler"+this.id).hidden = true;    //verstecke fehleranzeige
       }
     }
     else {    //zeige fehler nicht genug geld
-      document.getElementById("fehler"+this.id).hidden = false;
+      if (document.getElementById("fehler"+this.id) != null) {
+        document.getElementById("fehler"+this.id).hidden = false;
+      }
     }
   };
   this.drehen = function(grad, target, grad2, target2){   // richte turm in richtung gegner aus grad ist gegnerrichtung target ist gegner id (2 für basic turm stufe 5 zweites target)
