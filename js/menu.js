@@ -151,6 +151,11 @@ function laden() {
           return;
         }
         spezialisierung = getContent(towerNum*towerDataLength + 9);
+        if (spezialisierung == 92) {
+          tuerme[towerNum] = undefined;
+          towerNum++
+          continue;
+        }
         if (spezialisierung == 93) {
           spezialisierung = undefined;
         }

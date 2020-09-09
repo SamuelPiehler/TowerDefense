@@ -472,8 +472,10 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           }
         }
         else {
-          bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);   //add bullet
-          gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
+          if (gegner[target] != undefined) {
+            bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);   //add bullet
+            gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
+          }
         }
         if (roundTime - this.letzterAngriff -gameSpeed < 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {
           this.letzterAngriff += 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100);
