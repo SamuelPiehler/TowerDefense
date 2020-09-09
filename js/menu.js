@@ -121,7 +121,27 @@ function startTheGame(id){
 
 function laden() {
   saveCode = localStorage.getItem("saveCode");
-  if (saveCode != undefined && saveCode.length >= 9) {
+  if (saveCode != undefined && saveCode.length >= 11) {
+    var towerNum = 0;
+    var towerDataLength = 22;
+    while (saveCode.length > towerNum*towerDataLength + 11) {
+      if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
+        console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
+        console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
+        return;
+      }
+      towerNum++;
+    }
+    if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
+      console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
+      console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
+      return;
+    }
+    if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
+      console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
+      console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
+      return;
+    }
     EBI("menu").style.display = "none";
     schwierigkeit = getContent(1);
     startTheGame(getContent(0));
@@ -143,10 +163,9 @@ function laden() {
           teilWellenNummer++;
         } while (gegnerWellen[teilWellenNummer][4] =! -1);
       }
-      var towerNum = 0;
-      var towerDataLength = 21;
-      while (saveCode.length > towerNum*towerDataLength + 9) {
-        if (saveCode.length < towerNum*towerDataLength + 30) {
+      towerNum = 0;
+      while (saveCode.length > towerNum*towerDataLength + 11) {
+        if (saveCode.length < towerNum*towerDataLength + 32) {
           console.log("fehlerhafte saveCode length");
           return;
         }
@@ -178,6 +197,30 @@ function laden() {
         wert += (saveCode.charCodeAt(num+i)-33)*Math.pow(94, count-i-1);
       }
       return wert;
+    }
+    function getPrüf1(pos) {
+      if (pos == -1) {
+        return 0;
+      }
+      else {
+        return (getPrüf1(pos-1) + getContent(pos) + 1) % 93;
+      }
+    }
+    function getPrüf2(pos) {
+      if (pos == -1) {
+        return 0;
+      }
+      else {
+        return (getPrüf2(pos-1) + getPrüf1(pos-1)*getContent(pos)) % 93;
+      }
+    }
+    function getPrüf3(pos) {
+      if (pos == -1) {
+        return 1;
+      }
+      else {
+        return (getPrüf3(pos-1) * (getContent(pos) + 1)) % 93;
+      }
     }
   }
 }
