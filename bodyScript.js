@@ -387,6 +387,12 @@ function save() {
   var welle0 = wellenNummer-welle1*Math.pow(94, 1);
   saveCode += nextChar(welle1, welle0);
   for (var i = 0; i < tuerme.length; i++) {
+    if (tuerme[i] == undefined) {
+      for (var j = 0; j < 21; j++) {
+        saveCode += nextChar(92-3*j);
+      }
+      continue;
+    }
     if (tuerme[i].spezialisierung == undefined) {
       saveCode += nextChar(93);
     }
