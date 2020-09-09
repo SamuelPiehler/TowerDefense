@@ -1223,6 +1223,7 @@ function update() {
       }
     });
     if (gegner.length == 0 && roundTime > wellenEnde) {   //wenn welle zuende ist (alle gegener tot)
+      console.log("save");
       if (startHover) {   //pausebutton wird zum startbutton
         startButton.src = "Bilder/Buttons/startHover.png";
       }
@@ -1249,6 +1250,7 @@ function update() {
             item.letzterAngriff2 = -1000;
           }
         });
+        save();
         if (autoStart) {    //wenn autostart ausgewählt wurde starte nächste welle
           startAndPause();
         }

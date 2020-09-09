@@ -161,7 +161,7 @@ function laden() {
       for (var i = 1; i < wellenNummer; i++) {
         do {
           teilWellenNummer++;
-        } while (gegnerWellen[teilWellenNummer][4] =! -1);
+        } while (gegnerWellen[teilWellenNummer][4] != -1);
       }
       towerNum = 0;
       while (saveCode.length > towerNum*towerDataLength + 11) {
