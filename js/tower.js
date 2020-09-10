@@ -106,9 +106,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
       }
     }
   };
-  if (this.typ == 9) {
-    this.buffTuerme();
-  }
   this.changeTarget = function(){   //funktion um targetpriorität zu ändern
     hideUpgrade();
     var typ = tuerme[id].typ;
@@ -427,31 +424,32 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           }
           //kommt weg!!
           var anzalHits = 0;
+          var weakenPerHit = 0.98;
           for (var i = gegner.length - 1; i >= 0 ; i--) {
             var item = gegner[i];
             if (item != undefined) {
               switch (this.richtung) {
                 case 0:   //wenn der sniper exact nach oben zeigt
                   if (this.posy > item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
                     anzalHits++;
                   }
                   break;
                 case 90:   //wenn der sniper exact nach links zeigt
                   if (this.posx > item.posx && Math.abs(this.posy-item.posy) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
                     anzalHits++;
                   }
                   break;
                 case 180:   //wenn der sniper nach unten zeigt
                   if (this.posy < item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
                     anzalHits++;
                   }
                   break;
                 case 270:  //wenn der sniper nach rechts zeigt
                   if (this.posx < item.posx && Math.abs(this.posy-item.posy) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
                     anzalHits++;
                   }
                   break;
@@ -461,7 +459,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                   entfernung = getEntfernung({posx: xPunktNaheGegner, posy: yPunktNaheGegner}, item);
                   if (entfernung <= 35) {
                     if ((this.richtung < 180 && this.posx > item.posx) || (this.richtung > 180 && this.posx < item.posx)) {
-                      item.damage(this.schaden*(1+this.buffStaerken[0]/100), [], [], [], this.id);
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), [], [], [], this.id);
                       anzalHits++;
                     }
                   }
@@ -469,8 +467,10 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               }
             }
           }
-          maxHit = Math.max(maxHit, anzalHits);
-          console.log(maxHit);
+          if (maxHit < anzalHits) {
+            maxHit = anzalHits;
+            console.log("sniper: " + maxHit);
+          }
         }
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12] && target2 !== -1) {    //wenn antiBoss stufe 5
           bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet

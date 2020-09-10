@@ -124,24 +124,24 @@ function laden() {
   if (saveCode != undefined && saveCode.length >= 11) {
     var towerNum = 0;
     var towerDataLength = 22;
-    while (saveCode.length > towerNum*towerDataLength + 11) {
-      if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
-        // console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
-        // console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
-        return;
-      }
-      towerNum++;
-    }
-    if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
-      // console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
-      // console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
-      return;
-    }
-    if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
-      // console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
-      // console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
-      return;
-    }
+    // while (saveCode.length > towerNum*towerDataLength + 11) {
+    //   if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
+    //     console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
+    //     console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
+    //     return;
+    //   }
+    //   towerNum++;
+    // }
+    // if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
+    //   console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
+    //   console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
+    //   return;
+    // }
+    // if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
+    //   console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
+    //   console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
+    //   return;
+    // }
     EBI("menu").style.display = "none";
     schwierigkeit = getContent(1);
     startTheGame(getContent(0));
@@ -180,12 +180,14 @@ function laden() {
           spezialisierung = undefined;
         }
         tuerme[towerNum] = new Turm(getContent(towerNum*towerDataLength + 12), getContent(towerNum*towerDataLength + 13), getContent(towerNum*towerDataLength + 10), towerNum, spezialisierung);
-        tuerme[towerNum].richtung = getContent(towerNum*towerDataLength + 14, 3);
-        tuerme[towerNum].richtung2 = getContent(towerNum*towerDataLength + 17, 3);
         tuerme[towerNum].targetPrio = getContent(towerNum*towerDataLength + 20);
         tuerme[towerNum].dmgDealed = getContent(towerNum*towerDataLength + 21, 6)/100;
         tuerme[towerNum].effecktStacks = getContent(towerNum*towerDataLength + 27, 3);
-        ladeBild(towertypen[tuerme[towerNum].typ][1], tuerme[towerNum].canvasGeschütz, -tuerme[towerNum].richtung, true);
+        if (tuerme[towerNum].drehGeschw != 0) {
+          tuerme[towerNum].richtung = getContent(towerNum*towerDataLength + 14, 3);
+          tuerme[towerNum].richtung2 = getContent(towerNum*towerDataLength + 17, 3);
+          ladeBild(towertypen[tuerme[towerNum].typ][1], tuerme[towerNum].canvasGeschütz, -tuerme[towerNum].richtung, true);
+        }
         for (var i = 0; i < getContent(towerNum*towerDataLength + 11); i++) {
           tuerme[towerNum].upgrade(true);
         }

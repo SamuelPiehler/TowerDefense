@@ -89,14 +89,16 @@ function Gegner(id, typ, lebenMult){
           }
           break;
         case 12:
-          gegner.forEach((item, j) => {
-            if (item != undefined) {
-              var entfernung = getEntfernung(item, this);
-              if (entfernung <= this.imunitätStärke[i][1]) {
-                item.shieldedFrom.push(this.id);
+          if (this.shieldAmount > 0) {
+            gegner.forEach((item, j) => {
+              if (item != undefined) {
+                var entfernung = getEntfernung(item, this);
+                if (entfernung <= this.imunitätStärke[i][1]) {
+                  item.shieldedFrom.push(this.id);
+                }
               }
-            }
-          });
+            });
+          }
           break;
         case 13:
           tuerme.forEach((item, j) => {
@@ -337,6 +339,7 @@ function Gegner(id, typ, lebenMult){
           teslaEffekt(points, effektStaerke[i], effektZeit[i], ursprung, gegner.slice(), this, false);
         }
         if (effekt[i] == 5) {    //suche AoE effeckt
+          var anzalHits = 0;
           for (var j = gegner.length - 1; j >= 0; j--) {
             if (gegner[j] != undefined) {
               var entfernung = getEntfernung(gegner[j], this);  //abstand zu getroffenem gegner
@@ -348,8 +351,14 @@ function Gegner(id, typ, lebenMult){
                 uebergabeEffektStaerke.splice(i,1);
                 uebergabeEffektTime.splice(i,1);
                 gegner[j].damage(effektStaerke[i], uebergabeEffekt, uebergabeEffektStaerke, uebergabeEffektTime, ursprung);  //füge gegner den effektschaden zu
+                anzalHits++;
               }
             }
+          }
+          //kommt weg
+          if (maxHit < anzalHits) {
+            maxHit = anzalHits;
+            console.log("rocket: " + maxHit);
           }
           if (this.leben <= 0) {
             return false;   //beende funktion wenn gegner tot ist (damit keine aktionen am nicht existierenden gegner mehr ausgeführt werden)

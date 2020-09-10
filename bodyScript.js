@@ -466,9 +466,9 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
     bildBuffer[src].height = 70;
     bild = new Image();
     loading++;
+    ladeBild(src, canvas, richtung, clear, x, y, richtung2, bildSize);    //hole das bild aus dem buffer und zeichne es
     bild.onload = function(){
       zeichneBufferBild(bildBuffer[src], this, 0);    //zeiche das bild in den buffer
-      ladeBild(src, canvas, richtung, clear, x, y, richtung2, bildSize);    //hole das bild aus dem buffer und zeichne es
       if (loading == 1) {   //wenn alle buffer bilder fertig geladen sind
         waitForBildLoad.forEach((item, i) => {    //zeichne alle bilder in der warteliste
           item();
@@ -1080,6 +1080,11 @@ function build() {
             }
             var spezialisierung = this.id.charAt(3);
             tuerme[number] = new Turm(coordinaten[0], coordinaten[1], 9, number, spezialisierung);
+            tuerme.forEach((item, i) => {
+              if (item != undefined && item.typ == 9) {
+                item.buffTuerme();
+              }
+            });
             if (strg) {
               for (var i = 0; i < maxUpgrade; i++) {
                 tuerme[number].upgrade();
@@ -1123,6 +1128,11 @@ function build() {
         else {
           tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected, number);    //erstelle neuen turm mit koordinaten typ und id
         }
+        tuerme.forEach((item, i) => {
+          if (item != undefined && item.typ == 9) {
+            item.buffTuerme();
+          }
+        });
         if (strg) {
           for (var i = 0; i < maxUpgrade; i++) {
             tuerme[number].upgrade();
@@ -1131,11 +1141,6 @@ function build() {
         }
         //if 1/1000 chance full upgraded bei randomturm??
       }
-      tuerme.forEach((item, i) => {
-        if (item != undefined && item.typ == 9) {
-          item.buffTuerme();
-        }
-      });
     }
     if (!shift || geld < preis) {   //wenn shift nicht gedrückt ist wird die auswahl des towers gelöscht nach bau
       deselect();
