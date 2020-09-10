@@ -68,7 +68,7 @@ function Gegner(id, typ, lebenMult){
                   var alteLeben = item.leben;
                   item.leben = Math.min(item.maxHP, item.leben+item.maxHP*this.imunitätStärke[i][2]/100);
                   if (alteLeben != item.leben) {
-                    numbers("+"+round(item.leben-alteLeben, 3), item.posx, item.posy, "green");
+                    numbers("▲ " + round(item.leben-alteLeben, 3), item.posx, item.posy, "pink");
                   }
                 }
               }
@@ -319,7 +319,7 @@ function Gegner(id, typ, lebenMult){
         if (gegner[this.shieldedFrom[i]] != undefined) {
           gegner[this.shieldedFrom[i]].shieldAmount -= points;
           if (points > 0) { //erzeuge schadensanzeige
-            numbers(points, this.posx, this.posy, "yellow");
+            numbers("⛨ "+ points, this.posx, this.posy, "yellow");
           }
           if (gegner[this.shieldedFrom[i]].shieldAmount <= 0) {
             points = -gegner[this.shieldedFrom[i]].shieldAmount;
@@ -398,14 +398,15 @@ function Gegner(id, typ, lebenMult){
       var anzeige = points; //was für eine schadensanzeige wird erzeugt
       switch (effekt[0]) {
         case 0:
-          anzeige = "Slow";
+          anzeige = "❄";
           farbe = "#7070ff";
           break;
         case 1:
-          anzeige = "Stunned";
-          if (points != 0) {
-            anzeige +="<br>"+points;
+          anzeige = "🛑";
+          if (points !== 0) {
+            anzeige += " " + points;
           }
+          farbe = "#ccffff";
           break;
         case 2:
           farbe = "red";
@@ -414,7 +415,18 @@ function Gegner(id, typ, lebenMult){
           farbe = "green";
           break;
       }
-      if (anzeige != 0) { //erzeuge schadensanzeige
+      switch (farbe) {
+        case "white":
+          anzeige = "▼ " + anzeige;
+          break;
+        case "red":
+          anzeige = "🔥 " + anzeige;
+          break;
+        case "green":
+          anzeige = "🕱 " + anzeige;
+          break;
+      }
+      if (points !== 0 && anzeige !== "🛑") { //erzeuge schadensanzeige
         numbers(anzeige, this.posx, this.posy, farbe);
       }
       for (var i = 0; i < effekt.length; i++) { //wurden beim schaden effeckte mitgegeben wurde
