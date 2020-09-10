@@ -156,7 +156,7 @@ function Gegner(id, typ, lebenMult){
       }
     }
     if (effektStaerken[1] > 0) {
-      var speed = 0;
+      var speed = 0.1;
     }
     else {
       //berechne geschwindigkeit des gegners      hier speed durch slowstärke      hier speed durch permaslowstärke

@@ -407,14 +407,14 @@ gegnertypen.push(['Bilder/Gegner/gegner05GiftImmun.png', 350, 0.9, [3], [75], 5,
 gegnertypen.push(['Bilder/Gegner/gegner06Boss1.png', 1000, 0.5, [0,6], [65,25], 20, 10]);   //6 Boss Gegner langsam mit slow und normaldmg immunität
 gegnertypen.push(['Bilder/Gegner/gegner07Agro.png', 800,  1 ,[9] , [1], 5 , 3]);  //7 zieht die Tower auf sich
 gegnertypen.push(['Bilder/Gegner/gegner08Heiler.png', 650, 1 ,[10], [[100, 140, 1]], 10 , 4]);  //8 soll die Gegner heilen 1% jede sec(100 spielticks) mit 140 reichweite
-gegnertypen.push(['Bilder/Gegner/gegner09SpawnTimer.png', 550, 0.6, [8], [[150, 0]], 15, 6]); //9 spawnt Gegner 1 alle 0.5 sec (=50)
+gegnertypen.push(['Bilder/Gegner/gegner09SpawnTimer.png', 550, 0.6, [8], [[250, 0]], 15, 6]); //9 spawnt Gegner 1 alle 2.5 sec (=250)
 gegnertypen.push(['Bilder/Gegner/gegner10DethSplit.png', 400, 0.9 ,[7], [3] , 10, 6]); //10 nach dem Tod spawnt er 3 mal Gegner 11
 gegnertypen.push(['Bilder/Gegner/gegner11Dethsplit2.png', 300, 1.4 ,[], [] , 5, 1]); // 11 wird von anderen gegnern gespawned
 gegnertypen.push(['Bilder/Gegner/gegner12SpeedBuff.png', 375, 1.2 ,[11], [[5, 140]], 10 , 6]); //12 Bufft speed von anderen Gegner um 5% 140 reichweite
 gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 650 , 1.6, [12], [[40, 140]], 10, 6]); //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
 gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 750, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 15 , 5]); //14 slowed die Türme in 350 reichweite um 5% und stunned alle 5 sec einen turm in 140 reichweite für 1 sec
 gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png', 2000, 0.8, [], [], 30 , 15]); //15 Boss2
-gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 2500, 0.7, [8], [[1000, 8]], 35, 15]); // 16 Boss3 spawnt alle 5 sec gegner 8 (heiler)
+gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 2500, 0.7, [8], [[1500, 8]], 35, 15]); // 16 Boss3 spawnt alle 15 sec gegner 8 (heiler)
 
 var towertypen = [];
 //0 Base src, 1 Geschütz src, 2 Damage, 3 Drehgeschwindigkeit, 4 Reichweite, 5 Angriffszeit, 6 Preis, 7 Effekt, 8 Effektstärke, 9 EffektDauer/Reichweite, 10 Name, 11 stufe5 geschütz 12 unlockt

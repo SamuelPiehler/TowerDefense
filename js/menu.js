@@ -183,13 +183,13 @@ function laden() {
         tuerme[towerNum].targetPrio = getContent(towerNum*towerDataLength + 20);
         tuerme[towerNum].dmgDealed = getContent(towerNum*towerDataLength + 21, 6)/100;
         tuerme[towerNum].effecktStacks = getContent(towerNum*towerDataLength + 27, 3);
+        for (var i = 0; i < getContent(towerNum*towerDataLength + 11); i++) {
+          tuerme[towerNum].upgrade(true);
+        }
         if (tuerme[towerNum].drehGeschw != 0) {
           tuerme[towerNum].richtung = getContent(towerNum*towerDataLength + 14, 3);
           tuerme[towerNum].richtung2 = getContent(towerNum*towerDataLength + 17, 3);
           ladeBild(towertypen[tuerme[towerNum].typ][1], tuerme[towerNum].canvasGeschütz, -tuerme[towerNum].richtung, true);
-        }
-        for (var i = 0; i < getContent(towerNum*towerDataLength + 11); i++) {
-          tuerme[towerNum].upgrade(true);
         }
         towerNum++
       }

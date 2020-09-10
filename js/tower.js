@@ -264,7 +264,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             case 5:   //Anti boss extra stunn duration, targetlock, extra schaden pro treffer
               ladeBild("Bilder/Tower/05antiBoss5Base.png", this.canvasBase, 0, true);
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
-              this.effektTime[0] = 100;
+              this.effektTime[0] = 120;
               break;
             case 6:   //rocketLauncher Stunned Gegner für 0,25 sec
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -287,17 +287,17 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime[0] += towertypen[9][9][this.effekt[0]-7]*0.5;
               this.reichweite = this.effektTime[0];
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
-              switch (spezialisierung) {
-                case "0":
+              switch (spezialisierung*1) {
+                case 0:
                   ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
                   break;
-                case "1":
+                case 1:
                   ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
                   break;
-                case "2":
+                case 2:
                   ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
                   break;
-                case "3":
+                case 3:
                   ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
                   break;
               }
