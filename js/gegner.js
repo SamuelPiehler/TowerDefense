@@ -48,7 +48,7 @@ function Gegner(id, typ, lebenMult){
         case 8:
           if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
             this.letzterEffeckt[i] += this.imunitätStärke[i][0];
-            var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult);
+            var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult/2);
             gegner[spawnId].strecke = this.strecke;
             gegner[spawnId].mapx = this.mapx;
             gegner[spawnId].mapy = this.mapy;
@@ -352,6 +352,9 @@ function Gegner(id, typ, lebenMult){
                 uebergabeEffektTime.splice(i,1);
                 gegner[j].damage(effektStaerke[i], uebergabeEffekt, uebergabeEffektStaerke, uebergabeEffektTime, ursprung);  //füge gegner den effektschaden zu
                 anzalHits++;
+                if (anzalHits >= 40) {
+                  break;
+                }
               }
             }
           }
