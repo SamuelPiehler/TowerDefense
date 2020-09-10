@@ -14,6 +14,10 @@ gegnerBild.style.left = '10px';
 gegnerBild.style.top = '50px';
 gegnerBild.style.zIndex = 5;
 gegnerBild.style.pointerEvents = "none";
+
+TCN.width = size*map[0].length;
+TCN.height = size*map.length;
+
 //canvas zur zeichnung aller gegner wird nicht selbst angezeigt sondern nur wenn fertig gezeichnet in gegnerbild kopiert verhinder blinken von gegnern beim löschen und neuzeichnen
 var gegnerBildHidden = document.createElement('canvas');
 gegnerBildHidden.width = size*map[0].length;
