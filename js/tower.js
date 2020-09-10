@@ -273,11 +273,13 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               this.effektTime.push(25);
               break;
             case 7:   //singleGift
+              this.schaden *=2;
               this.effektStaerke[0] *= 2;
               this.effektTime[0] /= 1.5;
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 8:   //Lava
+              this.schaden *=2;
               this.effektStaerke[0] *= 2;
               this.effektTime[0] /= 1.5;
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
@@ -303,7 +305,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               }
               break;
             case 10:   //Tesla
-              this.effektStaerke[0] += 3;
+              this.effektStaerke[0] *= 2;
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
           }

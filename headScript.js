@@ -428,7 +428,7 @@ towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 140, 0.7
 towertypen.push(['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 100, 0.9, 140,  1, 100, [3], [130], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 100, 1, 140, 1, 90, [2], [150], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", true]);
 towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [12.5, 10, 10, 25], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", true]);
-towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 400, 0.8, 200, 6.5, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", true]);
+towertypen.push(['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 450, 0.8, 200, 6, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", true]);
 towertypen.push(['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , [], [], [], "Random", "Bilder/Map/empty.png", false]);
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert
