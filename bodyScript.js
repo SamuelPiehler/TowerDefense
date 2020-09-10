@@ -1234,7 +1234,7 @@ function update() {
       else {
         startButton.src = "Bilder/Buttons/start.png";
       }
-      if (teilWellenNummer == gegnerWellen.length) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
+      if (teilWellenNummer == gegnerWellen.length || (schwierigkeit == 2 && wellenNummer == 45)|| (schwierigkeit == 1 && wellenNummer == 40)) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
         alert("Du hast das Spiel Gewonnen!");
         spielEnde = true;
       }
