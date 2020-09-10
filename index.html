@@ -12,7 +12,6 @@
   </head>
   <body>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <canvas id=NumberCanvas style="position:absolute;pointer-events:none;z-index:6;left: 10px;top: 50px;"></canvas>
     <button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>
       Menü
     </button>
@@ -286,6 +285,8 @@
           gegnerBildHidden.height = size*map.length;
           gegnerBild.width = size*map[0].length;
           gegnerBild.height = size*map.length;
+          TCN.width = size*map[0].length;
+          TCN.height = size*map.length;
           tuerme.forEach((item, i) => {
             if (item != undefined) {
               item.canvasBase.remove();
@@ -444,5 +445,6 @@
         }
       </script>
     </span>
+    <canvas id=NumberCanvas style="position: absolute; left: 10px; top: 50px; z-index: 5; pointer-events: none;"></canvas>
   </body>
 </html>
