@@ -89,6 +89,15 @@ var sol = 0;
             sol = ind[1];
         });
         return sol
+    },
+    eskalieren: (Turmid = 0) => {
+        tuerme = [];
+        for (var i = 0; i < map.length; i++)
+            for ( var j = 0; j< map[0].length; i++)
+                tuerme.push(new Turm(j, i, Turmid, tuerme.length));
+        for(var i = 0; i<5;i++){
+            stats.upgradeAll();
+        }
     }
 
 }
