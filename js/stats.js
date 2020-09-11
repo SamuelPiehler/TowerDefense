@@ -89,6 +89,72 @@ var sol = 0;
             sol = ind[1];
         });
         return sol
+},
+eskalieren: (Turmid = 0,add = undefined) => {
+    tuerme = [];
+    for (var i = 0; i < map.length; i++)
+        for ( var j = 0; j< map[0].length; j++)
+            tuerme.push(new Turm(j, i, Turmid, tuerme.length,add));
+    for(var i = 0; i<5;i++){
+        stats.upgradeAll();
     }
+},
+toWelle: (welle)=>{
+    teilWellenNummer = stats.getTeilWellenNummer(welle);
+    WellenNummer = welle;
+},
+true_towers: (Turmid = 0, overStones = false,add = undefined) => {
+    tuerme = [];
+    for (var i = 0; i < map.length; i++)
+        for ( var j = 0; j< map[0].length; j++)
+        {
+            if(overStones)
+                if(map[i][j][0] == 0 || map[i][j][0] == -1)
+                    tuerme.push(new Turm(j, i, Turmid, tuerme.length,add));
+            if(!overStones)
+                if(map[i][j][0] == 0)
+                    tuerme.push(new Turm(j, i, Turmid, tuerme.length,add));
+            }
+    for(var i = 0; i<5;i++){
+        stats.upgradeAll();
+    }
+},
+alltowers: (check = true, overStones = false) =>{
+
+    if(check){
+        stats.true_towers(0,overStones);
+        stats.true_towers(1,overStones);
+        stats.true_towers(2,overStones);
+        stats.true_towers(3,overStones);
+        stats.true_towers(4,overStones);
+        stats.true_towers(5,overStones);
+        stats.true_towers(6,overStones);
+        stats.true_towers(7,overStones);
+        stats.true_towers(8,overStones);
+        stats.true_towers(9,overStones,0);
+        stats.true_towers(9,overStones,1);
+        stats.true_towers(9,overStones,2);
+        stats.true_towers(9,overStones,3);
+        stats.true_towers(10,overStones);
+    }
+    else{
+        
+            stats.eskalieren(0);
+            stats.eskalieren(1);
+            stats.eskalieren(2);
+            stats.eskalieren(3);
+            stats.eskalieren(4);
+            stats.eskalieren(5);
+            stats.eskalieren(6);
+            stats.eskalieren(7);
+            stats.eskalieren(8);
+            stats.eskalieren(9,0);
+            stats.eskalieren(9,1);
+            stats.eskalieren(9,2);
+            stats.eskalieren(9,3);
+            stats.eskalieren(10);
+        
+    }
+}
 
 }
