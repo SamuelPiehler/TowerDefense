@@ -122,9 +122,9 @@ const skills = [
   ["TeslaTurm St5", "Kettenblitz von Stufe 5 TeslaTürmen können doppelt so oft überspringen", 10, 12, true, 0, [113], 2, 1, 0, 5],   //108
   ,   //109
   //allgemeine Turm Upgrades (für jeden turm)
-  ["Turm Dmg", "Erhöht den Damage von Türmen um 5%", -1, 2, 5, true, [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100], 30, 5, 0, 2],   //110
-  ["Turm Attackspeed", "Reduziert die Angriffszeit von Türmen um 5%", -1, 5, -5, true, [1, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101], 30, 3, 0, 2],    //111
-  ["Turm Reichweite", "Erhöht die Reichweite von Türmen um 7,5%", -1, 4, 7.5, true, [2, 12, 22, 32, 42, 52, 62, 72, 82, 92, 102], 30, 5, 0, 2],    //112
+  ["Turm Dmg", "Erhöht den Damage von Türmen um 5%", -1, 2, 5, true, [0, 10, 20, 30, 40, 50, 60, 70, 80, 100], 30, 5, 0, 2],   //110
+  ["Turm Attackspeed", "Reduziert die Angriffszeit von Türmen um 5%", -1, 5, -5, true, [1, 11, 21, 31, 41, 51, 61, 71, 81, 101], 30, 3, 0, 2],    //111
+  ["Turm Reichweite", "Erhöht die Reichweite von Türmen um 7,5%", -1, 4, 7.5, true, [2, 12, 22, 32, 42, 52, 62, 72, 82, 102], 30, 5, 0, 2],    //112
   ["Turm drehGeschw", "Erhöht die drehGeschwindigkeit von Türmen um 7,5%", -1, 3, 7.5, true, [3, 13, 53, 63, 73, 83, 103], 15, 5, 0, 2],    //113
   ["Turm critChance", "Erhöht die critChance von Türmen um 5%", -1, 13, 5, false, [4, 14, 23, 33, 43, 54, 64, 74, 84, 104], 1, 5, 0, 2],    //114
   ["Turm critDamage", "Erhöht den CritSchaden von Türmen um 10%", -1, 14, 10, false, [5, 15, 24, 34, 44, 55, 65, 75, 85, 105], 5, 5, 0, 2],   //115
