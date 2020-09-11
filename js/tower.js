@@ -207,7 +207,9 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         this.drehGeschw = round(this.drehGeschw+towertypen[this.typ][3]/10, 4);
         this.schaden = round(this.schaden+towertypen[typ][2]/10, 4);
         if (this.typ != 10) {
-          this.angriffsZeit = round(this.angriffsZeit-towertypen[typ][5]/10, 4);
+          if (this.typ != 2) {
+            this.angriffsZeit = round(this.angriffsZeit-towertypen[typ][5]/10, 4);
+          }
           this.reichweite = round(this.reichweite+towertypen[this.typ][4]/10, 4);
         }
         for (var i = 0; i < this.effekt.length; i++) {    //upgrade towereffeckte
@@ -474,8 +476,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             console.log("sniper: " + maxHit);
           }
         }
-        else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12] && target2 !== -1) {    //wenn antiBoss stufe 5
-          bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet
+        else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
+          bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);   //add bullet
           //füge schaden und effeckt auf gegner zu
           gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
           if (target != -1) {
