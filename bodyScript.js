@@ -728,13 +728,18 @@ function showUpgrade(object, id) {
     upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 3) + " <br>";
     }
     else {
+      if (typ == 2) {
+        upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
+      }
+      else {
         upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " <font color=ff0000>-" + round(towertypen[typ][5]/10/(1+tuerme[id].buffStaerken[0]/100), 3) + "</font> sec <br>";
-        if (typ == 9) {
-          upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][9][tuerme[id].effekt[0]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 2) + " </font><br>";
-        }
-        else {
-          upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][4]/10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font><br>";
-        }
+      }
+      if (typ == 9) {
+        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][9][tuerme[id].effekt[0]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 2) + " </font><br>";
+      }
+      else {
+        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][4]/10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font><br>";
+      }
     }
     if (tuerme[id].drehGeschw != 0) {
       upgradeFenster.innerHTML += "Drehgeschwindigkeit: " + round(tuerme[id].drehGeschw*100*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][3]*10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font> Grad/sec <br>";
@@ -1349,8 +1354,7 @@ function TextCanvas() {
   /// canvas besorgen
   this.canvas = document.querySelector("#NumberCanvas");
   this.canvas.width = size * map[0].length;
-  this.canvas.offsetLeft =
-      this.canvas.height = size * map.length;
+  this.canvas.offsetLeft = (this.canvas.height = size * map.length);
   this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
   this.performanceLimiter = 200;
