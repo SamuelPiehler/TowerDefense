@@ -1355,9 +1355,7 @@ function TextCanvas() {
   this.canvas = document.querySelector("#NumberCanvas");
   this.canvas.width = size * map[0].length;
   this.canvas.offsetLeft = (this.canvas.height = size * map.length);
-  this.ctx = this.canvas.getContext("2d", {
-    desynchronized: true,
-  });
+  this.ctx = this.canvas.getContext("2d");
   this.textElemente = [];
   this.performanceLimiter = 200;
   this.spawnText = (text, x, y, color) => {
