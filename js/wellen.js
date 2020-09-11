@@ -67,14 +67,14 @@ var gegnerWellen = [
   [5,  lebenMult, 7, 2.2, 0.1], // 35 Gold
   [4,  lebenMult, 7, 1.2, -1], // 56 Gold
   // 18
-  [0,  lebenMult +=0,5, 7, 0.1, 7],  // 7  Gold
-  [1,  lebenMult, 7, 0.1, 7], // 14 Gold
-  [2,  lebenMult, 7, 0.1, 7], // 54 Gold
-  [3,  lebenMult, 7, 0.1, 7], //28 Gold
-  [5,  lebenMult, 7, 0.1, 7], // 35 Gold
+  [0,  lebenMult +=0,5, 7, 0.1, 5],  // 7  Gold
+  [1,  lebenMult, 7, 0.1, 5], // 14 Gold
+  [2,  lebenMult, 7, 0.1, 5], // 54 Gold
+  [3,  lebenMult, 7, 0.1, 5], //28 Gold
+  [5,  lebenMult, 7, 0.1, 5], // 35 Gold
   [4,  lebenMult, 7, 0.1, -1], // 56 Gold
   // 19
-  [4,  lebenMult +=0,5, 15, 0.7, 7], // 120 Gold
+  [4,  lebenMult +=0,5, 15, 0.7, 5], // 120 Gold
   [1,  lebenMult, 2, 0.8, 1], // 60 Gold
   [3,  lebenMult, 15, 0.7, -1], // 52 Gold
   // 20
@@ -125,13 +125,13 @@ var gegnerWellen = [
   [1,  lebenMult, 20, 0.5, 0.5], // 40 Gold
   [6,  lebenMult,  2, 0.5, -1], // 50 Gold
   //30
-  [6,  lebenMult, 5, 1.5, 8],  // 125 Gold
+  [6,  lebenMult, 5, 1.5, 2],  // 125 Gold
   [5,  lebenMult, 10, 1 , 0.5], // 50 Gold
   [4,  lebenMult, 15, 0.5, 0.5], // 120 Gold
   [6,  lebenMult, 5 , 2, 3], // 125 Gold
   [2,  lebenMult, 20, 0.5 ,-1], // 125 Gold
   //31
-  [7,  lebenMult +=0,5, 8, 1.5, 7], // 200 Gold
+  [7,  lebenMult +=0,5, 8, 1.5, 3], // 200 Gold
   [8,  lebenMult, 5, 2, 6], // 50  Gold
   [10, lebenMult, 5, 0.5, 5], // 60 Gold
   [14, lebenMult, 8, 2, -1], // 200 Gold
@@ -185,12 +185,12 @@ var gegnerWellen = [
   [13,  lebenMult, 5, 3, 0],//  100 Gold
   [12,  lebenMult, 5, 3, -1],//  70 Gold
   //40
-  [2,   lebenMult +=0,5, 15, 1, 17], //30 Gold
-  [4,   lebenMult, 15, 0.5, 17],// 120 Gold
-  [6,   lebenMult, 15, 0.5, 17],// 375 Gold
-  [8,   lebenMult, 15, 0.5, 17],// 150 Gold
-  [10,  lebenMult, 15, 0.5, 17],//  180 Gold
-  [12,  lebenMult, 15, 0.5, 17],// 210 Gold
+  [2,   lebenMult +=0,5, 15, 1, 2], //30 Gold
+  [4,   lebenMult, 15, 0.5, 2.5],// 120 Gold
+  [6,   lebenMult, 15, 0.5, 1.7],// 375 Gold
+  [8,   lebenMult, 15, 0.5, 1.9],// 150 Gold
+  [10,  lebenMult, 15, 0.5, 0.7],//  180 Gold
+  [12,  lebenMult, 15, 0.5, 0.7],// 210 Gold
   [12,  lebenMult, 15, 2, 0],//  210 Gold
   [13,  lebenMult, 5, 3, 0],//  100 Gold
   [14,  lebenMult, 5, 1, 0],// 100 Gold
