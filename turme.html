@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="js/tower_Gegner_Stats.js"></script>
+
+    <style>
+        body{
+            background-color: #aaffaa;
+            text-align: center;  }
+
+.Skilltree{
+margin-right:100%;
+
+}
+    #button{
+    margin-right: 1200px;
+    }
+    </style>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+<img id="00basic" name="turmBild" class="Skilltree" src="Bilder/Tower/00basic.png" alt=""> <br>
+<h1>das ist der Skilltree von <spwan name="Turmname"> </spwan> <br></h1>.
+Damge  <spwan  name="Damge"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+critChance <spwan name="critChance"></spwan>  <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+critDamage <spwan name="critDamage"></spwan>  <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+Angriffszeit <spwan name="Angriffszeit"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+Reichweite <spwan name="Reichweite"></spwan>  <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+
+<!-- Effekt
+Effektstärke
+EffektDauer/Reichweite  -->
+stufe5 unlockt <spwan name="Stufe5unlockt"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br> <br>
+<script type="text/javascript">
+
+  var Turmtyp = 0;
+document.getElementsByName("Turmname")[0].innerHTML=towertypen[Turmtyp][10];
+document.getElementsByName("turmBild")[0].src=towertypen[Turmtyp][1];
+document.getElementsByName("Damge")[0].innerHTML=towertypen[Turmtyp][2];
+document.getElementsByName("critChance")[0].innerHTML=towertypen[Turmtyp][13];
+document.getElementsByName("critDamage")[0].innerHTML=towertypen[Turmtyp][14];
+document.getElementsByName("Angriffszeit")[0].innerHTML=towertypen[Turmtyp][5];
+document.getElementsByName("Reichweite")[0].innerHTML=towertypen[Turmtyp][4];
+document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML=towertypen[Turmtyp][3];
+document.getElementsByName("Stufe5unlockt")[0].innerHTML=towertypen[Turmtyp][12];
+
+</script>
+  </body>
+</html>
