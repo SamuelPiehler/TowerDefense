@@ -39,7 +39,14 @@
         border-style: double;
         border-radius: 5px ;
       }
-
+      #close{
+        position: absolute;
+        top: 0px;
+        right: 0px;
+      }
+      #name{
+        font-size: 2em;
+      }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,7 +62,8 @@
       Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br></h2>
     </div>
     <div id="stats" hidden>
-      <spwan name="Turmname"> </spwan> <br>
+      <button type="button" id="close">x</button>
+      <spwan name="Turmname" id="name"> </spwan><br>
       <table>
         <tr>
           <td>Damge  <spwan  name="Damge"></spwan></td>
@@ -130,6 +138,8 @@
       </table>
     </div>
     <script type="text/javascript">
+    var skillPunkte = 0;
+    var selected = -1;
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
         document.getElementById("tree").innerHTML += '<img id="0' + i + towertypen[i][10] + '" class="Skilltree" src="' + towertypen[i][1] + '">';
@@ -146,12 +156,72 @@
         document.getElementById(i + towertypen[i][10]).addEventListener("click", showStats);
       }
     }
+    document.getElementById('close').addEventListener("click", close);
+    for (var i = 0; i < document.getElementsByName("plus").length; i++) {
+      neuerEventlistener(document.getElementsByName("plus")[i], addSkillpunkt, [i, true]);
+      neuerEventlistener(document.getElementsByName("minus")[i], addSkillpunkt, [i, false]);
+    }
+    function neuerEventlistener(element, funktion, uebergabewerte) {
+      element.addEventListener("click", function(){funktion(uebergabewerte);});
+    }
+    function close() {
+      document.getElementById("stats").hidden = true;
+    }
+    function addSkillpunkt(uebergabewerte) {
+      typ = uebergabewerte[0];
+      plus = uebergabewerte[1];
+      if (typ == 9) {
+        var nummer = 123;
+      }
+      else {
+        var nummer = typ + 10 * selected;
+      }
+      if (plus) {
+        if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9]) {
+          var required = skills[nummer][7];   // sind genügend von benötigten skills geskillet
+          for (var i = 0; i < skills[nummer][6].length; i++) {
+            required -= skills[skills[nummer][6][i]][9];
+          }
+          if (required <= 0) {
+            skillPunkte -= skills[nummer][10]+skills[nummer][9];
+            skills[nummer][9]++;
+          }
+        }
+      }
+      else {
+        if (skills[nummer][9] > 0) {
+          //wenn dadurch requirements nichtmehr erfüllt sind prüfen
+          var required = false;
+          for (var i = 0; i < skills.length; i++) {
+            if (skills[i] != undefined) {
+              for (var j = 0; j < skills[i][6].length; j++) {
+                if (skills[i][6][j] == nummer) {
+                  var required2 = skills[i][7];
+                  for (var k = 0; k < skills[i][6].length; k++) {
+                    required2 -= skills[i][6][k]][9];
+                  }
+                  if (required2 > 0) {
+                    required = true;
+                    break;
+                  }
+                }
+              }
+            }
+          }
+          if (!required) {
+            skills[nummer][9]--;
+            skillPunkte += skills[nummer][10]+skills[nummer][9];
+          }
+        }
+      }
+    }
     function showStats() {
       var pos = this.getBoundingClientRect();
       document.getElementById("stats").style.top = pos.y + 'px';
       document.getElementById("stats").style.left = pos.x + 70 + 'px';
       document.getElementById("stats").hidden = false;
       var towerTyp = this.id.substr(0,2)*1;
+      selected = towerTyp;
       if (this.id.substr(2,6) == "Random") {
         document.getElementsByName("Turmname")[0].innerHTML="Stats für alle Türme";
         document.getElementsByName("Damge")[0].innerHTML="+"+(Math.pow(1+skills[110][4]/100, skills[110][9])-1)+"%";
@@ -166,7 +236,7 @@
         document.getElementById('EffecktDauer').childNodes[1].innerHTML = "EffektDauer/EffecktReichweite +"+(Math.pow(1+skills[117][4]/100, skills[117][9])-1)+"%";
         document.getElementById('st5').hidden = true;
         document.getElementById('MaxStufe').hidden = false;
-        document.getElementsByName('MaxStufe')[0].innerHTML = "";
+        document.getElementsByName('MaxStufe')[0].innerHTML = skills[123][9]+3;
       }
       else {
         document.getElementsByName("Turmname")[0].innerHTML=towertypen[towerTyp][10];
@@ -188,34 +258,34 @@
           for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
             switch (towertypen[towerTyp][7][i]) {
               case 0:
-                obj.innerHTML += "Verlangsamt Gegner auf die " + (1 / (towertypen[towerTyp][8][i] + 1)) + " fache Geschwindigkeit. <br>";
+                obj.innerHTML += "Verlangsamt Gegner auf die " + (1 / (towertypen[towerTyp][8][i] + 1)) + " fache Geschwindigkeit <br>";
                 break;
               case 1:
                 obj.innerHTML += "Stunned Gegner <br>";
                 break;
               case 2:
-                obj.innerHTML += "Verbrennt Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec. <br>";
+                obj.innerHTML += "Verbrennt Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec <br>";
                 break;
               case 3:
-                obj.innerHTML += "Vergiftet Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec. <br>";
+                obj.innerHTML += "Vergiftet Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec <br>";
                 break;
               case 5:
-                obj.innerHTML += "Trifft nahe Gegner zusätzlich für " + towertypen[towerTyp][8][i] + " Schaden. <br>";
+                obj.innerHTML += "Trifft nahe Gegner zusätzlich für " + towertypen[towerTyp][8][i] + " Schaden <br>";
                 break;
               case 6:
-                obj.innerHTML += "Springt zusätzlich bis zu " + towertypen[towerTyp][8][i] + " mal auf nahe Gegner über. <br>";
+                obj.innerHTML += "Springt zusätzlich bis zu " + towertypen[towerTyp][8][i] + " mal auf nahe Gegner über <br>";
                 break;
               case 7:
-                obj.innerHTML += "Verbesstert den Damage von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                obj.innerHTML += "Verbesstert den Damage von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
                 break;
               case 8:
-                obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
                 break;
               case 9:
-                obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
                 break;
               case 10:
-                obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
                 break;
             }
           }
@@ -224,10 +294,10 @@
           if (towertypen[towerTyp][7].length > 1) {
             for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
               if (towertypen[towerTyp][7][i] >= 5 && towertypen[towerTyp][7][i] <= 9) {
-                obj.innerHTML += "Effektreichweite Effeckt " + i + ": " + towertypen[towerTyp][9][i] + " <br>";
+                obj.innerHTML += "Effektreichweite Effeckt " + (i+1) + ": " + towertypen[towerTyp][9][i] + " <br>";
               }
               else {
-                obj.innerHTML += "Effektdauer: Effeckt " + i + ": " + towertypen[towerTyp][9][i] + "sec <br>";
+                obj.innerHTML += "Effektdauer: Effeckt " + (i+1) + ": " + towertypen[towerTyp][9][i] + "sec <br>";
               }
             }
           }
