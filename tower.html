@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Skilltree</title>
     <script src="js/tower_Gegner_Stats.js"></script>
     <script src="js/skills.js"></script>
     <style>
+    h1{
+      color: red;
+    }
+    h2{
+      color:#bcbbbf ;
+    }
       body{
-        background-color: #aaffaa;
+  /*background: radial-gradient(circle , #3DB7FF 20%, #FFFFFF 80%);*/
+  background-image:url(https://kostenlose-digitale-produkte.com/3/lizenzfreieBilder_html_files/1851@2x.jpg);
         text-align: center;
       }
       .Skilltree{
@@ -13,18 +21,24 @@
         margin-left: calc((100vw - (80px * 5))/15);
         margin-right: calc((100vw - (80px * 5))/15);
         margin-top: 5%;
-        box-shadow: -5px -5px 5px black, 5px 5px 5px rgba(0, 0, 255, 0.897) , -5px 5px 5px red  , 5px -5px 5px black ;
+        box-shadow: -5px -5px 5px blue, 5px 5px 5px rgba(0, 0, 255, 0.897) , -5px 5px 5px white  , 5px -5px 5px white ;
         border-radius: 5%;
+        background-color: gray;
       }
       #zurück{
-        margin-right: 100%;
+        margin-right: calc(95vw - 21px);
       }
       #stats{
-        background-color: #8888ff;
+        background: linear-gradient(200deg,#6de3a2, #A36BFF );
         position: absolute;
         top: 30px;
         left: 30px;
+        border: 10px;
+        border-color: black;
+        border-style: double;
+        border-radius: 5px ;
       }
+
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,51 +50,81 @@
       <input id="zurück" type="button" value="zurück"> <br>
       <h1>Skilltree</h1>
 
-      Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
-      Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br>
+      <h2>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
+      Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br></h2>
     </div>
     <div id="stats" hidden>
       <spwan name="Turmname"> </spwan> <br>
       <table>
         <tr>
           <td>Damge  <spwan  name="Damge"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAus.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr>
           <td>critChance <spwan name="critChance"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr>
           <td>critDamage <spwan name="critDamage"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr>
           <td>Angriffszeit <spwan name="Angriffszeit"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr>
           <td>Reichweite <spwan name="Reichweite"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr id = "Drehgeschwindigkeit">
           <td>Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr id = "EffecktStärke">
           <td></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr id = "EffecktDauer">
           <td></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
         <tr id = "st5">
           <td>stufe5 unlockt <spwan name="Stufe5unlockt"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAus.png" alt="">
+            <img src="Bilder/icons/minusAus.png" alt="">
+          </td>
         </tr>
         <tr id = "MaxStufe">
           <td>Maximale TurmStufe <spwan name="MaxStufe"></spwan></td>
-          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+          <td>
+            <img src="Bilder/icons/plusAn.png" alt="">
+            <img src="Bilder/icons/minusAn.png" alt="">
+          </td>
         </tr>
       </table>
     </div>
