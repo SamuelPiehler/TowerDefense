@@ -143,12 +143,14 @@ function laden() {
     //   return;
     // }
     EBI("menu").style.display = "none";
-    tuerme.forEach((item, i) => {
-      if (item != undefined) {
-        item.canvasBase.remove();
-        item.canvasGeschütz.remove();
-      }
-    });
+    if (typeof(tuerme) != "undefined") {
+      tuerme.forEach((item, i) => {
+        if (item != undefined) {
+          item.canvasBase.remove();
+          item.canvasGeschütz.remove();
+        }
+      });
+    }
     tuerme = [];
     schwierigkeit = getContent(1);
     startTheGame(getContent(0));
