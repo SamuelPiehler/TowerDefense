@@ -120,7 +120,7 @@ switch (schwierigkeit) {
     schwierigkeitIcon = "'Bilder/Icons/schwer.png'";
     break;
 }
-anzeigeDiv.innerHTML = '<img class="icons" id="SchwierigkeitIcon" src=' + schwierigkeitIcon + '> <font id = "Schwierigkeit">Leicht</font> <img class="icons" src="Bilder/Icons/coin.png"><font id = "Geld">100</font> <img class="icons" src="Bilder/Icons/leben.png"><font id = "Leben">100</font> <img class="icons" src="Bilder/Icons/welle.png"><font id = "Welle">0/0</font>';
+anzeigeDiv.innerHTML = '<img class="icons" id="SchwierigkeitIcon" src=' + schwierigkeitIcon + '> <spwan id = "Schwierigkeit">Leicht</spwan> <img class="icons" src="Bilder/Icons/coin.png"><spwan id = "Geld">100</spwan> <img class="icons" src="Bilder/Icons/leben.png"><spwan id = "Leben">100</spwan> <img class="icons" src="Bilder/Icons/welle.png"><spwan id = "Welle">0/0</spwan>';
 
 //div in der die map gezeichnet wird
 mapDiv = document.createElement('div');

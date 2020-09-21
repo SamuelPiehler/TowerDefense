@@ -588,7 +588,7 @@ function showStats(evt, object) {
   else {
     var preisFarbe = "'red'";
   }
-  statFenster.innerHTML += "Preis: <font color=" + preisFarbe + " class=preisFarbe>" + preis + "</font><br>";
+  statFenster.innerHTML += "Preis: <spwan color=" + preisFarbe + " class=preisFarbe>" + preis + "</spwan><br>";
   if (object.name != towertypen.length - 1) {
     statFenster.innerHTML += "Damage: " + towertypen[object.name][2] + "<br>";
     statFenster.innerHTML += "Nachladezeit: " + towertypen[object.name][5] + " sec <br>";
@@ -713,16 +713,16 @@ function showUpgrade(object, id) {
     else {
       var preis = parseInt(parseInt(towertypen[typ][6]*preisMult)*(25+10*tuerme[id].upgradeStufe)/100);
     }
-    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <font color=ff0000>+1</font><br>";
+    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <spwan color=ff0000>+1</spwan><br>";
     if (preis <= geld) {    //preis farbe je nach dem ob man das geld hat
       preisFarbe = "'darkgreen'";
     }
     else {
       preisFarbe = "'red'";
     }
-    upgradeFenster.innerHTML += "Upgrade Preis: <font color=" + preisFarbe + " class=preisFarbe>" + preis + "</font><br>";
-    upgradeFenster.innerHTML += "Verkaufswert: " + tuerme[id].wert + " <font color=ff0000>+" + parseInt(preis*0.8) + " </font><br>";
-    upgradeFenster.innerHTML += "Damage: " + round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][2]/10*(1+tuerme[id].buffStaerken[0]/100), 3) + " </font><br>";
+    upgradeFenster.innerHTML += "Upgrade Preis: <spwan color=" + preisFarbe + " class=preisFarbe>" + preis + "</spwan><br>";
+    upgradeFenster.innerHTML += "Verkaufswert: " + tuerme[id].wert + " <spwan color=ff0000>+" + parseInt(preis*0.8) + " </spwan><br>";
+    upgradeFenster.innerHTML += "Damage: " + round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][2]/10*(1+tuerme[id].buffStaerken[0]/100), 3) + " </spwan><br>";
     if (typ == 10) {
     upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
     upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 3) + " <br>";
@@ -732,17 +732,17 @@ function showUpgrade(object, id) {
         upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
       }
       else {
-        upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " <font color=ff0000>-" + round(towertypen[typ][5]/10/(1+tuerme[id].buffStaerken[0]/100), 3) + "</font> sec <br>";
+        upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " <spwan color=ff0000>-" + round(towertypen[typ][5]/10/(1+tuerme[id].buffStaerken[0]/100), 3) + "</spwan> sec <br>";
       }
       if (typ == 9) {
-        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][9][tuerme[id].effekt[0]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 2) + " </font><br>";
+        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <spwan color=ff0000>+" + round(towertypen[typ][9][tuerme[id].effekt[0]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 2) + " </spwan><br>";
       }
       else {
-        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][4]/10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font><br>";
+        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <spwan color=ff0000>+" + round(towertypen[typ][4]/10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </spwan><br>";
       }
     }
     if (tuerme[id].drehGeschw != 0) {
-      upgradeFenster.innerHTML += "Drehgeschwindigkeit: " + round(tuerme[id].drehGeschw*100*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][3]*10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font> Grad/sec <br>";
+      upgradeFenster.innerHTML += "Drehgeschwindigkeit: " + round(tuerme[id].drehGeschw*100*(1+tuerme[id].buffStaerken[3]/100), 2) + " <spwan color=ff0000>+" + round(towertypen[typ][3]*10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </spwan> Grad/sec <br>";
     }
     else if (typ == 9) {
       upgradeFenster.innerHTML += "Buffed alle Türme in Reichweite! <br>";
@@ -754,43 +754,43 @@ function showUpgrade(object, id) {
       switch (tuerme[id].effekt[i]) {
         case 0:
           var speedChange = (1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100)+towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100) + 1)) - (1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100) + 1));
-          upgradeFenster.innerHTML += "Verlangsamt Gegner auf die " + round(1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100) + 1), 4) + " <font color=ff0000>" + round(speedChange, 4) + " </font> fache Geschwindigkeit. <br>";
+          upgradeFenster.innerHTML += "Verlangsamt Gegner auf die " + round(1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100) + 1), 4) + " <spwan color=ff0000>" + round(speedChange, 4) + " </spwan> fache Geschwindigkeit. <br>";
           break;
         case 1:
           upgradeFenster.innerHTML += "Stunned Gegner <br>";
           break;
         case 2:
-          upgradeFenster.innerHTML += "Verbrennt Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font> Schaden/sec. <br>";
+          upgradeFenster.innerHTML += "Verbrennt Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan> Schaden/sec. <br>";
           break;
         case 3:
-          upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font> Schaden/sec. <br>";
+          upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan> Schaden/sec. <br>";
           break;
         case 5:
-          upgradeFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font> Schaden. <br>";
+          upgradeFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan> Schaden. <br>";
           break;
         case 6:
-          upgradeFenster.innerHTML += "Springt zusätzlich bis zu " +tuerme[id].effektStaerke[i] + " <font color=ff0000>+1 </font> mal auf nahe Gegner über. <br>";
+          upgradeFenster.innerHTML += "Springt zusätzlich bis zu " +tuerme[id].effektStaerke[i] + " <spwan color=ff0000>+1 </spwan> mal auf nahe Gegner über. <br>";
           break;
         case 7:
-          upgradeFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan>)%. <br>";
           break;
         case 8:
-          upgradeFenster.innerHTML += "Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan>)%. <br>";
           break;
         case 9:
-          upgradeFenster.innerHTML += "Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan>)%. <br>";
           break;
         case 10:
-          upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <spwan color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </spwan>)%. <br>";
           break;
       }
       if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 10) {
         if (typ != 9) {
-          upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + " <font color=ff0000>+" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </font> <br>";
+          upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + " <spwan color=ff0000>+" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </spwan> <br>";
         }
       }
       else {
-        upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i]/100*(1+tuerme[id].buffStaerken[2]/100), 4) + " <font color=ff0000>+" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </font> sec <br>";
+        upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i]/100*(1+tuerme[id].buffStaerken[2]/100), 4) + " <spwan color=ff0000>+" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </spwan> sec <br>";
       }
     }
     if (tuerme[id].typ != 2) {
@@ -831,7 +831,7 @@ function showUpgrade(object, id) {
     upgradeButton.addEventListener("click", function(){tuerme[id].upgrade();});
   }
   else {    //wenn der turm auf maximaler stufe ist
-    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <font color=ff0000>Max</font><br>";
+    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <spwan color=ff0000>Max</spwan><br>";
     upgradeFenster.innerHTML += "Verkaufswert: " + tuerme[id].wert + "<br>";
     upgradeFenster.innerHTML += "Damage: " + round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3) + "<br>";
     upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
@@ -940,7 +940,7 @@ function showUpgrade(object, id) {
   var upgradeFehlerDiv = document.createElement("div");   //anzeige wenn evrsucht wird den turm upzugraden aber nicht genug geld vorhanden ist
   upgradeFehlerDiv.id = "fehler"+id;
   upgradeFehlerDiv.color = "red";
-  upgradeFehlerDiv.innerHTML = "<font color=ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</font>";
+  upgradeFehlerDiv.innerHTML = "<spwan color=ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</spwan>";
   upgradeFenster.appendChild(upgradeFehlerDiv);
   upgradeFehlerDiv.hidden = true;
 
