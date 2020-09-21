@@ -1,51 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-<style>
-    body{
+  <head>
+    <script src="js/tower_Gegner_Stats.js"></script>
+    <style>
+      body{
         background-color: #aaffaa;
         text-align: center;
-    }
-
-
-.Skilltree{
-    position: relative;
-    margin-left: calc((100vw - (80px * 5))/15);
-    margin-right: calc((100vw - (80px * 5))/15);
-    margin-top: 5%;
-    box-shadow: -5px -5px 5px black, 5px 5px 5px rgba(0, 0, 255, 0.897) , -5px 5px 5px red  , 5px -5px 5px black ;
-    border-radius: 5%;
-
-}
-#button{
-margin-right: 1200px;
-}
-</style>
-
+      }
+      .Skilltree{
+        position: relative;
+        margin-left: calc((100vw - (80px * 5))/15);
+        margin-right: calc((100vw - (80px * 5))/15);
+        margin-top: 5%;
+        box-shadow: -5px -5px 5px black, 5px 5px 5px rgba(0, 0, 255, 0.897) , -5px 5px 5px red  , 5px -5px 5px black ;
+        border-radius: 5%;
+      }
+      #zurück{
+        margin-right: 100%;
+      }
+      #stats{
+        background-color: #8888ff;
+        position: absolute;
+        top: 30px;
+        left: 30px;
+      }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-</head>
+  </head>
+  <body>
+    <div id="tree">
+      <input id="zurück" type="button" value="zurück"> <br>
+      <h1>Skilltree</h1>
 
-<body>
-    <input id="button" type="button" value="zurück"> <br>
-    <h1>Skilltree</h1>
+      Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
+      Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br>
+    </div>
+    <div id="stats" hidden>
+      <spwan name="Turmname"> </spwan> <br>
+      Damge  <spwan  name="Damge"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+      critChance <spwan name="critChance"></spwan>  <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+      critDamage <spwan name="critDamage"></spwan>  <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+      Angriffszeit <spwan name="Angriffszeit"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+      Reichweite <spwan name="Reichweite"></spwan>  <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
+      Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br>
 
-das ist der Skilltree wo die Verbesserungen beschrieben und ausgewählt werden. <br> <br>
-
-<img id="00basic" class="Skilltree" src="Bilder/Tower/00basic.png" alt="">
-<img id="01sniper"class="Skilltree"  src="Bilder/Tower/01sniper.png" alt="">
-<img id="02slower" class="Skilltree" src="Bilder/Tower/02slower.png" alt="">
-<img id="03gift"  class="Skilltree" src="Bilder/tower/03gift.png" alt="">
-<img id="04FeuerAOE" class="Skilltree" src="Bilder/Tower/04feuerAoe.png" alt="">
-<img  id="05Bosstower" class="Skilltree"src="Bilder/Tower/05antiBoss.png" alt="">
-<img  id="06Rocket" class="Skilltree" src="Bilder/Tower/06rocket.png" alt="">
-<img  id="07Gitfsingle" class="Skilltree"src="Bilder/Tower/07giftSingle.png" alt="">
-<img  id="08lava" class="Skilltree"src="Bilder/Tower/08lavaTower.png" alt="">
-<img  id="09support" class="Skilltree"src="Bilder/Tower/09support.png" alt="">
-<img  id="10Tesla" class="Skilltree"src="Bilder/Tower/10tesla.png" alt="">
-
-</body>
+      <!-- Effekt
+      Effektstärke
+      EffektDauer/Reichweite  -->
+      stufe5 unlockt <spwan name="Stufe5unlockt"></spwan> <input type="button" name="" value="+"> <input type="button" name="" value="-"> <br> <br>
+    </div>
+    <script type="text/javascript">
+    for (var i = 0; i < towertypen.length; i++) {
+      if (i<10) {
+        document.getElementById("tree").innerHTML += '<img id="0' + i + towertypen[i][10] + '" class="Skilltree" src="' + towertypen[i][1] + '">';
+      }
+      else {
+        document.getElementById("tree").innerHTML += '<img id="' + i + towertypen[i][10] + '" class="Skilltree" src="' + towertypen[i][1] + '">';
+      }
+    }
+    for (var i = 0; i < towertypen.length; i++) {
+      if (i<10) {
+        document.getElementById("0" + i + towertypen[i][10]).addEventListener("click", showStats);
+      }
+      else {
+        document.getElementById(i + towertypen[i][10]).addEventListener("click", showStats);
+      }
+    }
+    function showStats() {
+      var pos = this.getBoundingClientRect();
+      document.getElementById("stats").style.top = pos.y + 'px';
+      document.getElementById("stats").style.left = pos.x + 70 + 'px';
+      document.getElementById("stats").hidden = false;
+      var towerTyp = this.id.substr(0,2)*1;
+      document.getElementsByName("Turmname")[0].innerHTML=towertypen[towerTyp][10];
+      document.getElementsByName("Damge")[0].innerHTML=towertypen[towerTyp][2];
+      document.getElementsByName("critChance")[0].innerHTML=towertypen[towerTyp][13];
+      document.getElementsByName("critDamage")[0].innerHTML=towertypen[towerTyp][14];
+      document.getElementsByName("Angriffszeit")[0].innerHTML=towertypen[towerTyp][5];
+      document.getElementsByName("Reichweite")[0].innerHTML=towertypen[towerTyp][4];
+      document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML=towertypen[towerTyp][3];
+      document.getElementsByName("Stufe5unlockt")[0].innerHTML=towertypen[towerTyp][12];
+    }
+    </script>
+  </body>
 </html>
