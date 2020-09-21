@@ -18,7 +18,7 @@ var map = [[[9, ['Bilder/Map/feld2.jpg','Bilder/Map/ziel1.png']],[2, 'Bilder/Map
 success= true;
 mapSchwie= 4;
 MapName = 'Wirr - Warr';
-multiStartTyp = 0;
+multiStartTyp = 2;
 if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';var randomtiles = true
 
 
