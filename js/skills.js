@@ -7,9 +7,9 @@ const skills = [
   ["BasicTurm drehGeschw", "Erhöht die drehGeschwindigkeit von BasicTürmen um 7,5%", 0, 3, 7.5, true, [], 0, 10, 0, 1],    //3
   ["BasicTurm critChance", "Erhöht die critChance von BasicTürmen um 5%", 0, 13, 5, false, [0], 1, 10, 0, 1],    //4
   ["BasicTurm critDamage", "Erhöht den CritSchaden von BasicTürmen um 10%", 0, 2, 10, false, [4], 5, 10, 0, 1],   //5
-  ["Basic St5", "Stufe 5 BasicTürme bekommen einen 2ten Lauf", 0, 12, true, 0, [113], 2, 1, 0, 5],   //6
+  ,   //6
   ,   //7
-  ,   //8
+  ["Basic St5", "Stufe 5 BasicTürme bekommen einen 2ten Lauf", 0, 12, true, 0, [113], 2, 1, 0, 5],   //8
   ,   //9
   //Sniper
   ["Sniper Dmg", "Erhöht den Damage von Sniper um 5%", 1, 2, 5, true, [], 0, 10, 0, 1],   //10
@@ -18,42 +18,42 @@ const skills = [
   ["Sniper drehGeschw", "Erhöht die drehGeschwindigkeit von Sniper um 7,5%", 1, 3, 7.5, true, [], 0, 10, 0, 1],    //13
   ["Sniper critChance", "Erhöht die critChance von Sniper um 5%", 1, 13, 5, false, [10], 1, 10, 0, 1],    //14
   ["Sniper critDamage", "Erhöht den CritSchaden von Sniper um 10%", 1, 14, 10, false, [14], 5, 10, 0, 1],   //15
-  ["Sniper St5", "Stufe 5 Sniper schießen durch gegner durch und treffen alle Gegner auf einer Linie", 1, 12, true, 0, [113], 2, 1, 0, 5],   //16
+  ,   //16
   ,   //17
-  ,   //18
+  ["Sniper St5", "Stufe 5 Sniper schießen durch gegner durch und treffen alle Gegner auf einer Linie", 1, 12, true, 0, [113], 2, 1, 0, 5],   //18
   ,   //19
   //SlowTurm
   ["SlowTurm Dmg", "Erhöht den Damage von SlowTürmen um 5", 2, 2, 5, false, [], 0, 10, 0, 1],   //20
   ["SlowTurm Attackspeed", "Reduziert die Angriffszeit von SlowTürmen um 5%", 2, 5, -5, true, [], 0, 5, 0, 1],   //21
   ["SlowTurm Reichweite", "Erhöht die Reichweite von SlowTürmen um 7,5%", 2, 4, 7.5, true, [], 0, 10, 0, 1],   //22
-  ["SlowTurm critChance", "Erhöht die critChance von SlowTürmen um 5%", 2, 13, 5, false, [20], 5, 10, 0, 1],   //?23
-  ["SlowTurm critDamage", "Erhöht den CritSchaden von SlowTürmen um 10%", 2, 14, 10, false, [23], 5, 10, 0, 1],    //?24
-  ["SlowTurm EffecktStärke", "Erhöht die SlowStärke von SlowTürmen um 5%", 2, 8, 5, true, [], 0, 10, 0, 1],    //25
-  ["SlowTurm EffecktDauer", "Erhöht die SlowDauer von SlowTürmen um 5%", 2, 9, 5, true, [], 0, 10, 0, 1],    //26
-  ["SlowTurm St5", "Stufe 5 SlowTürme fügen zusätzlich eine stackbare und dauerhafte verlangsamung zu", 2, 12, true, 0, [113], 2, 1, 0, 5],   //27
-  ,   //28
+  ,   //23
+  ["SlowTurm critChance", "Erhöht die critChance von SlowTürmen um 5%", 2, 13, 5, false, [20], 5, 10, 0, 1],   //24
+  ["SlowTurm critDamage", "Erhöht den CritSchaden von SlowTürmen um 10%", 2, 14, 10, false, [24], 5, 10, 0, 1],    //25
+  ["SlowTurm EffecktStärke", "Erhöht die SlowStärke von SlowTürmen um 5%", 2, 8, 5, true, [], 0, 10, 0, 1],    //26
+  ["SlowTurm EffecktDauer", "Erhöht die SlowDauer von SlowTürmen um 5%", 2, 9, 5, true, [], 0, 10, 0, 1],    //27
+  ["SlowTurm St5", "Stufe 5 SlowTürme fügen zusätzlich eine stackbare und dauerhafte verlangsamung zu", 2, 12, true, 0, [113], 2, 1, 0, 5],   //28
   ,   //29
   //GiftTurm
   ["GiftTurm Dmg", "Erhöht den Damage von GiftTürmen um 5", 3, 2, 5, false, [], 0, 10, 0, 1],   //30
   ["GiftTurm Attackspeed", "Reduziert die Angriffszeit von GiftTürmen um 5%", 3, 5, -5, true, [], 0, 5, 0, 1],   //31
   ["GiftTurm Reichweite", "Erhöht die Reichweite von GiftTürmen um 7,5%", 3, 4, 7.5, true, [], 0, 10, 0, 1],   //32
-  ["GiftTurm critChance", "Erhöht die critChance von GiftTürmen um 5%", 3, 12, 5, true, [30], 5, 10, 0, 1],   //?33
-  ["GiftTurm critDamage", "Erhöht den CritSchaden von GiftTürmen um 10%", 3, 14, 10, false, [33], 5, 10, 0, 1],    //?34
-  ["GiftTurm EffecktStärke", "Erhöht die GiftStärke von GiftTürmen um 5%", 3, 8, 5, true, [], 0, 10, 0, 1],    //35
-  ["GiftTurm EffecktDauer", "Erhöht die GiftDauer von GiftTürmen um 5%", 3, 9, 5, true, [], 0, 10, 0, 1],    //36
-  ["GiftTurm St5", "Gift von Stufe 5 GiftTürmen stacked nun mit anderem Gift", 3, 12, true, 0, [113], 2, 1, 0, 5],   //37
-  ,   //38
+  ,   //33
+  ["GiftTurm critChance", "Erhöht die critChance von GiftTürmen um 5%", 3, 12, 5, true, [30], 5, 10, 0, 1],   //34
+  ["GiftTurm critDamage", "Erhöht den CritSchaden von GiftTürmen um 10%", 3, 14, 10, false, [34], 5, 10, 0, 1],    //35
+  ["GiftTurm EffecktStärke", "Erhöht die GiftStärke von GiftTürmen um 5%", 3, 8, 5, true, [], 0, 10, 0, 1],    //36
+  ["GiftTurm EffecktDauer", "Erhöht die GiftDauer von GiftTürmen um 5%", 3, 9, 5, true, [], 0, 10, 0, 1],    //37
+  ["GiftTurm St5", "Gift von Stufe 5 GiftTürmen stacked nun mit anderem Gift", 3, 12, true, 0, [113], 2, 1, 0, 5],   //38
   ,   //39
   //FeuerAoeTurm
   ["FeuerAoeTurm Dmg", "Erhöht den Damage von FeuerAoeTürmen um 5", 4, 2, 5, false, [], 0, 10, 0, 1],   //40
   ["FeuerAoeTurm Attackspeed", "Reduziert die Angriffszeit von FeuerAoeTürmen um 5%", 4, 5, -5, true, [], 0, 5, 0, 1],   //41
   ["FeuerAoeTurm Reichweite", "Erhöht die Reichweite von FeuerAoeTürmen um 7,5%", 4, 4, 7.5, true, [], 0, 10, 0, 1],   //42
-  ["FeuerAoeTurm critChance", "Erhöht die critChance von FeuerAoeTürmen um 5%", 4, 12, 5, true, [40], 5, 10, 0, 1],   //?43
-  ["FeuerAoeTurm critDamage", "Erhöht den CritSchaden von FeuerAoeTürmen um 10%", 4, 14, 10, false, [43], 5, 10, 0, 1],    //?44
-  ["FeuerAoeTurm EffecktStärke", "Erhöht die FeuerStärke von FeuerAoeTürmen um 5%", 4, 8, 5, true, [], 0, 10, 0, 1],    //45
-  ["FeuerAoeTurm EffecktDauer", "Erhöht die FeuerDauer von FeuerAoeTürmen um 5%", 4, 9, 5, true, [], 0, 10, 0, 1],    //46
-  ["FeuerAoeTurm St5", "Stufe 5 FeuerAoeTürmen bekommen die chance beim angriff einem zufälligen Gegner auf der map 10fachen Schaden und Feuerschaden zuzufügen", 4, 12, true, 0, [113], 2, 1, 0, 5],   //47
-  ,   //48
+  ,   //43
+  ["FeuerAoeTurm critChance", "Erhöht die critChance von FeuerAoeTürmen um 5%", 4, 12, 5, true, [40], 5, 10, 0, 1],   //44
+  ["FeuerAoeTurm critDamage", "Erhöht den CritSchaden von FeuerAoeTürmen um 10%", 4, 14, 10, false, [44], 5, 10, 0, 1],    //45
+  ["FeuerAoeTurm EffecktStärke", "Erhöht die FeuerStärke von FeuerAoeTürmen um 5%", 4, 8, 5, true, [], 0, 10, 0, 1],    //46
+  ["FeuerAoeTurm EffecktDauer", "Erhöht die FeuerDauer von FeuerAoeTürmen um 5%", 4, 9, 5, true, [], 0, 10, 0, 1],    //47
+  ["FeuerAoeTurm St5", "Stufe 5 FeuerAoeTürmen bekommen die chance beim angriff einem zufälligen Gegner auf der map 10fachen Schaden und Feuerschaden zuzufügen", 4, 12, true, 0, [113], 2, 1, 0, 5],   //48
   ,   //49
   //AntiBoss
   ["AntiBossTurm Dmg", "Erhöht den Damage von AntiBossTürmen um 5%", 5, 2, 5, true, [], 0, 10, 0, 1],   //50
@@ -62,9 +62,9 @@ const skills = [
   ["AntiBossTurm drehGeschw", "Erhöht die drehGeschwindigkeit von AntiBossTürmen um 7,5%", 5, 3, 7.5, true, [], 0, 10, 0, 1],    //53
   ["AntiBossTurm critChance", "Erhöht die critChance von AntiBossTürmen um 5%", 5, 13, 5, false, [50], 1, 10, 0, 1],    //54
   ["AntiBossTurm critDamage", "Erhöht den CritSchaden von AntiBossTürmen um 10%", 5, 14, 10, false, [54], 5, 10, 0, 1],   //55
-  ["AntiBossTurm EffecktDauer", "Erhöht die StunnDauer von AntiBossTürmen um 5%", 5, 9, 5, true, [], 0, 10, 0, 1],    //56
-  ["AntiBossTurm St5", "Stufe 5 AntiBossTürme haben längere Stunzeit und fügen pro Hit auf den Selben Gegner 100 mehr schaden zu", 5, 12, true, 0, [113], 2, 1, 0, 5],   //57
-  ,   //58
+  ,   //56
+  ["AntiBossTurm EffecktDauer", "Erhöht die StunnDauer von AntiBossTürmen um 5%", 5, 9, 5, true, [], 0, 10, 0, 1],    //57
+  ["AntiBossTurm St5", "Stufe 5 AntiBossTürme haben längere Stunzeit und fügen pro Hit auf den Selben Gegner 100 mehr schaden zu", 5, 12, true, 0, [113], 2, 1, 0, 5],   //58
   ,   //59
   //Rocket
   ["RocketLauncher Dmg", "Erhöht den Damage von RocketLaunchern um 5%", 6, 2, 5, true, [], 0, 10, 0, 1],   //60
@@ -126,10 +126,10 @@ const skills = [
   ["Turm Attackspeed", "Reduziert die Angriffszeit von Türmen um 5%", -1, 5, -5, true, [1, 11, 21, 31, 41, 51, 61, 71, 81, 101], 30, 3, 0, 2],    //111
   ["Turm Reichweite", "Erhöht die Reichweite von Türmen um 7,5%", -1, 4, 7.5, true, [2, 12, 22, 32, 42, 52, 62, 72, 82, 102], 30, 5, 0, 2],    //112
   ["Turm drehGeschw", "Erhöht die drehGeschwindigkeit von Türmen um 7,5%", -1, 3, 7.5, true, [3, 13, 53, 63, 73, 83, 103], 15, 5, 0, 2],    //113
-  ["Turm critChance", "Erhöht die critChance von Türmen um 5%", -1, 13, 5, false, [4, 14, 23, 33, 43, 54, 64, 74, 84, 104], 1, 5, 0, 2],    //114
-  ["Turm critDamage", "Erhöht den CritSchaden von Türmen um 10%", -1, 14, 10, false, [5, 15, 24, 34, 44, 55, 65, 75, 85, 105], 5, 5, 0, 2],   //115
-  ["Turm EffecktStärke", "Erhöht die EffecktStärke von Türmen um 5%", -1, 8, 1, false, [25, 35, 45, 66, 76, 86, 90, 92, 94, 96], 30, 5, 0, 2],    //116
-  ["Turm EffecktReichweite/Zeit", "Erhöht die EffecktReichweite von Türmen um 5%", -1, 9, 5, true, [26, 36, 46, 67, 77, 87, 91, 93, 95, 97], 30, 5, 0, 2],    //117
+  ["Turm critChance", "Erhöht die critChance von Türmen um 5%", -1, 13, 5, false, [4, 14, 24, 34, 44, 54, 64, 74, 84, 104], 1, 5, 0, 2],    //114
+  ["Turm critDamage", "Erhöht den CritSchaden von Türmen um 10%", -1, 14, 10, false, [5, 15, 25, 35, 45, 55, 65, 75, 85, 105], 5, 5, 0, 2],   //115
+  ["Turm EffecktStärke", "Erhöht die EffecktStärke von Türmen um 5%", -1, 8, 1, false, [26, 36, 46, 66, 76, 86, 90, 92, 94, 96], 30, 5, 0, 2],    //116
+  ["Turm EffecktReichweite/Zeit", "Erhöht die EffecktReichweite von Türmen um 5%", -1, 9, 5, true, [27, 37, 47, 67, 77, 87, 91, 93, 95, 97], 30, 5, 0, 2],    //117
   ,   //118
   ,   //119
   //allgemeine Upgrdes

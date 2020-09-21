@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <script src="js/tower_Gegner_Stats.js"></script>
+    <script src="js/skills.js"></script>
     <style>
       body{
         background-color: #aaffaa;
@@ -61,19 +62,27 @@
           <td>Reichweite <spwan name="Reichweite"></spwan></td>
           <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
         </tr>
-        <tr>
+        <tr id = "Drehgeschwindigkeit">
           <td>Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan></td>
           <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
         </tr>
-        <tr>
+        <tr id = "EffecktStärke">
+          <td></td>
+          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+        </tr>
+        <tr id = "EffecktDauer">
+          <td></td>
+          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+        </tr>
+        <tr id = "st5">
           <td>stufe5 unlockt <spwan name="Stufe5unlockt"></spwan></td>
           <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
         </tr>
+        <tr id = "MaxStufe">
+          <td>Maximale TurmStufe <spwan name="MaxStufe"></spwan></td>
+          <td><input type="button" name="" value="+"> <input type="button" name="" value="-"></td>
+        </tr>
       </table>
-
-      <!-- Effekt
-      Effektstärke
-      EffektDauer/Reichweite  -->
     </div>
     <script type="text/javascript">
     for (var i = 0; i < towertypen.length; i++) {
@@ -98,14 +107,98 @@
       document.getElementById("stats").style.left = pos.x + 70 + 'px';
       document.getElementById("stats").hidden = false;
       var towerTyp = this.id.substr(0,2)*1;
-      document.getElementsByName("Turmname")[0].innerHTML=towertypen[towerTyp][10];
-      document.getElementsByName("Damge")[0].innerHTML=towertypen[towerTyp][2];
-      document.getElementsByName("critChance")[0].innerHTML=towertypen[towerTyp][13];
-      document.getElementsByName("critDamage")[0].innerHTML=towertypen[towerTyp][14];
-      document.getElementsByName("Angriffszeit")[0].innerHTML=towertypen[towerTyp][5];
-      document.getElementsByName("Reichweite")[0].innerHTML=towertypen[towerTyp][4];
-      document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML=towertypen[towerTyp][3];
-      document.getElementsByName("Stufe5unlockt")[0].innerHTML=towertypen[towerTyp][12];
+      if (this.id.substr(2,6) == "Random") {
+        document.getElementsByName("Turmname")[0].innerHTML="Stats für alle Türme";
+        document.getElementsByName("Damge")[0].innerHTML="+"+(Math.pow(1+skills[110][4]/100, skills[110][9])-1)+"%";
+        document.getElementsByName("critChance")[0].innerHTML="+"+(Math.pow(1+skills[114][4]/100, skills[114][9])-1)+"%";
+        document.getElementsByName("critDamage")[0].innerHTML="+"+(Math.pow(1+skills[115][4]/100, skills[115][9])-1)+"%";
+        document.getElementsByName("Angriffszeit")[0].innerHTML="-"+(1-Math.pow(1-skills[111][4]/100, skills[111][9]))+"%";
+        document.getElementsByName("Reichweite")[0].innerHTML="+"+(Math.pow(1+skills[112][4]/100, skills[112][9])-1)+"%";
+        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML="+"+(Math.pow(1+skills[113][4]/100, skills[113][9])-1)+"%";
+        document.getElementById('EffecktStärke').hidden = false;
+        document.getElementById('EffecktDauer').hidden = false;
+        document.getElementById('EffecktStärke').childNodes[1].innerHTML = "EffecktStärke +"+(Math.pow(1+skills[116][4]/100, skills[116][9])-1)+"%";
+        document.getElementById('EffecktDauer').childNodes[1].innerHTML = "EffektDauer/EffecktReichweite +"+(Math.pow(1+skills[117][4]/100, skills[117][9])-1)+"%";
+        document.getElementById('st5').hidden = true;
+        document.getElementById('MaxStufe').hidden = false;
+        document.getElementsByName('MaxStufe')[0].innerHTML = "";
+      }
+      else {
+        document.getElementsByName("Turmname")[0].innerHTML=towertypen[towerTyp][10];
+        document.getElementsByName("Damge")[0].innerHTML=towertypen[towerTyp][2];
+        document.getElementsByName("critChance")[0].innerHTML=towertypen[towerTyp][13]+"%";
+        document.getElementsByName("critDamage")[0].innerHTML=towertypen[towerTyp][14]+"%";
+        document.getElementsByName("Angriffszeit")[0].innerHTML=towertypen[towerTyp][5]+"sec";
+        document.getElementsByName("Reichweite")[0].innerHTML=towertypen[towerTyp][4];
+        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML=towertypen[towerTyp][3]*100+" Grad/sec";
+        if (towertypen[towerTyp][7].length == 0) {
+          document.getElementById('EffecktStärke').hidden = true;
+          document.getElementById('EffecktDauer').hidden = true;
+        }
+        else {
+          document.getElementById('EffecktStärke').hidden = false;
+          document.getElementById('EffecktDauer').hidden = false;
+          var obj = document.getElementById('EffecktStärke').childNodes[1];
+          obj.innerHTML = "";
+          for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
+            switch (towertypen[towerTyp][7][i]) {
+              case 0:
+                obj.innerHTML += "Verlangsamt Gegner auf die " + (1 / (towertypen[towerTyp][8][i] + 1)) + " fache Geschwindigkeit. <br>";
+                break;
+              case 1:
+                obj.innerHTML += "Stunned Gegner <br>";
+                break;
+              case 2:
+                obj.innerHTML += "Verbrennt Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec. <br>";
+                break;
+              case 3:
+                obj.innerHTML += "Vergiftet Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec. <br>";
+                break;
+              case 5:
+                obj.innerHTML += "Trifft nahe Gegner zusätzlich für " + towertypen[towerTyp][8][i] + " Schaden. <br>";
+                break;
+              case 6:
+                obj.innerHTML += "Springt zusätzlich bis zu " + towertypen[towerTyp][8][i] + " mal auf nahe Gegner über. <br>";
+                break;
+              case 7:
+                obj.innerHTML += "Verbesstert den Damage von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                break;
+              case 8:
+                obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                break;
+              case 9:
+                obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                break;
+              case 10:
+                obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "%. <br>";
+                break;
+            }
+          }
+          obj = document.getElementById('EffecktDauer').childNodes[1];
+          obj.innerHTML = "";
+          if (towertypen[towerTyp][7].length > 1) {
+            for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
+              if (towertypen[towerTyp][7][i] >= 5 && towertypen[towerTyp][7][i] <= 9) {
+                obj.innerHTML += "Effektreichweite Effeckt " + i + ": " + towertypen[towerTyp][9][i] + " <br>";
+              }
+              else {
+                obj.innerHTML += "Effektdauer: Effeckt " + i + ": " + towertypen[towerTyp][9][i] + "sec <br>";
+              }
+            }
+          }
+          else {
+            if (towertypen[towerTyp][7][0] >= 5 && towertypen[towerTyp][7][0] <= 9) {
+              obj.innerHTML += "Effektreichweite: " + towertypen[towerTyp][9][0] + " <br>";
+            }
+            else {
+              obj.innerHTML += "Effektdauer: " + towertypen[towerTyp][9][0] + "sec <br>";
+            }
+          }
+        }
+        document.getElementById('st5').hidden = false;
+        document.getElementById('MaxStufe').hidden = true;
+        document.getElementsByName("Stufe5unlockt")[0].innerHTML=towertypen[towerTyp][12];
+      }
     }
     </script>
   </body>
