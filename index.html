@@ -46,19 +46,33 @@
             <p>Map1</p>
           </div>
         </div>
-      </div>
-      <div id="schwierigkeiten" style="display: none;">
-        <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';"
-          style="position:absolute;">X</button>
-        <div id=Mapname>
-          Map 1
-        </div>
-        <div id=Mapimage>
-          <div id=qw>
-            <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
-            <div id=money>
-              <img src="Bilder/Icons/coin.png">
-              <font id=dGeld>100</font>
+        <div id="schwierigkeiten" style="display: none;">
+          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+          <div id=Mapname>
+            Map 1
+          </div>
+          <div id=Mapimage>
+            <div id =qw>
+              <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
+              <div id=money>
+                <img src="Bilder/Icons/coin.png">
+                <span id=dGeld>100</span>
+              </div>
+              <div id = diffi>
+                <img  id="DSIco" src='Bilder/Icons/einfach.png'>
+                <span id = "DS">Leicht</span>
+              </div>
+              <div id=size>
+                Mapgrösse: <span id="MSO">11 x 16</span>
+              </div>
+            </div>
+          </div>
+          <div id=schwierigkeit>
+            <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
+              Sandbox
+            </div>
+            <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
+              Leicht
             </div>
             <div id=diffi>
               <img id="DSIco" src='Bilder/Icons/einfach.png'>

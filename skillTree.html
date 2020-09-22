@@ -33,6 +33,7 @@
         margin-right: calc(95vw - 21px);
         box-shadow: 3px 2px 3px  #4fd78d, -3px -2px 3px #4fd78d, -3px 2px 3px  #4fd78d, 3px -2px 3px #4fd78d;
         border-radius: 20%;
+        margin-top: 10px
       }
       #zurück:hover{
         content: url("Bilder/Buttons/backHover.png");
@@ -55,6 +56,9 @@
       #name{
         font-size: 2em;
       }
+      #reset{
+        margin-right: 94vw;
+        margin-top: 10px;     }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -62,54 +66,67 @@
     <title>Document</title>
   </head>
   <body>
+    <img  id="reset" src="Bilder/Buttons/reset.png " alt="">
     <div id="tree">
       <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
       <h1>Skilltree</h1> <br>
-      <h2>Du hast 100 skillpunkte</h2> <br>
+      <h2>Du hast <span id="skillPunkte"></span> skillpunkte</h2> <br>
       <h3>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
       Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br></h3>
     </div>
     <div id="stats" hidden>
       <img id="close" src="Bilder/icons/close.png" alt="">
-      <font name="Turmname" id="name"> </font><br>
+      <span name="Turmname" id="name"> </span><br>
       <table>
         <tr>
-          <td>Damge  <font  name="Damge"></font></td>
+          <td>Damge  <span  name="Damge"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>Angriffszeit <font name="Angriffszeit"></font></td>
+          <td>Angriffszeit <span name="Angriffszeit"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>Reichweite <font name="Reichweite"></font></td>
+          <td>Reichweite <span name="Reichweite"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "Drehgeschwindigkeit">
-          <td>Drehgeschwindigkeit <font name="Drehgeschwindigkeit"></font></td>
+          <td>Drehgeschwindigkeit <span name="Drehgeschwindigkeit"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>critChance <font name="critChance"></font></td>
+          <td>critChance <span name="critChance"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>critDamage <font name="critDamage"></font></td>
+          <td>critDamage <span name="critDamage"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -117,6 +134,8 @@
         </tr>
         <tr id = "EffecktStärke">
           <td></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -124,20 +143,26 @@
         </tr>
         <tr id = "EffecktDauer">
           <td></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "st5">
-          <td>stufe5 unlockt <font name="Stufe5unlockt"></font></td>
+          <td>stufe5 unlockt <span name="Stufe5unlockt"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "MaxStufe">
-          <td>Maximale TurmStufe <font name="MaxStufe"></font></td>
+          <td>Maximale TurmStufe <span name="MaxStufe"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -146,6 +171,7 @@
       </table>
     </div>
     <script type="text/javascript">
+    document.getElementById("skillPunkte").innerHTML = skillPunkte;
     var selected = -1;
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
@@ -187,6 +213,7 @@
         if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9]) {
           if (haveRequired(nummer)) {   // sind genügend von benötigten skills geskillet
             skillPunkte -= skills[nummer][10]+skills[nummer][9];
+            document.getElementById("skillPunkte").innerHTML = skillPunkte;
             skills[nummer][9]++;
           }
         }
@@ -204,6 +231,7 @@
           }
           if (required) {
             skillPunkte += skills[nummer][10]+skills[nummer][9];
+            document.getElementById("skillPunkte").innerHTML = skillPunkte;
           }
           else {
             skills[nummer][9]++;
@@ -343,9 +371,15 @@
         }
         if (skills[nummer] == undefined) {
           document.getElementsByName("buttons")[i].hidden = true;
+          document.getElementsByName("kosten")[i].hidden = true;
+          document.getElementsByName("stufe")[i].hidden = true;
         }
         else {
           document.getElementsByName("buttons")[i].hidden = false;
+          document.getElementsByName("kosten")[i].hidden = false;
+          document.getElementsByName("stufe")[i].hidden = false;
+          document.getElementsByName("kosten")[i].innerHTML = `Kosten: ${skills[nummer][10]+skills[nummer][9]}`;
+          document.getElementsByName("stufe")[i].innerHTML = `Stufe: ${skills[nummer][9]}/${skills[nummer][8]}`;
           if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9] && haveRequired(nummer)) {
             document.getElementsByName("plus")[i].src = "Bilder/icons/plusAn.png";
           }
