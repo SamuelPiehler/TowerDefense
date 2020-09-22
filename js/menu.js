@@ -143,6 +143,13 @@ function laden() {
     //   return;
     // }
     EBI("menu").style.display = "none";
+    tuerme.forEach((item, i) => {
+      if (item != undefined) {
+        item.canvasBase.remove();
+        item.canvasGeschütz.remove();
+      }
+    });
+    tuerme = [];
     schwierigkeit = getContent(1);
     startTheGame(getContent(0));
     setTimeout(funcAfterMapLoad, 5);
