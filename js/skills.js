@@ -175,6 +175,12 @@ function applaySkills() {
   }
 }
 
+function resetSkills() {
+  for (var i = 0; i < skills.length; i++) {
+    //skillPunkte += skills[i][8] * skills[i][10] + (skills[i][8]-1)*(skills[i][8]-1)/2
+  }
+}
+
 function getUpdatedStat(orginal, changeType, changeAmount) {
   switch (changeType) {
     case true:

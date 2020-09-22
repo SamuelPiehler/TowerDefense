@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <title>Skilltree</title>
-    <script src="js/copyObject.js"></script>
+    <script src="js\importantFunktions.js"></script>
     <script src="js/tower_Gegner_Stats.js"></script>
     <script src="js/skills.js"></script>
     <style>
@@ -71,45 +71,45 @@
     </div>
     <div id="stats" hidden>
       <img id="close" src="Bilder/icons/close.png" alt="">
-      <spwan name="Turmname" id="name"> </spwan><br>
+      <font name="Turmname" id="name"> </font><br>
       <table>
         <tr>
-          <td>Damge  <spwan  name="Damge"></spwan></td>
+          <td>Damge  <font  name="Damge"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>Angriffszeit <spwan name="Angriffszeit"></spwan></td>
+          <td>Angriffszeit <font name="Angriffszeit"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>Reichweite <spwan name="Reichweite"></spwan></td>
+          <td>Reichweite <font name="Reichweite"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "Drehgeschwindigkeit">
-          <td>Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan></td>
+          <td>Drehgeschwindigkeit <font name="Drehgeschwindigkeit"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>critChance <spwan name="critChance"></spwan></td>
+          <td>critChance <font name="critChance"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
-          <td>critDamage <spwan name="critDamage"></spwan></td>
+          <td>critDamage <font name="critDamage"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -130,14 +130,14 @@
           </td>
         </tr>
         <tr id = "st5">
-          <td>stufe5 unlockt <spwan name="Stufe5unlockt"></spwan></td>
+          <td>stufe5 unlockt <font name="Stufe5unlockt"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "MaxStufe">
-          <td>Maximale TurmStufe <spwan name="MaxStufe"></spwan></td>
+          <td>Maximale TurmStufe <font name="MaxStufe"></font></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -243,29 +243,29 @@
       document.getElementById("stats").style.left = x + 70 + 'px';
       document.getElementById("stats").hidden = false;
       if (towerTyp == 11) {
-        document.getElementsByName("Turmname")[0].innerHTML="Stats für alle Türme";
-        document.getElementsByName("Damge")[0].innerHTML="+"+(Math.pow(1+skills[110][4]/100, skills[110][9])-1)+"%";
-        document.getElementsByName("critChance")[0].innerHTML="+"+(Math.pow(1+skills[114][4]/100, skills[114][9])-1)+"%";
-        document.getElementsByName("critDamage")[0].innerHTML="+"+(Math.pow(1+skills[115][4]/100, skills[115][9])-1)+"%";
-        document.getElementsByName("Angriffszeit")[0].innerHTML="-"+(1-Math.pow(1-skills[111][4]/100, skills[111][9]))+"%";
-        document.getElementsByName("Reichweite")[0].innerHTML="+"+(Math.pow(1+skills[112][4]/100, skills[112][9])-1)+"%";
-        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML="+"+(Math.pow(1+skills[113][4]/100, skills[113][9])-1)+"%";
+        document.getElementsByName("Turmname")[0].innerHTML = "Stats für alle Türme";
+        document.getElementsByName("Damge")[0].innerHTML = "+" + round(Math.pow(1+skills[110][4]/100, skills[110][9])-1, 2)+"%";
+        document.getElementsByName("critChance")[0].innerHTML = "+" + round(Math.pow(1+skills[114][4]/100, skills[114][9])-1, 2)+"%";
+        document.getElementsByName("critDamage")[0].innerHTML = "+" + round(Math.pow(1+skills[115][4]/100, skills[115][9])-1, 2)+"%";
+        document.getElementsByName("Angriffszeit")[0].innerHTML = "-" + round(1-Math.pow(1-skills[111][4]/100, skills[111][9]), 2)+"%";
+        document.getElementsByName("Reichweite")[0].innerHTML = "+" + round(Math.pow(1+skills[112][4]/100, skills[112][9])-1, 2)+"%";
+        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML = "+" + round(Math.pow(1+skills[113][4]/100, skills[113][9])-1, 2)+"%";
         document.getElementById('EffecktStärke').hidden = false;
         document.getElementById('EffecktDauer').hidden = false;
-        document.getElementById('EffecktStärke').childNodes[1].innerHTML = "EffecktStärke +"+(Math.pow(1+skills[116][4]/100, skills[116][9])-1)+"%";
-        document.getElementById('EffecktDauer').childNodes[1].innerHTML = "EffektDauer/EffecktReichweite +"+(Math.pow(1+skills[117][4]/100, skills[117][9])-1)+"%";
+        document.getElementById('EffecktStärke').childNodes[1].innerHTML = "EffecktStärke +" + round(Math.pow(1+skills[116][4]/100, skills[116][9])-1, 2)+"%";
+        document.getElementById('EffecktDauer').childNodes[1].innerHTML = "EffektDauer/EffecktReichweite +" + round(Math.pow(1+skills[117][4]/100, skills[117][9])-1, 2)+"%";
         document.getElementById('st5').hidden = true;
         document.getElementById('MaxStufe').hidden = false;
         document.getElementsByName('MaxStufe')[0].innerHTML = skills[123][9]+3;
       }
       else {
-        document.getElementsByName("Turmname")[0].innerHTML=towertypen[towerTyp][10];
-        document.getElementsByName("Damge")[0].innerHTML=towertypen[towerTyp][2];
-        document.getElementsByName("critChance")[0].innerHTML=towertypen[towerTyp][13]+"%";
-        document.getElementsByName("critDamage")[0].innerHTML=towertypen[towerTyp][14]+"%";
-        document.getElementsByName("Angriffszeit")[0].innerHTML=towertypen[towerTyp][5]+"sec";
-        document.getElementsByName("Reichweite")[0].innerHTML=towertypen[towerTyp][4];
-        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML=towertypen[towerTyp][3]*100+" Grad/sec";
+        document.getElementsByName("Turmname")[0].innerHTML = towertypen[towerTyp][10];
+        document.getElementsByName("Damge")[0].innerHTML = round(towertypen[towerTyp][2], 2);
+        document.getElementsByName("critChance")[0].innerHTML = round(towertypen[towerTyp][13], 2) + "%";
+        document.getElementsByName("critDamage")[0].innerHTML = round(towertypen[towerTyp][14], 2) + "%";
+        document.getElementsByName("Angriffszeit")[0].innerHTML = round(towertypen[towerTyp][5], 4) + "sec";
+        document.getElementsByName("Reichweite")[0].innerHTML = round(towertypen[towerTyp][4], 2);
+        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML = round(towertypen[towerTyp][3]*100, 2) + " Grad/sec";
         if (towertypen[towerTyp][7].length == 0) {
           document.getElementById('EffecktStärke').hidden = true;
           document.getElementById('EffecktDauer').hidden = true;
@@ -278,34 +278,34 @@
           for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
             switch (towertypen[towerTyp][7][i]) {
               case 0:
-                obj.innerHTML += "Verlangsamt Gegner auf die " + (1 / (towertypen[towerTyp][8][i] + 1)) + " fache Geschwindigkeit <br>";
+                obj.innerHTML += "Verlangsamt Gegner auf die " + round(1 / (towertypen[towerTyp][8][i] + 1), 4) + " fache Geschwindigkeit <br>";
                 break;
               case 1:
                 obj.innerHTML += "Stunned Gegner <br>";
                 break;
               case 2:
-                obj.innerHTML += "Verbrennt Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec <br>";
+                obj.innerHTML += "Verbrennt Gegner für " + round(towertypen[towerTyp][8][i], 2) + " Schaden/sec <br>";
                 break;
               case 3:
-                obj.innerHTML += "Vergiftet Gegner für " + towertypen[towerTyp][8][i] + " Schaden/sec <br>";
+                obj.innerHTML += "Vergiftet Gegner für " + round(towertypen[towerTyp][8][i], 2) + " Schaden/sec <br>";
                 break;
               case 5:
-                obj.innerHTML += "Trifft nahe Gegner zusätzlich für " + towertypen[towerTyp][8][i] + " Schaden <br>";
+                obj.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(towertypen[towerTyp][8][i], 2) + " Schaden <br>";
                 break;
               case 6:
                 obj.innerHTML += "Springt zusätzlich bis zu " + towertypen[towerTyp][8][i] + " mal auf nahe Gegner über <br>";
                 break;
               case 7:
-                obj.innerHTML += "Verbesstert den Damage von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
+                obj.innerHTML += "Verbesstert den Damage von nahen Türmen um " + round(towertypen[towerTyp][8][i], 2) + "% <br>";
                 break;
               case 8:
-                obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
+                obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + round(towertypen[towerTyp][8][i], 2) + "% <br>";
                 break;
               case 9:
-                obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
+                obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + round(towertypen[towerTyp][8][i], 2) + "% <br>";
                 break;
               case 10:
-                obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + towertypen[towerTyp][8][i] + "% <br>";
+                obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + round(towertypen[towerTyp][8][i], 2) + "% <br>";
                 break;
             }
           }
@@ -314,25 +314,25 @@
           if (towertypen[towerTyp][7].length > 1) {
             for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
               if (towertypen[towerTyp][7][i] >= 5 && towertypen[towerTyp][7][i] <= 9) {
-                obj.innerHTML += "Effektreichweite Effeckt " + (i+1) + ": " + towertypen[towerTyp][9][i] + " <br>";
+                obj.innerHTML += "Effektreichweite Effeckt " + (i+1) + ": " + round(towertypen[towerTyp][9][i], 2) + " <br>";
               }
               else {
-                obj.innerHTML += "Effektdauer: Effeckt " + (i+1) + ": " + towertypen[towerTyp][9][i] + "sec <br>";
+                obj.innerHTML += "Effektdauer: Effeckt " + (i+1) + ": " + round(towertypen[towerTyp][9][i], 2) + "sec <br>";
               }
             }
           }
           else {
             if (towertypen[towerTyp][7][0] >= 5 && towertypen[towerTyp][7][0] <= 9) {
-              obj.innerHTML += "Effektreichweite: " + towertypen[towerTyp][9][0] + " <br>";
+              obj.innerHTML += "Effektreichweite: " + round(towertypen[towerTyp][9][0], 2) + " <br>";
             }
             else {
-              obj.innerHTML += "Effektdauer: " + towertypen[towerTyp][9][0] + "sec <br>";
+              obj.innerHTML += "Effektdauer: " + round(towertypen[towerTyp][9][0], 2) + "sec <br>";
             }
           }
         }
         document.getElementById('st5').hidden = false;
         document.getElementById('MaxStufe').hidden = true;
-        document.getElementsByName("Stufe5unlockt")[0].innerHTML=towertypen[towerTyp][12];
+        document.getElementsByName("Stufe5unlockt")[0].innerHTML = towertypen[towerTyp][12];
       }
       for (var i = 0; i < document.getElementsByName("buttons").length; i++) {
         if (i == 9) {

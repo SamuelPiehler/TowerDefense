@@ -26,3 +26,8 @@ function copyObj(obj) {
   }
   return newObj;
 }
+
+function round(num, stellen) {
+  const e = 10 ** stellen;
+  return Math.round(num * e) / e;
+}
