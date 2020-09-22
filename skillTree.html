@@ -72,72 +72,72 @@
       <table>
         <tr>
           <td>Damge  <spwan  name="Damge"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
-          </td>
-        </tr>
-        <tr>
-          <td>critChance <spwan name="critChance"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
-          </td>
-        </tr>
-        <tr>
-          <td>critDamage <spwan name="critDamage"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
           <td>Angriffszeit <spwan name="Angriffszeit"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr>
           <td>Reichweite <spwan name="Reichweite"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "Drehgeschwindigkeit">
           <td>Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>critChance <spwan name="critChance"></spwan></td>
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>critDamage <spwan name="critDamage"></spwan></td>
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "EffecktStärke">
           <td></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "EffecktDauer">
           <td></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "st5">
           <td>stufe5 unlockt <spwan name="Stufe5unlockt"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
         <tr id = "MaxStufe">
           <td>Maximale TurmStufe <spwan name="MaxStufe"></spwan></td>
-          <td>
-            <img src="Bilder/icons/plusAn.png" alt="">
-            <img src="Bilder/icons/minusAn.png" alt="">
+          <td name="buttons">
+            <img src="Bilder/icons/plusAn.png" name="plus">
+            <img src="Bilder/icons/minusAn.png" name="minus">
           </td>
         </tr>
       </table>
@@ -183,11 +183,7 @@
       }
       if (plus) {
         if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9]) {
-          var required = skills[nummer][7];   // sind genügend von benötigten skills geskillet
-          for (var i = 0; i < skills[nummer][6].length; i++) {
-            required -= skills[skills[nummer][6][i]][9];
-          }
-          if (required <= 0) {
+          if (haveRequired(nummer)) {   // sind genügend von benötigten skills geskillet
             skillPunkte -= skills[nummer][10]+skills[nummer][9];
             skills[nummer][9]++;
           }
@@ -195,32 +191,37 @@
       }
       else {
         if (skills[nummer][9] > 0) {
-          //wenn dadurch requirements nichtmehr erfüllt sind prüfen
-          var required = false;
+          //prüfe ob dadurch requirements nichtmehr erfüllt sind
+          skills[nummer][9]--;
+          var required = true;
           for (var i = 0; i < skills.length; i++) {
-            if (skills[i] != undefined) {
-              for (var j = 0; j < skills[i][6].length; j++) {
-                if (skills[i][6][j] == nummer) {
-                  var required2 = skills[i][7];
-                  for (var k = 0; k < skills[i][6].length; k++) {
-                    required2 -= skills[i][6][k][9];
-                  }
-                  if (required2 > 0) {
-                    required = true;
-                    break;
-                  }
-                }
-              }
+            if (skills[i] != undefined && skills[i][9] > 0 && !haveRequired(i)) {
+              required = false;
+              break;
             }
           }
-          if (!required) {
-            skills[nummer][9]--;
+          if (required) {
             skillPunkte += skills[nummer][10]+skills[nummer][9];
+          }
+          else {
+            skills[nummer][9]++;
           }
         }
       }
-      var pos = element.getBoundingClientRect();
-      showStats(false, pos.x, pos.y, element.id);
+      var pos = document.getElementById("stats").getBoundingClientRect();
+      showStats(false, pos.x-70, pos.y, element.id);
+    }
+    function haveRequired(nummer) {
+      var required = skills[nummer][7];   // sind genügend von benötigten skills geskillet
+      for (var i = 0; i < skills[nummer][6].length; i++) {
+        required -= skills[skills[nummer][6][i]][9];
+      }
+      if (required <= 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
     }
     function showStats(useThis = false, x = 0, y = 0, id = "") {
       if (useThis) {
@@ -325,6 +326,46 @@
         document.getElementById('st5').hidden = false;
         document.getElementById('MaxStufe').hidden = true;
         document.getElementsByName("Stufe5unlockt")[0].innerHTML=towertypen[towerTyp][12];
+      }
+      for (var i = 0; i < document.getElementsByName("buttons").length; i++) {
+        if (i == 9) {
+          var nummer = 123;
+        }
+        else {
+          var nummer = i + 10 * selected;
+        }
+        if (skills[nummer] == undefined) {
+          document.getElementsByName("buttons")[i].hidden = true;
+        }
+        else {
+          document.getElementsByName("buttons")[i].hidden = false;
+          if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9] && haveRequired(nummer)) {
+            document.getElementsByName("plus")[i].src = "Bilder/icons/plusAn.png";
+          }
+          else {
+            document.getElementsByName("plus")[i].src = "Bilder/icons/plusAus.png";
+          }
+          if (skills[nummer][9] > 0) {
+            skills[nummer][9]--;
+            required = true;
+            for (var j = 0; j < skills.length; j++) {
+              if (skills[j] != undefined && skills[j][9] > 0 && !haveRequired(j)) {
+                required = false;
+                break;
+              }
+            }
+            skills[nummer][9]++;
+            if (required) {
+              document.getElementsByName("minus")[i].src = "Bilder/icons/minusAn.png";
+            }
+            else {
+              document.getElementsByName("minus")[i].src = "Bilder/icons/minusAus.png";
+            }
+          }
+          else {
+            document.getElementsByName("minus")[i].src = "Bilder/icons/minusAus.png";
+          }
+        }
       }
     }
     </script>
