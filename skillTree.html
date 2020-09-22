@@ -70,7 +70,7 @@
     <div id="tree">
       <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
       <h1>Skilltree</h1> <br>
-      <h2>Du hast 100 skillpunkte</h2> <br>
+      <h2>Du hast <span id="skillPunkte"></span> skillpunkte</h2> <br>
       <h3>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
       Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br></h3>
     </div>
@@ -80,6 +80,8 @@
       <table>
         <tr>
           <td>Damge  <span  name="Damge"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -87,6 +89,8 @@
         </tr>
         <tr>
           <td>Angriffszeit <span name="Angriffszeit"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -94,6 +98,8 @@
         </tr>
         <tr>
           <td>Reichweite <span name="Reichweite"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -101,6 +107,8 @@
         </tr>
         <tr id = "Drehgeschwindigkeit">
           <td>Drehgeschwindigkeit <span name="Drehgeschwindigkeit"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -108,6 +116,8 @@
         </tr>
         <tr>
           <td>critChance <span name="critChance"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -115,6 +125,8 @@
         </tr>
         <tr>
           <td>critDamage <span name="critDamage"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -122,6 +134,8 @@
         </tr>
         <tr id = "EffecktStärke">
           <td></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -129,6 +143,8 @@
         </tr>
         <tr id = "EffecktDauer">
           <td></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -136,6 +152,8 @@
         </tr>
         <tr id = "st5">
           <td>stufe5 unlockt <span name="Stufe5unlockt"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -143,6 +161,8 @@
         </tr>
         <tr id = "MaxStufe">
           <td>Maximale TurmStufe <span name="MaxStufe"></span></td>
+          <td name = "kosten"></td>
+          <td name = "stufe"></td>
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
@@ -151,6 +171,7 @@
       </table>
     </div>
     <script type="text/javascript">
+    document.getElementById("skillPunkte").innerHTML = skillPunkte;
     var selected = -1;
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
@@ -192,6 +213,7 @@
         if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9]) {
           if (haveRequired(nummer)) {   // sind genügend von benötigten skills geskillet
             skillPunkte -= skills[nummer][10]+skills[nummer][9];
+            document.getElementById("skillPunkte").innerHTML = skillPunkte;
             skills[nummer][9]++;
           }
         }
@@ -209,6 +231,7 @@
           }
           if (required) {
             skillPunkte += skills[nummer][10]+skills[nummer][9];
+            document.getElementById("skillPunkte").innerHTML = skillPunkte;
           }
           else {
             skills[nummer][9]++;
@@ -348,9 +371,15 @@
         }
         if (skills[nummer] == undefined) {
           document.getElementsByName("buttons")[i].hidden = true;
+          document.getElementsByName("kosten")[i].hidden = true;
+          document.getElementsByName("stufe")[i].hidden = true;
         }
         else {
           document.getElementsByName("buttons")[i].hidden = false;
+          document.getElementsByName("kosten")[i].hidden = false;
+          document.getElementsByName("stufe")[i].hidden = false;
+          document.getElementsByName("kosten")[i].innerHTML = `Kosten: ${skills[nummer][10]+skills[nummer][9]}`;
+          document.getElementsByName("stufe")[i].innerHTML = `Stufe: ${skills[nummer][9]}/${skills[nummer][8]}`;
           if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9] && haveRequired(nummer)) {
             document.getElementsByName("plus")[i].src = "Bilder/icons/plusAn.png";
           }
