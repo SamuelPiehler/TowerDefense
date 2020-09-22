@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Skilltree</title>
+    <script src="js/copyObject.js"></script>
     <script src="js/tower_Gegner_Stats.js"></script>
     <script src="js/skills.js"></script>
     <style>
@@ -12,9 +13,8 @@
       color:#bcbbbf ;
     }
       body{
-  /*background: radial-gradient(circle , #3DB7FF 20%, #FFFFFF 80%);*/
-   background-image: url(Bilder/Hintergrund/Bild002.jpg);
-
+        /*background: radial-gradient(circle , #3DB7FF 20%, #FFFFFF 80%);*/
+         background-image: url(Bilder/Hintergrund/Bild002.jpg);
         text-align: center;
       }
       .Skilltree{
@@ -62,7 +62,6 @@
     <div id="tree">
       <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
       <h1>Skilltree</h1>
-
       <h2>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
       Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br></h2>
     </div>
@@ -143,7 +142,6 @@
       </table>
     </div>
     <script type="text/javascript">
-    var skillPunkte = 0;
     var selected = -1;
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
@@ -209,6 +207,8 @@
         }
       }
       var pos = document.getElementById("stats").getBoundingClientRect();
+      saveSkillTree();
+      applaySkills();
       showStats(false, pos.x-70, pos.y, element.id);
     }
     function haveRequired(nummer) {
