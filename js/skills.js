@@ -139,10 +139,8 @@ const skills = [
   ["Höheres Maximum", "Erhöht die maximale Upgradestufe von Türmen um 1", -2, 2, 1, false, [], 0, 2, 0, 5]   //123
 ];
 
-var skillPunkte = 0;
-
 function applaySkills() {
-  towertypen = copyObj(orginalTowertypen);
+  towertypen = orginalTowertypen.slice();
   geldMult = 1;
   killSteinePreis = Infinity;
   maxUpgrade = 3;
@@ -175,13 +173,6 @@ function applaySkills() {
   }
 }
 
-function resetSkills() {
-  for (var i = 0; i < skills.length; i++) {
-    skillPunkte += skills[i][8] * (skills[i][10]-1) + (skills[i][8]+1)*(skills[i][8])/2;
-    skills[i][8] = 0;
-  }
-}
-
 function getUpdatedStat(orginal, changeType, changeAmount) {
   switch (changeType) {
     case true:
@@ -194,37 +185,6 @@ function getUpdatedStat(orginal, changeType, changeAmount) {
       return changeAmount;
       break;
   }
-}
-
-function saveSkillTree() {
-  var skillLevels = [1, skillPunkte];    //versionsnummer, skillpunkte
-  for (var i = 0; i < skills.length; i++) {
-    if (skills[i] == undefined) {
-      skillLevels.push(undefined);
-    }
-    else {
-      skillLevels.push(skills[i][9]);
-    }
-  }
-  localStorage.setItem('skillLevels', JSON.stringify(skillLevels));
-}
-
-loadSkillTree();
-function loadSkillTree() {
-  var killLevelsString = localStorage.getItem('skillLevels');
-  var skillLevels = JSON.parse(killLevelsString);
-  if (skillLevels[0] == 1 && skillLevels.length == skills.length + 2) {
-    skillPunkte = skillLevels[1];
-    for (var i = 2; i < skillLevels.length; i++) {
-      if (skillLevels[i] != null) {
-        skills[i-2][9]=skillLevels[i];
-      }
-    }
-  }
-  else {
-    console.log("fehler beim laden");
-  }
-  applaySkills();
 }
 //für jeden Turm
 

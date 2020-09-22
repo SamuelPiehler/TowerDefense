@@ -9,9 +9,6 @@
   <script src=req/save.js>
    </script> 
    <script src="req/jszipmin.js"> </script>
-   <script src= "../js/timings.js"></script>
-   <script src= "req/mapstester.js"></script>
-   <script src= "req/maparchive.js"></script>
   <style>
     @import url("../css/maps.css") screen; </style>  <script src = "req/html2canvas.js" >
     </script>
@@ -326,7 +323,7 @@
         document.getElementById("output").value = "[" + JSON.stringify(tiles) + "," + JSON.stringify(settings) + "]";
     }
 
-    function importmap(te, string = false) {
+    function importmap(te) {
       var getfile = false
       if (te === true) {
         if (ismaptrue === true) {
@@ -335,9 +332,6 @@
         }
       }
       var inputted;
-      if(string)
-      inputted = string;
-      else
       if (getfile)
         inputted = dataURL;
       else
@@ -350,7 +344,6 @@
         ele.update = update;
         ele.showportals = showportals;
         ele.hideportals = hideportals;
-        ele.showError = showError;
       });
 
       var id = out[out.length - 1].id;
@@ -361,11 +354,8 @@
         el.update("gen");
       })
     }
-    var size = 0;
     var shift = false;
     var settings = {
-      animationspeed: 40,
-      steps: 10,
       pid: 0,
       portalamount: 0,
       nextmove: false,
@@ -464,7 +454,6 @@
         var doc = document.getElementById(this.id);
         var top = document.getElementById("" + this.id + "top");
         var gotchanged = false;
-        var gotrotated = false;
         var wasbefore = (this.rtile == 13);
         var bild = doc;
         var portal = document.getElementById("info" + this.id);
@@ -481,7 +470,6 @@
           this.tile = tile_id + settings.clickindex;
           this.istwo = false;
           gotchanged = true;
-          gotrotated = true;
         } else if (tile_id >= 5 && tile_id <= 8) {
           if (settings.lastid == this.id)
             settings.clickindex++;
@@ -500,7 +488,6 @@
           this.tile = tile_id + settings.clickindex;
 
           gotchanged = true;
-          gotrotated = true;
         } else if (tile_id == 9) {
           bild.src = bi;
           top.src = "../Bilder/Map/zielPfeil.png";
@@ -572,7 +559,6 @@
             bottom.src = settings.lastbackground;
             this.hinter = settings.lastbackground;
           }
-          gotrotated = true;
         } /* else if (tile_id >= 17 && tile_id <= 20) {
           if (settings.lastid == this.id)
             settings.clickindex++;
@@ -611,6 +597,7 @@
           }
           //console.log(this.tile - this.rtile)
         }
+        
         if (tile_id != -1234 && tile_id != "gen" && tile_id != "image" && tile_id != "bottom")
           this.rtile = tile_id;
         this.image = bild.src.replace(/(http:|https:|[A-Z]:).*\/.*\/(?=Bilder\/.*)/gm, "")
@@ -619,8 +606,6 @@
           settings.portalamount--;
           portal.style.display = "none";
         }
-        if(gotrotated)
-          rotation = settings.clickindex;
         if (tile_id == "image") {
           bild.src = "../" + bi.replace("../", "");
           this.image = "../" +  bi.replace("../", "");
@@ -675,21 +660,7 @@
       portalsall("hide");
       currentportal = el;
     }
-    function showError(hide = false, color= "red", opacity = 0.5){
-      var error = document.getElementById("error" + this.id);
-      if (hide){
-        error.style.display = "none";
-        error.style.opacity = 0;
-      }
-      else{
-        error.style.opacity = opacity;
-        error.style.backgroundColor = color;
-        error.style.display = "block";
-      }
-    }
     function tile(id) {
-      this.rotation = 0;
-      this.footprints = 0;
       this.portallink = "unset";
       this.pid = undefined;
       this.toptop = "";
@@ -700,7 +671,6 @@
       this.id = id;
       this.last = "../Bilder/Map/feld2.jpg";
       this.istwo = false;
-      this.showError = showError;
       this.showportals = showportals;
       this.hideportals = hideportals;
       this.update = update;
@@ -842,8 +812,7 @@
       return (settings.wi / x > settings.hei / y ? settings.hei / y : settings.wi / x);
       //diese Funktion gibt die richtige Grösse aus
     }
-   // 
-   /*
+   // /*
         do {
           settings.Xkoordinaten = parseInt(window.prompt("wie viele X-koordinaten soll das Spiel haben?", ""), 10);
         } while (isNaN(settings.Xkoordinaten) || settings.Xkoordinaten > 50 || settings.Xkoordinaten < 5);
@@ -858,7 +827,7 @@
       tiles = [];
       document.getElementById("area").innerHTML = "";
 
-       size = resizekoords(settings.Xkoordinaten, settings.Ykoordinaten);
+      var size = resizekoords(settings.Xkoordinaten, settings.Ykoordinaten);
       //document.body.innerHTML += `<div id=assa style="position:absolute; top:5px; left:5px; width:${settings.wi}px; height:${settings.hei}px; border:4px solid rgba(255,0,0,.5);"></div>`;
       var all = "<div id=allall style='width:" + size * settings.Xkoordinaten + "px; height: " + size * settings
         .Ykoordinaten + "px;'>";
@@ -873,7 +842,6 @@
       <img id=${i + "," + j} src="../Bilder/Map/feld1.jpg" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
       <img id=${i + "," + j + "top"} class=top src="../Bilder/Map/empty.png" height=${size} width=${size} style="position:absolute; top:0px; left:0px; height:${size}px; width:${size}px;">
       <div id="block${i + "," + j}" class="blockers" style="width:${size}px; height:${size}px; display:none;" width=${size} height=${size} ></div>
-      <div id="error${i + "," + j}" class="errors" style="width:${size}px; height:${size}px; display:none; position:absolute; top: 0px; left:0px;" width=${size} height=${size} ></div>
         <div id="info${i + "," + j}" class="portinfo" style="width:${size}px; height:${size}px; display:none;" width=${size} height=${size} >
         <div class=left>121</div>
         <div class=right>345</div>
@@ -892,8 +860,6 @@
     }
 
     function rotateIt(image, rotateAngle) {
-      tilebyId(image.id.replace(/(top|bottom|info)/,"")).rotation = rotateAngle / 90;
-      console.log(tilebyId(image.id.replace(/(top|bottom|info)/,"")).rotation)
       var old = image.getAttribute("style").split(";;")
       //console.log(image);
       image.setAttribute("style", old[0] + ";;transform: rotate(" + rotateAngle + "deg)");
@@ -960,7 +926,7 @@
 else
 
         if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")) {
-          clix(event.target.id.replace(/(top|bottom|error|info)/gm, ""));
+          clix(event.target.id.replace("top", ""));
         } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage")) {
           settings.selectedinv = parseInt(event.path[1].getAttribute("invno"));
           document.querySelectorAll(".inimage").forEach((element) => {
@@ -1004,7 +970,7 @@ else
       try {
         if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("feld")) {
           //console.log(event.path[1].getAttribute("class")) == JSON.stringify("feld")
-          clix(event.target.id.replace(/(top|bottom|error|info)/gm, ""), true, event);
+          clix(event.target.id.replace("top", ""), true, event);
         } else if (JSON.stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage") || JSON
           .stringify(event.path[1].getAttribute("class")) == JSON.stringify("inimage selected")) {
           event.path[2].children[1].style.display = "block";

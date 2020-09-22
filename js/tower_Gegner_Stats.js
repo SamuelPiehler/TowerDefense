@@ -15,7 +15,7 @@ var orginalTowertypen = [
   ['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , [], [], [], "Random", "Bilder/Map/empty.png", false, , ]
 ];
 
-var towertypen = copyObj(orginalTowertypen);
+var towertypen = orginalTowertypen.slice();
 
 var gegnertypen = [];
 //0 = Bild, 1 = Leben, 2 = Geschwindigkeit, 3 = Imunität/effekt, 4 = Imunität%/effecktstärke, 5 = GeldBeiKill, 6= Spielerschaden
