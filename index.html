@@ -1,38 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="css/master.css">
-  <link rel="stylesheet" href="css/menu.css">
-  <script src="js/stats.js"></script>
-  <script src="js/bullets.js"></script>
-  <script src="js/gegner.js"></script>
-  <script src="js/tower.js"></script>
-  <script src="js/skills.js"></script>
-  <script src="js/wellen.js"></script>
-  <script src="js\tower_Gegner_Stats.js"></script>
-</head>
-
-<body>
-  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-  <button onclick="EBI('menu').style.display = 'block'; if(!gamePause){startAndPause(); gotpaused = true;}"
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <script src="js\importantFunktions.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/bullets.js"></script>
+    <script src="js/gegner.js"></script>
+    <script src="js/tower.js"></script>
+    <script src="js/wellen.js"></script>
+    <script src="js/tower_Gegner_Stats.js"></script>
+    <script src="js/color.js"></script>
+    <script src="js/skills.js"></script>
+  </head>
+  <body>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <button onclick="EBI('menu').style.display = 'block'; if(!gamePause){startAndPause(); gotpaused = true;}"
     style='position: absolute; z-index:22; right: 20px; top:20px;'>
     Menü
   </button>
-  <div id=menu>
-    <div id=innermenu>
-      <div id=main class="contain visible">
-        <div class="menubutton mbutton-normal"
-          onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">
-          Spielen</div>
-        <div class="menubutton mbutton-normal">Challanges</div>
-        <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
-        <div class="menubutton mbutton-normal">Skill-Tree</div>
-        <div class="menubutton mbutton-half">
-          <div class="menubutton mbutton-half-left">Gegner</div>
-          <div class="menubutton mbutton-half-right">Towers</div>
+    <div id=menu>
+      <div id=innermenu>
+        <div id=main class="contain visible">
+          <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
+          <div class="menubutton mbutton-normal">Challanges</div>
+          <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
+          <div href="skillTree.html" class="menubutton mbutton-normal">Skill-Tree</div>
+          <div class="menubutton mbutton-half">
+            <div class="menubutton mbutton-half-left">Gegner</div>
+            <div class="menubutton mbutton-half-right">Towers</div>
         </div>
         <div class="menubutton mbutton-normal">Settings</div>
       </div>
@@ -183,10 +182,10 @@
         geld = geldold;
       }
 
-      function getmaps(func = (() => { })) {
-        if (alreadyl == true) {
-          func(maplist);
 
+        function getmaps(func = (() => {})) {
+          if(alreadyl){
+            func(maplist);
         } else {
           mapold = map;
           geldold = geld;
@@ -463,4 +462,18 @@
   <canvas id=NumberCanvas style="position: absolute; left: 10px; top: 50px; z-index: 6; pointer-events: none;"></canvas>
 </body>
 
+        function handleb(el, func, success) {
+          if (success) {
+            func([map, geld, checkerturn]);
+          } else {
+            map = mapold;
+            geld = geldold;
+          }
+          el.remove();
+        }
+      </script>
+    </span>
+    <canvas id=NumberCanvas style="position: absolute; left: 10px; top: 50px; z-index: 6; pointer-events: none;"></canvas>
+  </body>
 </html>
+

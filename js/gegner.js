@@ -9,8 +9,8 @@ function Gegner(id, typ, lebenMult){
   this.leben = gegnertypen[typ][1]*lebenMult;
   this.maxHP = this.leben;
   this.lebenMult = lebenMult;
-  this.imunität = gegnertypen[typ][3].slice();    //welche immunitäten/effeckte hat der gegner in array  (.slice() wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
-  this.imunitätStärke = gegnertypen[typ][4].slice();    //wie stark sind die immunitäten
+  this.imunität = copyObj(gegnertypen[typ][3]);    //welche immunitäten/effeckte hat der gegner in array  (.copyObj wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
+  this.imunitätStärke = copyObj(gegnertypen[typ][4]);    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
     this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
     if (this.imunität[i] == 12) {
@@ -336,7 +336,7 @@ function Gegner(id, typ, lebenMult){
     if (!stopEffekt) {
       for (var i = 0; i < effekt.length; i++) {   //gehe alle effekte durch für aoe, tessla und immunitäten
         if (effekt[i] == 6) {    //suche TeslaEffekt effeckt
-          teslaEffekt(points, effektStaerke[i], effektZeit[i], ursprung, gegner.slice(), this, false);
+          teslaEffekt(points, effektStaerke[i], effektZeit[i], ursprung, copyObj(gegner), this, false);
         }
         if (effekt[i] == 5) {    //suche AoE effeckt
           var anzalHits = 0;
@@ -344,9 +344,9 @@ function Gegner(id, typ, lebenMult){
             if (gegner[j] != undefined) {
               var entfernung = getEntfernung(gegner[j], this);  //abstand zu getroffenem gegner
               if (entfernung <= effektZeit[i]) {   //wenn in AoE range
-                uebergabeEffekt = effekt.slice();
-                uebergabeEffektStaerke = effektStaerke.slice();
-                uebergabeEffektTime = effektZeit.slice();
+                uebergabeEffekt = copyObj(effekt);
+                uebergabeEffektStaerke = copyObj(effektStaerke);
+                uebergabeEffektTime = copyObj(effektZeit);
                 uebergabeEffekt.splice(i,1);
                 uebergabeEffektStaerke.splice(i,1);
                 uebergabeEffektTime.splice(i,1);
