@@ -26,4 +26,4 @@ var Maps = new class {
 
     }
 }
-window.onload = () => Maps.loadMap("testMap");
+loadme.add(() => Maps.loadMap("testMap"));

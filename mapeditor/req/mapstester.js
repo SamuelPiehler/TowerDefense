@@ -1,13 +1,23 @@
 var mapchecker = new class {
-	animationspeed = 40;
+	animationspeed = 4000;
+	animationplay = true;
+	gegnerall = [];
 	player(array) {
 		const self = this;
 		return new class {
-			constructor(array) {
+			constructor() {
+				this.animationplay = true;
+				this.animationspeed = settings.animationspeed;
+				if(!settings.animationspeed){
+					settings.animationspeed = 40;
+				}
+				console.log(settings);
+				this.steps = 0;
 				this.array = array;
 				this.index = 0;
 				this.x = 0;
 				this.y = 0;
+				this.lastcoord = array[0];
 				this.player = (() => {
 					var doc = document.createElement("img");
 					doc.src = "../Bilder/Gegner/gegner01BonusHp.png";
@@ -15,17 +25,50 @@ var mapchecker = new class {
 					doc.style.width = size;
 					doc.width = size;
 					doc.height = size;
-					doc.style.top = document.getElementById("area").offsetTop + "px";
-					doc.style.left = document.getElementById("area").offsetLeft + size / 4 + "px";
+					doc.style.top = document.getElementById("allall").getBoundingClientRect().top + this.array[0][0] * size + "px";
+					this.y = document.getElementById("allall").getBoundingClientRect().top + this.array[0][0] * size;
+					doc.style.left = document.getElementById("allall").getBoundingClientRect().left + this.array[0][1] * size + "px";
+					this.x = document.getElementById("allall").getBoundingClientRect().left + this.array[0][1] * size;
 					doc.style.zIndex = 4;
 					doc.style.position = "absolute";
 					document.body.appendChild(doc);
 					return doc;
 				})();
 			}
+			ani = (steps, time,array)=>{
+				if( this.steps < steps){
+					this.y = this.y - ((array[0] / steps) * size) ;
+					this.player.style.top = this.y + "px";
+					this.x = this.x - ((array[1] / steps) * size) ;
+					this.player.style.left = this.x + "px";
+					this.steps++;
+					setTimeout(this.ani.bind(null,steps,time,array), time / steps);
+				}
+				else{
+					console.log(this.y);
+					this.steps = 0;
+			this.animate();
+		}
 
-			animate() {
-
+			}
+			animate = () => {
+				if(this.animationplay){
+					if(this.index < this.array.length){
+						var movement = [ this.lastcoord[0] - array[this.index][0],this.lastcoord[1] - array[this.index][1]];
+						console.log(movement,array[this.index]);
+						this.lastcoord = array[this.index];
+						if(!settings.steps)
+						settings.steps = 20;
+						this.ani(settings.steps,this.animationspeed,movement);
+						this.index++;
+					}else{
+						this.index = 0;
+						this.animationplay = false;
+			this.animate();
+		}
+				}else{
+					this.animationplay = true;
+				}
 			}
 		}();
 	}
@@ -40,11 +83,17 @@ var mapchecker = new class {
 			}
 		)
 	}
-	start() {
+	ma() {
+		this.resettiles();
 		this.starts = tile_manager.getStartpoints();
-		this.movearray = [];
+		this.movearrays = [];
 		this.starts.forEach(el => {
 			//console.log(el)
+			tiles.forEach(
+			tile => {
+				tile.footprints = 0;
+			}
+			)
 			var move_sub_array = [];
 			var maxi_loop = tiles.length + settings.Xkoordinaten * settings.Ykoordinaten;
 			var current_tile = el;
@@ -98,14 +147,28 @@ var mapchecker = new class {
 					}
 				}
 			)
-			this.movearray.push(move_sub_array);
+			this.movearrays.push(move_sub_array);
 		});
-
+		return this.movearrays;
 	}
-
+	start(){
+		var all = this.ma();
+		this.gegnerall.forEach(gegner=> {
+			gegner.player.remove();
+		});
+		this.gegnerall = [];
+		all.forEach(arr =>{
+			var gegner = this.player(arr);
+			this.gegnerall.push(gegner);
+		});
+		this.gegnerall.forEach(gegner =>{
+			gegner.animate();
+		})
+	}
 
 }();
 var tile_manager = new class {
+	next_override = false;
 	skip = false;
 	lastdirection = [0, 0]
 	lastcoord = [-1, -1];
@@ -117,7 +180,7 @@ var tile_manager = new class {
 				return -1; // wenn momentanes Feld Das Ziel Ist Gib -1 zurück
 			if (tile.rtile == -2)
 				return this.lastdirection;
-			if (tile.rtile >= 13 && tile.rtile <= 16) {
+			if (tile.rtile >= 13 && tile.rtile <= 16) {// Wenn portal
 				var reesuullt = 0;
 				if (tile.portallink != "unset")
 					reesuullt = this.get_portal(tile.portallink);
@@ -147,7 +210,8 @@ var tile_manager = new class {
 					break;
 			}
 			this.lastdirection = res;
-				return [ressultb[0] - coords[0], ressultb[1] - coords[1]]
+			this.next_override = res;
+				return [ressultb[0] - coords[0], ressultb[1] - coords[1]];
 			}
 				else
 				return reesuullt;
@@ -177,12 +241,22 @@ var tile_manager = new class {
 
 	}
 	next_tile(coords) {
+		if(!this.next_override)
 		var res = this.move_coords(coords);
+		
 		if(this.skip){
-		var movecoords = [this.lastdirection[0] + coords[0], this.lastdirection[1] + coords[1]];
+		var movecoords = [res[0] + coords[0], res[1] + coords[1]];
+		console.log( movecoords)
+			this.skip = false;
 			//console.log(this.move_coords(coords));
 			return tilebyId("" + movecoords[0] + "," + movecoords[1]);
-	}
+	}else
+		if(this.next_override){
+		var movecoords = [this.next_override[0] + coords[0], this.next_override[1] + coords[1]];
+			this.next_override = false;
+		return tilebyId("" + movecoords[0] + "," + movecoords[1]);
+		}
+			else
 		if (res != -1 && res != 0) {	
 			var movecoords = [res[0] + coords[0], res[1] + coords[1]];
 			//console.log(this.move_coords(coords));
@@ -255,3 +329,16 @@ var tile_manager = new class {
 			return result;
 	}
 }
+var loadme = new class{
+	array =[];
+	add(func, time = 0){
+		this.array.push([func, time]);
+	}
+};
+window.onload = (event) =>{
+	loadme.array.forEach( func=> {
+		setTimeout(func[0].bind(null,event), func[1]);
+	});
+}
+var gegner = null;
+//loadme.add(() => {gegner = mapchecker.player(mapchecker.start()[0]);},10);

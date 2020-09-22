@@ -1353,6 +1353,10 @@ function Delta() {
 function TextCanvas() {
   /// canvas besorgen
   this.canvas = document.querySelector("#NumberCanvas");
+  do_on_resize(function(canvas){
+    canvas.width = size * map[0].length;
+    canvas.offsetLeft = (canvas.height = size * map.length);
+  }.bind(null,this.canvas));
   this.canvas.width = size * map[0].length;
   this.canvas.offsetLeft = (this.canvas.height = size * map.length);
   this.ctx = this.canvas.getContext("2d");

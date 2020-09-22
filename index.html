@@ -1,182 +1,193 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <link rel="stylesheet" href="css/master.css">
-    <link rel="stylesheet" href="css/menu.css">
-    <script src="js/stats.js"></script>
-    <script src="js/bullets.js"></script>
-    <script src="js/gegner.js"></script>
-    <script src="js/tower.js"></script>
-    <script src="js/skills.js"></script>
-    <script src="js/wellen.js"></script>
-    <script src="js\tower_Gegner_Stats.js"></script>
-  </head>
-  <body>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>
-      Menü
-    </button>
-    <div id=menu>
-      <div id=innermenu>
-        <div id=main class="contain visible">
-          <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
-          <div class="menubutton mbutton-normal">Challanges</div>
-          <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
-          <div class="menubutton mbutton-normal">Skill-Tree</div>
-          <div class="menubutton mbutton-half">
-            <div class="menubutton mbutton-half-left">Gegner</div>
-            <div class="menubutton mbutton-half-right">Towers</div>
-          </div>
-          <div class="menubutton mbutton-normal">Settings</div>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="css/master.css">
+  <link rel="stylesheet" href="css/menu.css">
+  <script src="js/stats.js"></script>
+  <script src="js/bullets.js"></script>
+  <script src="js/gegner.js"></script>
+  <script src="js/tower.js"></script>
+  <script src="js/skills.js"></script>
+  <script src="js/wellen.js"></script>
+  <script src="js\tower_Gegner_Stats.js"></script>
+</head>
+
+<body>
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <button onclick="EBI('menu').style.display = 'block'; if(!gamePause){startAndPause(); gotpaused = true;}"
+    style='position: absolute; z-index:22; right: 20px; top:20px;'>
+    Menü
+  </button>
+  <div id=menu>
+    <div id=innermenu>
+      <div id=main class="contain visible">
+        <div class="menubutton mbutton-normal"
+          onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">
+          Spielen</div>
+        <div class="menubutton mbutton-normal">Challanges</div>
+        <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
+        <div class="menubutton mbutton-normal">Skill-Tree</div>
+        <div class="menubutton mbutton-half">
+          <div class="menubutton mbutton-half-left">Gegner</div>
+          <div class="menubutton mbutton-half-right">Towers</div>
         </div>
-        <div id=start class="contain invisible">
-          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-          <div class=map>
-            <div class=outer-frame>
-              <div class=inner-frame>
-                <img src="">
-              </div>
-              <p>Map1</p>
+        <div class="menubutton mbutton-normal">Settings</div>
+      </div>
+      <div id=start class="contain invisible">
+        <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';"
+          style="position:absolute;">X</button>
+        <div class=map>
+          <div class=outer-frame>
+            <div class=inner-frame>
+              <img src="">
             </div>
-          </div>
-        </div>
-        <div id="schwierigkeiten" style="display: none;">
-          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-          <div id=Mapname>
-            Map 1
-          </div>
-          <div id=Mapimage>
-            <div id =qw>
-              <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
-              <div id=money>
-                <img src="Bilder/Icons/coin.png">
-                <font id=dGeld>100</font>
-              </div>
-              <div id = diffi>
-                <img  id="DSIco" src='Bilder/Icons/einfach.png'>
-                <font id = "DS">Leicht</font>
-              </div>
-              <div id=size>
-                Mapgrösse: <span id="MSO">11 x 16</span>
-              </div>
-            </div>
-          </div>
-          <div id=schwierigkeit>
-            <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
-              Sandbox
-            </div>
-            <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
-              Leicht
-            </div>
-            <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
-              Mittel
-            </div>
-            <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
-              Schwer
-            </div>
-          </div>
-          <div id=Start class=menubutton onclick="startTheGame();">
-            Spiel Starten!!
+            <p>Map1</p>
           </div>
         </div>
       </div>
+      <div id="schwierigkeiten" style="display: none;">
+        <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';"
+          style="position:absolute;">X</button>
+        <div id=Mapname>
+          Map 1
+        </div>
+        <div id=Mapimage>
+          <div id=qw>
+            <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
+            <div id=money>
+              <img src="Bilder/Icons/coin.png">
+              <font id=dGeld>100</font>
+            </div>
+            <div id=diffi>
+              <img id="DSIco" src='Bilder/Icons/einfach.png'>
+              <font id="DS">Leicht</font>
+            </div>
+            <div id=size>
+              Mapgrösse: <span id="MSO">11 x 16</span>
+            </div>
+          </div>
+        </div>
+        <div id=schwierigkeit>
+          <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
+            Sandbox
+          </div>
+          <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
+            Leicht
+          </div>
+          <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
+            Mittel
+          </div>
+          <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
+            Schwer
+          </div>
+        </div>
+        <div id=Start class=menubutton onclick="startTheGame();">
+          Spiel Starten!!
+        </div>
+      </div>
     </div>
-    <script src="js/menu.js"></script>
-    <div id="bullets">
-    </div>
-    <div id="range">
-    </div>
-    <span id=selections>
-      <lable>
-        <img class=mapicon src="Bilder/Icons/mapIcon.png">
-        <select id="selectmap"></select>
-      </lable>
-      <lable>
-        schwierigkeit auswählen
-        <select id="selectdif">
-          <option>Sandbox</option>
-          <option>Leicht</option>
-          <option>Mittel</option>
-          <option>Schwer</option>
-        </select>
-      </lable>
-      <input type=button value="Spiel starten!" onclick="loadsettings()">
-      <script type="text/javascript">
-        var scriptLoaded = 0;
-        var alreadyl = false;
-        mapsloaded = false;
-        var mapSchwie;
-        var MapName;
-        //speichern der zuletzt genutzten map
-        var mapold;
-        //speichern der zuletzt gesetzten geldmenge
-        var mapGeld;
-        //die map und das geld vorbereiten
-        var map;
-        var mapId = 1;
-        var geld;
-        //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
-        var schwierigkeit;
-        //hier werden alle verfügbaren maps gespeichert
-        var maplist = [];
-        //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben
-        var allsucceeded = true;
-        var success = false;
-        //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche
-        var checkerturn = 1;
-        //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;
-        var firstTimeLoad = true;
-        //backmap ist die momentan geladene karte
-        var backmap = "";
-        //funktionsaufruf um alle karten anzuzeigen
-        renderavailable();
+    <button id=mb onclick="document.getElementById('menu').style.display = 'none'; if(gotpaused){startAndPause(); gotpaused = false;};" style="position: absolute; z-index:100; top:5px; right:8px; display:none;" alt="Menü schliessen!">
+      X
+    </button>
+  </div>
+  <script src="js/menu.js"></script>
+  <div id="bullets">
+  </div>
+  <div id="range">
+  </div>
+  <span id=selections>
+    <lable>
+      <img class=mapicon src="Bilder/Icons/mapIcon.png">
+      <select id="selectmap"></select>
+    </lable>
+    <lable>
+      schwierigkeit auswählen
+      <select id="selectdif">
+        <option>Sandbox</option>
+        <option>Leicht</option>
+        <option>Mittel</option>
+        <option>Schwer</option>
+      </select>
+    </lable>
+    <input type=button value="Spiel starten!" onclick="loadsettings()">
+    <script type="text/javascript">
+      var gotpaused = false;
+      var scriptLoaded = 0;
+      var alreadyl = false;
+      mapsloaded = false;
+      var mapSchwie;
+      var MapName;
+      //speichern der zuletzt genutzten map
+      var mapold;
+      //speichern der zuletzt gesetzten geldmenge
+      var mapGeld;
+      //die map und das geld vorbereiten
+      var map;
+      var mapId = 1;
+      var geld;
+      //die schwierigkeit vorbereiten es gibt kein Standart mehr!!
+      var schwierigkeit;
+      //hier werden alle verfügbaren maps gespeichert
+      var maplist = [];
+      //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben
+      var allsucceeded = true;
+      var success = false;
+      //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche
+      var checkerturn = 1;
+      //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;
+      var firstTimeLoad = true;
+      //backmap ist die momentan geladene karte
+      var backmap = "";
+      //funktionsaufruf um alle karten anzuzeigen
+      renderavailable();
 
-        function renderavailable() {
-          //maplist löschen
-          maplist = [];
-          //neu nach maps suchen
-          getmaps(function () {
-            //Liste löschen
-            document.getElementById("selectmap").innerHTML = "";
-            //liste neu erschaffen
-            maplist.forEach(function (Index, i) {
-              document.getElementById("selectmap").innerHTML += `<option name =${i} > ${Index[2]}</option> `;
-            });
+      function renderavailable() {
+        //maplist löschen
+        maplist = [];
+        //neu nach maps suchen
+        getmaps(function () {
+          //Liste löschen
+          document.getElementById("selectmap").innerHTML = "";
+          //liste neu erschaffen
+          maplist.forEach(function (Index, i) {
+            document.getElementById("selectmap").innerHTML += `<option name =${i} > ${Index[2]}</option> `;
           });
-        }
+        });
+      }
 
-        //hilfsfunktion um auszuwerten, ob die momentan getestete map existiert und hinzufügen zur maplist
-        function handle(el, func) {
-          //success wird immer beim erfolgre
-          if (success) {
-            maplist.push([map, geld, checkerturn, image,mapSchwie,MapName]);
-            checkerturn++;
-            map = mapold;
-            geld = geldold;
-            setTimeout(getmaps.bind(null, func), 10);
-            geld = "undefined";
-            image = "undefined";
-            mapSchwie = "undefined";
-            MapName = "undefined";
-          }
-          if (!success){
-            alreadyl = true;
-            func(maplist);
-            mapsloaded = true;
-          }
-          el.remove();
-          succcess = false
+      //hilfsfunktion um auszuwerten, ob die momentan getestete map existiert und hinzufügen zur maplist
+      function handle(el, func) {
+        //success wird immer beim erfolgre
+        if (success) {
+          maplist.push([map, geld, checkerturn, image, mapSchwie, MapName]);
+          checkerturn++;
           map = mapold;
           geld = geldold;
+          setTimeout(getmaps.bind(null, func), 10);
+          geld = "undefined";
+          image = "undefined";
+          mapSchwie = "undefined";
+          MapName = "undefined";
         }
+        if (!success) {
+          alreadyl = true;
+          func(maplist);
+          mapsloaded = true;
+        }
+        el.remove();
+        succcess = false
+        map = mapold;
+        geld = geldold;
+      }
 
-        function getmaps(func = (() => {})) {
-          if(alreadyl == true){
-            func(maplist);
+      function getmaps(func = (() => { })) {
+        if (alreadyl == true) {
+          func(maplist);
 
-          }else{
+        } else {
           mapold = map;
           geldold = geld;
           var script = document.createElement("script");
@@ -193,20 +204,183 @@
             handle(el, func)
           }.bind(null, script, func);
         }
+      }
+
+      function loadsettings(mapload = "") {
+        window.onbeforeunload = function () {
+          return "";
+        };
+
+        if (mapload == "") {
+          map = maplist[document.getElementById("selectmap").selectedIndex];
+          mapId = document.getElementById("selectmap").selectedIndex + 1;
         }
-
-        function loadsettings(mapload = "") {
-          window.onbeforeunload = function () {
-            return "";
+        else {
+          map = mapload;
+        }
+        mapGeld = map[1];
+        geld = map[1];
+        map = map[0];
+        // map = JSON.stringify(map);
+        // map = map.replace(/(\[")/gm, "[");
+        // map = map.replace(/("\])/gm, "]");
+        // map = eval(map);
+        backmap = map;
+        schwierigkeit = document.getElementById("selectdif").selectedIndex;
+        if (firstTimeLoad) {
+          firstTimeLoad = false;
+          var script = document.createElement("script");
+          script.src = "headScript.js";
+          //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+          document.body.appendChild(script);
+          script.onload = function () {
+            var scriptb = document.createElement("script");
+            scriptb.src = "bodyScript.js";
+            //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+            document.body.appendChild(scriptb);
+            scriptb.onload = function () {
+              if (map[0][0][1] == undefined) {
+                buildMap();
+              } else {
+                buildMapNeu();
+              }
+              document.getElementById("selections").innerHTML += `<input type=button value="Neustart" onclick="reset()">`
+            }
+            document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
+            document.getElementById("Geld").innerHTML = geld;
+            switch (schwierigkeit) {
+              case 0:
+                document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
+                break;
+              case 1:
+                document.getElementById("Schwierigkeit").innerHTML = "Leicht";
+                break;
+              case 2:
+                document.getElementById("Schwierigkeit").innerHTML = "Mittel";
+                break;
+              case 3:
+                document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+                break;
+            }
+            document.getElementById("Leben").innerHTML = spielerLeben;
           };
+        } else {
+          reset();
+        }
+      }
 
-          if (mapload == ""){
-            map = maplist[document.getElementById("selectmap").selectedIndex];
-            mapId = document.getElementById("selectmap").selectedIndex + 1;
+      function reset() {
+        size = Math.floor(resizekoords(map[0].length, map.length))
+        startButton.src = "Bilder/Buttons/start.png";
+        mapDiv.innerHTML = "";
+        map = backmap;
+        spawnPointNumber = 0;
+        teilWellenNummer = 0;
+        wellenNummer = 1;
+        spielerLeben = 100;
+        geld = mapGeld;
+        gamePause = false;
+        wellenEnde = 0;
+        roundTime = -1000;
+        spielEnde = false;
+        timers = [];
+        intervals = [];
+        start = [[], []];
+        portal1 = [[], [], []];
+        portal2 = [[], [], []];
+        deselect();
+        hideUpgrade();
+        gegner = [];
+        objContext = gegnerBild.getContext('2d');
+        objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+        objContext2 = gegnerBildHidden.getContext('2d');
+        objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
+        gegnerBildHidden.width = size * map[0].length;
+        gegnerBildHidden.height = size * map.length;
+        gegnerBild.width = size * map[0].length;
+        gegnerBild.height = size * map.length;
+        TCN.width = size * map[0].length;
+        TCN.height = size * map.length;
+        tuerme.forEach((item, i) => {
+          if (item != undefined) {
+            item.canvasBase.remove();
+            item.canvasGeschütz.remove();
           }
-          else{
-            map = mapload;
+        });
+        tuerme = [];
+        preisMult = 1;
+        for (var i = 0; i < 3 - schwierigkeit; i++) {
+          preisMult -= 0.15;
+        }
+        if (schwierigkeit == 0) {
+          preisMult = 0;
+        }
+        switch (schwierigkeit) {
+          case 0:
+            document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/sandBurg.png";
+            break;
+          case 1:
+            document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/einfach.png";
+            break;
+          case 2:
+            document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/mittel.png";
+            break;
+          case 3:
+            document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
+            break;
+        }
+        document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
+        document.getElementById("Geld").innerHTML = geld;
+        switch (schwierigkeit) {
+          case 0:
+            document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
+            break;
+          case 1:
+            document.getElementById("Schwierigkeit").innerHTML = "Leicht";
+            break;
+          case 2:
+            document.getElementById("Schwierigkeit").innerHTML = "Mittel";
+            break;
+          case 3:
+            document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+            break;
+        }
+        document.getElementById("Leben").innerHTML = spielerLeben;
+        if (map[0][0][1] == undefined) {
+          buildMap();
+        } else {
+          buildMapNeu();
+        }
+        if (size * 1.7 * 6 + 100 + size < screen.height) {
+          selectSize = size;
+        }
+        else {
+          selectSize = (screen.height - 100) / (1.7 * 6 + 1);
+        }
+        for (var i = 0; i < towertypen.length; i++) {
+          for (var j = 0; j < 2; j++) {
+            towerSelect[i][j].width = selectSize;
+            towerSelect[i][j].height = selectSize;
+            var x = size * map[0].length + 90;
+            var y = selectSize * 1.7 * i + 100;
+            if (i >= 6) {
+              x += 120;
+              y -= 6 * selectSize * 1.7;
+            }
+            towerSelect[i][j].style.left = x + 'px';
+            towerSelect[i][j].style.top = y + 'px';
           }
+          ladeBild(towertypen[i][1], towerSelect[i][1], 0, false, 0, 0, undefined, selectSize);
+        }
+        startButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize * 3) / 4 + 5 + 'px';
+        speedButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize * 3) / 2 + 45 + 5 + 'px';
+        autoStartButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize * 3) / 4 * 3 + 45 + 77 + 5 + 'px';
+        window_On_resize_execute();
+      }
+
+      function loadmap(name = "map1.js") {
+        getmap(name, function (arr) {
+          map = arr;
           mapGeld = map[1];
           geld = map[1];
           map = map[0];
@@ -215,7 +389,6 @@
           // map = map.replace(/("\])/gm, "]");
           // map = eval(map);
           backmap = map;
-          schwierigkeit = document.getElementById("selectdif").selectedIndex;
           if (firstTimeLoad) {
             firstTimeLoad = false;
             var script = document.createElement("script");
@@ -253,201 +426,41 @@
               }
               document.getElementById("Leben").innerHTML = spielerLeben;
             };
-          } else {
-              reset();
-          }
-        }
-
-        function reset() {
-          size = Math.floor(resizekoords(map[0].length, map.length))
-          startButton.src = "Bilder/Buttons/start.png";
-          mapDiv.innerHTML = "";
-          map = backmap;
-          spawnPointNumber = 0;
-          teilWellenNummer = 0;
-          wellenNummer = 1;
-          spielerLeben = 100;
-          geld = mapGeld;
-          gamePause = false;
-          wellenEnde = 0;
-          roundTime = -1000;
-          spielEnde = false;
-          timers = [];
-          intervals = [];
-          start = [[], []];
-          portal1 = [[], [], []];
-          portal2 = [[], [], []];
-          deselect();
-          hideUpgrade();
-          gegner = [];
-          objContext = gegnerBild.getContext('2d');
-          objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
-          objContext2 = gegnerBildHidden.getContext('2d');
-          objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
-          gegnerBildHidden.width = size*map[0].length;
-          gegnerBildHidden.height = size*map.length;
-          gegnerBild.width = size*map[0].length;
-          gegnerBild.height = size*map.length;
-          TCN.width = size*map[0].length;
-          TCN.height = size*map.length;
-          tuerme.forEach((item, i) => {
-            if (item != undefined) {
-              item.canvasBase.remove();
-              item.canvasGeschütz.remove();
-            }
-          });
-          tuerme = [];
-          preisMult = 1;
-          for (var i = 0; i < 3 - schwierigkeit; i++) {
-            preisMult -= 0.15;
-          }
-          if (schwierigkeit == 0) {
-            preisMult = 0;
-          }
-          switch (schwierigkeit) {
-            case 0:
-              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/sandBurg.png";
-              break;
-            case 1:
-              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/einfach.png";
-              break;
-            case 2:
-              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/mittel.png";
-              break;
-            case 3:
-              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
-              break;
-          }
-          document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
-          document.getElementById("Geld").innerHTML = geld;
-          switch (schwierigkeit) {
-            case 0:
-              document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
-              break;
-            case 1:
-              document.getElementById("Schwierigkeit").innerHTML = "Leicht";
-              break;
-            case 2:
-              document.getElementById("Schwierigkeit").innerHTML = "Mittel";
-              break;
-            case 3:
-              document.getElementById("Schwierigkeit").innerHTML = "Schwer";
-              break;
-          }
-          document.getElementById("Leben").innerHTML = spielerLeben;
-          if (map[0][0][1] == undefined) {
-            buildMap();
-          } else {
-            buildMapNeu();
-          }
-          if (size*1.7*6+100+size < screen.height) {
-            selectSize = size;
           }
           else {
-            selectSize = (screen.height - 100) / (1.7 * 6 + 1);
+            reset();
           }
-          for (var i = 0; i < towertypen.length; i++) {
-            for (var j = 0; j < 2; j++) {
-              towerSelect[i][j].width = selectSize;
-              towerSelect[i][j].height = selectSize;
-              var x = size * map[0].length + 90;
-              var y = selectSize*1.7*i+100;
-              if (i >= 6) {
-                x += 120;
-                y -= 6*selectSize*1.7;
-              }
-              towerSelect[i][j].style.left = x +'px';
-              towerSelect[i][j].style.top = y +'px';
-            }
-            ladeBild(towertypen[i][1], towerSelect[i][1], 0, false, 0, 0, undefined, selectSize);
-          }
-          startButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 4 + 5 + 'px';
-          speedButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 2 + 45 + 5 + 'px';
-          autoStartButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 4 * 3 + 45 + 77 + 5 + 'px';
-        }
+        });
+      }
 
-        function loadmap(name = "map1.js") {
-          getmap(name, function (arr) {
-            map = arr;
-            mapGeld = map[1];
-            geld = map[1];
-            map = map[0];
-            // map = JSON.stringify(map);
-            // map = map.replace(/(\[")/gm, "[");
-            // map = map.replace(/("\])/gm, "]");
-            // map = eval(map);
-            backmap = map;
-            if (firstTimeLoad) {
-              firstTimeLoad = false;
-              var script = document.createElement("script");
-              script.src = "headScript.js";
-              //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-              document.body.appendChild(script);
-              script.onload = function () {
-                var scriptb = document.createElement("script");
-                scriptb.src = "bodyScript.js";
-                //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-                document.body.appendChild(scriptb);
-                scriptb.onload = function () {
-                  if (map[0][0][1] == undefined) {
-                    buildMap();
-                  } else {
-                    buildMapNeu();
-                  }
-                  document.getElementById("selections").innerHTML += `<input type=button value="Neustart" onclick="reset()">`
-                }
-                document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
-                document.getElementById("Geld").innerHTML = geld;
-                switch (schwierigkeit) {
-                  case 0:
-                    document.getElementById("Schwierigkeit").innerHTML = "Sandbox";
-                    break;
-                  case 1:
-                    document.getElementById("Schwierigkeit").innerHTML = "Leicht";
-                    break;
-                  case 2:
-                    document.getElementById("Schwierigkeit").innerHTML = "Mittel";
-                    break;
-                  case 3:
-                    document.getElementById("Schwierigkeit").innerHTML = "Schwer";
-                    break;
-                }
-                document.getElementById("Leben").innerHTML = spielerLeben;
-              };
-            }
-            else {
-              reset();
-            }
-          });
-        }
+      function getmap(name, func = () => { }) {
+        mapold = map;
+        geldold = geld;
+        var script = document.createElement("script");
+        script.src = `${"Maps/" + name}${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
+        //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+        document.body.appendChild(script);
+        script.onerror = function (el, func) {
+          success = false;
+          handleb(el, func, false);
+        }.bind(null, script, func);
+        script.onload = function (el, func) {
+          handleb(el, func, true)
+        }.bind(null, script, func);
+      }
 
-        function getmap(name, func = () => {}) {
-          mapold = map;
-          geldold = geld;
-          var script = document.createElement("script");
-          script.src = `${"Maps/" + name}${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
-          //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-          document.body.appendChild(script);
-          script.onerror = function (el, func) {
-            success = false;
-            handleb(el, func, false);
-          }.bind(null, script, func);
-          script.onload = function (el, func) {
-            handleb(el, func, true)
-          }.bind(null, script, func);
+      function handleb(el, func, success) {
+        if (success != false) {
+          func([map, geld, checkerturn]);
+        } else {
+          map = mapold;
+          geld = geldold;
         }
+        el.remove();
+      }
+    </script>
+  </span>
+  <canvas id=NumberCanvas style="position: absolute; left: 10px; top: 50px; z-index: 6; pointer-events: none;"></canvas>
+</body>
 
-        function handleb(el, func, success) {
-          if (success != false) {
-            func([map, geld, checkerturn]);
-          } else {
-            map = mapold;
-            geld = geldold;
-          }
-          el.remove();
-        }
-      </script>
-    </span>
-    <canvas id=NumberCanvas style="position: absolute; left: 10px; top: 50px; z-index: 6; pointer-events: none;"></canvas>
-  </body>
 </html>

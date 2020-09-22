@@ -157,3 +157,6 @@ img{
     pointer-events: none;
 
 }
+.errors {
+    z-index: 3;
+}

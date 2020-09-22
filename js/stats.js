@@ -158,3 +158,44 @@ alltowers: (check = true, overStones = false) =>{
 }
 
 }
+
+var rsid = 0;
+var resizearray = [];
+//window.onresize = ()=>{window_On_resize_execute();};
+//Funktion wenn das Fenster vergrössert/-kleinert wird
+var window_On_resize_execute = function(){//kann auch manuell aufgerufen werden
+    var removers = [];//liste aller zu entfernenden Funktionen
+    resizearray.forEach((func,ind) => {//für alle eingetragenen Funktionen:
+        if(func[2])//wenn funktion entfernt werden soll
+        removers.push(ind);//entferne die Funktion
+        else//sonst
+        func[1]();//führe die funktion aus
+    });
+    var adder = 0;//um fehler zu verhindern
+    for(var i = 0; i < removers.length; i++){ //für jede zu entfernende funktion:
+        resizearray.splice(removers[i] - adder,1);//aus dem array löschen
+        adder++;//wichtig, das nur die zu entfernenden funktionen gelöscht werden
+    }
+};
+function do_on_resize(func){//funktion hinzufügen
+    resizearray.push(//machen
+        [rsid, func]
+    );
+    return rsid;//rückgabe der id
+}
+function removeonresize(id){//funktion entfernen
+    resizearray.forEach(el=>{//funktion finden und als zu entfernen eintragen
+        if(el[0] == id)
+        el[2] = true;
+    })
+}
+
+//Beispiel:
+
+/**
+ * var id = do_on_resize(function(){  //Hinzufügen von einer Funktion unsd speichern der ID in `id`
+ *  console.log("Hallo"); //beim vergrössern vom Fenster gib (Hallo) in der Konsole aus
+ * });
+ *  delta.after(5000).do(removeonresize.bind(null,id)); // nach genau 5 Sekunden entferne die Funktion wieder!! // id gibt an, welche Funktion! wichtig, sonst passiert nichts oder fehler!!
+*/
+//die Funktion gibt innerhalb von 5 Sekunden in der Konsole ("Hallo") aus, wenn die Fenstergrösse verändert wird.
