@@ -5,13 +5,14 @@
     <title></title>
     <link rel="stylesheet" href="css/master.css">
     <link rel="stylesheet" href="css/menu.css">
-    <script src="js/copyObject.js"></script>
+    <script src="js\importantFunktions.js"></script>
     <script src="js/stats.js"></script>
     <script src="js/bullets.js"></script>
     <script src="js/gegner.js"></script>
     <script src="js/tower.js"></script>
     <script src="js/wellen.js"></script>
     <script src="js/tower_Gegner_Stats.js"></script>
+    <script src="js/color.js"></script>
     <script src="js/skills.js"></script>
   </head>
   <body>
@@ -53,11 +54,11 @@
               <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
               <div id=money>
                 <img src="Bilder/Icons/coin.png">
-                <font id=dGeld>100</font>
+                <span id=dGeld>100</span>
               </div>
               <div id = diffi>
                 <img  id="DSIco" src='Bilder/Icons/einfach.png'>
-                <font id = "DS">Leicht</font>
+                <span id = "DS">Leicht</span>
               </div>
               <div id=size>
                 Mapgrösse: <span id="MSO">11 x 16</span>
@@ -174,7 +175,7 @@
         }
 
         function getmaps(func = (() => {})) {
-          if(alreadyl == true){
+          if(alreadyl){
             func(maplist);
 
           }else{
@@ -439,7 +440,7 @@
         }
 
         function handleb(el, func, success) {
-          if (success != false) {
+          if (success) {
             func([map, geld, checkerturn]);
           } else {
             map = mapold;
