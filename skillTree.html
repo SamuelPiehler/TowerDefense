@@ -28,6 +28,11 @@
       }
       #zurück{
         margin-right: calc(95vw - 21px);
+        box-shadow: 3px 2px 3px  #4fd78d, -3px -2px 3px #4fd78d, -3px 2px 3px  #4fd78d, 3px -2px 3px #4fd78d;
+        border-radius: 20%;
+      }
+      #zurück:hover{
+        content: url("Bilder/Buttons/backHover.png");
       }
       #stats{
         background: linear-gradient(200deg,#6de3a2, #A36BFF );
@@ -55,7 +60,7 @@
   </head>
   <body>
     <div id="tree">
-      <img id="zurück" src="Bilder/Buttons/back.png" alt=""> <br>
+      <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
       <h1>Skilltree</h1>
 
       <h2>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
@@ -162,12 +167,12 @@
       neuerEventlistener(document.getElementsByName("minus")[i], addSkillpunkt, [i, false]);
     }
     function neuerEventlistener(element, funktion, uebergabewerte) {
-      element.addEventListener("click", function(){funktion(uebergabewerte);});
+      element.addEventListener("click", function(){funktion(uebergabewerte, element);});
     }
     function close() {
       document.getElementById("stats").hidden = true;
     }
-    function addSkillpunkt(uebergabewerte) {
+    function addSkillpunkt(uebergabewerte, element) {
       typ = uebergabewerte[0];
       plus = uebergabewerte[1];
       if (typ == 9) {
@@ -214,15 +219,22 @@
           }
         }
       }
+      var pos = element.getBoundingClientRect();
+      showStats(false, pos.x, pos.y, element.id);
     }
-    function showStats() {
-      var pos = this.getBoundingClientRect();
-      document.getElementById("stats").style.top = pos.y + 'px';
-      document.getElementById("stats").style.left = pos.x + 70 + 'px';
+    function showStats(useThis = false, x = 0, y = 0, id = "") {
+      if (useThis) {
+        var pos = this.getBoundingClientRect();
+        x = pos.x;
+        y = pos.y;
+        id = this.id;
+      }
+      document.getElementById("stats").style.top = y + 'px';
+      document.getElementById("stats").style.left = x + 70 + 'px';
       document.getElementById("stats").hidden = false;
-      var towerTyp = this.id.substr(0,2)*1;
+      var towerTyp = id.substr(0,2)*1;
       selected = towerTyp;
-      if (this.id.substr(2,6) == "Random") {
+      if (id.substr(2,6) == "Random") {
         document.getElementsByName("Turmname")[0].innerHTML="Stats für alle Türme";
         document.getElementsByName("Damge")[0].innerHTML="+"+(Math.pow(1+skills[110][4]/100, skills[110][9])-1)+"%";
         document.getElementsByName("critChance")[0].innerHTML="+"+(Math.pow(1+skills[114][4]/100, skills[114][9])-1)+"%";
