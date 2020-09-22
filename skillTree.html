@@ -209,7 +209,7 @@
       var pos = document.getElementById("stats").getBoundingClientRect();
       saveSkillTree();
       applaySkills();
-      showStats(false, pos.x-70, pos.y, element.id);
+      showStats(false, pos.x-70, pos.y, document.getElementById("stats").id);
     }
     function haveRequired(nummer) {
       var required = skills[nummer][7];   // sind genügend von benötigten skills geskillet
@@ -229,13 +229,16 @@
         x = pos.x;
         y = pos.y;
         id = this.id;
+        var towerTyp = id.substr(0,2)*1;
+        selected = towerTyp;
+      }
+      else {
+        var towerTyp = selected;
       }
       document.getElementById("stats").style.top = y + 'px';
       document.getElementById("stats").style.left = x + 70 + 'px';
       document.getElementById("stats").hidden = false;
-      var towerTyp = id.substr(0,2)*1;
-      selected = towerTyp;
-      if (id.substr(2,6) == "Random") {
+      if (towerTyp == 11) {
         document.getElementsByName("Turmname")[0].innerHTML="Stats für alle Türme";
         document.getElementsByName("Damge")[0].innerHTML="+"+(Math.pow(1+skills[110][4]/100, skills[110][9])-1)+"%";
         document.getElementsByName("critChance")[0].innerHTML="+"+(Math.pow(1+skills[114][4]/100, skills[114][9])-1)+"%";
