@@ -1,0 +1,440 @@
+[1mdiff --cc index.html[m
+[1mindex d615117,0c9b0df..0000000[m
+[1m--- a/index.html[m
+[1m+++ b/index.html[m
+[36m@@@ -1,193 -1,184 +1,234 @@@[m
+  <!DOCTYPE html>[m
+  <html lang="en" dir="ltr">[m
+[32m++<<<<<<< HEAD[m
+[32m +[m
+[32m +<head>[m
+[32m +  <meta charset="utf-8">[m
+[32m +  <title></title>[m
+[32m +  <link rel="stylesheet" href="css/master.css">[m
+[32m +  <link rel="stylesheet" href="css/menu.css">[m
+[32m +  <script src="js/stats.js"></script>[m
+[32m +  <script src="js/bullets.js"></script>[m
+[32m +  <script src="js/gegner.js"></script>[m
+[32m +  <script src="js/tower.js"></script>[m
+[32m +  <script src="js/skills.js"></script>[m
+[32m +  <script src="js/wellen.js"></script>[m
+[32m +  <script src="js\tower_Gegner_Stats.js"></script>[m
+[32m +</head>[m
+[32m +[m
+[32m +<body>[m
+[32m +  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">[m
+[32m +  <button onclick="EBI('menu').style.display = 'block'; if(!gamePause){startAndPause(); gotpaused = true;}"[m
+[32m +    style='position: absolute; z-index:22; right: 20px; top:20px;'>[m
+[32m +    Menü[m
+[32m +  </button>[m
+[32m +  <div id=menu>[m
+[32m +    <div id=innermenu>[m
+[32m +      <div id=main class="contain visible">[m
+[32m +        <div class="menubutton mbutton-normal"[m
+[32m +          onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">[m
+[32m +          Spielen</div>[m
+[32m +        <div class="menubutton mbutton-normal">Challanges</div>[m
+[32m +        <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>[m
+[32m +        <div class="menubutton mbutton-normal">Skill-Tree</div>[m
+[32m +        <div class="menubutton mbutton-half">[m
+[32m +          <div class="menubutton mbutton-half-left">Gegner</div>[m
+[32m +          <div class="menubutton mbutton-half-right">Towers</div>[m
+[32m++=======[m
+[32m+   <head>[m
+[32m+     <meta charset="utf-8">[m
+[32m+     <title></title>[m
+[32m+     <link rel="stylesheet" href="css/master.css">[m
+[32m+     <link rel="stylesheet" href="css/menu.css">[m
+[32m+     <script src="js\importantFunktions.js"></script>[m
+[32m+     <script src="js/stats.js"></script>[m
+[32m+     <script src="js/bullets.js"></script>[m
+[32m+     <script src="js/gegner.js"></script>[m
+[32m+     <script src="js/tower.js"></script>[m
+[32m+     <script src="js/wellen.js"></script>[m
+[32m+     <script src="js/tower_Gegner_Stats.js"></script>[m
+[32m+     <script src="js/color.js"></script>[m
+[32m+     <script src="js/skills.js"></script>[m
+[32m+   </head>[m
+[32m+   <body>[m
+[32m+     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">[m
+[32m+     <button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>[m
+[32m+       Menü[m
+[32m+     </button>[m
+[32m+     <div id=menu>[m
+[32m+       <div id=innermenu>[m
+[32m+         <div id=main class="contain visible">[m
+[32m+           <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>[m
+[32m+           <div class="menubutton mbutton-normal">Challanges</div>[m
+[32m+           <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>[m
+[32m+           <a href="skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>[m
+[32m+           <div class="menubutton mbutton-half">[m
+[32m+             <div class="menubutton mbutton-half-left">Gegner</div>[m
+[32m+             <div class="menubutton mbutton-half-right">Towers</div>[m
+[32m+           </div>[m
+[32m+           <div class="menubutton mbutton-normal">Settings</div>[m
+[32m++>>>>>>> d04691e4ffab9e6735783e91ee90867dd2a643b0[m
+          </div>[m
+[31m -        <div id=start class="contain invisible">[m
+[31m -          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>[m
+[31m -          <div class=map>[m
+[31m -            <div class=outer-frame>[m
+[31m -              <div class=inner-frame>[m
+[31m -                <img src="">[m
+[31m -              </div>[m
+[31m -              <p>Map1</p>[m
+[32m +        <div class="menubutton mbutton-normal">Settings</div>[m
+[32m +      </div>[m
+[32m +      <div id=start class="contain invisible">[m
+[32m +        <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';"[m
+[32m +          style="position:absolute;">X</button>[m
+[32m +        <div class=map>[m
+[32m +          <div class=outer-frame>[m
+[32m +            <div class=inner-frame>[m
+[32m +              <img src="">[m
+              </div>[m
+[32m +            <p>Map1</p>[m
+            </div>[m
+          </div>[m
+[31m -        <div id="schwierigkeiten" style="display: none;">[m
+[31m -          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>[m
+[31m -          <div id=Mapname>[m
+[31m -            Map 1[m
+[31m -          </div>[m
+[31m -          <div id=Mapimage>[m
+[31m -            <div id =qw>[m
+[31m -              <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">[m
+[31m -              <div id=money>[m
+[31m -                <img src="Bilder/Icons/coin.png">[m
+[31m -                <font id=dGeld>100</font>[m
+[31m -              </div>[m
+[31m -              <div id = diffi>[m
+[31m -                <img  id="DSIco" src='Bilder/Icons/einfach.png'>[m
+[31m -                <font id = "DS">Leicht</font>[m
+[31m -              </div>[m
+[31m -              <div id=size>[m
+[31m -                Mapgrösse: <span id="MSO">11 x 16</span>[m
+[31m -              </div>[m
+[31m -            </div>[m
+[31m -          </div>[m
+[31m -          <div id=schwierigkeit>[m
+[31m -            <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">[m
+[31m -              Sandbox[m
+[31m -            </div>[m
+[31m -            <div id=Leicht class=menubutton onclick="switchdifficulty(1);">[m
+[31m -              Leicht[m
+[32m +      </div>[m
+[32m +      <div id="schwierigkeiten" style="display: none;">[m
+[32m +        <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';"[m
+[32m +          style="position:absolute;">X</button>[m
+[32m +        <div id=Mapname>[m
+[32m +          Map 1[m
+[32m +        </div>[m
+[32m +        <div id=Mapimage>[m
+[32m +          <div id=qw>[m
+[32m +            <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">[m
+[32m +            <div id=money>[m
+[32m +              <img src="Bilder/Icons/coin.png">[m
+[32m +              <font id=dGeld>100</font>[m
+              </div>[m
+[31m -            <div id=Mittel class=menubutton onclick="switchdifficulty(2);">[m
+[31m -              Mittel[m
+[32m +            <div id=diffi>[m
+[32m +              <img id="DSIco" src='Bilder/Icons/einfach.png'>[m
+[32m +              <font id="DS">Leicht</font>[m
+              </div>[m
+[31m -            <div id=Schwer class=menubutton onclick="switchdifficulty(3);">[m
+[31m -              Schwer[m
+[32m +            <div id=size>[m
+[32m +              Mapgrösse: <span id="MSO">11 x 16</span>[m
+              </div>[m
+            </div>[m
+[31m -          <div id=Start class=menubutton onclick="startTheGame();">[m
+[31m -            Spiel Starten!![m
+[32m +        </div>[m
+[32m +        <div id=schwierigkeit>[m
+[32m +          <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">[m
+[32m +            Sandbox[m
+[32m +          </div>[m
+[32m +          <div id=Leicht class=menubutton onclick="switchdifficulty(1);">[m
+[32m +            Leicht[m
+            </div>[m
+[32m +          <div id=Mittel class=menubutton onclick="switchdifficulty(2);">[m
+[32m +            Mittel[m
+[32m +          </div>[m
+[32m +          <div id=Schwer class=menubutton onclick="switchdifficulty(3);">[m
+[32m +            Schwer[m
+[32m +          </div>[m
+[32m +        </div>[m
+[32m +        <div id=Start class=menubutton onclick="startTheGame();">[m
+[32m +          Spiel Starten!![m
+          </div>[m
+        </div>[m
+      </div>[m
+[31m -    <script src="js/menu.js"></script>[m
+[31m -    <div id="bullets">[m
+[31m -    </div>[m
+[31m -    <div id="range">[m
+[31m -    </div>[m
+[31m -    <span id=selections>[m
+[31m -      <lable>[m
+[31m -        <img class=mapicon src="Bilder/Icons/mapIcon.png">[m
+[31m -        <select id="selectmap"></select>[m
+[31m -      </lable>[m
+[31m -      <lable>[m
+[31m -        schwierigkeit auswählen[m
+[31m -        <select id="selectdif">[m
+[31m -          <option>Sandbox</option>[m
+[31m -          <option>Leicht</option>[m
+[31m -          <option>Mittel</option>[m
+[31m -          <option>Schwer</option>[m
+[31m -        </select>[m
+[31m -      </lable>[m
+[31m -      <input type=button value="Spiel starten!" onclick="loadsettings()">[m
+[31m -      <script type="text/javascript">[m
+[31m -        var scriptLoaded = 0;[m
+[31m -        var alreadyl = false;[m
+[31m -        mapsloaded = false;[m
+[31m -        var mapSchwie;[m
+[31m -        var MapName;[m
+[31m -        //speichern der zuletzt genutzten map[m
+[31m -        var mapold;[m
+[31m -        //speichern der zuletzt gesetzten geldmenge[m
+[31m -        var mapGeld;[m
+[31m -        //die map und das geld vorbereiten[m
+[31m -        var map;[m
+[31m -        var mapId = 1;[m
+[31m -        var geld;[m
+[31m -        //die schwierigkeit vorbereiten es gibt kein Standart mehr!![m
+[31m -        var schwierigkeit;[m
+[31m -        //hier werden alle verfügbaren maps gespeichert[m
+[31m -        var maplist = [];[m
+[31m -        //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben[m
+[31m -        var allsucceeded = true;[m
+[31m -        var success = false;[m
+[31m -        //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche[m
+[31m -        var checkerturn = 1;[m
+[31m -        //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;[m
+[31m -        var firstTimeLoad = true;[m
+[31m -        //backmap ist die momentan geladene karte[m
+[31m -        var backmap = "";[m
+[31m -        //funktionsaufruf um alle karten anzuzeigen[m
+[31m -        renderavailable();[m
+[32m +    <button id=mb onclick="document.getElementById('menu').style.display = 'none'; if(gotpaused){startAndPause(); gotpaused = false;};" style="position: absolute; z-index:100; top:5px; right:8px; display:none;" alt="Menü schliessen!">[m
+[32m +      X[m
+[32m +    </button>[m
+[32m +  </div>[m
+[32m +  <script src="js/menu.js"></script>[m
+[32m +  <div id="bullets">[m
+[32m +  </div>[m
+[32m +  <div id="range">[m
+[32m +  </div>[m
+[32m +  <span id=selections>[m
+[32m +    <lable>[m
+[32m +      <img class=mapicon src="Bilder/Icons/mapIcon.png">[m
+[32m +      <select id="selectmap"></select>[m
+[32m +    </lable>[m
+[32m +    <lable>[m
+[32m +      schwierigkeit auswählen[m
+[32m +      <select id="selectdif">[m
+[32m +        <option>Sandbox</option>[m
+[32m +        <option>Leicht</option>[m
+[32m +        <option>Mittel</option>[m
+[32m +        <option>Schwer</option>[m
+[32m +      </select>[m
+[32m +    </lable>[m
+[32m +    <input type=button value="Spiel starten!" onclick="loadsettings()">[m
+[32m +    <script type="text/javascript">[m
+[32m +      var gotpaused = false;[m
+[32m +      var scriptLoaded = 0;[m
+[32m +      var alreadyl = false;[m
+[32m +      mapsloaded = false;[m
+[32m +      var mapSchwie;[m
+[32m +      var MapName;[m
+[32m +      //speichern der zuletzt genutzten map[m
+[32m +      var mapold;[m
+[32m +      //speichern der zuletzt gesetzten geldmenge[m
+[32m +      var mapGeld;[m
+[32m +      //die map und das geld vorbereiten[m
+[32m +      var map;[m
+[32m +      var mapId = 1;[m
+[32m +      var geld;[m
+[32m +      //die schwierigkeit vorbereiten es gibt kein Standart mehr!![m
+[32m +      var schwierigkeit;[m
+[32m +      //hier werden alle verfügbaren maps gespeichert[m
+[32m +      var maplist = [];[m
+[32m +      //wird zum laden der maps benötigt, gibt an, ob alle bisher getesteten maps existiert haben[m
+[32m +      var allsucceeded = true;[m
+[32m +      var success = false;[m
+[32m +      //ist die momentan gesuchte mapnummer ab dieser Zahl beginnt die Suche[m
+[32m +      var checkerturn = 1;[m
+[32m +      //firstTimeLoad gibt an, ob Daten das erste mal geladen werden müssen;[m
+[32m +      var firstTimeLoad = true;[m
+[32m +      //backmap ist die momentan geladene karte[m
+[32m +      var backmap = "";[m
+[32m +      //funktionsaufruf um alle karten anzuzeigen[m
+[32m +      renderavailable();[m
+  [m
+[31m -        function renderavailable() {[m
+[31m -          //maplist löschen[m
+[31m -          maplist = [];[m
+[31m -          //neu nach maps suchen[m
+[31m -          getmaps(function () {[m
+[31m -            //Liste löschen[m
+[31m -            document.getElementById("selectmap").innerHTML = "";[m
+[31m -            //liste neu erschaffen[m
+[31m -            maplist.forEach(function (Index, i) {[m
+[31m -              document.getElementById("selectmap").innerHTML += `<option name =${i} > ${Index[2]}</option> `;[m
+[31m -            });[m
+[32m +      function renderavailable() {[m
+[32m +        //maplist löschen[m
+[32m +        maplist = [];[m
+[32m +        //neu nach maps suchen[m
+[32m +        getmaps(function () {[m
+[32m +          //Liste löschen[m
+[32m +          document.getElementById("selectmap").innerHTML = "";[m
+[32m +          //liste neu erschaffen[m
+[32m +          maplist.forEach(function (Index, i) {[m
+[32m +            document.getElementById("selectmap").innerHTML += `<option name =${i} > ${Index[2]}</option> `;[m
+            });[m
+[31m -        }[m
+[32m +        });[m
+[32m +      }[m
+  [m
+[31m -        //hilfsfunktion um auszuwerten, ob die momentan getestete map existiert und hinzufügen zur maplist[m
+[31m -        function handle(el, func) {[m
+[31m -          //success wird immer beim erfolgre[m
+[31m -          if (success) {[m
+[31m -            maplist.push([map, geld, checkerturn, image,mapSchwie,MapName]);[m
+[31m -            checkerturn++;[m
+[31m -            map = mapold;[m
+[31m -            geld = geldold;[m
+[31m -            setTimeout(getmaps.bind(null, func), 10);[m
+[31m -            geld = "undefined";[m
+[31m -            image = "undefined";[m
+[31m -            mapSchwie = "undefined";[m
+[31m -            MapName = "undefined";[m
+[31m -          }[m
+[31m -          if (!success){[m
+[31m -            alreadyl = true;[m
+[31m -            func(maplist);[m
+[31m -            mapsloaded = true;[m
+[31m -          }[m
+[31m -          el.remove();[m
+[31m -          succcess = false[m
+[32m +      //hilfsfunktion um auszuwerten, ob die momentan getestete map existiert und hinzufügen zur maplist[m
+[32m +      function handle(el, func) {[m
+[32m +        //success wird immer beim erfolgre[m
+[32m +        if (success) {[m
+[32m +          maplist.push([map, geld, checkerturn, image, mapSchwie, MapName]);[m
+[32m +          checkerturn++;[m
+            map = mapold;[m
+            geld = geldold;[m
+[32m +          setTimeout(getmaps.bind(null, func), 10);[m
+[32m +          geld = "undefined";[m
+[32m +          image = "undefined";[m
+[32m +          mapSchwie = "undefined";[m
+[32m +          MapName = "undefined";[m
+[32m +        }[m
+[32m +        if (!success) {[m
+[32m +          alreadyl = true;[m
+[32m +          func(maplist);[m
+[32m +          mapsloaded = true;[m
+          }[m
+[32m +        el.remove();[m
+[32m +        succcess = false[m
+[32m +        map = mapold;[m
+[32m +        geld = geldold;[m
+[32m +      }[m
+  [m
+[32m++<<<<<<< HEAD[m
+[32m +      function getmaps(func = (() => { })) {[m
+[32m +        if (alreadyl == true) {[m
+[32m +          func(maplist);[m
+[32m++=======[m
+[32m+         function getmaps(func = (() => {})) {[m
+[32m+           if(alreadyl){[m
+[32m+             func(maplist);[m
+[32m++>>>>>>> d04691e4ffab9e6735783e91ee90867dd2a643b0[m
+  [m
+[31m -          }else{[m
+[32m +        } else {[m
+            mapold = map;[m
+            geldold = geld;[m
+            var script = document.createElement("script");[m
+[36m@@@ -426,41 -255,201 +467,58 @@@[m
+                }[m
+                document.getElementById("Leben").innerHTML = spielerLeben;[m
+              };[m
+[31m -          } else {[m
+[31m -              reset();[m
+[31m -          }[m
+[31m -        }[m
+[31m -[m
+[31m -        function reset() {[m
+[31m -          size = Math.floor(resizekoords(map[0].length, map.length))[m
+[31m -          startButton.src = "Bilder/Buttons/start.png";[m
+[31m -          mapDiv.innerHTML = "";[m
+[31m -          map = backmap;[m
+[31m -          spawnPointNumber = 0;[m
+[31m -          teilWellenNummer = 0;[m
+[31m -          wellenNummer = 1;[m
+[31m -          spielerLeben = 100;[m
+[31m -          geld = mapGeld;[m
+[31m -          gamePause = false;[m
+[31m -          wellenEnde = 0;[m
+[31m -          roundTime = -1000;[m
+[31m -          spielEnde = false;[m
+[31m -          timers = [];[m
+[31m -          intervals = [];[m
+[31m -          start = [[], []];[m
+[31m -          portal1 = [[], [], []];[m
+[31m -          portal2 = [[], [], []];[m
+[31m -          deselect();[m
+[31m -          hideUpgrade();[m
+[31m -          gegner = [];[m
+[31m -          objContext = gegnerBild.getContext('2d');[m
+[31m -          objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);[m
+[31m -          objContext2 = gegnerBildHidden.getContext('2d');[m
+[31m -          objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);[m
+[31m -          gegnerBildHidden.width = size*map[0].length;[m
+[31m -          gegnerBildHidden.height = size*map.length;[m
+[31m -          gegnerBild.width = size*map[0].length;[m
+[31m -          gegnerBild.height = size*map.length;[m
+[31m -          TCN.width = size*map[0].length;[m
+[31m -          TCN.height = size*map.length;[m
+[31m -          tuerme.forEach((item, i) => {[m
+[31m -            if (item != undefined) {[m
+[31m -              item.canvasBase.remove();[m
+[31m -              item.canvasGeschütz.remove();[m
+[31m -            }[m
+[31m -          });[m
+[31m -          tuerme = [];[m
+[31m -          preisMult = 1;[m
+[31m -          for (var i = 0; i < 3 - schwierigkeit; i++) {[m
+[31m -            preisMult -= 0.15;[m
+[31m -          }[m
+[31m -          if (schwierigkeit == 0) {[m
+[31m -            preisMult = 0;[m
+[31m -          }[m
+[31m -          switch (schwierigkeit) {[m
+[31m -            case 0:[m
+[31m -              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/sandBurg.png";[m
+[31m -              break;[m
+[31m -            case 1:[m
+[31m -              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/einfach.png";[m
+[31m -              break;[m
+[31m -            case 2:[m
+[31m -              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/mittel.png";[m
+[31m -              break;[m
+[31m -            case 3:[m
+[31m -              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";[m
+[31m -              break;[m
+[31m -          }[m
+[31m -          document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;[m
+[31m -          document.getElementById("Geld").innerHTML = geld;[m
+[31m -          switch (schwierigkeit) {[m
+[31m -            case 0:[m
+[31m -              document.getElementById("Schwierigkeit").innerHTML = "Sandbox";[m
+[31m -              break;[m
+[31m -            case 1:[m
+[31m -              document.

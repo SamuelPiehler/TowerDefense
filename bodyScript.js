@@ -128,9 +128,7 @@ speedButton.style.position = 'absolute';
 speedButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 2 + 45 + 5 + 'px';
 // speedButton.style.left = (size * (map[0].length+2) + 45)+'px';
 speedButton.style.top = 50+'px';
-speedButton.addEventListener("click", function(){
-  changeGameSpeed();
-});
+speedButton.addEventListener("click", changeGameSpeed);
 speedButton.addEventListener("mouseover", function(){
   speedHover = true;
   if (gameSpeed == 2) {
@@ -583,12 +581,12 @@ function showStats(evt, object) {
     var preis =  parseInt(towertypen[object.name][6]*preisMult);
   }
   if (geld >= preis) {   //preisfarbe je nach dem ob mans kaufen kann
-    var preisFarbe = "'darkgreen'";
+    var preisFarbe = "darkgreen";
   }
   else {
-    var preisFarbe = "'red'";
+    var preisFarbe = "red";
   }
-  statFenster.innerHTML += "Preis: <font color=" + preisFarbe + " class=preisFarbe>" + preis + "</font><br>";
+  statFenster.innerHTML += `Preis: <span style="color: ${preisFarbe};" class="preisFarbe">${preis}</span><br>`;
   if (object.name != towertypen.length - 1) {
     statFenster.innerHTML += "Damage: " + towertypen[object.name][2] + "<br>";
     statFenster.innerHTML += "Nachladezeit: " + towertypen[object.name][5] + " sec <br>";
@@ -713,36 +711,36 @@ function showUpgrade(object, id) {
     else {
       var preis = parseInt(parseInt(towertypen[typ][6]*preisMult)*(25+10*tuerme[id].upgradeStufe)/100);
     }
-    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <font color=ff0000>+1</font><br>";
+    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <span style='color: #ff0000'>+1</span><br>";
     if (preis <= geld) {    //preis farbe je nach dem ob man das geld hat
-      preisFarbe = "'darkgreen'";
+      preisFarbe = "darkgreen";
     }
     else {
-      preisFarbe = "'red'";
+      preisFarbe = "red";
     }
-    upgradeFenster.innerHTML += "Upgrade Preis: <font color=" + preisFarbe + " class=preisFarbe>" + preis + "</font><br>";
-    upgradeFenster.innerHTML += "Verkaufswert: " + tuerme[id].wert + " <font color=ff0000>+" + parseInt(preis*0.8) + " </font><br>";
-    upgradeFenster.innerHTML += "Damage: " + round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][2]/10*(1+tuerme[id].buffStaerken[0]/100), 3) + " </font><br>";
+    upgradeFenster.innerHTML += `Upgrade Preis: <span style="color: ${preisFarbe};" class="preisFarbe">${preis}</span><br>`;
+    upgradeFenster.innerHTML += `Verkaufswert: ${tuerme[id].wert}<span style='color: #ff0000'> +${parseInt(preis*0.8)}</span><br>`;
+    upgradeFenster.innerHTML += `Damage: ${round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3)}<span style='color: #ff0000'> +${round(towertypen[typ][2]/10*(1+tuerme[id].buffStaerken[0]/100), 3)}</><br>`;
     if (typ == 10) {
-    upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
-    upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 3) + " <br>";
+    upgradeFenster.innerHTML += `Nachladezeit: ${round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3)} sec <br>`;
+    upgradeFenster.innerHTML += `Reichweite: ${round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 3)} <br>`;
     }
     else {
       if (typ == 2) {
         upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
       }
       else {
-        upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " <font color=ff0000>-" + round(towertypen[typ][5]/10/(1+tuerme[id].buffStaerken[0]/100), 3) + "</font> sec <br>";
+        upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][5]/10/(1+tuerme[id].buffStaerken[0]/100), 3) + "</span> sec <br>";
       }
       if (typ == 9) {
-        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][9][tuerme[id].effekt[0]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 2) + " </font><br>";
+        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + "<span style='color: #ff0000'> +" + round(towertypen[typ][9][tuerme[id].effekt[0]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 2) + " </span><br>";
       }
       else {
-        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][4]/10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font><br>";
+        upgradeFenster.innerHTML += "Reichweite: " + round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 2) + "<span style='color: #ff0000'> +" + round(towertypen[typ][4]/10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </span><br>";
       }
     }
     if (tuerme[id].drehGeschw != 0) {
-      upgradeFenster.innerHTML += "Drehgeschwindigkeit: " + round(tuerme[id].drehGeschw*100*(1+tuerme[id].buffStaerken[3]/100), 2) + " <font color=ff0000>+" + round(towertypen[typ][3]*10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </font> Grad/sec <br>";
+      upgradeFenster.innerHTML += "Drehgeschwindigkeit: " + round(tuerme[id].drehGeschw*100*(1+tuerme[id].buffStaerken[3]/100), 2) + "<span style='color: #ff0000'> +" + round(towertypen[typ][3]*10*(1+tuerme[id].buffStaerken[3]/100), 2) + " </span> Grad/sec <br>";
     }
     else if (typ == 9) {
       upgradeFenster.innerHTML += "Buffed alle Türme in Reichweite! <br>";
@@ -754,43 +752,43 @@ function showUpgrade(object, id) {
       switch (tuerme[id].effekt[i]) {
         case 0:
           var speedChange = (1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100)+towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100) + 1)) - (1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100) + 1));
-          upgradeFenster.innerHTML += "Verlangsamt Gegner auf die " + round(1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100) + 1), 4) + " <font color=ff0000>" + round(speedChange, 4) + " </font> fache Geschwindigkeit. <br>";
+          upgradeFenster.innerHTML += "Verlangsamt Gegner auf die " + round(1 / (tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100) + 1), 4) + "<span style='color: #ff0000'> " + round(speedChange, 4) + " </span> fache Geschwindigkeit. <br>";
           break;
         case 1:
           upgradeFenster.innerHTML += "Stunned Gegner <br>";
           break;
         case 2:
-          upgradeFenster.innerHTML += "Verbrennt Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font> Schaden/sec. <br>";
+          upgradeFenster.innerHTML += "Verbrennt Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span> Schaden/sec. <br>";
           break;
         case 3:
-          upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font> Schaden/sec. <br>";
+          upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span> Schaden/sec. <br>";
           break;
         case 5:
-          upgradeFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font> Schaden. <br>";
+          upgradeFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span> Schaden. <br>";
           break;
         case 6:
-          upgradeFenster.innerHTML += "Springt zusätzlich bis zu " +tuerme[id].effektStaerke[i] + " <font color=ff0000>+1 </font> mal auf nahe Gegner über. <br>";
+          upgradeFenster.innerHTML += "Springt zusätzlich bis zu " +tuerme[id].effektStaerke[i] + "<span style='color: #ff0000'> +1 </> mal auf nahe Gegner über. <br>";
           break;
         case 7:
-          upgradeFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
           break;
         case 8:
-          upgradeFenster.innerHTML += "Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <span style='color: #ff0000'>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
           break;
         case 9:
-          upgradeFenster.innerHTML += "Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
           break;
         case 10:
-          upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <font color=ff0000>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </font>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
           break;
       }
       if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 10) {
         if (typ != 9) {
-          upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + " <font color=ff0000>+" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </font> <br>";
+          upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + "<span style='color: #ff0000'> +" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </span> <br>";
         }
       }
       else {
-        upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i]/100*(1+tuerme[id].buffStaerken[2]/100), 4) + " <font color=ff0000>+" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </font> sec <br>";
+        upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i]/100*(1+tuerme[id].buffStaerken[2]/100), 4) + "<span style='color: #ff0000'> +" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </span> sec <br>";
       }
     }
     if (tuerme[id].typ != 2) {
@@ -831,7 +829,7 @@ function showUpgrade(object, id) {
     upgradeButton.addEventListener("click", function(){tuerme[id].upgrade();});
   }
   else {    //wenn der turm auf maximaler stufe ist
-    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <font color=ff0000>Max</font><br>";
+    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " < style='color: #ff0000'>Max</><br>";
     upgradeFenster.innerHTML += "Verkaufswert: " + tuerme[id].wert + "<br>";
     upgradeFenster.innerHTML += "Damage: " + round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3) + "<br>";
     upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
@@ -940,7 +938,7 @@ function showUpgrade(object, id) {
   var upgradeFehlerDiv = document.createElement("div");   //anzeige wenn evrsucht wird den turm upzugraden aber nicht genug geld vorhanden ist
   upgradeFehlerDiv.id = "fehler"+id;
   upgradeFehlerDiv.color = "red";
-  upgradeFehlerDiv.innerHTML = "<font color=ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</font>";
+  upgradeFehlerDiv.innerHTML = "<span style='color: #ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</span>";
   upgradeFenster.appendChild(upgradeFehlerDiv);
   upgradeFehlerDiv.hidden = true;
 
@@ -1188,7 +1186,7 @@ function addGeld(amount) {
     elemente = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
     for (var i = 0; i < elemente.length; i++) {
       if (elemente[i].innerHTML*1 <= geld) {
-        elemente[i].color = "darkgreen";    //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
+        elemente[i].style.color = "darkgreen";    //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
       }
     }
   }
@@ -1200,7 +1198,7 @@ function addGeld(amount) {
     elemente = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
     for (var i = 0; i < elemente.length; i++) {
       if (elemente[i].innerHTML*1 > geld) {
-        elemente[i].color = "red";    //und wechsle die farbe auf rot wenn nach dem zahlen nun nicht mehr genug geld da ist um es sich zu leisten
+        elemente[i].style.color = "red";    //und wechsle die farbe auf rot wenn nach dem zahlen nun nicht mehr genug geld da ist um es sich zu leisten
       }
     }
   }
@@ -1313,12 +1311,6 @@ function draw(){
   });
 }
 
-//funktion um zahlen auf x nachkommastellen zu runden
-function round(zahl, stellen) {
-  const e = 10 ** stellen;
-  return Math.round(zahl * e) / e;
-}
-
 //erzeugen einer neuen schadensnummer
 function numbers(num, x, y, color = "white") {
   if (typeof num === "number")
@@ -1353,6 +1345,10 @@ function Delta() {
 function TextCanvas() {
   /// canvas besorgen
   this.canvas = document.querySelector("#NumberCanvas");
+  do_on_resize(function(canvas){
+    canvas.width = size * map[0].length;
+    canvas.offsetLeft = (canvas.height = size * map.length);
+  }.bind(null,this.canvas));
   this.canvas.width = size * map[0].length;
   this.canvas.offsetLeft = (this.canvas.height = size * map.length);
   this.ctx = this.canvas.getContext("2d");
@@ -1417,221 +1413,7 @@ function TextCanvas() {
       this.performanceLimiter = Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30; // min ~33 fps
   };
 }
-// Source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16),
-  } : null;
-}
 
-function resolveColor(color) {
-  if (color.startsWith("#")) {
-    return hexToRgb(color);
-  }
-  switch (color.toLowerCase()) {
-    case "aliceblue": return {"r":240,"g":248,"b":255}; break;
-    case "antiquewhite": return {"r":250,"g":235,"b":215}; break;
-    case "aqua": return {"r":0,"g":255,"b":255}; break;
-    case "aquamarine": return {"r":127,"g":255,"b":212}; break;
-    case "azure": return {"r":240,"g":255,"b":255}; break;
-    case "beige": return {"r":245,"g":245,"b":220}; break;
-    case "bisque": return {"r":255,"g":228,"b":196}; break;
-    case "black": return {"r":0,"g":0,"b":0}; break;
-    case "blanchedalmond": return {"r":255,"g":235,"b":205}; break;
-    case "blue": return {"r":0,"g":0,"b":255}; break;
-    case "blueviolet": return {"r":138,"g":43,"b":226}; break;
-    case "brown": return {"r":165,"g":42,"b":42}; break;
-    case "burlywood": return {"r":222,"g":184,"b":135}; break;
-    case "cadetblue": return {"r":95,"g":158,"b":160}; break;
-    case "chartreuse": return {"r":127,"g":255,"b":0}; break;
-    case "chocolate": return {"r":210,"g":105,"b":30}; break;
-    case "coral": return {"r":255,"g":127,"b":80}; break;
-    case "cornflowerblue": return {"r":100,"g":149,"b":237}; break;
-    case "cornsilk": return {"r":255,"g":248,"b":220}; break;
-    case "crimson": return {"r":220,"g":20,"b":60}; break;
-    case "cyan": return {"r":0,"g":255,"b":255}; break;
-    case "darkblue": return {"r":0,"g":0,"b":139}; break;
-    case "darkcyan": return {"r":0,"g":139,"b":139}; break;
-    case "darkgoldenrod": return {"r":184,"g":134,"b":11}; break;
-    case "darkgray": return {"r":169,"g":169,"b":169}; break;
-    case "darkgrey": return {"r":169,"g":169,"b":169}; break;
-    case "darkgreen": return {"r":0,"g":100,"b":0}; break;
-    case "darkkhaki": return {"r":189,"g":183,"b":107}; break;
-    case "darkmagenta": return {"r":139,"g":0,"b":139}; break;
-    case "darkolivegreen": return {"r":85,"g":107,"b":47}; break;
-    case "darkorange": return {"r":255,"g":140,"b":0}; break;
-    case "darkorchid": return {"r":153,"g":50,"b":204}; break;
-    case "darkred": return {"r":139,"g":0,"b":0}; break;
-    case "darksalmon": return {"r":233,"g":150,"b":122}; break;
-    case "darkseagreen": return {"r":143,"g":188,"b":143}; break;
-    case "darkslateblue": return {"r":72,"g":61,"b":139}; break;
-    case "darkslategray": return {"r":47,"g":79,"b":79}; break;
-    case "darkslategrey": return {"r":47,"g":79,"b":79}; break;
-    case "darkturquoise": return {"r":0,"g":206,"b":209}; break;
-    case "darkviolet": return {"r":148,"g":0,"b":211}; break;
-    case "deeppink": return {"r":255,"g":20,"b":147}; break;
-    case "deepskyblue": return {"r":0,"g":191,"b":255}; break;
-    case "dimgray": return {"r":105,"g":105,"b":105}; break;
-    case "dimgrey": return {"r":105,"g":105,"b":105}; break;
-    case "dodgerblue": return {"r":30,"g":144,"b":255}; break;
-    case "firebrick": return {"r":178,"g":34,"b":34}; break;
-    case "floralwhite": return {"r":255,"g":250,"b":240}; break;
-    case "forestgreen": return {"r":34,"g":139,"b":34}; break;
-    case "fuchsia": return {"r":255,"g":0,"b":255}; break;
-    case "gainsboro": return {"r":220,"g":220,"b":220}; break;
-    case "ghostwhite": return {"r":248,"g":248,"b":255}; break;
-    case "gold": return {"r":255,"g":215,"b":0}; break;
-    case "goldenrod": return {"r":218,"g":165,"b":32}; break;
-    case "gray": return {"r":128,"g":128,"b":128}; break;
-    case "grey": return {"r":128,"g":128,"b":128}; break;
-    case "green": return {"r":0,"g":128,"b":0}; break;
-    case "greenyellow": return {"r":173,"g":255,"b":47}; break;
-    case "honeydew": return {"r":240,"g":255,"b":240}; break;
-    case "hotpink": return {"r":255,"g":105,"b":180}; break;
-    case "indianred": return {"r":205,"g":92,"b":92}; break;
-    case "indigo": return {"r":75,"g":0,"b":130}; break;
-    case "ivory": return {"r":255,"g":255,"b":240}; break;
-    case "khaki": return {"r":240,"g":230,"b":140}; break;
-    case "lavender": return {"r":230,"g":230,"b":250}; break;
-    case "lavenderblush": return {"r":255,"g":240,"b":245}; break;
-    case "lawngreen": return {"r":124,"g":252,"b":0}; break;
-    case "lemonchiffon": return {"r":255,"g":250,"b":205}; break;
-    case "lightblue": return {"r":173,"g":216,"b":230}; break;
-    case "lightcoral": return {"r":240,"g":128,"b":128}; break;
-    case "lightcyan": return {"r":224,"g":255,"b":255}; break;
-    case "lightgoldenrodyellow": return {"r":250,"g":250,"b":210}; break;
-    case "lightgray": return {"r":211,"g":211,"b":211}; break;
-    case "lightgrey": return {"r":211,"g":211,"b":211}; break;
-    case "lightgreen": return {"r":144,"g":238,"b":144}; break;
-    case "lightpink": return {"r":255,"g":182,"b":193}; break;
-    case "lightsalmon": return {"r":255,"g":160,"b":122}; break;
-    case "lightseagreen": return {"r":32,"g":178,"b":170}; break;
-    case "lightskyblue": return {"r":135,"g":206,"b":250}; break;
-    case "lightslategray": return {"r":119,"g":136,"b":153}; break;
-    case "lightslategrey": return {"r":119,"g":136,"b":153}; break;
-    case "lightsteelblue": return {"r":176,"g":196,"b":222}; break;
-    case "lightyellow": return {"r":255,"g":255,"b":224}; break;
-    case "lime": return {"r":0,"g":255,"b":0}; break;
-    case "limegreen": return {"r":50,"g":205,"b":50}; break;
-    case "linen": return {"r":250,"g":240,"b":230}; break;
-    case "magenta": return {"r":255,"g":0,"b":255}; break;
-    case "maroon": return {"r":128,"g":0,"b":0}; break;
-    case "mediumaquamarine": return {"r":102,"g":205,"b":170}; break;
-    case "mediumblue": return {"r":0,"g":0,"b":205}; break;
-    case "mediumorchid": return {"r":186,"g":85,"b":211}; break;
-    case "mediumpurple": return {"r":147,"g":112,"b":219}; break;
-    case "mediumseagreen": return {"r":60,"g":179,"b":113}; break;
-    case "mediumslateblue": return {"r":123,"g":104,"b":238}; break;
-    case "mediumspringgreen": return {"r":0,"g":250,"b":154}; break;
-    case "mediumturquoise": return {"r":72,"g":209,"b":204}; break;
-    case "mediumvioletred": return {"r":199,"g":21,"b":133}; break;
-    case "midnightblue": return {"r":25,"g":25,"b":112}; break;
-    case "mintcream": return {"r":245,"g":255,"b":250}; break;
-    case "mistyrose": return {"r":255,"g":228,"b":225}; break;
-    case "moccasin": return {"r":255,"g":228,"b":181}; break;
-    case "navajowhite": return {"r":255,"g":222,"b":173}; break;
-    case "navy": return {"r":0,"g":0,"b":128}; break;
-    case "oldlace": return {"r":253,"g":245,"b":230}; break;
-    case "olive": return {"r":128,"g":128,"b":0}; break;
-    case "olivedrab": return {"r":107,"g":142,"b":35}; break;
-    case "orange": return {"r":255,"g":165,"b":0}; break;
-    case "orangered": return {"r":255,"g":69,"b":0}; break;
-    case "orchid": return {"r":218,"g":112,"b":214}; break;
-    case "palegoldenrod": return {"r":238,"g":232,"b":170}; break;
-    case "palegreen": return {"r":152,"g":251,"b":152}; break;
-    case "paleturquoise": return {"r":175,"g":238,"b":238}; break;
-    case "palevioletred": return {"r":219,"g":112,"b":147}; break;
-    case "papayawhip": return {"r":255,"g":239,"b":213}; break;
-    case "peachpuff": return {"r":255,"g":218,"b":185}; break;
-    case "peru": return {"r":205,"g":133,"b":63}; break;
-    case "pink": return {"r":255,"g":192,"b":203}; break;
-    case "plum": return {"r":221,"g":160,"b":221}; break;
-    case "powderblue": return {"r":176,"g":224,"b":230}; break;
-    case "purple": return {"r":128,"g":0,"b":128}; break;
-    case "rebeccapurple": return {"r":102,"g":51,"b":153}; break;
-    case "red": return {"r":255,"g":0,"b":0}; break;
-    case "rosybrown": return {"r":188,"g":143,"b":143}; break;
-    case "royalblue": return {"r":65,"g":105,"b":225}; break;
-    case "saddlebrown": return {"r":139,"g":69,"b":19}; break;
-    case "salmon": return {"r":250,"g":128,"b":114}; break;
-    case "sandybrown": return {"r":244,"g":164,"b":96}; break;
-    case "seagreen": return {"r":46,"g":139,"b":87}; break;
-    case "seashell": return {"r":255,"g":245,"b":238}; break;
-    case "sienna": return {"r":160,"g":82,"b":45}; break;
-    case "silver": return {"r":192,"g":192,"b":192}; break;
-    case "skyblue": return {"r":135,"g":206,"b":235}; break;
-    case "slateblue": return {"r":106,"g":90,"b":205}; break;
-    case "slategray": return {"r":112,"g":128,"b":144}; break;
-    case "slategrey": return {"r":112,"g":128,"b":144}; break;
-    case "snow": return {"r":255,"g":250,"b":250}; break;
-    case "springgreen": return {"r":0,"g":255,"b":127}; break;
-    case "steelblue": return {"r":70,"g":130,"b":180}; break;
-    case "tan": return {"r":210,"g":180,"b":140}; break;
-    case "teal": return {"r":0,"g":128,"b":128}; break;
-    case "thistle": return {"r":216,"g":191,"b":216}; break;
-    case "tomato": return {"r":255,"g":99,"b":71}; break;
-    case "turquoise": return {"r":64,"g":224,"b":208}; break;
-    case "violet": return {"r":238,"g":130,"b":238}; break;
-    case "wheat": return {"r":245,"g":222,"b":179}; break;
-    case "white": return {"r":255,"g":255,"b":255}; break;
-    case "whitesmoke": return {"r":245,"g":245,"b":245}; break;
-    case "yellow": return {"r":255,"g":255,"b":0}; break;
-    case "yellowgreen": return {"r":154,"g":205,"b":50}; break;
-    default:
-      console.error(`'${color}' unknown color`);
-      return {"r":255,"g":255,"b":255};
-      break;
-  }
-}
-
-/*
-////alte numbers funktion
-var caught = false;
-numbersall.forEach((el,id)=>{
-
-    if(el[1] == true){
-      if(!caught){
-      caught = true;
-      if (num != false) {
-        console.log(el);
-        //wenn anzeige nicht lehr
-              //erzeuge eine div in der die nummer abgebildet wird
-        el[0].style.pointerEvents = "none";
-        el[0].children[0].setAttribute("class","floating_number");
-        el[0].children[0].innerHTML = num;
-        //ignoriert klicks damit objeklte dahinter angeklickt werden können
-        el[0].innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
-        el[0].setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
-        el[1] = false;
-        setTimeout(function(el, id) {   //lösche nach 2 sec
-            el[0].style.display = "none";
-            console.log(id);
-            el[1] = true;
-            el[0].children[0].setAttribute("class","");
-        }.bind(null, el,id), 2000);
-      }
-}}});
-if (!caught){
-if (num != false) { //wenn anzeige nicht lehr
-var el = document.createElement("div");   //erzeuge eine div in der die nummer abgebildet wird
-el.style.pointerEvents = "none";    //ignoriert klicks damit objeklte dahinter angeklickt werden können
-el.innerHTML = "<div class=floating_number>" + num + "</div>";    //schreibe den nummerntext in eine div in der der text bewegt wird mit entsprechnder klasse
-el.setAttribute("style", "position: absolute !important; top:" + (y+numberallsum[1]) + "px; left: " + (x+numberallsum[0]) + "px; color:" + color + ";" + css);    //css atribute setzen
-document.body.appendChild(el);
-var id = numbersall.length;
-numbersall.push([el,false,id]);
-setTimeout(function(el, id) {   //lösche nach 2 sec
-    el.style.display = "none";
-    numbersall[id][1] = true;
-    el.children[0].setAttribute("class","");
-
-}.bind(null, el,id), 2000);
-}
-}
-*/
 function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGegner, momentanerGegner, schaden = true){
   var target = -1;
   var targetEntfernung = -1;

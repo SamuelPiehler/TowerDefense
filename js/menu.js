@@ -14,7 +14,7 @@ function printMaps() {
     clearInterval(inter);
     setTimeout(function () {
       var inn = document.getElementById("start");
-      inn.innerHTML = `<button onclick="EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
+      inn.innerHTML = `<button onclick="EBI('schwierigkeiten').style.display = 'none';EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
       ////console.log(maplist);
       maplist.forEach((element) => {
         // if(!element[3]){
@@ -113,6 +113,7 @@ function EBI(e){
 }
 
 function startTheGame(id){
+  EBI("mb").style.display = "block";
     ////console.log(id);
     mapId = id;
     EBI("menu").style.display ="none"
@@ -124,24 +125,24 @@ function laden() {
   if (saveCode != undefined && saveCode.length >= 11) {
     var towerNum = 0;
     var towerDataLength = 22;
-    // while (saveCode.length > towerNum*towerDataLength + 11) {
-    //   if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
-    //     console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
-    //     console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
-    //     return;
-    //   }
-    //   towerNum++;
-    // }
-    // if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
-    //   console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
-    //   console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
-    //   return;
-    // }
-    // if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
-    //   console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
-    //   console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
-    //   return;
-    // }
+    while (saveCode.length > towerNum*towerDataLength + 11) {
+      if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
+        console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
+        console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
+        return;
+      }
+      towerNum++;
+    }
+    if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
+      console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
+      console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
+      return;
+    }
+    if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
+      console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
+      console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
+      return;
+    }
     EBI("menu").style.display = "none";
     if (typeof(tuerme) != "undefined") {
       tuerme.forEach((item, i) => {
