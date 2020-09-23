@@ -212,19 +212,21 @@ function saveSkillTree() {
 loadSkillTree();
 function loadSkillTree() {
   var killLevelsString = localStorage.getItem('skillLevels');
-  var skillLevels = JSON.parse(killLevelsString);
-  if (skillLevels[0] == 1 && skillLevels.length == skills.length + 2) {
-    skillPunkte = skillLevels[1];
-    for (var i = 2; i < skillLevels.length; i++) {
-      if (skillLevels[i] != null) {
-        skills[i-2][9]=skillLevels[i];
+  if (killLevelsString != null) {
+    var skillLevels = JSON.parse(killLevelsString);
+    if (skillLevels[0] == 1 && skillLevels.length == skills.length + 2) {
+      skillPunkte = skillLevels[1];
+      for (var i = 2; i < skillLevels.length; i++) {
+        if (skillLevels[i] != null) {
+          skills[i-2][9]=skillLevels[i];
+        }
       }
     }
+    else {
+      console.log("fehler beim laden");
+    }
+    applaySkills();
   }
-  else {
-    console.log("fehler beim laden");
-  }
-  applaySkills();
 }
 //für jeden Turm
 
