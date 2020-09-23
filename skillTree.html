@@ -295,8 +295,6 @@
       else {
         var towerTyp = selected;
       }
-      document.getElementById("stats").style.top = y + 'px';
-      document.getElementById("stats").style.left = x + 70 + 'px';
       document.getElementById("stats").hidden = false;
       if (towerTyp == 11) {
         document.getElementsByName("Turmname")[0].innerHTML = "Stats für alle Türme";
@@ -434,6 +432,35 @@
           else {
             document.getElementsByName("minus")[i].src = "Bilder/icons/minusAus.png";
           }
+        }
+      }
+      if (useThis) {
+        document.getElementById("stats").style.top = '0px';
+        document.getElementById("stats").style.left = '0px';
+        document.getElementById("stats").style.bottom = "auto";
+        document.getElementById("stats").style.right = "auto";
+        if (x + document.getElementById("stats").offsetWidth >= window.innerWidth * 0.98) {
+          if (document.getElementById("stats").offsetWidth < window.innerWidth * 0.96 - 70) {
+            document.getElementById("stats").style.left = x - document.getElementById("stats").offsetWidth + 'px';
+            document.getElementById("stats").style.right = "auto";
+          }
+          else {
+            document.getElementById("stats").style.right = '0px';
+            document.getElementById("stats").style.left = "auto";
+          }
+        }
+        else {
+          document.getElementById("stats").style.left = x + 70 + 'px';
+          document.getElementById("stats").style.right = "auto";
+        }
+
+        if (y + document.getElementById("stats").offsetHeight >= window.innerHeight * 0.98) {
+          document.getElementById("stats").style.bottom = '0px';
+          document.getElementById("stats").style.top = "auto";
+        }
+        else {
+          document.getElementById("stats").style.top = y + 'px';
+          document.getElementById("stats").style.bottom = "auto";
         }
       }
     }
