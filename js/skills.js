@@ -258,8 +258,8 @@ function loadSkillTree() {
     else {
       console.log("fehler beim laden");
     }
-    applaySkills();
   }
+  applaySkills();
 }
 //für jeden Turm
 

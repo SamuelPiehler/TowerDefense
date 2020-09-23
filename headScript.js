@@ -1,5 +1,3 @@
-
-var maxUpgrade = 3;
 var anzahlEffeckte = 5;
 //TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport, 15 = stackbares Gift
 //GegnerEffeckt:  0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = FlatNormalDefense, 6 = %NormalMittigation, 7 = on death split, 8 = on time spawn, 9 = agro, 10 = heal, 11 = speedbuff, 12 = shield, 13 = tower slow, 14 = tower stun, 15 = stackbares Gift
