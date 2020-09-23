@@ -175,7 +175,7 @@
           </td>
         </tr>
         <tr id = "st5">
-          <td>stufe5 unlockt <span name="Stufe5unlockt"></span></td>
+          <td>Stufe5 unlockt <span name="Stufe5unlockt"></span></td>
           <td name = "kosten"></td>
           <td name = "stufe"></td>
           <td name="buttons">
@@ -190,6 +190,93 @@
           <td name="buttons">
             <img src="Bilder/icons/plusAn.png" name="plus">
             <img src="Bilder/icons/minusAn.png" name="minus">
+          </td>
+        </tr>
+      </table>
+
+
+
+
+      <table id="supportStats">
+        <tr>
+          <td>Verbesstert den Damage von nahen Türmen um <span class="Effeckt"></span>%</td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Effektreichweite: <span class="Reichweite"></span></td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um <span class="Effeckt"></span>%</td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Effektreichweite: <span class="Reichweite"></span></td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um <span class="Effeckt"></span>%</td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Effektreichweite: <span class="Reichweite"></span></td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um <span class="Effeckt"></span>%</td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Effektreichweite: <span class="Reichweite"></span></td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
+          </td>
+        </tr>
+        <tr>
+          <td>Stufe5 unlockt <span id="Stufe5unlockt"></span></td>
+          <td class = "kosten"></td>
+          <td class = "stufe"></td>
+          <td class="buttons">
+            <img src="Bilder/icons/plusAn.png" class="plus">
+            <img src="Bilder/icons/minusAn.png" class="minus">
           </td>
         </tr>
       </table>
@@ -218,9 +305,13 @@
       }
     }
     document.getElementById('close').addEventListener("click", close);
-    for (var i = 0; i < document.getElementsByName("plus").length; i++) {
+    for (var i = 0; i < document.getElementsByName("buttons").length; i++) {
       neuerEventlistener(document.getElementsByName("plus")[i], addSkillpunkt, [i, true]);
       neuerEventlistener(document.getElementsByName("minus")[i], addSkillpunkt, [i, false]);
+    }
+    for (var i = 0; i < document.getElementsByClassName("buttons").length; i++) {
+      neuerEventlistener(document.getElementsByClassName("plus")[i], addSkillpunkt, [i, true]);
+      neuerEventlistener(document.getElementsByClassName("minus")[i], addSkillpunkt, [i, false]);
     }
     function neuerEventlistener(element, funktion, uebergabewerte) {
       element.addEventListener("click", function(){funktion(uebergabewerte, element);});
@@ -296,6 +387,8 @@
         var towerTyp = selected;
       }
       document.getElementById("stats").hidden = false;
+      document.getElementById("normalStats").hidden = false;
+      document.getElementById("supportStats").hidden = true;
       if (towerTyp == 11) {
         document.getElementsByName("Turmname")[0].innerHTML = "Stats für alle Türme";
         document.getElementsByName("Damge")[0].innerHTML = "+" + round(Math.pow(1+skills[110][4]/100, skills[110][9])-1, 2)+"%";
@@ -311,6 +404,56 @@
         document.getElementById('st5').hidden = true;
         document.getElementById('MaxStufe').hidden = false;
         document.getElementsByName('MaxStufe')[0].innerHTML = skills[123][9]+3;
+      }
+      else if (towerTyp == 9) {
+        document.getElementById("normalStats").hidden = true;
+        document.getElementById("supportStats").hidden = false;
+        document.getElementsByName("Turmname")[0].textContent = towertypen[towerTyp][10];
+        for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
+          document.getElementsByClassName("Effeckt")[i].textContent = round(towertypen[towerTyp][8][i], 3);
+          document.getElementsByClassName("Reichweite")[i].textContent = round(towertypen[towerTyp][9][i], 3);
+        }
+        for (var i = 0; i < document.getElementsByClassName("buttons").length; i++) {
+          var nummer = i + 10 * selected;
+          if (skills[nummer] == undefined) {
+            document.getElementsByClassName("buttons")[i].hidden = true;
+            document.getElementsByClassName("kosten")[i].hidden = true;
+            document.getElementsByClassName("stufe")[i].hidden = true;
+          }
+          else {
+            document.getElementsByClassName("buttons")[i].hidden = false;
+            document.getElementsByClassName("kosten")[i].hidden = false;
+            document.getElementsByClassName("stufe")[i].hidden = false;
+            document.getElementsByClassName("kosten")[i].innerHTML = `Kosten: ${skills[nummer][10]+Math.min(skills[nummer][9], skills[nummer][8]-1)}`;
+            document.getElementsByClassName("stufe")[i].innerHTML = `Stufe: ${skills[nummer][9]}/${skills[nummer][8]}`;
+            if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9] && haveRequired(nummer)) {
+              document.getElementsByClassName("plus")[i].src = "Bilder/icons/plusAn.png";
+            }
+            else {
+              document.getElementsByClassName("plus")[i].src = "Bilder/icons/plusAus.png";
+            }
+            if (skills[nummer][9] > 0) {
+              skills[nummer][9]--;
+              required = true;
+              for (var j = 0; j < skills.length; j++) {
+                if (skills[j] != undefined && skills[j][9] > 0 && !haveRequired(j)) {
+                  required = false;
+                  break;
+                }
+              }
+              skills[nummer][9]++;
+              if (required) {
+                document.getElementsByClassName("minus")[i].src = "Bilder/icons/minusAn.png";
+              }
+              else {
+                document.getElementsByClassName("minus")[i].src = "Bilder/icons/minusAus.png";
+              }
+            }
+            else {
+              document.getElementsByClassName("minus")[i].src = "Bilder/icons/minusAus.png";
+            }
+          }
+        }
       }
       else {
         document.getElementsByName("Turmname")[0].innerHTML = towertypen[towerTyp][10];
