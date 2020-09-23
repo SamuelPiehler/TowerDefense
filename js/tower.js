@@ -13,9 +13,9 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.angriffsZeit = towertypen[this.typ][5];
   this.spezialisierung = spezialisierung;
   if (this.spezialisierung == undefined) {
-    this.effekt = towertypen[this.typ][7].slice();
-    this.effektStaerke = towertypen[this.typ][8].slice();
-    this.effektTime = towertypen[this.typ][9].slice();
+    this.effekt = copyObj(towertypen[this.typ][7]);
+    this.effektStaerke = copyObj(towertypen[this.typ][8]);
+    this.effektTime = copyObj(towertypen[this.typ][9]);
   }
   else {
     this.effekt = [];

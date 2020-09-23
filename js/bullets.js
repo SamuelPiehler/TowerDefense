@@ -8,7 +8,7 @@ function bullet(x1, y1, x2, y2, time = 100, color = "black", l_width = 3){
     y2 += size/2+50;
     var caught = false
     bullets.forEach((el,id)=>{
-        if(el[1] == true && !caught){
+        if(el[1] && !caught){
             caught = true;
             el[1] = false;
             var line = el[0].children[0];

@@ -124,24 +124,24 @@ function laden() {
   if (saveCode != undefined && saveCode.length >= 11) {
     var towerNum = 0;
     var towerDataLength = 22;
-    // while (saveCode.length > towerNum*towerDataLength + 11) {
-    //   if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
-    //     console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
-    //     console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
-    //     return;
-    //   }
-    //   towerNum++;
-    // }
-    // if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
-    //   console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
-    //   console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
-    //   return;
-    // }
-    // if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
-    //   console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
-    //   console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
-    //   return;
-    // }
+    while (saveCode.length > towerNum*towerDataLength + 11) {
+      if (getPrüf2(towerNum*towerDataLength + 29) != getContent(towerNum*towerDataLength + 30)) {
+        console.log("falsche prüfziffer 2 an stelle " + (towerNum*towerDataLength + 30));
+        console.log("prüfziffer = " + getContent(towerNum*towerDataLength + 30) + ", erwartete prüfziffer = " + getPrüf2(towerNum*towerDataLength + 29));
+        return;
+      }
+      towerNum++;
+    }
+    if (getPrüf1(saveCode.length-3) != getContent(saveCode.length-2)) {
+      console.log("falsche prüfziffer 1 an stelle " + (saveCode.length-2));
+      console.log("prüfziffer = " + getContent(saveCode.length-2) + ", erwartete prüfziffer = " + getPrüf1(saveCode.length-3));
+      return;
+    }
+    if (getPrüf3(saveCode.length-2) != getContent(saveCode.length-1)) {
+      console.log("falsche prüfziffer 3 an stelle " + (saveCode.length-1));
+      console.log("prüfziffer = " + getContent(saveCode.length-1) + ", erwartete prüfziffer = " + getPrüf3(saveCode.length-2));
+      return;
+    }
     EBI("menu").style.display = "none";
     if (typeof(tuerme) != "undefined") {
       tuerme.forEach((item, i) => {
