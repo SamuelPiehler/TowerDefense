@@ -148,7 +148,10 @@ function applaySkills() {
   maxUpgrade = 3;
   for (var i = 0; i < skills.length; i++) {
     if (skills[i] != undefined) {
-      if (skills[i][2] >= 0) {    //betrifft nur einen Turm
+      if (skills[i][11] != undefined) {    //SupportTurm spezialisierung
+        towertypen[skills[i][2]][skills[i][3]][skills[i][11]] = getUpdatedStat(towertypen[skills[i][2]][skills[i][3]][skills[i][11]], skills[i][5], skills[i][4], skills[i][9]);
+      }
+      else if (skills[i][2] >= 0) {    //betrifft nur einen Turm
         towertypen[skills[i][2]][skills[i][3]] = getUpdatedStat(towertypen[skills[i][2]][skills[i][3]], skills[i][5], skills[i][4], skills[i][9]);
       }
       else if (skills[i][2] == -1) {    //betrifft alle Türme
@@ -186,6 +189,24 @@ function resetSkills() {
 
 function getUpdatedStat(orginal, changeType, changeAmount, skillLvl) {
   if (Array.isArray(orginal)) {
+    for (var i = 0; i < orginal.length; i++) {
+      switch (changeType) {
+        case true:
+          orginal[i] = orginal[i] * (1 + changeAmount / 100 * skillLvl);
+          break;
+        case false:
+          orginal[i] = orginal[i] + changeAmount * skillLvl;
+          break;
+        case 0:
+          if (skillLvl >= 1) {
+            orginal[i] = changeAmount;
+          }
+          else {
+            orginal[i] = orginal[i];
+          }
+          break;
+      }
+    }
     return orginal;
   }
   else {
