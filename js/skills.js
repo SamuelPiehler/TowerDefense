@@ -117,7 +117,7 @@ const skills = [
   ["TeslaTurm drehGeschw", "Erhöht die drehGeschwindigkeit von TeslaTürmen um 7,5%", 10, 3, 7.5, true, [], 0, 10, 0, 1],    //103
   ["TeslaTurm critChance", "Erhöht die critChance von TeslaTürmen um 5%", 10, 13, 5, false, [100], 1, 10, 0, 1],    //104
   ["TeslaTurm critDamage", "Erhöht den CritSchaden von TeslaTürmen um 10%", 10, 14, 10, false, [104], 5, 10, 0, 1],   //105
-  ["TeslaTurm EffecktStärke", "Erhöht die maximale Anzahl an EffecktÜbersprüngen von TeslaTürmen um 1", 10, 8, 1, false, [107, 98], [5, 1], 10, 0, 10],    //106
+  ["TeslaTurm EffecktStärke", "Erhöht die maximale Anzahl an EffecktÜbersprüngen von TeslaTürmen um 1", 10, 8, 1, false, [107, 108], [5, 1], 10, 0, 10],    //106
   ["TeslaTurm EffecktReichweite", "Erhöht die FeuerReichweite von TeslaTürmen um 5%", 10, 9, 5, true, [100], 3, 10, 0, 1],    //107
   ["TeslaTurm St5", "Kettenblitz von Stufe 5 TeslaTürmen können doppelt so oft überspringen", 10, 12, true, 0, [123], 2, 1, 0, 5],   //108
   ,   //109
