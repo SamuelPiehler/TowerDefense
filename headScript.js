@@ -87,11 +87,15 @@ for (var i = 0; i < gegnerWellen.length; i++) {
   }
 }
 }
+
 var anzahlWellen = 0;
 for (var i = 0; i < gegnerWellen.length; i++) {
   if (gegnerWellen[i][4] == -1) {
     anzahlWellen++;
   }
+}
+if (schwierigkeit != 0) {
+  anzahlWellen -= (5 - schwierigkeit) * 5
 }
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert

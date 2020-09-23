@@ -1237,7 +1237,7 @@ function update() {
       else {
         startButton.src = "Bilder/Buttons/start.png";
       }
-      if (teilWellenNummer == gegnerWellen.length || (anzahlWellen == wellenNummer + (5 - schwierigkeit) * 5 && schwierigkeit != 0)) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
+      if (teilWellenNummer == gegnerWellen.length || (anzahlWellen == wellenNummer && schwierigkeit != 0)) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
         alert("Du hast das Spiel Gewonnen!");
         spielEnde = true;
         addCompletedMap();
@@ -1300,6 +1300,7 @@ function addCompletedMap() {
   if (completedMaps[mapId-1] < schwierigkeit) {
     skillPunkte += skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[completedMaps[mapId-1]];
     completedMaps[mapId-1] = schwierigkeit;
+    saveSkillTree()
   }
   localStorage.setItem('completedMaps', JSON.stringify(completedMaps));
 }
