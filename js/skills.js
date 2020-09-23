@@ -9,7 +9,7 @@ const skills = [
   ["BasicTurm critDamage", "Erhöht den CritSchaden von BasicTürmen um 10%", 0, 2, 10, false, [4], 5, 10, 0, 1],   //5
   ,   //6
   ,   //7
-  ["Basic St5", "Stufe 5 BasicTürme bekommen einen 2ten Lauf", 0, 12, true, 0, [113], 2, 1, 0, 5],   //8
+  ["Basic St5", "Stufe 5 BasicTürme bekommen einen 2ten Lauf", 0, 12, true, 0, [123], 2, 1, 0, 5],   //8
   ,   //9
   //Sniper
   ["Sniper Dmg", "Erhöht den Damage von Sniper um 5%", 1, 2, 5, true, [], 0, 10, 0, 1],   //10
@@ -20,7 +20,7 @@ const skills = [
   ["Sniper critDamage", "Erhöht den CritSchaden von Sniper um 10%", 1, 14, 10, false, [14], 5, 10, 0, 1],   //15
   ,   //16
   ,   //17
-  ["Sniper St5", "Stufe 5 Sniper schießen durch gegner durch und treffen alle Gegner auf einer Linie", 1, 12, true, 0, [113], 2, 1, 0, 5],   //18
+  ["Sniper St5", "Stufe 5 Sniper schießen durch gegner durch und treffen alle Gegner auf einer Linie", 1, 12, true, 0, [123], 2, 1, 0, 5],   //18
   ,   //19
   //SlowTurm
   ["SlowTurm Dmg", "Erhöht den Damage von SlowTürmen um 5", 2, 2, 5, false, [], 0, 10, 0, 1],   //20
@@ -31,7 +31,7 @@ const skills = [
   ["SlowTurm critDamage", "Erhöht den CritSchaden von SlowTürmen um 10%", 2, 14, 10, false, [24], 5, 10, 0, 1],    //25
   ["SlowTurm EffecktStärke", "Erhöht die SlowStärke von SlowTürmen um 5%", 2, 8, 5, true, [], 0, 10, 0, 1],    //26
   ["SlowTurm EffecktDauer", "Erhöht die SlowDauer von SlowTürmen um 5%", 2, 9, 5, true, [], 0, 10, 0, 1],    //27
-  ["SlowTurm St5", "Stufe 5 SlowTürme fügen zusätzlich eine stackbare und dauerhafte verlangsamung zu", 2, 12, true, 0, [113], 2, 1, 0, 5],   //28
+  ["SlowTurm St5", "Stufe 5 SlowTürme fügen zusätzlich eine stackbare und dauerhafte verlangsamung zu", 2, 12, true, 0, [123], 2, 1, 0, 5],   //28
   ,   //29
   //GiftTurm
   ["GiftTurm Dmg", "Erhöht den Damage von GiftTürmen um 5", 3, 2, 5, false, [], 0, 10, 0, 1],   //30
@@ -42,7 +42,7 @@ const skills = [
   ["GiftTurm critDamage", "Erhöht den CritSchaden von GiftTürmen um 10%", 3, 14, 10, false, [34], 5, 10, 0, 1],    //35
   ["GiftTurm EffecktStärke", "Erhöht die GiftStärke von GiftTürmen um 5%", 3, 8, 5, true, [], 0, 10, 0, 1],    //36
   ["GiftTurm EffecktDauer", "Erhöht die GiftDauer von GiftTürmen um 5%", 3, 9, 5, true, [], 0, 10, 0, 1],    //37
-  ["GiftTurm St5", "Gift von Stufe 5 GiftTürmen stacked nun mit anderem Gift", 3, 12, true, 0, [113], 2, 1, 0, 5],   //38
+  ["GiftTurm St5", "Gift von Stufe 5 GiftTürmen stacked nun mit anderem Gift", 3, 12, true, 0, [123], 2, 1, 0, 5],   //38
   ,   //39
   //FeuerAoeTurm
   ["FeuerAoeTurm Dmg", "Erhöht den Damage von FeuerAoeTürmen um 5", 4, 2, 5, false, [], 0, 10, 0, 1],   //40
@@ -53,7 +53,7 @@ const skills = [
   ["FeuerAoeTurm critDamage", "Erhöht den CritSchaden von FeuerAoeTürmen um 10%", 4, 14, 10, false, [44], 5, 10, 0, 1],    //45
   ["FeuerAoeTurm EffecktStärke", "Erhöht die FeuerStärke von FeuerAoeTürmen um 5%", 4, 8, 5, true, [], 0, 10, 0, 1],    //46
   ["FeuerAoeTurm EffecktDauer", "Erhöht die FeuerDauer von FeuerAoeTürmen um 5%", 4, 9, 5, true, [], 0, 10, 0, 1],    //47
-  ["FeuerAoeTurm St5", "Stufe 5 FeuerAoeTürmen bekommen die chance beim angriff einem zufälligen Gegner auf der map 10fachen Schaden und Feuerschaden zuzufügen", 4, 12, true, 0, [113], 2, 1, 0, 5],   //48
+  ["FeuerAoeTurm St5", "Stufe 5 FeuerAoeTürmen bekommen die chance beim angriff einem zufälligen Gegner auf der map 10fachen Schaden und Feuerschaden zuzufügen", 4, 12, true, 0, [123], 2, 1, 0, 5],   //48
   ,   //49
   //AntiBoss
   ["AntiBossTurm Dmg", "Erhöht den Damage von AntiBossTürmen um 5%", 5, 2, 5, true, [], 0, 10, 0, 1],   //50
@@ -64,7 +64,7 @@ const skills = [
   ["AntiBossTurm critDamage", "Erhöht den CritSchaden von AntiBossTürmen um 10%", 5, 14, 10, false, [54], 5, 10, 0, 1],   //55
   ,   //56
   ["AntiBossTurm EffecktDauer", "Erhöht die StunnDauer von AntiBossTürmen um 5%", 5, 9, 5, true, [], 0, 10, 0, 1],    //57
-  ["AntiBossTurm St5", "Stufe 5 AntiBossTürme haben längere Stunzeit und fügen pro Hit auf den Selben Gegner 100 mehr schaden zu", 5, 12, true, 0, [113], 2, 1, 0, 5],   //58
+  ["AntiBossTurm St5", "Stufe 5 AntiBossTürme haben längere Stunzeit und fügen pro Hit auf den Selben Gegner 100 mehr schaden zu", 5, 12, true, 0, [123], 2, 1, 0, 5],   //58
   ,   //59
   //Rocket
   ["RocketLauncher Dmg", "Erhöht den Damage von RocketLaunchern um 5%", 6, 2, 5, true, [], 0, 10, 0, 1],   //60
@@ -75,7 +75,7 @@ const skills = [
   ["RocketLauncher critDamage", "Erhöht den CritSchaden von RocketLaunchern um 10%", 6, 14, 10, false, [64], 5, 10, 0, 1],   //65
   ["RocketLauncher EffecktStärke", "Erhöht den AoeSchaden von RocketLaunchern um 5%", 6, 8, 5, true, [], 0, 10, 0, 1],    //66
   ["RocketLauncher EffecktReichweite", "Erhöht die AoEReichweite von RocketLaunchern um 5%", 6, 9, 5, true, [], 0, 10, 0, 1],    //67
-  ["RocketLauncher St5", "Stufe 5 RocketLauncher Stunnen nun Gegner im Explosionsbereich für kurze Zeit", 6, 12, true, 0, [113], 2, 1, 0, 5],   //68
+  ["RocketLauncher St5", "Stufe 5 RocketLauncher Stunnen nun Gegner im Explosionsbereich für kurze Zeit", 6, 12, true, 0, [123], 2, 1, 0, 5],   //68
   ,   //69
   //SingleGift
   ["SingleGiftTurm Dmg", "Erhöht den Damage von SingleGiftTürmen um 5%", 7, 2, 5, true, [], 0, 10, 0, 1],   //70
@@ -86,7 +86,7 @@ const skills = [
   ["SingleGiftTurm critDamage", "Erhöht den CritSchaden von SingleGiftTürmen um 10%", 7, 14, 10, false, [74], 5, 10, 0, 1],   //75
   ["SingleGiftTurm EffecktStärke", "Erhöht den GiftSchaden von SingleGiftTürmen um 5%", 7, 8, 5, true, [], 0, 10, 0, 1],    //76
   ["SingleGiftTurm EffecktReichweite", "Erhöht die GiftReichweite von SingleGiftTürmen um 5%", 7, 9, 5, true, [], 0, 10, 0, 1],    //77
-  ["SingleGiftTurm St5", "Stufe 5 SingleGiftTürme bekommen stark verbesserte Stats", 7, 12, true, 0, [113], 2, 1, 0, 5],   //78
+  ["SingleGiftTurm St5", "Stufe 5 SingleGiftTürme bekommen stark verbesserte Stats", 7, 12, true, 0, [123], 2, 1, 0, 5],   //78
   ,   //79
   //LavaTurm
   ["LavaTurm Dmg", "Erhöht den Damage von LavaTürmen um 5%", 8, 2, 5, true, [], 0, 10, 0, 1],   //80
@@ -97,7 +97,7 @@ const skills = [
   ["LavaTurm critDamage", "Erhöht den CritSchaden von LavaTürmen um 10%", 8, 14, 10, false, [84], 5, 10, 0, 1],   //85
   ["LavaTurm EffecktStärke", "Erhöht den FeuerSchaden von LavaTürmen um 5%", 8, 8, 5, true, [], 0, 10, 0, 1],    //86
   ["LavaTurm EffecktReichweite", "Erhöht die FeuerReichweite von LavaTürmen um 5%", 8, 9, 5, true, [], 0, 10, 0, 1],    //87
-  ["LavaTurm St5", "Stufe 5 LavaTürme bekommen stark verbesserte Stats", 8, 12, true, 0, [113], 2, 1, 0, 5],   //88
+  ["LavaTurm St5", "Stufe 5 LavaTürme bekommen stark verbesserte Stats", 8, 12, true, 0, [123], 2, 1, 0, 5],   //88
   ,   //89
   //Support 	achtung hier ist letzte Stelle SupportSpezialisierung
   ["SupportTurm EffecktStärke", "Erhöht den DmgSupport von SupportTürmen um 5%", 9, 8, 5, true, [], 0, 10, 0, 1, 0],    //90
@@ -108,7 +108,7 @@ const skills = [
   ["SupportTurm EffecktReichweite", "Erhöht die EffecktSupportReichweite von SupportTürmen um 5%", 9, 9, 5, true, [], 0, 10, 0, 1, 2],    //95
   ["SupportTurm EffecktStärke", "Erhöht den ReichweitenSupport von SupportTürmen um 5%", 9, 8, 5, true, [], 0, 10, 0, 1, 3],    //96
   ["SupportTurm EffecktReichweite", "Erhöht die ReichweitenSupportReichweite von SupportTürmen um 5%", 9, 9, 5, true, [], 0, 10, 0, 1, 3],    //97
-  ["SupportTurm St5", "Stufe 5 SupportTürme bekommen stark verbesserte Stats", 9, 12, true, 0, [113], 2, 1, 0, 5],   //98
+  ["SupportTurm St5", "Stufe 5 SupportTürme bekommen stark verbesserte Stats", 9, 12, true, 0, [123], 2, 1, 0, 5],   //98
   ,   //99
   //TeslaTurm
   ["TeslaTurm Dmg", "Erhöht den Damage von TeslaTürmen um 5%", 10, 2, 5, true, [], 0, 10, 0, 1],   //100
@@ -119,7 +119,7 @@ const skills = [
   ["TeslaTurm critDamage", "Erhöht den CritSchaden von TeslaTürmen um 10%", 10, 14, 10, false, [104], 5, 10, 0, 1],   //105
   ["TeslaTurm EffecktStärke", "Erhöht die maximale Anzahl an EffecktÜbersprüngen von TeslaTürmen um 1", 10, 8, 1, false, [107, 98], [5, 1], 10, 0, 10],    //106
   ["TeslaTurm EffecktReichweite", "Erhöht die FeuerReichweite von TeslaTürmen um 5%", 10, 9, 5, true, [100], 3, 10, 0, 1],    //107
-  ["TeslaTurm St5", "Kettenblitz von Stufe 5 TeslaTürmen können doppelt so oft überspringen", 10, 12, true, 0, [113], 2, 1, 0, 5],   //108
+  ["TeslaTurm St5", "Kettenblitz von Stufe 5 TeslaTürmen können doppelt so oft überspringen", 10, 12, true, 0, [123], 2, 1, 0, 5],   //108
   ,   //109
   //allgemeine Turm Upgrades (für jeden turm)
   ["Turm Dmg", "Erhöht den Damage von Türmen um 5%", -1, 2, 5, true, [0, 10, 20, 30, 40, 50, 60, 70, 80, 100], 30, 5, 0, 2],   //110
@@ -177,8 +177,10 @@ function applaySkills() {
 
 function resetSkills() {
   for (var i = 0; i < skills.length; i++) {
-    skillPunkte += skills[i][8] * (skills[i][10]-1) + (skills[i][8]+1)*(skills[i][8])/2;
-    skills[i][8] = 0;
+    if (skills[i] != undefined) {
+      skillPunkte += skills[i][9] * (skills[i][10]-1) + (skills[i][9]+1)*(skills[i][9])/2;
+      skills[i][9] = 0;
+    }
   }
   applaySkills();
   saveSkillTree();

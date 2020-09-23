@@ -6,15 +6,15 @@
     <script src="js/tower_Gegner_Stats.js"></script>
     <script src="js/skills.js"></script>
     <style>
-    h1{
-      color: red;
-    }
-    h2{
-      color:#bcbbbf ;
-    }
-    h3{
-      color: gray ;
-    }
+      h1{
+        color: red;
+      }
+      h2{
+        color:#bcbbbf ;
+      }
+      h3{
+        color: gray ;
+      }
       body{
         /*background: radial-gradient(circle , #3DB7FF 20%, #FFFFFF 80%);*/
          background-image: url(Bilder/Hintergrund/Bild002.jpg);
@@ -29,17 +29,42 @@
         border-radius: 5%;
         background-color: gray;
       }
-      #zurück{
+      a.btn-skill {
+        text-decoration: none;
+        text-transform: uppercase;
+        color: #4FD78D;
+        background: #28636D;
+        padding: 7px 6px;
+        min-width: 30px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 0.9em;
+        border: #4FD78D solid 1px;
+        box-shadow: 0px 0px 5px #4fd78d, 0px 0px 5px #4fd78d, 0px 0px 5px #4fd78d, 0px 0px 5px #4fd78d;
+        border-radius: 5px;
+        transition: 0.5s;
+        filter: brightness(1) contrast(100%);
+        /*
         margin-right: calc(95vw - 21px);
-        box-shadow: 3px 2px 3px  #4fd78d, -3px -2px 3px #4fd78d, -3px 2px 3px  #4fd78d, 3px -2px 3px #4fd78d;
         border-radius: 20%;
         margin-top: 10px
+        */
       }
-      #zurück:hover{
-        content: url("Bilder/Buttons/backHover.png");
+      a.btn-skill:hover {
+        filter: brightness(1.5) contrast(150%);
+      }
+      .btn-box {
+        position: fixed;
+        left: 0;
+        top: 0;
+        margin: 20px;
+        width: calc(100% - 40px);
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
       }
       #stats{
-        background: linear-gradient(200deg,#6de3a2, #A36BFF );
+        background: linear-gradient(200deg,#6de3a2, #A36BFF);
         position: absolute;
         top: 30px;
         left: 30px;
@@ -56,15 +81,6 @@
       #name{
         font-size: 2em;
       }
-      #reset{
-        margin-right: calc(95vw - 21px);
-        box-shadow: 3px 2px 3px  #4fd78d, -3px -2px 3px #4fd78d, -3px 2px 3px  #4fd78d, 3px -2px 3px #4fd78d;
-        border-radius: 20%;
-        margin-top: 10px
-      }
-      #reset:hover{
-        content: url("Bilder/Buttons/resetHover.png");
-      }
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,8 +88,10 @@
     <title>Document</title>
   </head>
   <body>
-    <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
-    <img  id="reset" src="Bilder/Buttons/reset.png ">
+    <div class="btn-box">
+      <a class="btn-skill" id="reset" href="javascript:">Reset</a>
+      <a class="btn-skill" href="index.html">Back</a>
+    </div>
     <div id="tree">
       <h1>Skilltree</h1> <br>
       <h2>Du hast <span id="skillPunkte"></span> skillpunkte</h2> <br>
@@ -188,8 +206,8 @@
       }
     }
     document.getElementById("reset").addEventListener("click", function functionName() {
-      resetSkills;
-      document.getElementById("skillPunkte").innerHTML = skillPunkte;
+      resetSkills();
+      document.getElementById("skillPunkte").textContent = skillPunkte;
     });
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
@@ -388,7 +406,7 @@
           document.getElementsByName("buttons")[i].hidden = false;
           document.getElementsByName("kosten")[i].hidden = false;
           document.getElementsByName("stufe")[i].hidden = false;
-          document.getElementsByName("kosten")[i].innerHTML = `Kosten: ${skills[nummer][10]+skills[nummer][9]}`;
+          document.getElementsByName("kosten")[i].innerHTML = `Kosten: ${skills[nummer][10]+Math.min(skills[nummer][9], skills[nummer][8]-1)}`;
           document.getElementsByName("stufe")[i].innerHTML = `Stufe: ${skills[nummer][9]}/${skills[nummer][8]}`;
           if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10]+skills[nummer][9] && haveRequired(nummer)) {
             document.getElementsByName("plus")[i].src = "Bilder/icons/plusAn.png";
