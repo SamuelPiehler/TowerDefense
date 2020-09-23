@@ -285,5 +285,25 @@ var gegnerWellen = [
   [13, lebenMult , 20, 1, 0.9], // Gold
   [14, lebenMult , 20, 1, 0.9], // Gold
   [15, lebenMult , 10, 1, 0.9], // Gold
-  [16, lebenMult , 10, 1, -1] // Gold
+  [16, lebenMult , 10, 1, -1], // Gold
+  //51
+  [0, lebenMult , 1, 1, -1], // Gold
+  //52
+  [0, lebenMult , 1, 1, -1], // Gold
+  //53
+  [0, lebenMult , 1, 1, -1], // Gold
+  //54
+  [0, lebenMult , 1, 1, -1], // Gold
+  //55
+  [0, lebenMult , 1, 1, -1], // Gold
+  //56
+  [0, lebenMult , 1, 1, -1], // Gold
+  //57
+  [0, lebenMult , 1, 1, -1], // Gold
+  //58
+  [0, lebenMult , 1, 1, -1], // Gold
+  //59
+  [0, lebenMult , 1, 1, -1], // Gold
+  //60
+  [0, lebenMult , 1, 1, -1] // Gold
 ];

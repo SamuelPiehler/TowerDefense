@@ -720,7 +720,7 @@ function showUpgrade(object, id) {
     }
     upgradeFenster.innerHTML += `Upgrade Preis: <span style="color: ${preisFarbe};" class="preisFarbe">${preis}</span><br>`;
     upgradeFenster.innerHTML += `Verkaufswert: ${tuerme[id].wert}<span style='color: #ff0000'> +${parseInt(preis*0.8)}</span><br>`;
-    upgradeFenster.innerHTML += `Damage: ${round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3)}<span style='color: #ff0000'> +${round(towertypen[typ][2]/10*(1+tuerme[id].buffStaerken[0]/100), 3)}</><br>`;
+    upgradeFenster.innerHTML += `Damage: ${round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3)}<span style='color: #ff0000'> +${round(towertypen[typ][2]/10*(1+tuerme[id].buffStaerken[0]/100), 3)}</span><br>`;
     if (typ == 10) {
     upgradeFenster.innerHTML += `Nachladezeit: ${round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3)} sec <br>`;
     upgradeFenster.innerHTML += `Reichweite: ${round(tuerme[id].reichweite*(1+tuerme[id].buffStaerken[3]/100), 3)} <br>`;
@@ -767,7 +767,7 @@ function showUpgrade(object, id) {
           upgradeFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span> Schaden. <br>";
           break;
         case 6:
-          upgradeFenster.innerHTML += "Springt zusätzlich bis zu " +tuerme[id].effektStaerke[i] + "<span style='color: #ff0000'> +1 </> mal auf nahe Gegner über. <br>";
+          upgradeFenster.innerHTML += "Springt zusätzlich bis zu " +tuerme[id].effektStaerke[i] + "<span style='color: #ff0000'> +1 </span> mal auf nahe Gegner über. <br>";
           break;
         case 7:
           upgradeFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
@@ -829,7 +829,7 @@ function showUpgrade(object, id) {
     upgradeButton.addEventListener("click", function(){tuerme[id].upgrade();});
   }
   else {    //wenn der turm auf maximaler stufe ist
-    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " < style='color: #ff0000'>Max</><br>";
+    upgradeFenster.innerHTML += "Upgradestufe: " + tuerme[id].upgradeStufe + " <span style='color: #ff0000'>Max</span><br>";
     upgradeFenster.innerHTML += "Verkaufswert: " + tuerme[id].wert + "<br>";
     upgradeFenster.innerHTML += "Damage: " + round(tuerme[id].schaden*(1+tuerme[id].buffStaerken[0]/100), 3) + "<br>";
     upgradeFenster.innerHTML += "Nachladezeit: " + round(tuerme[id].angriffsZeit/(1+tuerme[id].buffStaerken[1]/100), 3) + " sec <br>";
@@ -1237,9 +1237,10 @@ function update() {
       else {
         startButton.src = "Bilder/Buttons/start.png";
       }
-      if (teilWellenNummer == gegnerWellen.length || (schwierigkeit == 2 && wellenNummer == 45)|| (schwierigkeit == 1 && wellenNummer == 40)) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
+      if (teilWellenNummer == gegnerWellen.length || (anzahlWellen == wellenNummer + (5 - schwierigkeit) * 5 && schwierigkeit != 0)) {    //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
         alert("Du hast das Spiel Gewonnen!");
         spielEnde = true;
+        addCompletedMap();
       }
       else {
         objContext = gegnerBild.getContext('2d');   //löschen des gegnerbildes
@@ -1292,6 +1293,31 @@ function update() {
   else {
     updateFinish = true;
   }
+}
+
+function addCompletedMap() {
+  completedMaps = loadCompletedMaps();
+  if (completedMaps[]) {
+
+  }
+}
+
+function loadCompletedMaps() {
+  var completedMapsString = localStorage.getItem('completedMaps');
+  if (completedMapsString != null) {
+    var completedMaps = JSON.parse(completedMapsString);
+    if (anzahlMaps < completedMaps.length) {
+      console.log("fehlerhafter completedMapsString");
+      return;
+    }
+  }
+  else {
+    completedMaps = [];
+  }
+  for (var i = completedMaps.length; i < anzahlMaps; i++) {
+    completedMaps[i] = 0;
+  }
+  return completedMaps;
 }
 
 //zeichne gegner

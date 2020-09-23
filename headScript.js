@@ -1,5 +1,5 @@
 
-var maxUpgrade = 5;
+var maxUpgrade = 3;
 var anzahlEffeckte = 5;
 //TurmEffeckt:    0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = AoEDamage, 6 = Kettenblitz, 7 = DmgSupport, 8 = AttackSpeedSupport, 9 = EffecktDmg, reichweite und Dauer buff, 10 = RangeUndDrehSpeedSuport, 15 = stackbares Gift
 //GegnerEffeckt:  0 = Slow, 1 = Stun, 2 = FeuerTick, 3 = GiftTick, 4 = PermaSlow ab hier wird nicht im gegner abgespeichert daher nicht in konfig 5 = FlatNormalDefense, 6 = %NormalMittigation, 7 = on death split, 8 = on time spawn, 9 = agro, 10 = heal, 11 = speedbuff, 12 = shield, 13 = tower slow, 14 = tower stun, 15 = stackbares Gift
@@ -95,8 +95,8 @@ for (var i = 0; i < gegnerWellen.length; i++) {
 }
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert
-var preisMult = 1;
-for (var i = 0; i < 3-schwierigkeit; i++) {
+var preisMult = 1.3;
+for (var i = 0; i < 5-schwierigkeit; i++) {
   preisMult -= 0.15;
 }
 if (schwierigkeit == 0) {
@@ -117,6 +117,12 @@ switch (schwierigkeit) {
     schwierigkeitIcon = "'Bilder/Icons/mittel.png'";
     break;
   case 3:
+    schwierigkeitIcon = "'Bilder/Icons/schwer.png'";
+    break;
+  case 4:
+    schwierigkeitIcon = "'Bilder/Icons/schwer.png'";
+    break;
+  case 5:
     schwierigkeitIcon = "'Bilder/Icons/schwer.png'";
     break;
 }

@@ -72,9 +72,9 @@
     <title>Document</title>
   </head>
   <body>
-    <img  id="reset" src="Bilder/Buttons/reset.png " alt="">
+    <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
+    <img  id="reset" src="Bilder/Buttons/reset.png ">
     <div id="tree">
-      <a href="index.html"><img id="zurück" src="Bilder/Buttons/back.png" alt=""></a><br>
       <h1>Skilltree</h1> <br>
       <h2>Du hast <span id="skillPunkte"></span> skillpunkte</h2> <br>
       <h3>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
@@ -187,6 +187,10 @@
         document.getElementById("tree").innerHTML += '<img id="' + i + towertypen[i][10] + '" class="Skilltree" src="' + towertypen[i][1] + '">';
       }
     }
+    document.getElementById("reset").addEventListener("click", function functionName() {
+      resetSkills;
+      document.getElementById("skillPunkte").innerHTML = skillPunkte;
+    });
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
         document.getElementById("0" + i + towertypen[i][10]).addEventListener("click", showStats);

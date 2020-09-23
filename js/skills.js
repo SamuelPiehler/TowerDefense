@@ -180,6 +180,8 @@ function resetSkills() {
     skillPunkte += skills[i][8] * (skills[i][10]-1) + (skills[i][8]+1)*(skills[i][8])/2;
     skills[i][8] = 0;
   }
+  applaySkills();
+  saveSkillTree();
 }
 
 function getUpdatedStat(orginal, changeType, changeAmount) {

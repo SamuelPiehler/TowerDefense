@@ -1,17 +1,17 @@
 
 var orginalTowertypen = [
   //0 Base src, 1 Geschütz src, 2 Damage, 3 Drehgeschwindigkeit, 4 Reichweite, 5 Angriffszeit, 6 Preis, 7 Effekt, 8 Effektstärke, 9 EffektDauer/Reichweite, 10 Name, 11 stufe5 geschütz, 12 unlockt, 13 critChance, 14 critDamage
-  ['Bilder/Tower/base1.png', 'Bilder/Tower/00basic.png', 15, 1.5, 100, 0.5, 25, [], [], [], "Basic Tower", "Bilder/Tower/00basic5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 140, 0.6, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/01sniper5.png", true, 0, 100],
-  ['Bilder/Map/empty.png', 'Bilder/Tower/02slower.png', 0, 0, 90, 0.7, 60, [0], [1.5], [1.5], "Slow Tower", "Bilder/Tower/02slower5.png", true, 0, 100],
-  ['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 100, 0.5, 80, [3], [7], [15], "Gift Tower", "Bilder/Tower/03gift5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/04feuerAoe.png', 25, 0, 100, 1, 150, [2], [10], [5], "FeuerAoe Turm", "Bilder/Tower/04feuerAoe5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 500, 1.3, 170, 4, 200, [1], [1], [0.35], "Anti Boss Tower", "Bilder/Tower/05antiBoss5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 140, 0.7, 400, 4, 250, [5], [75], [70], "Rocket Launcher", "Bilder/Tower/06rocket5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 100, 0.9, 140,  1, 100, [3], [130], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 100, 1, 140, 1, 90, [2], [150], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [12.5, 10, 10, 25], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", true, 0, 100],
-  ['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 450, 0.8, 200, 6, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", true, 0, 100],
+  ['Bilder/Tower/base1.png', 'Bilder/Tower/00basic.png', 15, 1.5, 100, 0.5, 25, [], [], [], "Basic Tower", "Bilder/Tower/00basic5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/01sniper.png', 140, 0.6, 400, 3.5, 60, [], [], [], "Sniper", "Bilder/Tower/01sniper5.png", false, 0, 100],
+  ['Bilder/Map/empty.png', 'Bilder/Tower/02slower.png', 0, 0, 90, 0.7, 60, [0], [1.5], [1.5], "Slow Tower", "Bilder/Tower/02slower5.png", false, 0, 100],
+  ['Bilder/Tower/base1.png', 'Bilder/Tower/03gift.png', 0, 0, 100, 0.5, 80, [3], [7], [15], "Gift Tower", "Bilder/Tower/03gift5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/04feuerAoe.png', 25, 0, 100, 1, 150, [2], [10], [5], "FeuerAoe Turm", "Bilder/Tower/04feuerAoe5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/05antiBoss.png', 500, 1.3, 170, 4, 200, [1], [1], [0.35], "Anti Boss Tower", "Bilder/Tower/05antiBoss5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/06rocket.png', 140, 0.7, 400, 4, 250, [5], [75], [70], "Rocket Launcher", "Bilder/Tower/06rocket5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png','Bilder/Tower/07giftSingle.png', 100, 0.9, 140,  1, 100, [3], [130], [2], "Single Gift Turm", "Bilder/Tower/07giftSingle5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/08lavaTower.png', 100, 1, 140, 1, 90, [2], [150], [1], "Lavatower", "Bilder/Tower/08lavaTower5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/09support.png', 0, 0, 0 , 0, 60, [7, 8, 9, 10], [12.5, 10, 10, 25], [75, 75, 75, 150], "Support", "Bilder/Tower/09support5.png", false, 0, 100],
+  ['Bilder/Tower/base2.png', 'Bilder/Tower/10tesla.png', 450, 0.8, 200, 6, 250, [6], [1], [70], "Tesla", "Bilder/Tower/10tesla5.png", false, 0, 100],
   ['Bilder/Map/empty.png', 'Bilder/Tower/11random.png', , , , , , [], [], [], "Random", "Bilder/Map/empty.png", false, , ]
 ];
 

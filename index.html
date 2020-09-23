@@ -78,6 +78,12 @@
             <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
               Schwer
             </div>
+            <div id=Extreme class=menubutton onclick="switchdifficulty(3);">
+              Extreme
+            </div>
+            <div id=Unmöglich class=menubutton onclick="switchdifficulty(3);">
+              Unmöglich
+            </div>
           </div>
           <div id=Start class=menubutton onclick="startTheGame();">
             Spiel Starten!!
@@ -102,6 +108,8 @@
           <option>Leicht</option>
           <option>Mittel</option>
           <option>Schwer</option>
+          <option>Extreme</option>
+          <option>Unmöglich</option>
         </select>
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
@@ -110,6 +118,7 @@
         var alreadyl = false;
         mapsloaded = false;
         var mapSchwie;
+        var anzahlMaps = 3;
         var MapName;
         //speichern der zuletzt genutzten map
         var mapold;
@@ -252,6 +261,12 @@
                 case 3:
                   document.getElementById("Schwierigkeit").innerHTML = "Schwer";
                   break;
+                case 4:
+                  document.getElementById("Schwierigkeit").innerHTML = "Extreme";
+                  break;
+                case 5:
+                  document.getElementById("Schwierigkeit").innerHTML = "Unmöglich";
+                  break;
               }
               document.getElementById("Leben").innerHTML = spielerLeben;
             };
@@ -299,8 +314,8 @@
             }
           });
           tuerme = [];
-          preisMult = 1;
-          for (var i = 0; i < 3 - schwierigkeit; i++) {
+          preisMult = 1.3;
+          for (var i = 0; i < 5 - schwierigkeit; i++) {
             preisMult -= 0.15;
           }
           if (schwierigkeit == 0) {
@@ -319,6 +334,12 @@
             case 3:
               document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
               break;
+            case 4:
+              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
+              break;
+            case 5:
+              document.getElementById('SchwierigkeitIcon').src = "Bilder/Icons/schwer.png";
+              break;
           }
           document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;
           document.getElementById("Geld").innerHTML = geld;
@@ -334,6 +355,12 @@
               break;
             case 3:
               document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+              break;
+            case 4:
+              document.getElementById("Schwierigkeit").innerHTML = "Extreme";
+              break;
+            case 5:
+              document.getElementById("Schwierigkeit").innerHTML = "Unmöglich";
               break;
           }
           document.getElementById("Leben").innerHTML = spielerLeben;
@@ -412,6 +439,12 @@
                     break;
                   case 3:
                     document.getElementById("Schwierigkeit").innerHTML = "Schwer";
+                    break;
+                  case 4:
+                    document.getElementById("Schwierigkeit").innerHTML = "Extreme";
+                    break;
+                  case 5:
+                    document.getElementById("Schwierigkeit").innerHTML = "Unmöglich";
                     break;
                 }
                 document.getElementById("Leben").innerHTML = spielerLeben;

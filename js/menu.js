@@ -102,6 +102,14 @@ function switchdifficulty(diffi) {
       schwierigkeit = 3;
       document.getElementById("Schwer").setAttribute("class", "menubutton selected");
       break;
+    case 4:
+      schwierigkeit = 3;
+      document.getElementById("Extreme").setAttribute("class", "menubutton selected");
+      break;
+    case 5:
+      schwierigkeit = 3;
+      document.getElementById("Unmöglich").setAttribute("class", "menubutton selected");
+      break;
   }
 }
 setTimeout(() => {
