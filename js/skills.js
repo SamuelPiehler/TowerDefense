@@ -2,7 +2,7 @@
 const skills = [
   //BasicTurm
   ["BasicTurm Dmg", "Erhöht den Damage von BasicTürmen um 5%", 0, 2, 5, true, [], 0, 10, 0, 1],   //0
-  ["BasicTurm Attackspeed", "Reduziert die Angriffszeit von BasicTürmen um 5%", 0, 5, -5, true, [0], 5, 5, 0, 1],    //1
+  ["BasicTurm Attackspeed", "Reduziert die Angriffszeit von BasicTürmen um 5%", 0, 5, -5, true, [0], 5, 5, 0, 3],    //1
   ["BasicTurm Reichweite", "Erhöht die Reichweite von BasicTürmen um 7,5%", 0, 4, 7.5, true, [], 0, 10, 0, 1],    //2
   ["BasicTurm drehGeschw", "Erhöht die drehGeschwindigkeit von BasicTürmen um 7,5%", 0, 3, 7.5, true, [], 0, 10, 0, 1],    //3
   ["BasicTurm critChance", "Erhöht die critChance von BasicTürmen um 5%", 0, 13, 5, false, [0], 1, 10, 0, 1],    //4
@@ -13,7 +13,7 @@ const skills = [
   ,   //9
   //Sniper
   ["Sniper Dmg", "Erhöht den Damage von Sniper um 5%", 1, 2, 5, true, [], 0, 10, 0, 1],   //10
-  ["Sniper Attackspeed", "Reduziert die Angriffszeit von Sniper um 5%", 1, 5, -5, true, [10], 5, 5, 0, 1],    //11
+  ["Sniper Attackspeed", "Reduziert die Angriffszeit von Sniper um 5%", 1, 5, -5, true, [10], 5, 5, 0, 3],    //11
   ["Sniper Reichweite", "Erhöht die Reichweite von Sniper um 7,5%", 1, 4, 7.5, true, [], 0, 10, 0, 1],    //12
   ["Sniper drehGeschw", "Erhöht die drehGeschwindigkeit von Sniper um 7,5%", 1, 3, 7.5, true, [], 0, 10, 0, 1],    //13
   ["Sniper critChance", "Erhöht die critChance von Sniper um 5%", 1, 13, 5, false, [10], 1, 10, 0, 1],    //14
@@ -46,7 +46,7 @@ const skills = [
   ,   //39
   //FeuerAoeTurm
   ["FeuerAoeTurm Dmg", "Erhöht den Damage von FeuerAoeTürmen um 5", 4, 2, 5, false, [], 0, 10, 0, 1],   //40
-  ["FeuerAoeTurm Attackspeed", "Reduziert die Angriffszeit von FeuerAoeTürmen um 5%", 4, 5, -5, true, [], 0, 5, 0, 1],   //41
+  ["FeuerAoeTurm Attackspeed", "Reduziert die Angriffszeit von FeuerAoeTürmen um 5%", 4, 5, -5, true, [], 0, 5, 0, 2],   //41
   ["FeuerAoeTurm Reichweite", "Erhöht die Reichweite von FeuerAoeTürmen um 7,5%", 4, 4, 7.5, true, [], 0, 10, 0, 1],   //42
   ,   //43
   ["FeuerAoeTurm critChance", "Erhöht die critChance von FeuerAoeTürmen um 5%", 4, 12, 5, true, [40], 5, 10, 0, 1],   //44
@@ -57,7 +57,7 @@ const skills = [
   ,   //49
   //AntiBoss
   ["AntiBossTurm Dmg", "Erhöht den Damage von AntiBossTürmen um 5%", 5, 2, 5, true, [], 0, 10, 0, 1],   //50
-  ["AntiBossTurm Attackspeed", "Reduziert die Angriffszeit von AntiBossTürmen um 5%", 5, 5, -5, true, [50], 5, 5, 0, 1],    //51
+  ["AntiBossTurm Attackspeed", "Reduziert die Angriffszeit von AntiBossTürmen um 5%", 5, 5, -5, true, [50], 5, 5, 0, 4],    //51
   ["AntiBossTurm Reichweite", "Erhöht die Reichweite von AntiBossTürmen um 7,5%", 5, 4, 7.5, true, [], 0, 10, 0, 1],    //52
   ["AntiBossTurm drehGeschw", "Erhöht die drehGeschwindigkeit von AntiBossTürmen um 7,5%", 5, 3, 7.5, true, [], 0, 10, 0, 1],    //53
   ["AntiBossTurm critChance", "Erhöht die critChance von AntiBossTürmen um 5%", 5, 13, 5, false, [50], 1, 10, 0, 1],    //54
@@ -68,7 +68,7 @@ const skills = [
   ,   //59
   //Rocket
   ["RocketLauncher Dmg", "Erhöht den Damage von RocketLaunchern um 5%", 6, 2, 5, true, [], 0, 10, 0, 1],   //60
-  ["RocketLauncher Attackspeed", "Reduziert die Angriffszeit von RocketLaunchern um 5%", 6, 5, -5, true, [60], 5, 5, 0, 1],    //61
+  ["RocketLauncher Attackspeed", "Reduziert die Angriffszeit von RocketLaunchern um 5%", 6, 5, -5, true, [60], 5, 5, 0, 3],    //61
   ["RocketLauncher Reichweite", "Erhöht die Reichweite von RocketLaunchern um 7,5%", 6, 4, 7.5, true, [], 0, 10, 0, 1],    //62
   ["RocketLauncher drehGeschw", "Erhöht die drehGeschwindigkeit von RocketLaunchern um 7,5%", 6, 3, 7.5, true, [], 0, 10, 0, 1],    //63
   ["RocketLauncher critChance", "Erhöht die critChance von RocketLaunchern um 5%", 6, 13, 5, false, [60], 1, 10, 0, 1],    //64
@@ -79,7 +79,7 @@ const skills = [
   ,   //69
   //SingleGift
   ["SingleGiftTurm Dmg", "Erhöht den Damage von SingleGiftTürmen um 5%", 7, 2, 5, true, [], 0, 10, 0, 1],   //70
-  ["SingleGiftTurm Attackspeed", "Reduziert die Angriffszeit von SingleGiftTürmen um 5%", 7, 5, -5, true, [70], 5, 5, 0, 1],    //71
+  ["SingleGiftTurm Attackspeed", "Reduziert die Angriffszeit von SingleGiftTürmen um 5%", 7, 5, -5, true, [70], 5, 5, 0, 2],    //71
   ["SingleGiftTurm Reichweite", "Erhöht die Reichweite von SingleGiftTürmen um 7,5%", 7, 4, 7.5, true, [], 0, 10, 0, 1],    //72
   ["SingleGiftTurm drehGeschw", "Erhöht die drehGeschwindigkeit von SingleGiftTürmen um 7,5%", 7, 3, 7.5, true, [], 0, 10, 0, 1],    //73
   ["SingleGiftTurm critChance", "Erhöht die critChance von SingleGiftTürmen um 5%", 7, 13, 5, false, [70], 1, 10, 0, 1],    //74
@@ -90,7 +90,7 @@ const skills = [
   ,   //79
   //LavaTurm
   ["LavaTurm Dmg", "Erhöht den Damage von LavaTürmen um 5%", 8, 2, 5, true, [], 0, 10, 0, 1],   //80
-  ["LavaTurm Attackspeed", "Reduziert die Angriffszeit von LavaTürmen um 5%", 8, 5, -5, true, [80], 5, 5, 0, 1],    //81
+  ["LavaTurm Attackspeed", "Reduziert die Angriffszeit von LavaTürmen um 5%", 8, 5, -5, true, [80], 5, 5, 0, 2],    //81
   ["LavaTurm Reichweite", "Erhöht die Reichweite von LavaTürmen um 7,5%", 8, 4, 7.5, true, [], 0, 10, 0, 1],    //82
   ["LavaTurm drehGeschw", "Erhöht die drehGeschwindigkeit von LavaTürmen um 7,5%", 8, 3, 7.5, true, [], 0, 10, 0, 1],    //83
   ["LavaTurm critChance", "Erhöht die critChance von LavaTürmen um 5%", 8, 13, 5, false, [80], 1, 10, 0, 1],    //84
@@ -112,7 +112,7 @@ const skills = [
   ,   //99
   //TeslaTurm
   ["TeslaTurm Dmg", "Erhöht den Damage von TeslaTürmen um 5%", 10, 2, 5, true, [], 0, 10, 0, 1],   //100
-  ["TeslaTurm Attackspeed", "Reduziert die Angriffszeit von TeslaTürmen um 5%", 10, 5, -5, true, [100], 5, 5, 0, 1],    //101
+  ["TeslaTurm Attackspeed", "Reduziert die Angriffszeit von TeslaTürmen um 5%", 10, 5, -5, true, [100], 5, 5, 0, 3],    //101
   ["TeslaTurm Reichweite", "Erhöht die Reichweite von TeslaTürmen um 7,5%", 10, 4, 7.5, true, [], 0, 10, 0, 1],    //102
   ["TeslaTurm drehGeschw", "Erhöht die drehGeschwindigkeit von TeslaTürmen um 7,5%", 10, 3, 7.5, true, [], 0, 10, 0, 1],    //103
   ["TeslaTurm critChance", "Erhöht die critChance von TeslaTürmen um 5%", 10, 13, 5, false, [100], 1, 10, 0, 1],    //104
@@ -123,7 +123,7 @@ const skills = [
   ,   //109
   //allgemeine Turm Upgrades (für jeden turm)
   ["Turm Dmg", "Erhöht den Damage von Türmen um 5%", -1, 2, 5, true, [0, 10, 20, 30, 40, 50, 60, 70, 80, 100], 30, 5, 0, 2],   //110
-  ["Turm Attackspeed", "Reduziert die Angriffszeit von Türmen um 5%", -1, 5, -5, true, [1, 11, 21, 31, 41, 51, 61, 71, 81, 101], 30, 3, 0, 2],    //111
+  ["Turm Attackspeed", "Reduziert die Angriffszeit von Türmen um 5%", -1, 5, -5, true, [1, 11, 21, 31, 41, 51, 61, 71, 81, 101], 20, 3, 0, 5],    //111
   ["Turm Reichweite", "Erhöht die Reichweite von Türmen um 7,5%", -1, 4, 7.5, true, [2, 12, 22, 32, 42, 52, 62, 72, 82, 102], 30, 5, 0, 2],    //112
   ["Turm drehGeschw", "Erhöht die drehGeschwindigkeit von Türmen um 7,5%", -1, 3, 7.5, true, [3, 13, 53, 63, 73, 83, 103], 15, 5, 0, 2],    //113
   ["Turm critChance", "Erhöht die critChance von Türmen um 5%", -1, 13, 5, false, [4, 14, 24, 34, 44, 54, 64, 74, 84, 104], 1, 5, 0, 2],    //114
@@ -148,27 +148,25 @@ function applaySkills() {
   maxUpgrade = 3;
   for (var i = 0; i < skills.length; i++) {
     if (skills[i] != undefined) {
-      for (var j = 0; j < skills[i][9]; j++) {
-        if (skills[i][2] >= 0) {    //betrifft nur einen Turm
-          towertypen[skills[i][2]][skills[i][3]] = getUpdatedStat(towertypen[skills[i][2]][skills[i][3]], skills[i][5], skills[i][4]);
+      if (skills[i][2] >= 0) {    //betrifft nur einen Turm
+        towertypen[skills[i][2]][skills[i][3]] = getUpdatedStat(towertypen[skills[i][2]][skills[i][3]], skills[i][5], skills[i][4], skills[i][9]);
+      }
+      else if (skills[i][2] == -1) {    //betrifft alle Türme
+        for (var k = 0; k < towertypen.length-1; k++) {
+          towertypen[k][skills[i][3]] = getUpdatedStat(towertypen[k][skills[i][3]], skills[i][5], skills[i][4], skills[i][9]);
         }
-        else if (skills[i][2] == -1) {    //betrifft alle Türme
-          for (var k = 0; k < towertypen.length-1; k++) {
-            towertypen[k][skills[i][3]] = getUpdatedStat(towertypen[k][skills[i][3]], skills[i][5], skills[i][4]);
-          }
-        }
-        else {    //betrifft spezielle Nicht Turmspezifische Variablen
-          switch (skills[i][3]) {
-            case 0:
-              geldMult = getUpdatedStat(geldMult, skills[i][5], skills[i][4]);
-              break;
-            case 1:
-              killSteinePreis = getUpdatedStat(killSteinePreis, skills[i][5], skills[i][4]);
-              break;
-            case 2:
-              maxUpgrade = getUpdatedStat(maxUpgrade, skills[i][5], skills[i][4]);
-              break;
-          }
+      }
+      else {    //betrifft spezielle Nicht Turmspezifische Variablen
+        switch (skills[i][3]) {
+          case 0:
+            geldMult = getUpdatedStat(geldMult, skills[i][5], skills[i][4], skills[i][9]);
+            break;
+          case 1:
+            killSteinePreis = getUpdatedStat(killSteinePreis, skills[i][5], skills[i][4], skills[i][9]);
+            break;
+          case 2:
+            maxUpgrade = getUpdatedStat(maxUpgrade, skills[i][5], skills[i][4], skills[i][9]);
+            break;
         }
       }
     }
@@ -186,17 +184,27 @@ function resetSkills() {
   saveSkillTree();
 }
 
-function getUpdatedStat(orginal, changeType, changeAmount) {
-  switch (changeType) {
-    case true:
-      return orginal * (1 + changeAmount/100);
-      break;
-    case false:
-      return orginal + changeAmount;
-      break;
-    case 0:
-      return changeAmount;
-      break;
+function getUpdatedStat(orginal, changeType, changeAmount, skillLvl) {
+  if (Array.isArray(orginal)) {
+    return orginal;
+  }
+  else {
+    switch (changeType) {
+      case true:
+        return orginal * (1 + changeAmount / 100 * skillLvl);
+        break;
+      case false:
+        return orginal + changeAmount * skillLvl;
+        break;
+      case 0:
+        if (skillLvl >= 1) {
+          return changeAmount;
+        }
+        else {
+          return orginal;
+        }
+        break;
+    }
   }
 }
 

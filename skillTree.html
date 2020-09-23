@@ -301,7 +301,7 @@
         document.getElementsByName("Damge")[0].innerHTML = "+" + round(Math.pow(1+skills[110][4]/100, skills[110][9])-1, 2)+"%";
         document.getElementsByName("critChance")[0].innerHTML = "+" + round(Math.pow(1+skills[114][4]/100, skills[114][9])-1, 2)+"%";
         document.getElementsByName("critDamage")[0].innerHTML = "+" + round(Math.pow(1+skills[115][4]/100, skills[115][9])-1, 2)+"%";
-        document.getElementsByName("Angriffszeit")[0].innerHTML = "-" + round(1-Math.pow(1-skills[111][4]/100, skills[111][9]), 2)+"%";
+        document.getElementsByName("Angriffszeit")[0].innerHTML = round(1-Math.pow(1-skills[111][4]/100, skills[111][9]), 2)+"%";
         document.getElementsByName("Reichweite")[0].innerHTML = "+" + round(Math.pow(1+skills[112][4]/100, skills[112][9])-1, 2)+"%";
         document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML = "+" + round(Math.pow(1+skills[113][4]/100, skills[113][9])-1, 2)+"%";
         document.getElementById('EffecktStärke').hidden = false;
