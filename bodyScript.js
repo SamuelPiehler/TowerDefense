@@ -1297,9 +1297,11 @@ function update() {
 
 function addCompletedMap() {
   completedMaps = loadCompletedMaps();
-  if (completedMaps[]) {
-
+  if (completedMaps[mapId-1] < schwierigkeit) {
+    skillPunkte += skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[completedMaps[mapId-1]];
+    completedMaps[mapId-1] = schwierigkeit;
   }
+  localStorage.setItem('completedMaps', JSON.stringify(completedMaps));
 }
 
 function loadCompletedMaps() {
