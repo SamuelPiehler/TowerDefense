@@ -1159,12 +1159,12 @@ function build() {
 }
 
 //spawned einen gegner
-function spawn(typ, lebenMult) {
+function spawn(typ, localLebenMult) {
   var number = 0;   //überprüfe im gegner array welcher index der kleinste freie ist
   while (gegner[number] != undefined) {
     number++;
   }
-  gegner[number] = new Gegner(number, typ, lebenMult*preisMult);    //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
+  gegner[number] = new Gegner(number, typ, localLebenMult*lebenMult);    //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
   if (multiStartTyp == 0 || multiStartTyp == 3) {
     spawnPointNumber++;
     if (spawnPointNumber >= start[0].length) {
@@ -1172,7 +1172,7 @@ function spawn(typ, lebenMult) {
     }
     else {
       if (multiStartTyp == 3) {
-        spawn(typ, lebenMult);
+        spawn(typ, localLebenMult);
       }
     }
   }
@@ -1241,6 +1241,7 @@ function update() {
         alert("Du hast das Spiel Gewonnen!");
         spielEnde = true;
         addCompletedMap();
+        localStorage.removeItem("saveCode");
       }
       else {
         objContext = gegnerBild.getContext('2d');   //löschen des gegnerbildes

@@ -24,7 +24,6 @@ if (multiStartTyp == undefined) {
 var teilWellenNummer = 0;   // giebt an welche gegnerwelle aus dem array als nächses gespwned wird
 var wellenNummer = 1;   // giebt an in welcher Tatsächlichen welle man sich befindet
 var spielerLeben = 100;
-var geldMult = 1;
 var killSteinePreis = Infinity;
 var selected = -1;    // nummer des ausgewählten turms für upgradefenster anzeige
 var gameSpeed = 2;    // giebt an wie schnell das spiel läuft (=2 wenn gamespeed butten auf 1; =6 wenn gamspeedbutton auf 3)
@@ -103,6 +102,7 @@ var preisMult = 1.3;
 for (var i = 0; i < 5-schwierigkeit; i++) {
   preisMult -= 0.15;
 }
+var lebenMult = preisMult;
 if (schwierigkeit == 0) {
   preisMult = 0;
 }

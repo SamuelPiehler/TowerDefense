@@ -1,14 +1,14 @@
 
 //Konstructor für objekt vom typ gegner
-function Gegner(id, typ, lebenMult){
+function Gegner(id, typ, localLebenMult){
   this.letztesFeuer = roundTime;    //wann wurde der gegener das letzte mal von feuerschadentick getroffen
   this.letztesGift = roundTime;     //wann wurde der gegener das letzte mal von giftschadentick getroffen
   this.letzterEffeckt = [];  //wann hat der Gegner das letzte mal seinen effekt genutzt
   this.id = id; //nummer in gegner array
   this.typ = typ;
-  this.leben = gegnertypen[typ][1]*lebenMult;
+  this.leben = gegnertypen[typ][1]*localLebenMult;
   this.maxHP = this.leben;
-  this.lebenMult = lebenMult;
+  this.lebenMult = localLebenMult;
   this.imunität = copyObj(gegnertypen[typ][3]);    //welche immunitäten/effeckte hat der gegner in array  (.copyObj wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
   this.imunitätStärke = copyObj(gegnertypen[typ][4]);    //wie stark sind die immunitäten
   for (var i = 0; i < this.imunität.length; i++) {
