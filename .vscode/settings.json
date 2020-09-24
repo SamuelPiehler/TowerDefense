@@ -1,0 +1,17 @@
+{
+    "rainbowString": {
+        "extensions": [
+            ".cs",
+            ".csx",
+            ".fs",
+            ".fsx",
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx",
+            ".csproj",
+            ".fsproj",
+            ".html",
+        ]
+    },
+}
