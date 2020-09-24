@@ -10,6 +10,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
   this.reichweite = towertypen[this.typ][4];
   this.drehGeschw = towertypen[this.typ][3];
   this.schaden = towertypen[this.typ][2];
+  this.critChance = towertypen[this.typ][13];
+  this.critDamage = towertypen[this.typ][14] / 100 + 1;
   this.angriffsZeit = towertypen[this.typ][5];
   this.spezialisierung = spezialisierung;
   if (this.spezialisierung == undefined) {
@@ -365,7 +367,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         this.richtung2 = grad2;
         if (roundTime - this.letzterAngriff2 >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {   //wenn zeit des letzten angriffs länger als angriffszeit her ist
           bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100/gameSpeed);   //add bullet
-          gegner[target2].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
+          if (Math.random()*100 < this.critChance) {   //füge schaden und effeckt auf gegner zu
+              gegner[target2].damage(this.schaden*(1+this.buffStaerken[0]/100)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+          }
+          else {
+            gegner[target2].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+          }
           if (roundTime - this.letzterAngriff2 -gameSpeed < 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {
             this.letzterAngriff2 += 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100);
           }
@@ -435,25 +442,45 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               switch (this.richtung) {
                 case 0:   //wenn der sniper exact nach oben zeigt
                   if (this.posy > item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    if (Math.random()*100 < this.critChance) {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+                    }
+                    else {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    }
                     anzalHits++;
                   }
                   break;
                 case 90:   //wenn der sniper exact nach links zeigt
                   if (this.posx > item.posx && Math.abs(this.posy-item.posy) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    if (Math.random()*100 < this.critChance) {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+                    }
+                    else {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    }
                     anzalHits++;
                   }
                   break;
                 case 180:   //wenn der sniper nach unten zeigt
                   if (this.posy < item.posy && Math.abs(this.posx-item.posx) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    if (Math.random()*100 < this.critChance) {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+                    }
+                    else {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    }
                     anzalHits++;
                   }
                   break;
                 case 270:  //wenn der sniper nach rechts zeigt
                   if (this.posx < item.posx && Math.abs(this.posy-item.posy) <= size/2) {
-                    item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    if (Math.random()*100 < this.critChance) {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+                    }
+                    else {
+                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                    }
                     anzalHits++;
                   }
                   break;
@@ -463,7 +490,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
                   entfernung = getEntfernung({posx: xPunktNaheGegner, posy: yPunktNaheGegner}, item);
                   if (entfernung <= 35) {
                     if ((this.richtung < 180 && this.posx > item.posx) || (this.richtung > 180 && this.posx < item.posx)) {
-                      item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), [], [], [], this.id);
+                      if (Math.random()*100 < this.critChance) {
+                        item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+                      }
+                      else {
+                        item.damage(this.schaden*(1+this.buffStaerken[0]/100)*Math.pow(weakenPerHit, anzalHits), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+                      }
                       anzalHits++;
                     }
                   }
@@ -479,7 +511,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) {    //wenn antiBoss stufe 5
           bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);   //add bullet
           //füge schaden und effeckt auf gegner zu
-          gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+          if (Math.random()*100 < this.critChance) {
+            gegner[target].damage((this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100))*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+          }
+          else {
+            gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)+100*this.effecktStacks*(1+this.buffStaerken[2]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+          }
           if (target != -1) {
             this.effecktStacks++;
           }
@@ -487,7 +524,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         else {
           if (gegner[target] != undefined) {
             bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100/gameSpeed);   //add bullet
-            gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);   //füge schaden und effeckt auf gegner zu
+            if (Math.random()*100 < this.critChance) {   //füge schaden und effeckt auf gegner zu
+              gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+            }
+            else {
+              gegner[target].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+            }
           }
         }
         if (roundTime - this.letzterAngriff -gameSpeed < 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {
@@ -552,7 +594,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           }
           if (this.drehGeschw == 0) {     //drehgeschwindigkeit 0 trifft alle gegner in reichweite und ziehlt nicht
             if (roundTime - this.letzterAngriff >= 100 * this.angriffsZeit/(1+this.buffStaerken[1]/100)) {     //wenn letzter angriff langenug her war greife gegner an
-              gegner[i].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+              if (Math.random()*100 < this.critChance) {
+                gegner[i].damage(this.schaden*(1+this.buffStaerken[0]/100)*this.critDamage, this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
+              }
+              else {
+                gegner[i].damage(this.schaden*(1+this.buffStaerken[0]/100), this.effekt.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
+              }
               target = -2;    //zeichen dass gegner angegriffen wurden um angriffszeit zu setzen nachdem alle gegner gehandeld wurden
             }
           }
@@ -715,7 +762,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         if (Math.random() < 0.3) {
           var target = parseInt(Math.random()*gegner.length);
           if (gegner[target] != undefined) {
-            gegner[target].damage(this.schaden*(1+this.buffStaerken[2]/100)*10, [this.effekt[0]], [this.effektStaerke[0]*5*(1+this.buffStaerken[2]/100)], [500*(1+this.buffStaerken[2]/100)], this.id);
+            if (Math.random()*100 < this.critChance) {
+              gegner[target].damage(this.schaden*(1+this.buffStaerken[2]/100)*10*this.critDamage, [this.effekt[0]], [this.effektStaerke[0]*5*(1+this.buffStaerken[2]/100)], [500*(1+this.buffStaerken[2]/100)], this.id, "red");
+            }
+            else {
+              gegner[target].damage(this.schaden*(1+this.buffStaerken[2]/100)*10, [this.effekt[0]], [this.effektStaerke[0]*5*(1+this.buffStaerken[2]/100)], [500*(1+this.buffStaerken[2]/100)], this.id);
+            }
           }
         }
       }
