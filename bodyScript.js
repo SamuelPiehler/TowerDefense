@@ -1216,6 +1216,7 @@ window.requestAnimationFrame(update);   //intervall für die spielupdates (50 ma
 
 //funktion für einen spieltick
 async function update() {
+  promise = [];
   updateFinish = false;
   if (!gamePause && wellenEnde != 0) {   //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
     for (var i = gegner.length-1; i >= 0; i--) {   //gegner tick
