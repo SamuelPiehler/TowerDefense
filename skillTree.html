@@ -363,15 +363,29 @@
       showStats(false, pos.x-70, pos.y, document.getElementById("stats").id);
     }
     function haveRequired(nummer) {
-      var required = skills[nummer][7];   // sind genügend von benötigten skills geskillet
-      for (var i = 0; i < skills[nummer][6].length; i++) {
-        required -= skills[skills[nummer][6][i]][9];
-      }
-      if (required <= 0) {
+      if (Array.isArray(skills[nummer][7])) {
+        for (var i = 0; i < skills[nummer][7].length; i++) {
+          required = skills[nummer][7][i];
+          for (var j = 0; j < skills[nummer][6][i].length; j++) {
+            required -= skills[skills[nummer][6][i][j]][9];
+          }
+          if (required > 0) {
+            return false;
+          }
+        }
         return true;
       }
       else {
-        return false;
+        var required = skills[nummer][7];   // sind genügend von benötigten skills geskillet
+        for (var i = 0; i < skills[nummer][6].length; i++) {
+          required -= skills[skills[nummer][6][i]][9];
+        }
+        if (required <= 0) {
+          return true;
+        }
+        else {
+          return false;
+        }
       }
     }
     function showStats(useThis = false, x = 0, y = 0, id = "") {

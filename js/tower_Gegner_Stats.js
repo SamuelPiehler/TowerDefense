@@ -36,5 +36,3 @@ gegnertypen.push(['Bilder/Gegner/gegner13Shield.png', 650 , 1.6, [12], [[40, 140
 gegnertypen.push(['Bilder/Gegner/gegner14TowerSlow.png', 750, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 15 , 5]); //14 slowed die Türme in 350 reichweite um 5% und stunned alle 5 sec einen turm in 140 reichweite für 1 sec
 gegnertypen.push(['Bilder/Gegner/gegner15Boss2.png', 2000, 0.8, [], [], 30 , 15]); //15 Boss2
 gegnertypen.push(['Bilder/Gegner/gegner16Boss3.png', 2500, 0.7, [8], [[1500, 8]], 35, 15]); // 16 Boss3 spawnt alle 15 sec gegner 8 (heiler)
-
-var skillPunkteBeiSchwierigkeit = [0, 2, 5, 9, 15, 25];
