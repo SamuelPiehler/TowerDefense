@@ -175,7 +175,7 @@ function Gegner(id, typ, localLebenMult){
       else {
         this.letztesFeuer = roundTime;
       }
-      this.damage(effektStaerken[2]/2, [], [], [], effektUrsprung[2], "red", true);   //füge schaden für feuertick zu
+      this.damage(effektStaerken[2]/2, [], [], [], effektUrsprung[2], "orange", true);   //füge schaden für feuertick zu
       if (this.leben <= 0) {
         return;   //beende tick wenn gegner tot
       }
@@ -319,7 +319,7 @@ function Gegner(id, typ, localLebenMult){
         if (gegner[this.shieldedFrom[i]] != undefined) {
           gegner[this.shieldedFrom[i]].shieldAmount -= points;
           if (points > 0) { //erzeuge schadensanzeige
-            numbers("⛨ "+ points, this.posx, this.posy, "yellow");
+            numbers("⛨ "+ round(points, 3), this.posx, this.posy, "yellow");
           }
           if (gegner[this.shieldedFrom[i]].shieldAmount <= 0) {
             points = -gegner[this.shieldedFrom[i]].shieldAmount;
@@ -399,6 +399,9 @@ function Gegner(id, typ, localLebenMult){
       switch (effekt[0]) {
         case 0:
           anzeige = "❄";
+          if (points !== 0) {
+            anzeige += " " + points;
+          }
           farbe = "#7070ff";
           break;
         case 1:
@@ -420,13 +423,16 @@ function Gegner(id, typ, localLebenMult){
           anzeige = "▼ " + anzeige;
           break;
         case "red":
+          anzeige = "▼ " + anzeige;
+          break;
+        case "orange":
           anzeige = "🔥 " + anzeige;
           break;
         case "green":
           anzeige = "🕱 " + anzeige;
           break;
       }
-      if (points !== 0 && anzeige !== "🛑") { //erzeuge schadensanzeige
+      if (points !== 0 || (anzeige === "🛑" || anzeige === "❄")) { //erzeuge schadensanzeige
         numbers(anzeige, this.posx, this.posy, farbe);
       }
       for (var i = 0; i < effekt.length; i++) { //wurden beim schaden effeckte mitgegeben wurde

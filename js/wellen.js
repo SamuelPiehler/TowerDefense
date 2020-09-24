@@ -165,7 +165,7 @@ var gegnerWellen = [
   [13, lebenMult, 5, 1, 2.5], // 100 Gold
   [14, lebenMult, 5, 0.2, -1], //  100 Gold
   //37
-  [0,  lebenMult +=1.0, 12, 1, 1],  // 12 Gold
+  [0,  lebenMult +=0.5, 12, 1, 1],  // 12 Gold
   [7,  lebenMult, 7, 2, 0.5], // 140 Gold
   [3,  lebenMult, 10, 3, 1.2], // 40 Gold
   [5,  lebenMult, 12, 2, 1.5], // 65 Gold
@@ -173,7 +173,7 @@ var gegnerWellen = [
   [12, lebenMult, 10, 1, 1.5], //  140 Gold
   [13, lebenMult, 10, 2, -1], //200  Gold
   //38
-  [3,  lebenMult +=1.0, 12, 2, 1], // 48 Gold
+  [3,  lebenMult +=0.5, 12, 2, 1], // 48 Gold
   [5,  lebenMult, 13, 1, 1.5], // 65  Gold
   [8,  lebenMult, 15, 2, 0.5], // 150 Gold
   [9,  lebenMult, 5, 4, 2.5], // 75 Gold
@@ -185,7 +185,7 @@ var gegnerWellen = [
   [13,  lebenMult, 5, 3, 0],//  100 Gold
   [12,  lebenMult, 5, 3, -1],//  70 Gold
   //40
-  [2,   lebenMult -=0.5 , 15  , 1, 2], //30 Gold
+  [2,   lebenMult +=0.5, 15, 1, 2], //30 Gold
   [4,   lebenMult, 15, 0.5, 2.5],// 120 Gold
   [6,   lebenMult, 15, 0.5, 1.7],// 375 Gold
   [8,   lebenMult, 5, 0.5, 1.9],// 150 Gold
