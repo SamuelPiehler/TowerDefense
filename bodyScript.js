@@ -3,7 +3,6 @@ var size = Math.floor(resizekoords(map[0].length, map.length));
 var TCN = new TextCanvas();
 const queue = new UpdateQueue();
 queue.queue.push(TCN);
-queue.start();
 //Canvas in dem alle Gegner Angezeigt werden
 var gegnerBild = document.createElement('canvas');
 document.body.appendChild(gegnerBild);
@@ -461,8 +460,11 @@ function save() {
   }
 }
 
-//warte bis bild geladen und zeichne es dann (um this. variablen für onload vorzubereiten weil this.bei onload eine andere bedeutung hat)
 function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 = undefined, bildSize = size) {
+  promise.push(new Promise((resolve, reject) => {ladeBildPromise(resolve, reject, src, canvas, richtung, clear, x, y, richtung2, bildSize)}));
+}
+//warte bis bild geladen und zeichne es dann (um this. variablen für onload vorzubereiten weil this.bei onload eine andere bedeutung hat)
+async function ladeBildPromise(resolve, reject, src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 = undefined, bildSize = size) {
   if (bildBuffer[src] == undefined) {     //wenn das bild noch nicht im buffer
     bildBuffer[src] = document.createElement('canvas');   //erzeuge neues kanvas im buffer in dem das bild dann abgespeichert wird
     bildBuffer[src].width = 70;
@@ -477,12 +479,13 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
           item();
         });
         waitForBildLoad = [];
-        if (updateFinish && !spielEnde) {
-          window.requestAnimationFrame(update);
-        }
+        // if (updateFinish && !spielEnde) {
+        //   window.requestAnimationFrame(update);
+        // }
         scriptLoaded++;
       }
       loading--;    //gibt an das ein weiteres bufferbild fertig geladen hat
+      resolve();
     };
     bild.src = src;
     bild.onerror = function () {
@@ -497,6 +500,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
         }
       }
       loading--;    //gibt an das ein weiteres bufferbild fertig geladen hat
+      reject();
     };
   }
   else {
@@ -506,6 +510,7 @@ function ladeBild(src, canvas, richtung, clear = false, x = 0, y = 0, richtung2 
     else {    //wenn buffer gerade ein neues bild läd warte bis dieser fertig ist und zeichne das bild erst dann
       waitForBildLoad.push(function(){zeicheBild(canvas, bildBuffer[src], richtung, clear, x, y, richtung2, bildSize)});
     }
+    resolve();
   }
 }
 
@@ -1210,7 +1215,7 @@ function addGeld(amount) {
 window.requestAnimationFrame(update);   //intervall für die spielupdates (50 mal in der sec)
 
 //funktion für einen spieltick
-function update() {
+async function update() {
   updateFinish = false;
   if (!gamePause && wellenEnde != 0) {   //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
     for (var i = gegner.length-1; i >= 0; i--) {   //gegner tick
@@ -1289,12 +1294,14 @@ function update() {
       }
     }
   }
-  if (loading == 0 && !spielEnde) {
-    window.requestAnimationFrame(update);
-  }
-  else {
-    updateFinish = true;
-  }
+  Promise.all(promise).then(() => {window.requestAnimationFrame(update);});
+  queue.update();
+  // if (loading == 0 && !spielEnde) {
+  //   window.requestAnimationFrame(update);
+  // }
+  // else {
+  //   updateFinish = true;
+  // }
 }
 
 function addCompletedMap() {
@@ -1357,9 +1364,7 @@ function UpdateQueue() {
   this.update = () => {
     this.delta.step();
     this.queue.forEach(item => item.update());
-    window.requestAnimationFrame(this.update);
   };
-  this.start = () => window.requestAnimationFrame(this.update);
 }
 
 function Delta() {

@@ -6,7 +6,7 @@ const skills = [
   ["BasicTurm Reichweite", "Erhöht die Reichweite von BasicTürmen um 7,5%", 0, 4, 3, true, [], 0, 10, 0, 1],    //2
   ["BasicTurm drehGeschw", "Erhöht die drehGeschwindigkeit von BasicTürmen um 7,5%", 0, 3, 3, true, [], 0, 10, 0, 1],    //3
   ["BasicTurm critChance", "Erhöht die critChance von BasicTürmen um 5%", 0, 13, 2, false, [0], 1, 20, 0, 1],    //4
-  ["BasicTurm critDamage", "Erhöht den CritSchaden von BasicTürmen um 10%", 0, 2, 10, false, [4], 5, 10, 0, 1],   //5
+  ["BasicTurm critDamage", "Erhöht den CritSchaden von BasicTürmen um 10%", 0, 14, 10, false, [4], 5, 10, 0, 1],   //5
   ,   //6
   ,   //7
   ["Basic St5", "Stufe 5 BasicTürme bekommen einen 2ten Lauf", 0, 12, true, 0, [123], 2, 1, 0, 5],   //8
@@ -38,7 +38,7 @@ const skills = [
   ["GiftTurm Attackspeed", "Reduziert die Angriffszeit von GiftTürmen um 5%", 3, 5, -2, true, [], 0, 5, 0, 1],   //31
   ["GiftTurm Reichweite", "Erhöht die Reichweite von GiftTürmen um 7,5%", 3, 4, 3, true, [], 0, 10, 0, 1],   //32
   ,   //33
-  ["GiftTurm critChance", "Erhöht die critChance von GiftTürmen um 5%", 3, 12, 2, true, [30], 5, 20, 0, 1],   //34
+  ["GiftTurm critChance", "Erhöht die critChance von GiftTürmen um 5%", 3, 13, 2, true, [30], 5, 20, 0, 1],   //34
   ["GiftTurm critDamage", "Erhöht den CritSchaden von GiftTürmen um 10%", 3, 14, 10, false, [34], 5, 10, 0, 1],    //35
   ["GiftTurm EffecktStärke", "Erhöht die GiftStärke von GiftTürmen um 5%", 3, 8, 2, true, [], 0, 10, 0, 1],    //36
   ["GiftTurm EffecktDauer", "Erhöht die GiftDauer von GiftTürmen um 5%", 3, 9, 3, true, [], 0, 10, 0, 1],    //37
@@ -49,7 +49,7 @@ const skills = [
   ["FeuerAoeTurm Attackspeed", "Reduziert die Angriffszeit von FeuerAoeTürmen um 5%", 4, 5, -2, true, [], 0, 5, 0, 2],   //41
   ["FeuerAoeTurm Reichweite", "Erhöht die Reichweite von FeuerAoeTürmen um 7,5%", 4, 4, 3, true, [], 0, 10, 0, 1],   //42
   ,   //43
-  ["FeuerAoeTurm critChance", "Erhöht die critChance von FeuerAoeTürmen um 5%", 4, 12, 2, true, [40], 5, 20, 0, 1],   //44
+  ["FeuerAoeTurm critChance", "Erhöht die critChance von FeuerAoeTürmen um 5%", 4, 13, 2, true, [40], 5, 20, 0, 1],   //44
   ["FeuerAoeTurm critDamage", "Erhöht den CritSchaden von FeuerAoeTürmen um 10%", 4, 14, 10, false, [44], 5, 10, 0, 1],    //45
   ["FeuerAoeTurm EffecktStärke", "Erhöht die FeuerStärke von FeuerAoeTürmen um 5%", 4, 8, 2, true, [], 0, 10, 0, 1],    //46
   ["FeuerAoeTurm EffecktDauer", "Erhöht die FeuerDauer von FeuerAoeTürmen um 5%", 4, 9, 3, true, [], 0, 10, 0, 1],    //47

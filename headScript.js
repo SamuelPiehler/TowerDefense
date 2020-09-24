@@ -8,6 +8,7 @@ var numberallsum = [35, 70];
 var maxHit = 0;
 //Startvariablen
 var spielEnde = false;
+var promise = [];
 var bildBuffer = [];
 var waitForBildLoad = [];
 var updateFinish = true;
