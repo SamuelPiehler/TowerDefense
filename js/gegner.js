@@ -319,7 +319,7 @@ function Gegner(id, typ, localLebenMult){
         if (gegner[this.shieldedFrom[i]] != undefined) {
           gegner[this.shieldedFrom[i]].shieldAmount -= points;
           if (points > 0) { //erzeuge schadensanzeige
-            numbers("⛨ "+ points, this.posx, this.posy, "yellow");
+            numbers("⛨ "+ round(points, 3), this.posx, this.posy, "yellow");
           }
           if (gegner[this.shieldedFrom[i]].shieldAmount <= 0) {
             points = -gegner[this.shieldedFrom[i]].shieldAmount;

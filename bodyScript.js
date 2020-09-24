@@ -331,50 +331,50 @@ function buildMapNeu() {
 }
 //
 //erzeuge mapbild
-function buildMap() {
-  for (var i = 0; i < map.length; i++) {  //mapzeile
-    for (var j = 0; j < map[i].length; j++) { //mapspalte
-      map[i][j][2] = document.createElement('canvas');
-      mapDiv.appendChild(map[i][j][2]);
-      map[i][j][2].width = size;
-      map[i][j][2].height = size;
-      map[i][j][2].style.position = 'absolute';
-      map[i][j][2].style.left = (size*j)+'px';
-      map[i][j][2].style.top = (size*i)+'px';
-      if (map[i][j][0] >= 1 && map[i][j][0] <= 4) {
-        ladeBild('Bilder/Map/weg1.jpg', map[i][j][2], 0);
-      }
-      else if (map[i][j][0] >= 5 && map[i][j][0] <= 8) {
-        ladeBild('Bilder/Map/start.png', map[i][j][2], 0);
-        start[0].push(i);
-        start[1].push(j);
-      }
-      else if (map[i][j][0] >= 9 && map[i][j][0] <= 12) {
-        ladeBild('Bilder/Map/ziel1.png', map[i][j][2], 0);
-      }
-      else if (map[i][j][0] == 0) {
-        ladeBild('Bilder/Map/feld1.jpg', map[i][j][2], 0);
-        map[i][j][2].name = j+','+i;
-        map[i][j][2].addEventListener('click', build);
-      }
-      else if (map[i][j][0] == -1) {
-        ladeBild('Bilder/Map/feld1.jpg', map[i][j][2], 0);
-        map[i][j][3] = document.createElement('canvas');
-        mapDiv.appendChild(map[i][j][3])
-        map[i][j][3].width = size;
-        map[i][j][3].height = size;
-        map[i][j][3].style.position = 'absolute';
-        map[i][j][3].style.left = (size*j)+'px';
-        map[i][j][3].style.top = (size*i)+'px';
-        var bildNummer = parseInt(Math.random()*3+1);
-        ladeBild('Bilder/Map/stein' + bildNummer + '.png', map[i][j][2], 0);
-      }
-      else if (map[i][j][0] == -2) {
-        ladeBild('Bilder/Map/weg1.jpg', map[i][j][2], 0);
-      }
-    }
-  }
-}
+// function buildMap() {
+//   for (var i = 0; i < map.length; i++) {  //mapzeile
+//     for (var j = 0; j < map[i].length; j++) { //mapspalte
+//       map[i][j][2] = document.createElement('canvas');
+//       mapDiv.appendChild(map[i][j][2]);
+//       map[i][j][2].width = size;
+//       map[i][j][2].height = size;
+//       map[i][j][2].style.position = 'absolute';
+//       map[i][j][2].style.left = (size*j)+'px';
+//       map[i][j][2].style.top = (size*i)+'px';
+//       if (map[i][j][0] >= 1 && map[i][j][0] <= 4) {
+//         ladeBild('Bilder/Map/weg1.jpg', map[i][j][2], 0);
+//       }
+//       else if (map[i][j][0] >= 5 && map[i][j][0] <= 8) {
+//         ladeBild('Bilder/Map/start.png', map[i][j][2], 0);
+//         start[0].push(i);
+//         start[1].push(j);
+//       }
+//       else if (map[i][j][0] >= 9 && map[i][j][0] <= 12) {
+//         ladeBild('Bilder/Map/ziel1.png', map[i][j][2], 0);
+//       }
+//       else if (map[i][j][0] == 0) {
+//         ladeBild('Bilder/Map/feld1.jpg', map[i][j][2], 0);
+//         map[i][j][2].name = j+','+i;
+//         map[i][j][2].addEventListener('click', build);
+//       }
+//       else if (map[i][j][0] == -1) {
+//         ladeBild('Bilder/Map/feld1.jpg', map[i][j][2], 0);
+//         map[i][j][3] = document.createElement('canvas');
+//         mapDiv.appendChild(map[i][j][3])
+//         map[i][j][3].width = size;
+//         map[i][j][3].height = size;
+//         map[i][j][3].style.position = 'absolute';
+//         map[i][j][3].style.left = (size*j)+'px';
+//         map[i][j][3].style.top = (size*i)+'px';
+//         var bildNummer = parseInt(Math.random()*3+1);
+//         ladeBild('Bilder/Map/stein' + bildNummer + '.png', map[i][j][2], 0);
+//       }
+//       else if (map[i][j][0] == -2) {
+//         ladeBild('Bilder/Map/weg1.jpg', map[i][j][2], 0);
+//       }
+//     }
+//   }
+// }
 
 function save() {
   var prüf1 = 0;
@@ -589,11 +589,11 @@ function showStats(evt, object) {
   }
   statFenster.innerHTML += `Preis: <span style="color: ${preisFarbe};" class="preisFarbe">${preis}</span><br>`;
   if (object.name != towertypen.length - 1) {
-    statFenster.innerHTML += "Damage: " + towertypen[object.name][2] + "<br>";
-    statFenster.innerHTML += "Nachladezeit: " + towertypen[object.name][5] + " sec <br>";
-    statFenster.innerHTML += "Reichweite: " + towertypen[object.name][4] + "<br>";
+    statFenster.innerHTML += "Damage: " + round(towertypen[object.name][2], 3) + "<br>";
+    statFenster.innerHTML += "Nachladezeit: " + round(towertypen[object.name][5], 3) + " sec <br>";
+    statFenster.innerHTML += "Reichweite: " + round(towertypen[object.name][4], 3) + "<br>";
     if (towertypen[object.name][3] != 0) {
-      statFenster.innerHTML += "Drehgeschwindigkeit: " + (towertypen[object.name][3]*100) + " Grad/sec <br>";
+      statFenster.innerHTML += "Drehgeschwindigkeit: " + round(towertypen[object.name][3]*100, 3) + " Grad/sec <br>";
     }
     else if (object.name == 9) {
       statFenster.innerHTML += "Buffed alle Türme in Reichweite! <br>";
@@ -604,41 +604,41 @@ function showStats(evt, object) {
     for (var i = 0; i < towertypen[object.name][7].length; i++) {   //hat der Turm zusatzefeckte
       switch (towertypen[object.name][7][i]) {
         case 0:
-          statFenster.innerHTML += "Verlangsamt Gegner auf die " + (1 / (towertypen[object.name][8][i] + 1)) + " fache Geschwindigkeit. <br>";
+          statFenster.innerHTML += "Verlangsamt Gegner auf die " + round(1 / (towertypen[object.name][8][i] + 1), 3) + " fache Geschwindigkeit. <br>";
           break;
         case 1:
           statFenster.innerHTML += "Stunned Gegner <br>";
           break;
         case 2:
-          statFenster.innerHTML += "Verbrennt Gegner für " + towertypen[object.name][8][i] + " Schaden/sec. <br>";
+          statFenster.innerHTML += "Verbrennt Gegner für " + round(towertypen[object.name][8][i], 3) + " Schaden/sec. <br>";
           break;
         case 3:
-          statFenster.innerHTML += "Vergiftet Gegner für " + towertypen[object.name][8][i] + " Schaden/sec. <br>";
+          statFenster.innerHTML += "Vergiftet Gegner für " + round(towertypen[object.name][8][i], 3) + " Schaden/sec. <br>";
           break;
         case 5:
-          statFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + towertypen[object.name][8][i] + " Schaden. <br>";
+          statFenster.innerHTML += "Trifft nahe Gegner zusätzlich für " + round(towertypen[object.name][8][i], 3) + " Schaden. <br>";
           break;
         case 6:
-          statFenster.innerHTML += "Springt zusätzlich bis zu " + towertypen[object.name][8][i] + " mal auf nahe Gegner über. <br>";
+          statFenster.innerHTML += "Springt zusätzlich bis zu " + round(towertypen[object.name][8][i], 3) + " mal auf nahe Gegner über. <br>";
           break;
         case 7:
-          statFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um " + towertypen[object.name][8][i] + "%. <br>";
+          statFenster.innerHTML += "Verbesstert den Damage von nahen Türmen um " + round(towertypen[object.name][8][i], 3) + "%. <br>";
           break;
         case 8:
-          statFenster.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + towertypen[object.name][8][i] + "%. <br>";
+          statFenster.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um " + round(towertypen[object.name][8][i], 3) + "%. <br>";
           break;
         case 9:
-          statFenster.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + towertypen[object.name][8][i] + "%. <br>";
+          statFenster.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um " + round(towertypen[object.name][8][i], 3) + "%. <br>";
           break;
         case 10:
-          statFenster.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + towertypen[object.name][8][i] + "%. <br>";
+          statFenster.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + round(towertypen[object.name][8][i], 3) + "%. <br>";
           break;
       }
       if (towertypen[object.name][7][i] >= 5 && towertypen[object.name][7][i] <= 9) {
-        statFenster.innerHTML += "Effektreichweite: " + towertypen[object.name][9][i] + " <br>";
+        statFenster.innerHTML += "Effektreichweite: " + round(towertypen[object.name][9][i], 3) + " <br>";
       }
       else {
-        statFenster.innerHTML += "Effektdauer: " + towertypen[object.name][9][i] + "sec <br>";
+        statFenster.innerHTML += "Effektdauer: " + round(towertypen[object.name][9][i], 3) + "sec <br>";
       }
     }
   }
