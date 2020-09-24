@@ -93,7 +93,7 @@ const skills = [
   ["LavaTurm Attackspeed", "Reduziert die Angriffszeit von LavaTürmen um 5%", 8, 5, -1, true, [80], 5, 5, 0, 2],    //81
   ["LavaTurm Reichweite", "Erhöht die Reichweite von LavaTürmen um 7,5%", 8, 4, 1.5, true, [], 0, 10, 0, 1],    //82
   ["LavaTurm drehGeschw", "Erhöht die drehGeschwindigkeit von LavaTürmen um 7,5%", 8, 3, 1.5, true, [], 0, 10, 0, 1],    //83
-  ["LavaTurm critChance", "Erhöht die critChance von LavaTürmen um 5%", 8, 13, 1, false, [80], 1, 10, 0, 1],    //84
+  ["LavaTurm critChance", "Erhöht die critChance von LavaTürmen um 5%", 8, 13, 1, false, [80], 1, 20, 0, 1],    //84
   ["LavaTurm critDamage", "Erhöht den CritSchaden von LavaTürmen um 10%", 8, 14, 10, false, [84], 5, 10, 0, 1],   //85
   ["LavaTurm EffecktStärke", "Erhöht den FeuerSchaden von LavaTürmen um 5%", 8, 8, 2, true, [], 0, 10, 0, 1],    //86
   ["LavaTurm EffecktReichweite", "Erhöht die FeuerReichweite von LavaTürmen um 5%", 8, 9, 3, true, [], 0, 10, 0, 1],    //87

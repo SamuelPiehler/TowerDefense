@@ -266,6 +266,7 @@ function tasteLosgelassen(evt) {
       break;
   }
 }
+
 //die maps werde nach dem  Neuen Formart  gelanden
 function buildMapNeu() {
   for (var i = 0; i < map.length; i++) {  //mapzeile

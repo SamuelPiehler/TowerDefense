@@ -284,6 +284,7 @@
     <script type="text/javascript">
     document.getElementById("skillPunkte").innerHTML = skillPunkte;
     var selected = -1;
+    var strg = false;
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {
         document.getElementById("tree").innerHTML += '<img id="0' + i + towertypen[i][10] + '" class="Skilltree" src="' + towertypen[i][1] + '">';
@@ -334,6 +335,9 @@
             skillPunkte -= skills[nummer][10]+skills[nummer][9];
             document.getElementById("skillPunkte").innerHTML = skillPunkte;
             skills[nummer][9]++;
+            if (strg) {
+              addSkillpunkt(uebergabewerte, element);
+            }
           }
         }
       }
@@ -351,6 +355,9 @@
           if (required) {
             skillPunkte += skills[nummer][10]+skills[nummer][9];
             document.getElementById("skillPunkte").innerHTML = skillPunkte;
+            if (strg) {
+              addSkillpunkt(uebergabewerte, element);
+            }
           }
           else {
             skills[nummer][9]++;
@@ -405,16 +412,16 @@
       document.getElementById("supportStats").hidden = true;
       if (towerTyp == 11) {
         document.getElementsByName("Turmname")[0].innerHTML = "Stats für alle Türme";
-        document.getElementsByName("Damge")[0].innerHTML = "+" + round(Math.pow(1+skills[110][4]/100, skills[110][9])-1, 2)+"%";
-        document.getElementsByName("critChance")[0].innerHTML = "+" + round(Math.pow(1+skills[114][4]/100, skills[114][9])-1, 2)+"%";
-        document.getElementsByName("critDamage")[0].innerHTML = "+" + round(Math.pow(1+skills[115][4]/100, skills[115][9])-1, 2)+"%";
-        document.getElementsByName("Angriffszeit")[0].innerHTML = round(1-Math.pow(1-skills[111][4]/100, skills[111][9]), 2)+"%";
-        document.getElementsByName("Reichweite")[0].innerHTML = "+" + round(Math.pow(1+skills[112][4]/100, skills[112][9])-1, 2)+"%";
-        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML = "+" + round(Math.pow(1+skills[113][4]/100, skills[113][9])-1, 2)+"%";
+        document.getElementsByName("Damge")[0].innerHTML = "+" + round(skills[110][4]*skills[110][9], 2)+"%";
+        document.getElementsByName("critChance")[0].innerHTML = "+" + round(skills[114][4]*skills[114][9], 2)+"%";
+        document.getElementsByName("critDamage")[0].innerHTML = "+" + round(skills[115][4]*skills[115][9], 2)+"%";
+        document.getElementsByName("Angriffszeit")[0].innerHTML = round(skills[111][4]*skills[111][9], 2)+"%";
+        document.getElementsByName("Reichweite")[0].innerHTML = "+" + round(skills[112][4]*skills[112][9], 2)+"%";
+        document.getElementsByName("Drehgeschwindigkeit")[0].innerHTML = "+" + round(skills[113][4]*skills[113][9], 2)+"%";
         document.getElementById('EffecktStärke').hidden = false;
         document.getElementById('EffecktDauer').hidden = false;
-        document.getElementById('EffecktStärke').childNodes[1].innerHTML = "EffecktStärke +" + round(Math.pow(1+skills[116][4]/100, skills[116][9])-1, 2)+"%";
-        document.getElementById('EffecktDauer').childNodes[1].innerHTML = "EffektDauer/EffecktReichweite +" + round(Math.pow(1+skills[117][4]/100, skills[117][9])-1, 2)+"%";
+        document.getElementById('EffecktStärke').childNodes[1].innerHTML = "EffecktStärke +" + round(skills[116][4]*skills[116][9], 2)+"%";
+        document.getElementById('EffecktDauer').childNodes[1].innerHTML = "EffektDauer/EffecktReichweite +" + round(skills[117][4]*skills[117][9], 2)+"%";
         document.getElementById('st5').hidden = true;
         document.getElementById('MaxStufe').hidden = false;
         document.getElementsByName('MaxStufe')[0].innerHTML = skills[123][9]+3;
@@ -619,6 +626,24 @@
           document.getElementById("stats").style.top = y + 'px';
           document.getElementById("stats").style.bottom = "auto";
         }
+      }
+    }
+    //frägt ab ob eine Tastatur Taste gedückt oder losgelassen wird
+    document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
+    document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
+
+    function tasteGedrueckt(evt) {
+      switch (evt.key) {
+        case "Control":
+          strg = true;
+          break;
+      }
+    }
+    function tasteLosgelassen(evt) {
+      switch (evt.key) {
+        case "Control":
+          strg = false;
+          break;
       }
     }
     </script>
