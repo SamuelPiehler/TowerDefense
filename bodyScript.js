@@ -1191,7 +1191,7 @@ function addGeld(amount) {
   if (amount > 0) {  //bekommt der spieler geld?
     elemente = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
     for (var i = 0; i < elemente.length; i++) {
-      if (elemente[i].innerHTML*1 <= geld) {
+      if (elemente[i].innerHTML * 1 <= geld) {
         elemente[i].style.color = "darkgreen";    //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
       }
     }
