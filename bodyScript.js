@@ -379,73 +379,80 @@ function save() {
   var prüf1 = 0;
   var prüf2 = 0;
   var prüf3 = 1;
-  var saveCode = nextChar(mapId);
-  saveCode += nextChar(schwierigkeit);
-  var leben1 = Math.floor(spielerLeben/Math.pow(94,1));
-  var leben0 = spielerLeben-leben1*Math.pow(94, 1);
-  saveCode += nextChar(leben1, leben0);
-  var geld2 = Math.floor(geld/Math.pow(94,2));
-  var geld1 = Math.floor((geld-geld2*Math.pow(94, 2))/Math.pow(94,1));
-  var geld0 = geld-geld2*Math.pow(94, 2)-geld1*Math.pow(94, 1);
-  saveCode += nextChar(geld2, geld1, geld0);
-  var welle1 = Math.floor(wellenNummer/Math.pow(94,1));
-  var welle0 = wellenNummer-welle1*Math.pow(94, 1);
-  saveCode += nextChar(welle1, welle0);
+  var saveCode = nextChars(mapId);
+  saveCode += nextChars(schwierigkeit);
+  // var leben1 = Math.floor(spielerLeben/Math.pow(94,1));
+  // var leben0 = spielerLeben-leben1*Math.pow(94, 1);
+  // saveCode += nextChar(leben1, leben0);
+  saveCode += nextChars(spielerLeben, 2)
+  // var geld2 = Math.floor(geld/Math.pow(94,2));
+  // var geld1 = Math.floor((geld-geld2*Math.pow(94, 2))/Math.pow(94,1));
+  // var geld0 = geld-geld2*Math.pow(94, 2)-geld1*Math.pow(94, 1);
+  // saveCode += nextChar(geld2, geld1, geld0);
+  saveCode += nextChars(geld, 3);
+  // var welle1 = Math.floor(wellenNummer/Math.pow(94,1));
+  // var welle0 = wellenNummer-welle1*Math.pow(94, 1);
+  // saveCode += nextChar(welle1, welle0);
+  saveCode += nextChars(wellenNummer, 2);
   for (var i = 0; i < tuerme.length; i++) {
     if (tuerme[i] == undefined) {
-      for (var j = 0; j < 21; j++) {
-        saveCode += nextChar(92-3*j);
+      for (var j = 0; j < 22; j++) {
+        saveCode += nextChars((92-3*j)%94);
       }
       continue;
     }
     if (tuerme[i].spezialisierung == undefined) {
-      saveCode += nextChar(93);
+      saveCode += nextChars(93);
     }
     else {
-      saveCode += nextChar(tuerme[i].spezialisierung*1);
+      saveCode += nextChars(tuerme[i].spezialisierung*1);
     }
-    saveCode += nextChar(tuerme[i].typ);
-    saveCode += nextChar(tuerme[i].upgradeStufe);
-    saveCode += nextChar(tuerme[i].posx/size);
-    saveCode += nextChar(tuerme[i].posy/size);
+    saveCode += nextChars(tuerme[i].typ);
+    saveCode += nextChars(tuerme[i].upgradeStufe);
+    saveCode += nextChars(tuerme[i].posx/size);
+    saveCode += nextChars(tuerme[i].posy/size);
     while (tuerme[i].richtung1 < 0) {
       tuerme[i].richtung1 += 360;
     }
     while (tuerme[i].richtung1 > 360) {
       tuerme[i].richtung1 -= 360;
     }
-    var richtung2 = Math.floor(tuerme[i].richtung/Math.pow(94,2));
-    var richtung1 = Math.floor((tuerme[i].richtung-richtung2*Math.pow(94, 2))/Math.pow(94,1));
-    var richtung0 = Math.floor(tuerme[i].richtung-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
-    saveCode += nextChar(richtung2, richtung1, richtung0);
+    // var richtung2 = Math.floor(tuerme[i].richtung/Math.pow(94,2));
+    // var richtung1 = Math.floor((tuerme[i].richtung-richtung2*Math.pow(94, 2))/Math.pow(94,1));
+    // var richtung0 = Math.floor(tuerme[i].richtung-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
+    // saveCode += nextChar(richtung2, richtung1, richtung0);
+    saveCode += nextChars(tuerme[i].richtung, 3);
     while (tuerme[i].richtung2 < 0) {
       tuerme[i].richtung2 += 360;
     }
     while (tuerme[i].richtung2 > 360) {
       tuerme[i].richtung2 -= 360;
     }
-    richtung2 = Math.floor(tuerme[i].richtung2*100/Math.pow(94,2));
-    richtung1 = Math.floor((tuerme[i].richtung2*100-richtung2*Math.pow(94, 2))/Math.pow(94,1));
-    richtung0 = Math.floor(tuerme[i].richtung2*100-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
-    saveCode += nextChar(richtung2, richtung1, richtung0);
-    saveCode += nextChar(tuerme[i].targetPrio);
-    var dmgDealed5 = Math.floor(tuerme[i].dmgDealed*100/Math.pow(94,5));
-    var dmgDealed4 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5))/Math.pow(94,4));
-    var dmgDealed3 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4))/Math.pow(94,3));
-    var dmgDealed2 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3))/Math.pow(94,2));
-    var dmgDealed1 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2))/Math.pow(94,1));
-    var dmgDealed0 = Math.floor(tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2)-dmgDealed1*Math.pow(94, 1));
-    saveCode += nextChar(dmgDealed5, dmgDealed4, dmgDealed3, dmgDealed2, dmgDealed1, dmgDealed0);
-    effecktStacks2 = Math.floor(tuerme[i].effecktStacks*100/Math.pow(94,2));
-    effecktStacks1 = Math.floor((tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2))/Math.pow(94,1));
-    effecktStacks0 = Math.floor(tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2)-effecktStacks1*Math.pow(94, 1));
-    saveCode += nextChar(effecktStacks2, effecktStacks1, effecktStacks0);
-    saveCode += nextChar(prüf2);
+    // richtung2 = Math.floor(tuerme[i].richtung2*100/Math.pow(94,2));
+    // richtung1 = Math.floor((tuerme[i].richtung2*100-richtung2*Math.pow(94, 2))/Math.pow(94,1));
+    // richtung0 = Math.floor(tuerme[i].richtung2*100-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
+    // saveCode += nextChar(richtung2, richtung1, richtung0);
+    saveCode += nextChars(tuerme[i].richtung2, 3);
+    saveCode += nextChars(tuerme[i].targetPrio);
+    // var dmgDealed5 = Math.floor(tuerme[i].dmgDealed*100/Math.pow(94,5));
+    // var dmgDealed4 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5))/Math.pow(94,4));
+    // var dmgDealed3 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4))/Math.pow(94,3));
+    // var dmgDealed2 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3))/Math.pow(94,2));
+    // var dmgDealed1 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2))/Math.pow(94,1));
+    // var dmgDealed0 = Math.floor(tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2)-dmgDealed1*Math.pow(94, 1));
+    // saveCode += nextChar(dmgDealed5, dmgDealed4, dmgDealed3, dmgDealed2, dmgDealed1, dmgDealed0);
+    saveCode += nextChars(tuerme[i].dmgDealed*100, 6);
+    // effecktStacks2 = Math.floor(tuerme[i].effecktStacks*100/Math.pow(94,2));
+    // effecktStacks1 = Math.floor((tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2))/Math.pow(94,1));
+    // effecktStacks0 = Math.floor(tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2)-effecktStacks1*Math.pow(94, 1));
+    // saveCode += nextChar(effecktStacks2, effecktStacks1, effecktStacks0);
+    saveCode += nextChars(tuerme[i].effecktStacks, 3);
+    saveCode += nextChars(prüf2);
   }
-  saveCode += nextChar(prüf1);
-  saveCode += nextChar(prüf3);
+  saveCode += nextChars(prüf1);
+  saveCode += nextChars(prüf3);
   localStorage.setItem('saveCode', saveCode);
-  function nextChar(...content) {
+  function nextChar(content) {
     var string = "";
     for (var i = 0; i < content.length; i++) {
       prüf3 *= content[i] + 1;
@@ -457,6 +464,35 @@ function save() {
       string += String.fromCharCode(33+content[i]);
     }
     return string;
+  }
+  function nextChars(content, amount = 1) {
+    amount--;
+    contentNumX = [];
+    for (var i = 0; i <= amount; i++) {
+      contentNumX[i] = content;
+      for (var j = 0; j < i; j++) {
+        contentNumX[i] -= contentNumX[j]*Math.pow(94, amount-j)
+      }
+      contentNumX[i] = contentNumX[i]/Math.pow(94,amount-i);
+      contentNumX[i] = Math.floor(contentNumX[i]);
+      if (contentNumX[i] > 93) {
+        console.log("zahl zu groß!!\n");
+        console.log(content + " = content\n");
+        console.log(amount + " = amount\n");
+        console.log(i + " = i\n");
+        console.log(contentNumX[i] + " = contentX\n");
+        contentNumX[i] = 93;
+      }
+      else if (contentNumX[i] < 0) {
+        console.log("zahl zu klein!!\n");
+        console.log(content + " = content\n");
+        console.log(amount + " = amount\n");
+        console.log(i + " = i\n");
+        console.log(contentNumX[i] + " = contentX\n");
+        contentNumX[i] = 0;
+      }
+    }
+    return nextChar(contentNumX);
   }
 }
 
