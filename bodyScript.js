@@ -1191,7 +1191,7 @@ function addGeld(amount) {
   if (amount > 0) {  //bekommt der spieler geld?
     elemente = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
     for (var i = 0; i < elemente.length; i++) {
-      if (elemente[i].innerHTML*1 <= geld) {
+      if (elemente[i].innerHTML * 1 <= geld) {
         elemente[i].style.color = "darkgreen";    //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
       }
     }
@@ -1216,6 +1216,7 @@ window.requestAnimationFrame(update);   //intervall für die spielupdates (50 ma
 
 //funktion für einen spieltick
 async function update() {
+  promise = [];
   updateFinish = false;
   if (!gamePause && wellenEnde != 0) {   //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
     for (var i = gegner.length-1; i >= 0; i--) {   //gegner tick
