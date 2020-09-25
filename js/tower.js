@@ -325,6 +325,9 @@ function Turm(posx, posy, typ, id, spezialisierung) {
         showUpgrade(this.canvasGeschütz, this.id);    //zeige geupdatetes upgradefenster
         document.getElementById("fehler"+this.id).hidden = true;    //verstecke fehleranzeige
       }
+      if (strg) {
+        this.upgrade();
+      }
     }
     else {    //zeige fehler nicht genug geld
       if (document.getElementById("fehler"+this.id) != null) {

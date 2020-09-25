@@ -128,7 +128,7 @@ const skills = [
   ["Turm drehGeschw", "Erhöht die drehGeschwindigkeit von Türmen um 7,5%", -1, 3, 3, true, [3, 13, 53, 63, 73, 83, 103], 15, 5, 0, 2],    //113
   ["Turm critChance", "Erhöht die critChance von Türmen um 5%", -1, 13, 2, false, [4, 14, 24, 34, 44, 54, 64, 74, 84, 104], 40, 10, 0, 2],    //114
   ["Turm critDamage", "Erhöht den CritSchaden von Türmen um 10%", -1, 14, 10, false, [5, 15, 25, 35, 45, 55, 65, 75, 85, 105], 15, 5, 0, 2],   //115
-  ["Turm EffecktStärke", "Erhöht die EffecktStärke von Türmen um 5%", -1, 8, 2, false, [26, 36, 46, 66, 76, 86, 90, 92, 94, 96], 30, 5, 0, 2],    //116
+  ["Turm EffecktStärke", "Erhöht die EffecktStärke von Türmen um 5%", -1, 8, 2, true, [26, 36, 46, 66, 76, 86, 90, 92, 94, 96], 30, 5, 0, 2],    //116
   ["Turm EffecktReichweite/Zeit", "Erhöht die EffecktReichweite von Türmen um 5%", -1, 9, 3, true, [27, 37, 47, 67, 77, 87, 91, 93, 95, 97], 30, 5, 0, 2],    //117
   ,   //118
   ,   //119

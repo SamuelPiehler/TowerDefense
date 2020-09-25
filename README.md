@@ -10,8 +10,8 @@ Nach jeder Gewonnenen Map erhält man Skillpnkte die im Skilltree ausgegben werd
 <br>
 Shortcuts: <br>
 Shift drücken beim Turmbau um den Turm mehrfach zu bauen. <br>
-Strg drücken beim Turmbau um Turm so weit wie möglich upzugraden. <br>
-Shift drücken beim upgraden um mehrmals Upgraden zu können: <br>
+Strg drücken um Turm so weit wie möglich upzugraden. <br>
+Shift drücken beim upgraden Upgradefenster offen zu halten: <br>
 Tasten 1-9 + 0 und ß um Turm zum Bau auszuwählen. <br>
 Space für Start/Pause <br>
 S um Spielgeschwindigkeit zu ändern <br>

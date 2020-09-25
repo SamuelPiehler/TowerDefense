@@ -495,9 +495,9 @@ async function ladeBildPromise(resolve, reject, src, canvas, richtung, clear = f
           item();
         });
         waitForBildLoad = [];
-        if (updateFinish && !spielEnde) {
-          window.requestAnimationFrame(update);
-        }
+        // if (updateFinish && !spielEnde) {
+        //   window.requestAnimationFrame(update);
+        // }
       }
       loading--;    //gibt an das ein weiteres bufferbild fertig geladen hat
       reject();
@@ -665,6 +665,7 @@ function showStats(evt, object) {
   else {
     statFenster.style.top = y+'px';
   }
+  geldAnzeige = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
 }
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
@@ -1099,9 +1100,7 @@ function build() {
               }
             });
             if (strg) {
-              for (var i = 0; i < maxUpgrade; i++) {
-                tuerme[number].upgrade();
-              }
+              tuerme[number].upgrade();
             }
             hideUpgrade(); //
           });
@@ -1189,10 +1188,9 @@ function spawn(typ, localLebenMult) {
 function addGeld(amount) {
   geld += amount;   //speichere neuen geld wert ab
   if (amount > 0) {  //bekommt der spieler geld?
-    elemente = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
-    for (var i = 0; i < elemente.length; i++) {
-      if (elemente[i].innerHTML * 1 <= geld) {
-        elemente[i].style.color = "darkgreen";    //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
+    for (var i = 0; i < geldAnzeige.length; i++) {
+      if (geldAnzeige[i].innerHTML * 1 <= geld) {
+        geldAnzeige[i].style.color = "darkgreen";    //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
       }
     }
   }
@@ -1201,10 +1199,9 @@ function addGeld(amount) {
       console.log("Zu wenig Geld!!!");
       geld = 0;
     }
-    elemente = document.getElementsByClassName("preisFarbe");   //lade alle anzeige objekte die sich auf einen preis beziehen
-    for (var i = 0; i < elemente.length; i++) {
-      if (elemente[i].innerHTML*1 > geld) {
-        elemente[i].style.color = "red";    //und wechsle die farbe auf rot wenn nach dem zahlen nun nicht mehr genug geld da ist um es sich zu leisten
+    for (var i = 0; i < geldAnzeige.length; i++) {
+      if (geldAnzeige[i].innerHTML*1 > geld) {
+        geldAnzeige[i].style.color = "red";    //und wechsle die farbe auf rot wenn nach dem zahlen nun nicht mehr genug geld da ist um es sich zu leisten
       }
     }
   }
@@ -1295,7 +1292,9 @@ async function update() {
       }
     }
   }
-  Promise.all(promise).then(() => {window.requestAnimationFrame(update);});
+  if (!spielEnde) {
+    Promise.all(promise).then(() => {window.requestAnimationFrame(update);});
+  }
   queue.update();
   // if (loading == 0 && !spielEnde) {
   //   window.requestAnimationFrame(update);
