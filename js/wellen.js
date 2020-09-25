@@ -302,7 +302,7 @@ var gegnerWellen = [
   [1 , lebenMult , 30, 2, 0.5 ],
   [8 , lebenMult , 30, 2, -1],  // Gold
   //52
-  [14, lebenMult ,1,  1, 1]
+  [14, lebenMult ,10,  1, 1],
   [5,  lebenMult ,29, 0.5, 2],
   [2,  lebenMult ,24, 1 , 1],
   [9, lebenMult  ,11, 1, 1],
@@ -362,7 +362,7 @@ var gegnerWellen = [
 [7, lebenMult, 52, 2.7, 2.8],
 [9, lebenMult, 56, 2.9, -1],
   //57
-  [0, lebenMult , 1, 1, -1],
+
   [6, lebenMult, 52 ,1 ,2 ],
   [7, lebenMult, 23 , 1, 1.9],
   [12, lebenMult, 41 ,1 ,1.8 ],
@@ -396,14 +396,21 @@ var gegnerWellen = [
   [7, lebenMult , 40, 1.8,   2],
   [13,lebenMult , 47, 2, -1],
   //60
-  [0, lebenMult , 1, 1, -1],
-[],
-[],
-[],
-[],
-[],
-[],
-[],
-[],
-  [],
+  [0, lebenMult ,100, 0.4, 2],
+  [1, lebenMult ,100, 0.5, 2.5],
+  [2, lebenMult ,100, 0.6, 2.5],
+  [3, lebenMult ,100, 0.7, 2.5],
+  [4, lebenMult ,100, 0.8, 2.5],
+  [5, lebenMult ,100, 0.9, 2.5],
+  [6, lebenMult ,100,   1, 2.5],
+  [7, lebenMult ,100, 1.1, 2.5],
+  [8, lebenMult ,100, 1.2, 2.5],
+  [9, lebenMult ,100, 1.3, 2.5],
+  [10,lebenMult ,100, 1.4, 2.5],
+  [11,lebenMult ,100, 1.5, 2.5],
+  [12,lebenMult ,100, 1.6, 2.5],
+  [13,lebenMult ,100, 1.7, 2.5],
+  [14,lebenMult ,100, 1.8, 2.5],
+  [15,lebenMult ,100, 1.9, 2.5],
+  [16,lebenMult ,100,   2, -1],
 ];
