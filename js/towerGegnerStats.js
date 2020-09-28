@@ -18,7 +18,7 @@ var orginalTowertypen = [
 var towertypen = copyObj(orginalTowertypen);
 
 var gegnertypen = [
-  //0 = Bild, 1 = Leben, 2 = Geschwindigkeit, 3 = Imunität/effekt, 4 = Imunität%/effecktstärke, 5 = GeldBeiKill, 6= Spielerschaden
+  //0 = Bild, 1 = Leben, 2 = Geschwindigkeit, 3 = Imunität/effekt, 4 = Imunität%/effecktstärke, 5 = GeldBeiKill, 6 = Spielerschaden
   ['Bilder/Gegner/gegner00Basic.png', 120, 0.8, [], [], 1, 1],   //0 Basic
   ['Bilder/Gegner/gegner01BonusHp.png', 240, 1, [], [], 2, 2],   //1 Basic mit etwas mehr Leben
   ['Bilder/Gegner/gegner02LangsamTank.png', 450, 0.6, [0], [50], 3, 2],  //2 Langsamer Gegner mit viel Leben slowimmunität

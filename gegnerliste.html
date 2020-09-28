@@ -3,118 +3,201 @@
   <head>
     <meta charset="utf-8">
     <title>Gegner liste </title>
-      <script src="js/tower_Gegner_Stats.js"></script>
-      <style media="screen">
-        body{
-           background-image: url(Bilder/Hintergrund/Bild002.jpg);
-          text-align: center;
-        }
-        .Gegner{
-          position: relative;
-          margin-left: calc((100vw - (80px * 5))/15);
-          margin-right: calc((100vw - (80px * 5))/15);
-          margin-top: 5%;
-          box-shadow: -5px -5px 5px blue , 5px 5px 5px blue , -5px 5px 5px white  , 5px -5px 5px white ;
-          border-radius: 5%;
-          background-color: gray;
-        }
-        h1{
-          color:red;
-        }
-        h2{
-        color:gray;
-        }
-      </style>
+    <link rel="stylesheet" href="css/tuerme_gegner.css">
+    <script src="js/importantFunktions.js"></script>
+    <script src="js/towerGegnerStats.js"></script>
   </head>
   <body>
-<h1>Gegenerstats</h1>
-<h2>Hier sind die Gegner mit stats </h2> <br>
+    <div class="btn-box">
+      <div></div>
+      <a class="btn" href="index.html">Back</a>
+    </div>
+    <div id="gegner">
+      <h1>Gegenerstats</h1>
+      <h3>
+        Drücke einen Gegner an um seine Genaues Stats zu sehen<br>
+        Achtung die Leben der gegner werden noch mit einem Wellenmultiplikator multipliziert <br>
+      </h3>
+    </div>
+    <div id="stats" hidden>
+      <img id="close" src="Bilder/icons/close.png" alt="">
+      <spwan name="Gegnername" id="name">Gegner</spwan><br>
+      <table>
+        <tr>
+          <td>Leben: </td>
+          <td>
+            <spwan id="leben"></spwan>
+          </td>
+        </tr>
+        <tr>
+          <td>Geschwindigkeit: </td>
+          <td>
+            <spwan  id="geschwindigkeit"></spwan>
+          </td>
+        </tr>
+        <tr id="immunitäten">
+          <td id="effeckt"></td>
+          <td id="effecktStärke"></td>
+        </tr>
+        <tr>
+          <td>Geldwert:</td>
+          <td>
+            <spwan id="geldwert"></spwan>
+          </td>
+        </tr>
+        <tr>
+          <td>Schaden: </td>
+          <td>
+            <spwan id="schaden"></spwan>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <script type="text/javascript">
+      var selected = -1;
+      for (var i = 0; i < gegnertypen.length; i++) {
+        document.getElementById("gegner").innerHTML += '<img id="' + i + '" class="Gegner" src="' + gegnertypen[i][0] + '">';
+      }
+      document.getElementById('close').addEventListener("click", close);
+      function close() {
+        document.getElementById("stats").hidden = true;
+      }
+      for (var i = 0; i < gegnertypen.length; i++) {
+        document.getElementById(i).addEventListener("click", showStats);
+      }
+      function showStats() {
+        var pos = this.getBoundingClientRect();
+        selected = this.id*1;
+        document.getElementById("stats").hidden = false;
+        switch (selected) {
+          case 6:
+            document.getElementById("name").innerHTML = "Boss1";
+            break;
+          case 15:
+            document.getElementById("name").innerHTML = "Boss2";
+            break;
+          case 16:
+            document.getElementById("name").innerHTML = "Boss3";
+            break;
+          default:
+            document.getElementById("name").innerHTML = "Gegner" + selected;
+        }
+        document.getElementById("leben").innerHTML = gegnertypen[selected][1];
+        document.getElementById("geschwindigkeit").innerHTML = gegnertypen[selected][2];
+        document.getElementById("geldwert").innerHTML = gegnertypen[selected][5];
+        document.getElementById("schaden").innerHTML = gegnertypen[selected][6];
+        if (gegnertypen[selected][3].length == 0) {
+          document.getElementById("immunitäten").hidden = true;
+        }
+        else {
+          document.getElementById("immunitäten").hidden = false;
+          document.getElementById("effeckt").innerHTML = "";
+          document.getElementById("effecktStärke").innerHTML = "";
+          for (var i = 0; i < gegnertypen[selected][3].length; i++) {
+            switch (gegnertypen[selected][3][i]) {
+              case 0:
+                document.getElementById("effeckt").innerHTML += "Slowimmunität<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + "%<br>";
+                break;
+              case 1:
+                document.getElementById("effeckt").innerHTML += "Stunimmunität<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + "%<br>";
+                break;
+              case 2:
+                document.getElementById("effeckt").innerHTML += "Feuerimmunität<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + "%<br>";
+                break;
+              case 3:
+                document.getElementById("effeckt").innerHTML += "Giftimmunität<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + "%<br>";
+                break;
+              case 5:
+                document.getElementById("effeckt").innerHTML += "Normaldefense<br>";
+                document.getElementById("effecktStärke").innerHTML += "-" + gegnertypen[selected][4][i] + "<br>";
+                break;
+              case 6:
+                document.getElementById("effeckt").innerHTML += "Normaldefense<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + "%<br>";
+                break;
+              case 7:
+                document.getElementById("effeckt").innerHTML += "Teilt sich beim Tod in <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + " mal Gegner 11<br>";
+                break;
+              case 8:
+                document.getElementById("effeckt").innerHTML += "Spawnt alle " + gegnertypen[selected][4][i][0]/100 + "sec<br>";
+                document.getElementById("effecktStärke").innerHTML += "Gegner " + gegnertypen[selected][4][i][1] + "<br>";
+                break;
+              case 9:
+                document.getElementById("effeckt").innerHTML += "Zieht Agro aller Türme auf<br>";
+                document.getElementById("effecktStärke").innerHTML += " sich<br>";
+                break;
+              case 10:
+                document.getElementById("effeckt").innerHTML += "Heilt alle Gegner um <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][2]+ "%<br>";
+                  document.getElementById("effeckt").innerHTML += "Cooldown<br>";
+                  document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0]/100 + " sec<br>";
+                  document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
+                  document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
+                break;
+              case 11:
+                document.getElementById("effeckt").innerHTML += "Bufft speed von nahen Gegnern um <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0] + "%<br>";
+                document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
+                break;
+              case 12:
+                document.getElementById("effeckt").innerHTML += "&nbsp;&nbsp;&nbsp;Schützt Gegner<br>";
+                document.getElementById("effecktStärke").innerHTML += " mit einem Schild&nbsp;&nbsp;&nbsp;&nbsp;<br>";
+                document.getElementById("effeckt").innerHTML += "Schildleben: <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0] + "% von eigene Hp<br>";
+                document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
+                break;
+              case 13:
+                document.getElementById("effeckt").innerHTML += "Slowed Türme um<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0] + "%<br>";
+                document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
+                break;
+              case 14:
+                document.getElementById("effeckt").innerHTML += "Stunned einen Turm für<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][2]/100 + "sec<br>";
+                document.getElementById("effeckt").innerHTML += "Cooldown<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0]/100 + " sec<br>";
+                document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
+                break;
+            }
+          }
+        }
+        document.getElementById("stats").style.top = '0px';
+        document.getElementById("stats").style.left = '0px';
+        document.getElementById("stats").style.bottom = "auto";
+        document.getElementById("stats").style.right = "auto";
+        if (pos.x + document.getElementById("stats").offsetWidth >= window.innerWidth * 0.98) {
+          if (document.getElementById("stats").offsetWidth < window.innerWidth * 0.96 - 50) {
+            document.getElementById("stats").style.left = pos.x - document.getElementById("stats").offsetWidth + 'px';
+            document.getElementById("stats").style.right = "auto";
+          }
+          else {
+            document.getElementById("stats").style.right = '0px';
+            document.getElementById("stats").style.left = "auto";
+          }
+        }
+        else {
+          document.getElementById("stats").style.left = pos.x + 50 + 'px';
+          document.getElementById("stats").style.right = "auto";
+        }
 
-<img class="Gegner "src="Bilder/Gegner/gegner00basic.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner01BonusHp.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner02LangsamTank.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner03Schnell.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner04Immunitaeten.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner05Giftimmun.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner06Boss1.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner07Agro.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner08Heiler.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner09SpawnTimer.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner10DethSplit.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner11DethSplit2.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner12SpeedBuff.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner13Shield.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner14TowerSlow.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner15Boss2.png" alt"">
-<img class="Gegner "src="Bilder/Gegner/gegner16Boss3.png" alt"">
-
-
-<div id="stats" hidden>
-  <img id="close" src="Bilder/icons/close.png" alt="">
-  <spwan name="Turmname" id="name"> </spwan><br>
-  <table>
-    <tr>
-      <td>leben  <spwan  name="leben"></spwan></td>
-      <td>
-        <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr>
-      <td>Immunität <spwan name="critChance"></spwan></td>
-      <td>
-      <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr>
-      <td>Geschwindigkeit  <spwan name="critDamage"></spwan></td>
-      <td>
-      <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr>
-      <td> <spwan name="Angriffszeit"></spwan></td>
-      <td>
-      <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr>
-      <td>Reichweite <spwan name="Reichweite"></spwan></td>
-      <td>
-      <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr id = "Drehgeschwindigkeit">
-      <td>Drehgeschwindigkeit <spwan name="Drehgeschwindigkeit"></spwan></td>
-      <td>
-      <spwan  name="Damge"></spwan>>
-      </td>
-    </tr>
-    <tr id = "EffecktStärke">
-      <td></td>
-      <td>
-      <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr id = "EffecktDauer">
-      <td></td>
-      <td>
-      <spwan  name="Damge"></spwan>>
-      </td>
-    </tr>
-    <tr id = "st5">
-      <td>stufe5 unlockt <spwan name="Stufe5unlockt"></spwan></td>
-      <td>
-        <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-    <tr id = "MaxStufe">
-      <td>Maximale TurmStufe <spwan name="MaxStufe"></spwan></td>
-      <td>
-      <spwan  name="Damge"></spwan>
-      </td>
-    </tr>
-  </table>
-</div>
-
+        if (pos.y + document.getElementById("stats").offsetHeight >= window.innerHeight * 0.98) {
+          document.getElementById("stats").style.bottom = '0px';
+          document.getElementById("stats").style.top = "auto";
+        }
+        else {
+          document.getElementById("stats").style.top = pos.y + 'px';
+          document.getElementById("stats").style.bottom = "auto";
+        }
+      }
+    </script>
   </body>
 </html>

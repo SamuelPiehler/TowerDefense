@@ -2,86 +2,10 @@
 <html lang="en">
   <head>
     <title>Skilltree</title>
-    <script src="js\importantFunktions.js"></script>
-    <script src="js/tower_Gegner_Stats.js"></script>
+    <link rel="stylesheet" href="css/tuerme_gegner.css">
+    <script src="js/importantFunktions.js"></script>
+    <script src="js/towerGegnerStats.js"></script>
     <script src="js/skills.js"></script>
-    <style>
-      h1{
-        color: red;
-      }
-      h2{
-        color:#bcbbbf ;
-      }
-      h3{
-        color: gray ;
-      }
-      body{
-        background-image: url(Bilder/Hintergrund/Bild002.jpg);
-        text-align: center;
-        user-select: None;
-      }
-      .Skilltree{
-        position: relative;
-        margin-left: calc((100vw - (80px * 5))/15);
-        margin-right: calc((100vw - (80px * 5))/15);
-        margin-top: 5%;
-        box-shadow: -5px -5px 5px blue , 5px 5px 5px blue , -5px 5px 5px white  , 5px -5px 5px white ;
-        border-radius: 5%;
-        background-color: gray;
-      }
-      a.btn-skill {
-        text-decoration: none;
-        text-transform: uppercase;
-        color: #4FD78D;
-        background: #28636D;
-        padding: 7px 6px;
-        min-width: 30px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        font-size: 0.9em;
-        border: #4FD78D solid 1px;
-        box-shadow: 0px 0px 5px #4fd78d, 0px 0px 5px #4fd78d, 0px 0px 5px #4fd78d, 0px 0px 5px #4fd78d;
-        border-radius: 5px;
-        transition: 0.5s;
-        filter: brightness(1) contrast(100%);
-        /*
-        margin-right: calc(95vw - 21px);
-        border-radius: 20%;
-        margin-top: 10px
-        */
-      }
-      a.btn-skill:hover {
-        filter: brightness(1.5) contrast(150%);
-      }
-      .btn-box {
-        position: fixed;
-        left: 0;
-        top: 0;
-        margin: 20px;
-        width: calc(100% - 40px);
-        display: flex;
-        flex-flow: row;
-        justify-content: space-between;
-      }
-      #stats{
-        background: linear-gradient(200deg,#6de3a2, #A36BFF);
-        position: absolute;
-        top: 30px;
-        left: 30px;
-        border: 10px;
-        border-color: black;
-        border-style: double;
-        border-radius: 5px ;
-      }
-      #close{
-        position: absolute;
-        top: 0px;
-        right: 0px;
-      }
-      #name{
-        font-size: 2em;
-      }
-    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -89,14 +13,16 @@
   </head>
   <body>
     <div class="btn-box">
-      <a class="btn-skill" id="reset" href="javascript:">Reset</a>
-      <a class="btn-skill" href="index.html">Back</a>
+      <a class="btn" id="reset" href="javascript:">Reset</a>
+      <a class="btn" href="index.html">Back</a>
     </div>
     <div id="tree">
       <h1>Skilltree</h1> <br>
       <h2>Du hast <span id="skillPunkte"></span> skillpunkte</h2> <br>
-      <h3>Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
-      Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br></h3>
+      <h3>
+        Klicke auf einen Turm um seine Werte zu sehen und zu verbessern. <br>
+        Klicke auf das Fragezeichen um die Werte aller Türme zu verbessern. <br> <br>
+      </h3>
     </div>
     <div id="stats" hidden>
       <img id="close" src="Bilder/Icons/close.png" alt="">
@@ -193,10 +119,6 @@
           </td>
         </tr>
       </table>
-
-
-
-
       <table id="supportStats">
         <tr>
           <td>Verbesstert den Damage von nahen Türmen um <span class="Effeckt"></span>%</td>
@@ -305,7 +227,6 @@
         document.getElementById(i + towertypen[i][10]).addEventListener("click", showStats);
       }
     }
-    document.getElementById('close').addEventListener("click", close);
     for (var i = 0; i < document.getElementsByName("buttons").length; i++) {
       neuerEventlistener(document.getElementsByName("plus")[i], addSkillpunkt, [i, true]);
       neuerEventlistener(document.getElementsByName("minus")[i], addSkillpunkt, [i, false]);
@@ -317,9 +238,11 @@
     function neuerEventlistener(element, funktion, uebergabewerte) {
       element.addEventListener("click", function(){funktion(uebergabewerte, element);});
     }
+    document.getElementById('close').addEventListener("click", close);
     function close() {
       document.getElementById("stats").hidden = true;
     }
+
     function addSkillpunkt(uebergabewerte, element) {
       typ = uebergabewerte[0];
       plus = uebergabewerte[1];
