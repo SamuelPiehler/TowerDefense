@@ -877,7 +877,7 @@ function showUpgrade(object, id) {
               upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 5% Effecktbuff und 37,5 Reichweite</span><br>";
               break;
             case 3:
-              upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 12,5% Reichweitenbuff und 75 Reichweite</span><br>";
+              upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 7,5% Reichweitenbuff und 50 Reichweite</span><br>";
               break;
           }
           break;
