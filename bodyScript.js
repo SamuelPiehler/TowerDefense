@@ -1419,6 +1419,13 @@ function addCompletedMap() {
     saveSkillTree()
   }
   localStorage.setItem('completedMaps', JSON.stringify(completedMaps));
+  flawlessMaps = loadCompletedMaps();
+  if (flawlessMaps[mapId-1] < schwierigkeit) {
+    skillPunkte += skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[flawlessMaps[mapId-1]];
+    flawlessMaps[mapId-1] = schwierigkeit;
+    saveSkillTree()
+  }
+  localStorage.setItem('flawlessMaps', JSON.stringify(flawlessMaps));
 }
 
 function loadCompletedMaps() {
@@ -1437,6 +1444,24 @@ function loadCompletedMaps() {
     completedMaps[i] = 0;
   }
   return completedMaps;
+}
+
+function loadFlawlessMaps() {
+  var flawlessMapsString = localStorage.getItem('flawlessMaps');
+  if (flawlessMapsString != null) {
+    var flawlessMaps = JSON.parse(flawlessMapsString);
+    if (anzahlMaps < flawlessMaps.length) {
+      console.log("fehlerhafter flawlessMapsString");
+      return;
+    }
+  }
+  else {
+    flawlessMaps = [];
+  }
+  for (var i = flawlessMaps.length; i < anzahlMaps; i++) {
+    flawlessMaps[i] = 0;
+  }
+  return flawlessMaps;
 }
 
 //zeichne gegner
