@@ -252,7 +252,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
             case 1:   //sniper  trifft alle gegner in der linie
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
-            case 2:   //slow permanenter slowstack auf gegner max 100 stacks = speed/1.25
+            case 2:   //slow permanenter slowstack auf gegner
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               this.effekt.push(4);
               this.effektStaerke.push(0.005);
@@ -289,8 +289,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 9:   //Support
-              this.effektStaerke[0] += towertypen[9][8][this.effekt[0]-7]*0.5;
-              this.effektTime[0] += towertypen[9][9][this.effekt[0]-7]*0.5;
+              this.effektStaerke[0] += orginalTowertypen[9][8][this.effekt[0]-7]*0.5;
+              this.effektTime[0] += orginalTowertypen[9][9][this.effekt[0]-7]*0.5;
               this.reichweite = this.effektTime[0];
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               switch (spezialisierung*1) {
@@ -423,7 +423,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               if ((this.richtung < 180 && a * (-size/2-this.posx) + this.posy < -size/2) || (this.richtung > 180 && a * (size * map[0].length - size/2 - this.posx) + this.posy < -size/2)) {//falsch   //add bullet mit endpunkt (f(x)|0)
                 bullet(this.posx, this.posy, (-size/2-this.posy)/a + this.posx, - size/2, 100/gameSpeed);   //add bullet mit endpunkt f(x) = -size/2
               }
-              else if ((this.richtung < 180 && a * (-size/2 - this.posx) + this.posy > size * map.length - size/2) || (this.richtung > 180 && a * (size * map[0].length + this.posx) + this.posy > size * map.length-size/2)) {//falsch   //add bullet mit endpunkt (f(x)|MapHight)
+              else if ((this.richtung < 180 && a * (-size/2 - this.posx) + this.posy > size * map.length - size/2) || (this.richtung > 180 && a * (size * map[0].length - size/2 - this.posx) + this.posy > size * map.length-size/2)) {   //add bullet mit endpunkt (f(x)|MapHight)
+                console.log(this.richtung);
                 bullet(this.posx, this.posy, (size*map.length-size/2-this.posy)/a + this.posx, size * map.length - size/2, 100/gameSpeed);   //add bullet mit endpunkt f(x) = mapy -size/2
               }
               else {

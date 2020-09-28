@@ -745,6 +745,7 @@ function showUpgrade(object, id) {
   var x = tuerme[id].posx + 75;
   var y = tuerme[id].posy + 110;
   upgradeFenster.style.backgroundColor  = '#d5d0ffd0';
+  upgradeFenster.style.maxWidth  = '400px';
   upgradeFenster.style.zIndex = 10;
   upgradeFenster.innerHTML += towertypen[typ][10] + "<br>";
   if (tuerme[id].upgradeStufe < maxUpgrade) {   //ist der Turm auf der maximalen upgradestufe
@@ -819,7 +820,7 @@ function showUpgrade(object, id) {
           upgradeFenster.innerHTML += "Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " <span style='color: #ff0000'>+" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
           break;
         case 9:
-          upgradeFenster.innerHTML += "Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
+          upgradeFenster.innerHTML += "Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
           break;
         case 10:
           upgradeFenster.innerHTML += "Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um (" + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + "<span style='color: #ff0000'> +" + round(towertypen[typ][8][tuerme[id].effekt[i]-7]*0.1*(1+tuerme[id].buffStaerken[2]/100), 3) + " </span>)%. <br>";
@@ -834,7 +835,58 @@ function showUpgrade(object, id) {
         upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i]/100*(1+tuerme[id].buffStaerken[2]/100), 4) + "<span style='color: #ff0000'> +" + round(towertypen[typ][9][i]*0.1*(1+tuerme[id].buffStaerken[2]/100), 4) + " </span> sec <br>";
       }
     }
-    if (tuerme[id].typ != 2) {
+    if (tuerme[id].upgradeStufe == maxUpgrade - 1 && towertypen[typ][12]) {   //wenn nächste stufe spezial upgrade
+      upgradeFenster.innerHTML += "Turm Stufe 5 Spezialupgrade:<br>";
+      switch (typ) {
+        case 0:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält einen zweiten Lauf und zusätzliche 10 Reichweite</span><br>";
+          break;
+        case 1:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm kann dann durch Gegner hindurchschiesen und Trifft alle Gegner in einer Linie mit leich reduziertem Schaden je mehr Gegner vor im in der Linie sind</span><br>";
+          break;
+        case 2:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält einen zusätzlichen permanenten Slow von 0,5% der sich bis zu 50% hochstacken kann (Stacked additiv)</span><br>";
+          break;
+        case 3:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält ein Stackbares Gift</span><br>";
+          break;
+        case 4:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich eine 30% Chance einen zufälligen Gegner auf der Map mit 10fachem Feuerschaden und 5fachen Tickschaden anzugreifen</span><br>";
+          break;
+        case 5:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 100 Schaden je Hit auf den Selben Gegner außerdem versucht er nun immer den Gleichen Gegner anzugreifen und bekommt eine Stunzeit von 1,2 sec</span><br>";
+          break;
+        case 6:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält einen Stunn der alle Gegner im Explosionsradius für 0,25 Sekunden stunnt</span><br>";
+          break;
+        case 7:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält doppelten Schaden, doppelten Tickschaden und verliert dafür 33% der Effecktzeit</span><br>";
+          break;
+        case 8:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält doppelten Schaden, doppelten Tickschaden und verliert dafür 33% der Effecktzeit</span><br>";
+          break;
+        case 9:
+          switch (tuerme[id].spezialisierung) {
+            case 0:
+              upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 6,25% Damagebuff und 37,5 Reichweite</span><br>";
+              break;
+            case 1:
+              upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 5% Attackspeedbuff und 37,5 Reichweite</span><br>";
+              break;
+            case 2:
+              upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 5% Effecktbuff und 37,5 Reichweite</span><br>";
+              break;
+            case 3:
+              upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält zusätzlich 12,5% Reichweitenbuff und 75 Reichweite</span><br>";
+              break;
+          }
+          break;
+        case 10:
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Angriff vom Turm kann doppelt so oft Überspringen</span><br>";
+          break;
+      }
+    }
+    if (typ != 2) {
       upgradeFenster.innerHTML += "Verursachter Schaden: " + round(tuerme[id].dmgDealed, 3) + "<br>";
     }
     else {
@@ -919,11 +971,30 @@ function showUpgrade(object, id) {
           upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i]*(1+tuerme[id].buffStaerken[2]/100), 3) + " Schaden/sec (kann mit Gift von anderen Türmen stacken). <br>";
           break;
       }
-      if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 10) {
+      if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 11) {
         upgradeFenster.innerHTML += "Effektreichweite: " + round(tuerme[id].effektTime[i]*(1+tuerme[id].buffStaerken[2]/100), 4) + " <br>";
       }
-      else {
+      else if (tuerme[id].effekt[i] != 4) {
         upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i]/100*(1+tuerme[id].buffStaerken[2]/100), 4) + " sec <br>";
+      }
+    }
+    if (towertypen[typ][12]) {
+      switch (typ) {
+        case 0:
+          upgradeFenster.innerHTML += "Der Turm hat 2 Läufe<br>";
+          break;
+        case 1:
+          upgradeFenster.innerHTML += "Der Turm kann durch Gegner hindurchschiesen und Trifft alle Gegner in einer Linie mit leich reduziertem Schaden je mehr Gegner vor im in der Linie sind<br>";
+          break;
+        case 2:
+          upgradeFenster.innerHTML += "Der Turm hat einen zusätzlichen permanenten Slow von 0,5% der sich bis zu Speed 50% hochstacken kann (Stacked additiv)<br>";
+          break;
+        case 4:
+          upgradeFenster.innerHTML += "Der Turm hat zusätzlich eine 30% Chance einen zufälligen Gegner auf der Map mit 10fachem Feuerschaden und 5fachen Tickschaden anzugreifen<br>";
+          break;
+        case 5:
+          upgradeFenster.innerHTML += "Der Turm hat zusätzlich 100 Schaden je Hit auf den Selben Gegner außerdem versucht er nun immer den Gleichen Gegner anzugreifen<br>";
+          break;
       }
     }
     if (tuerme[id].typ != 2) {
@@ -981,7 +1052,7 @@ function showUpgrade(object, id) {
   var upgradeFehlerDiv = document.createElement("div");   //anzeige wenn evrsucht wird den turm upzugraden aber nicht genug geld vorhanden ist
   upgradeFehlerDiv.id = "fehler"+id;
   upgradeFehlerDiv.color = "red";
-  upgradeFehlerDiv.innerHTML = "<span style='color: #ff0000>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</span>";
+  upgradeFehlerDiv.innerHTML = "<span style='color: #ff0000'>Sie haben nicht genug Geld, <br>um diesen Turm upzugraden</span>";
   upgradeFenster.appendChild(upgradeFehlerDiv);
   upgradeFehlerDiv.hidden = true;
 
