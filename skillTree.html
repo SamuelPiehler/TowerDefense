@@ -16,9 +16,9 @@
         color: gray ;
       }
       body{
-        /*background: radial-gradient(circle , #3DB7FF 20%, #FFFFFF 80%);*/
-         background-image: url(Bilder/Hintergrund/Bild002.jpg);
+        background-image: url(Bilder/Hintergrund/Bild002.jpg);
         text-align: center;
+        user-select: None;
       }
       .Skilltree{
         position: relative;
@@ -636,6 +636,9 @@
       switch (evt.key) {
         case "Control":
           strg = true;
+          break;
+        case "Escape":
+          document.getElementById("stats").hidden = true;
           break;
       }
     }
