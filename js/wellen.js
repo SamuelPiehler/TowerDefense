@@ -4,88 +4,91 @@ var gegnerWellen = [
   //liste aller teilwellen
   //0 = Gegnertyp, 1 = Lebenmult, 2 = Anzahl, 3 = ZeitZwischenGegnern, 4 = ZeitBisZurNächstenTeilwelle(-1 für WellenEnde)
   // 1
-  [0,  lebenMult, 10, 1, -1], //10 Gold
+  [0,  lebenMult, 10, 1.0, -1], //10 Gold
   // 2
-  [0,  lebenMult, 12, 1, -1], // 12 Gold
+  [0,  lebenMult+=0.2, 12, 0.9, -1], // 12 Gold
   // 3
-  [0,  lebenMult, 15 , 1 , -1], // 15 Gold
+  [0,  lebenMult+=0.2, 15 , 0.8, -1], // 15 Gold
   // 4
   [1,  lebenMult, 8, 1, -1], //  16 Gold
   // 5
-  [0,  lebenMult, 30 , 0.7, -1],   // 30 Gold
+  [0,  lebenMult, 30 , 0.8, -1],   // 30 Gold
   // 6
-  [0,  lebenMult, 18, 0.5, 3.25], // 18 Gold
-  [2,  lebenMult, 3, 1, -1],    // 12 Gold
+  [2,  lebenMult +=0.4, 5 , 1, 6],
+  [0,  lebenMult, 15, 0.6, -1], // 18 Gold
+
   // 7
-  [1,  lebenMult, 12, 0.7, 3], //  24 Gold
-  [2,  lebenMult  , 5, 1, -1], //  20 Gold
+  [2,  lebenMult +=0.4 , 5, 0.8, 10],
+  [1,  lebenMult, 12, 0.9, -1], //  24 Gold
+
   // 8
-  [0,  lebenMult, 20, 0.3, 1], // 20 Gold
-  [3,  lebenMult, 5, 1.5, 0.5], //20 Gold
-  [1,  lebenMult, 10, 1, -1],// 20 Gold
+  [0,  lebenMult, 20, 0.8, 2],
+  [1,  lebenMult, 10, 1, 2],
+  [3,  lebenMult, 5, 1.0, -1],
+  // 52 Gold
   // 9
-  [2,  lebenMult, 8, 1, 2], //  48 Gold
-  [3,  lebenMult, 7, 1, -1],//  28 Gold
+  [2,  lebenMult +=0.3, 8, 1, 10], //  48 Gold
+  [3,  lebenMult, 7, 1.2, -1],//  28 Gold
   // 10
-  [0,  lebenMult , 20, 0.4, 0.2], // 10 Gold
-  [1,  lebenMult , 15, 0.4, 3.1], // 30 Gold
-  [6,  lebenMult , 2, 1,-1], // 50 Gold
+  [0,  lebenMult +=0.4 , 20, 1.0, 3], // 10 Gold
+  [1,  lebenMult , 15, 1.2, 3.1], // 30 Gold
+  [6,  lebenMult , 2, 1.2 ,-1], // 50 Gold
   // 11
-  [10, lebenMult += 0.2, 4, 0.5, 11],  // 60 Gold
-  [3,  lebenMult, 10, 0.2, 0.3], // 40 Gold
-  [0,  lebenMult, 20, 0.4, 0.1], // 20 Gold
+  [10, lebenMult , 3, 1.4, 1.5],  // 60 Gold
+  [3,  lebenMult, 10, 1.1, 2], // 40 Gold
+  [0,  lebenMult, 20, 1.4, 1], // 20 Gold
   [1,  lebenMult, 10, 0.8, -1],  // 20 Gold
   // 12
-  [2,  lebenMult +=0.5, 10, 3, 1],      //  60 Gold
-  [0,  lebenMult, 10, 0.2, 0.1], //  10 Gold
-  [1,  lebenMult, 10, 0.6, -1], //  20 Gold
+  [2,  lebenMult +=0.3 , 10, 1.2, 2],      //  60 Gold
+  [0,  lebenMult, 10, 1.4, 3], //  10 Gold
+  [1,  lebenMult, 10, 1.2, -1], //  20 Gold
 
   // 13
-  [3,  lebenMult +=0.5, 8, 2, 3],    //32  Gold
+  [3,  lebenMult +=0.3 , 8, 2, 3],    //32  Gold
   [2,  lebenMult, 10, 1, 0.5], // 60 Gold
-  [1,  lebenMult, 20, 1, -1], // 40 Gold
+  [1,  lebenMult, 10, 1, -1], // 40 Gold
   // 14
-  [4,  lebenMult, 9, 3, 1],  //  72 Gold
-  [3,  lebenMult, 4, 3, 0.5], // 16  Gold
-  [2,  lebenMult, 4, 3, 0.5], // 24 Gold
+  [4,  lebenMult, 5, 3, 1],  //  72 Gold
+  [3,  lebenMult, 4, 3, 1.5], // 16  Gold
+  [2,  lebenMult, 4, 3, 1.5], // 24 Gold
   [1,  lebenMult, 10, 5, -1], //  20 Gold
   // 15
-  [5,  lebenMult, 13, 0.8, 1],  // 65 Gold
-  [4,  lebenMult, 8, 3, 0.6], //  64 Gold
-  [6,  lebenMult, 5, 3 , 0.5], // 125 Gold
-  [7,  lebenMult, 1, 0.5, -1], //  20 Gold
+  [5,  lebenMult +=0.3 , 13, 1.8, 1],  // 65 Gold
+  [4,  lebenMult, 3 , 3, 1.6], //  64 Gold
+  [6,  lebenMult, 5, 3 , 1.5], // 125 Gold
+  [7,  lebenMult, 2, 0.5, -1], //  20 Gold
   // 16
-  [5,  lebenMult +=0.5, 10, 0.5, 0.25], //  50 Gold
-  [3,  lebenMult, 10, 0.5, 0.25],// 40 Gold
-  [0,  lebenMult, 20, 0.25, 0.5],// 20 Gold
-  [2,  lebenMult, 10 ,0.6, -1],//  60 Gold
+  [5,  lebenMult +=0.3, 10, 2.5, 3.25], //  50 Gold
+  [3,  lebenMult, 10, 1.5, 2.25],// 40 Gold
+  [0,  lebenMult, 20, 1.25, 2.75],// 20 Gold
+  [2,  lebenMult, 10, 1.6, -1],//  60 Gold
   // 17
-  [0,  lebenMult, 7, 4, 0.1], // 7 Gold
-  [1,  lebenMult, 7, 3, 0.9], // 14 Gold
-  [2,  lebenMult, 7, 2., 0.8], // 56 Gold
+  [0,  lebenMult, 7, 4, 2.1], // 7 Gold
+  [1,  lebenMult, 7, 3, 1.9], // 14 Gold
+  [2,  lebenMult, 7, 2., 1.8], // 56 Gold
   [3,  lebenMult, 7, 1, 1.5], // 28 Gold
-  [5,  lebenMult, 7, 2.2, 0.1], // 35 Gold
+  [5,  lebenMult, 7, 2.2, 1.1], // 35 Gold
   [4,  lebenMult, 7, 1.2, -1], // 56 Gold
   // 18
-  [0,  lebenMult +=0.5, 7, 0.1, 5],  // 7  Gold
-  [1,  lebenMult, 7, 0.1, 5], // 14 Gold
-  [2,  lebenMult, 7, 0.1, 5], // 54 Gold
-  [3,  lebenMult, 7, 0.1, 5], //28 Gold
-  [5,  lebenMult, 7, 0.1, 5], // 35 Gold
-  [4,  lebenMult, 7, 0.1, -1], // 56 Gold
+  [0,  lebenMult +=0.2 , 7, 1.1, 3],  // 7  Gold
+  [1,  lebenMult, 7, 2.1, 2], // 14 Gold
+  [2,  lebenMult, 7, 3.1, 1], // 54 Gold
+  [3,  lebenMult, 7, 2.1, 2], //28 Gold
+  [5,  lebenMult, 7, 1.1, 3], // 35 Gold
+  [4,  lebenMult, 4, 2.1, -1], // 56 Gold
   // 19
-  [4,  lebenMult +=0.5, 15, 0.7, 5], // 120 Gold
-  [1,  lebenMult, 2, 0.8, 1], // 60 Gold
+  [4,  lebenMult , 10, 0.7, 5], // 120 Gold
+  [1,  lebenMult, 10, 0.8, 1], // 60 Gold
   [3,  lebenMult, 15, 0.7, -1], // 52 Gold
   // 20
-  [15, lebenMult, 3, 15, 5],  //  150 Gold
+  [15, lebenMult +=0.2  , 3, 15, 5],  //  150 Gold
   [4,  lebenMult, 10, 0.7, 0.5], // 80 Gold
   [3,  lebenMult, 10, 0.7, 4], //  40 Gold
   [5,  lebenMult, 4, 10, 2], //  20 Gold
   [10, lebenMult, 2, 2 , 5], // 12 Gold
   [8,  lebenMult, 1 , 0.5 ,-1], // 10 Gold
   //21
-  [12,  lebenMult, 5, 0.5, 2], // 70 Gold
+  [12,  lebenMult +=0.5, 5, 0.5, 2], // 70 Gold
   [11,  lebenMult, 5, 1, 0.5], // 5 Gold
   [3,  lebenMult, 9, 0.5, 4], // 36 Gold
   [2,  lebenMult, 9, 0.5, -1], // 54 Gold
@@ -185,7 +188,7 @@ var gegnerWellen = [
   [13,  lebenMult, 5, 3, 0],//  100 Gold
   [12,  lebenMult, 5, 3, -1],//  70 Gold
   //40
-  [2,   lebenMult -=0.5 , 15  , 1, 2], //30 Gold
+  [2,   lebenMult  , 15  , 1, 2], //30 Gold
   [4,   lebenMult, 15, 0.5, 2.5],// 120 Gold
   [6,   lebenMult, 15, 0.5, 1.7],// 375 Gold
   [8,   lebenMult, 5, 0.5, 1.9],// 150 Gold
@@ -396,21 +399,21 @@ var gegnerWellen = [
   [7, lebenMult , 40, 1.8,   2],
   [13,lebenMult , 47, 2, -1],
   //60
-  [0, lebenMult+=10 ,500, 0.4, 2],
-  [1, lebenMult ,500, 0.5, 2.5],
-  [2, lebenMult ,500, 0.6, 2.5],
-  [3, lebenMult ,500, 0.7, 2.5],
-  [4, lebenMult ,500, 0.8, 2.5],
-  [5, lebenMult ,500, 0.9, 2.5],
-  [6, lebenMult ,500,   1, 2.5],
-  [7, lebenMult ,500, 1.1, 2.5],
-  [8, lebenMult ,500, 1.2, 2.5],
-  [9, lebenMult ,500, 1.3, 2.5],
-  [10,lebenMult ,500, 1.4, 2.5],
-  [11,lebenMult ,500, 1.5, 2.5],
-  [12,lebenMult ,500, 1.6, 2.5],
-  [13,lebenMult ,500, 1.7, 2.5],
-  [14,lebenMult ,500, 1.8, 2.5],
-  [15,lebenMult ,500, 1.9, 2.5],
-  [16,lebenMult ,500,   2, -1],
+  [0, lebenMult+=10 ,50, 0.4, 2],
+  [1, lebenMult ,50, 0.5, 2.5],
+  [2, lebenMult ,50, 0.6, 2.5],
+  [3, lebenMult ,50, 0.7, 2.5],
+  [4, lebenMult ,50, 0.8, 2.5],
+  [5, lebenMult ,50, 0.9, 2.5],
+  [6, lebenMult ,50,   1, 2.5],
+  [7, lebenMult ,50, 1.1, 2.5],
+  [8, lebenMult ,50, 1.2, 2.5],
+  [9, lebenMult ,50, 1.3, 2.5],
+  [10,lebenMult ,50, 1.4, 2.5],
+  [11,lebenMult ,50, 1.5, 2.5],
+  [12,lebenMult ,50, 1.6, 2.5],
+  [13,lebenMult ,50, 1.7, 2.5],
+  [14,lebenMult ,50, 1.8, 2.5],
+  [15,lebenMult ,50, 1.9, 2.5],
+  [16,lebenMult ,50,   2, -1],
 ];
