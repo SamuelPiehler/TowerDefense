@@ -1420,7 +1420,7 @@ function addCompletedMap() {
   }
   localStorage.setItem('completedMaps', JSON.stringify(completedMaps));
   flawlessMaps = loadCompletedMaps();
-  if (flawlessMaps[mapId-1] < schwierigkeit) {
+  if (leben == 100 && flawlessMaps[mapId-1] < schwierigkeit) {
     skillPunkte += skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[flawlessMaps[mapId-1]];
     flawlessMaps[mapId-1] = schwierigkeit;
     saveSkillTree()

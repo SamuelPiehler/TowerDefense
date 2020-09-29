@@ -157,7 +157,9 @@ function applaySkills() {
       }
       else if (skills[i][2] == -1) {    //betrifft alle Türme
         for (var k = 0; k < towertypen.length-1; k++) {
-          towertypen[k][skills[i][3]] = getUpdatedStat(towertypen[k][skills[i][3]], skills[i][5], skills[i][4], skills[i][9]);
+          if (skills[i][11] != 116 && k != 10) {
+            towertypen[k][skills[i][3]] = getUpdatedStat(towertypen[k][skills[i][3]], skills[i][5], skills[i][4], skills[i][9]);
+          }
         }
       }
       else {    //betrifft spezielle Nicht Turmspezifische Variablen

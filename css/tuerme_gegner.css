@@ -3,16 +3,8 @@ body {
   text-align: center;
   user-select: None;
 }
-.Gegner{
-  position: relative;
-  margin-left: calc((100vw - (80px * 5))/15);
-  margin-right: calc((100vw - (80px * 5))/15);
-  margin-top: 5%;
-  box-shadow: -5px -5px 5px blue , 5px 5px 5px blue , -5px 5px 5px white  , 5px -5px 5px white ;
-  border-radius: 5%;
-  background-color: gray;
-}
-.Skilltree{
+.Object{
+  width: 70px;
   position: relative;
   margin-left: calc((100vw - (80px * 5))/15);
   margin-right: calc((100vw - (80px * 5))/15);
@@ -51,13 +43,13 @@ a.btn:hover {
   justify-content: space-between;
 }
 h1{
-  color:red;
+  color: red;
 }
 h2{
-  color:#bcbbbf ;
+  color: #bcbbbf ;
 }
 h3{
-  color:gray;
+  color: gray;
 }
 #stats{
   background: linear-gradient(200deg,#6de3a2, #A36BFF);
@@ -77,4 +69,10 @@ h3{
 }
 #name{
   font-size: 2em;
+}
+#schwierigkeit{
+  font-weight: bold;
+  color: gray;
+  background-color: transparent;
+  border-width: 3px;
 }

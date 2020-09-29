@@ -3,14 +3,14 @@
   <head>
     <meta charset="utf-8">
     <title>Gegner liste </title>
-    <link rel="stylesheet" href="css/tuerme_gegner.css">
-    <script src="js/importantFunktions.js"></script>
-    <script src="js/towerGegnerStats.js"></script>
+    <link rel="stylesheet" href="../css/tuerme_gegner.css">
+    <script src="../js/importantFunktions.js"></script>
+    <script src="../js/towerGegnerStats.js"></script>
   </head>
   <body>
     <div class="btn-box">
       <div></div>
-      <a class="btn" href="index.html">Back</a>
+      <a class="btn" href="../index.html">Back</a>
     </div>
     <div id="gegner">
       <h1>Gegenerstats</h1>
@@ -20,20 +20,16 @@
       </h3>
     </div>
     <div id="stats" hidden>
-      <img id="close" src="Bilder/icons/close.png" alt="">
+      <img id="close" src="../Bilder/icons/close.png" alt="">
       <spwan name="Gegnername" id="name">Gegner</spwan><br>
       <table>
         <tr>
           <td>Leben: </td>
-          <td>
-            <spwan id="leben"></spwan>
-          </td>
+          <td id="leben"></td>
         </tr>
         <tr>
           <td>Geschwindigkeit: </td>
-          <td>
-            <spwan  id="geschwindigkeit"></spwan>
-          </td>
+          <td id="geschwindigkeit"></td>
         </tr>
         <tr id="immunitäten">
           <td id="effeckt"></td>
@@ -41,22 +37,18 @@
         </tr>
         <tr>
           <td>Geldwert:</td>
-          <td>
-            <spwan id="geldwert"></spwan>
-          </td>
+          <td id="geldwert"></td>
         </tr>
         <tr>
           <td>Schaden: </td>
-          <td>
-            <spwan id="schaden"></spwan>
-          </td>
+          <td id="schaden"></td>
         </tr>
       </table>
     </div>
     <script type="text/javascript">
       var selected = -1;
       for (var i = 0; i < gegnertypen.length; i++) {
-        document.getElementById("gegner").innerHTML += '<img id="' + i + '" class="Gegner" src="' + gegnertypen[i][0] + '">';
+        document.getElementById("gegner").innerHTML += '<img id="' + i + '" class="Object" src="../' + gegnertypen[i][0] + '">';
       }
       document.getElementById('close').addEventListener("click", close);
       function close() {
