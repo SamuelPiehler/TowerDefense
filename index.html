@@ -114,11 +114,11 @@
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
       <script type="text/javascript">
-      window.addEventListener("error",function(error){
-        error.preventDefault(false);
-        console.error("test");
-        return true;
-      });
+      // window.addEventListener("error",function(error){
+      //   error.preventDefault(false);
+      //   console.error("test");
+      //   return true;
+      // });
         var scriptLoaded = 0;
         var alreadyl = false;
         mapsloaded = false;
@@ -199,16 +199,17 @@
           var script = document.createElement("script");
           script.src = "Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
           //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-          script.setAttribute("onerror","console.log(this);this.src = 'test.js'; event.preventDefault(); console.log(event);");
-          script.addEventListener("error", (event) => {
-            event.preventDefault();
-            event.defaultPrevented = true;
-            console.log(event);
+          // script.setAttribute("onerror","console.log(this);this.src = ''; event.preventDefault(); console.log(event);");
+          script.addEventListener("error", function(el, func) {
+            // event.preventDefault();
+            // event.defaultPrevented = true;
+            // console.log(event);
             success = false;
             handle(el, func, (function () {
               success = false;
             })());
-          });
+          }.bind(null, script, func));
+
           script.onload = function (el, func) {
             handle(el, func)
           }.bind(null, script, func);
