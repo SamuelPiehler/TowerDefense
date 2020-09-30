@@ -312,19 +312,6 @@ function buildMapNeu() {
           portal1[1].push(i);
         }
       }
-      else if (map[i][j][0] >= 17 && map[i][j][0] <= 20) {
-        if (!isNaN(map[i][j][2])) {
-          portal2[0][parseInt(map[i][j][2])] = j;
-          portal2[1][parseInt(map[i][j][2])] = i;
-          if (!isNaN(map[i][j][3])) {
-            portal2[2][parseInt(map[i][j][2])] = parseInt(map[i][j][3]);
-          }
-        }
-        else {
-          portal2[0].push(j);
-          portal2[1].push(i);
-        }
-      }
     }
   }
 }
