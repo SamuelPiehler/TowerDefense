@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -17,79 +17,80 @@
   </head>
   <body>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <button onclick="EBI('menu').style.display = 'block'" style='position: absolute; z-index:22; right: 20px; top:20px;'>
+    <button onclick="EBI('menu').style.display = 'block'; if(!gamePause){startAndPause(); gotpaused = true;}" style='position: absolute; z-index:22; right: 20px; top:20px;'>
       Menü
     </button>
     <div id=menu>
-      <div id=innermenu>
-        <div id=main class="contain visible">
-          <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
-          <div class="menubutton mbutton-normal">Challanges</div>
-          <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
-          <a href="html/skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>
-          <div class="menubutton mbutton-half">
-            <a href="html/gegnerliste.html" class="menubutton mbutton-half-left">Gegner</a>
-            <a href="html/turmliste.html" class="menubutton mbutton-half-right">Towers</a>
-          </div>
-          <div class="menubutton mbutton-normal">Settings</div>
+        <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+        <div id=innermenu>
+            <div id=main class="contain visible">
+                <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
+                <div class="menubutton mbutton-normal">Challanges</div>
+                <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
+                <a href="html/skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>
+                <div class="menubutton mbutton-half">
+                    <a href="html/gegnerliste.html" class="menubutton mbutton-half-left">Gegner</a>
+                    <a href="html/turmliste.html" class="menubutton mbutton-half-right">Towers</a>
+                </div>
+                <div class="menubutton mbutton-normal">Settings</div>
+            </div>
+            <div id=start class="contain invisible">
+                <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+                <div class=map>
+                    <div class=outer-frame>
+                        <div class=inner-frame>
+                            <img src="">
+                        </div>
+                        <p>Map1</p>
+                    </div>
+                </div>
+            </div>
+            <div id="schwierigkeiten" style="display: none;">
+                <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+                <div id=Mapname>
+                    Map 1
+                </div>
+                <div id=Mapimage>
+                    <div id=qw>
+                        <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
+                        <div id=money>
+                            <img src="Bilder/Icons/coin.png">
+                            <span id=dGeld>100</span>
+                        </div>
+                        <div id=diffi>
+                            <img id="DSIco" src='Bilder/Icons/einfach.png'>
+                            <span id="DS">Leicht</span>
+                        </div>
+                        <div id=size>
+                            Mapgrösse: <span id="MSO">11 x 16</span>
+                        </div>
+                    </div>
+                </div>
+                <div id=schwierigkeit>
+                    <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
+                        Sandbox
+                    </div>
+                    <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
+                        Leicht
+                    </div>
+                    <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
+                        Mittel
+                    </div>
+                    <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
+                        Schwer
+                    </div>
+                    <div id=Extreme class=menubutton onclick="switchdifficulty(4);">
+                        Extreme
+                    </div>
+                    <div id=Unmöglich class=menubutton onclick="switchdifficulty(5);">
+                        Unmöglich
+                    </div>
+                </div>
+                <div id=Start class=menubutton onclick="startTheGame();">
+                    Spiel Starten!!
+                </div>
+            </div>
         </div>
-        <div id=start class="contain invisible">
-          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-          <div class=map>
-            <div class=outer-frame>
-              <div class=inner-frame>
-                <img src="">
-              </div>
-              <p>Map1</p>
-            </div>
-          </div>
-        </div>
-        <div id="schwierigkeiten" style="display: none;">
-          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-          <div id=Mapname>
-            Map 1
-          </div>
-          <div id=Mapimage>
-            <div id =qw>
-              <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
-              <div id=money>
-                <img src="Bilder/Icons/coin.png">
-                <span id=dGeld>100</span>
-              </div>
-              <div id = diffi>
-                <img  id="DSIco" src='Bilder/Icons/einfach.png'>
-                <span id = "DS">Leicht</span>
-              </div>
-              <div id=size>
-                Mapgrösse: <span id="MSO">11 x 16</span>
-              </div>
-            </div>
-          </div>
-          <div id=schwierigkeit>
-            <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
-              Sandbox
-            </div>
-            <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
-              Leicht
-            </div>
-            <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
-              Mittel
-            </div>
-            <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
-              Schwer
-            </div>
-            <div id=Extreme class=menubutton onclick="switchdifficulty(4);">
-              Extreme
-            </div>
-            <div id=Unmöglich class=menubutton onclick="switchdifficulty(5);">
-              Unmöglich
-            </div>
-          </div>
-          <div id=Start class=menubutton onclick="startTheGame();">
-            Spiel Starten!!
-          </div>
-        </div>
-      </div>
     </div>
     <script src="js/menu.js"></script>
     <div id="bullets">
@@ -114,11 +115,7 @@
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
       <script type="text/javascript">
-      window.addEventListener("error",function(error){
-        error.preventDefault(false);
-        console.error("test");
-        return true;
-      });
+          var gotpaused = false;
         var scriptLoaded = 0;
         var alreadyl = false;
         mapsloaded = false;
@@ -199,16 +196,12 @@
           var script = document.createElement("script");
           script.src = "Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
           //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
-          script.setAttribute("onerror","console.log(this);this.src = 'test.js'; event.preventDefault(); console.log(event);");
-          script.addEventListener("error", (event) => {
-            event.preventDefault();
-            event.defaultPrevented = true;
-            console.log(event);
+          script.addEventListener("error", function(el,func) {
             success = false;
             handle(el, func, (function () {
               success = false;
             })());
-          });
+          }.bind(el,func));
           script.onload = function (el, func) {
             handle(el, func)
           }.bind(null, script, func);
