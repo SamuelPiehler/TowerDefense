@@ -21,6 +21,7 @@
 }
 .menubutton{
     padding-top: 2px;
+    box-sizing: border-box;
     padding-bottom: 2px;
     min-width: 30px;
     min-height: 10px;
@@ -141,7 +142,7 @@ border-radius: 0px;
 }
 #schwierigkeiten{
 width: 600px;
-height: 530px;
+height: 556px;
 padding:10px;
 border: 3px groove red;
 background-color: rgba(255, 160, 160, 0.971);
@@ -149,12 +150,13 @@ z-index: 9999999;
 position: absolute;
 }
 #schwierigkeit{
+    left: 4px;
 width: 100%;
-position: relative;
+    position: relative;
 }
 #schwierigkeit div{
-    width: calc( ( 100% ) / 4 );
-    float:left;
+    width: calc( ( 100% ) / 3 );display: inline-block;
+    margin-left: -4px;
 }
 #schwierigkeiten #Mapimage div img{
     text-align: center;
@@ -200,7 +202,6 @@ position: relative;
     position: relative;
 }
 .menubutton.selected{
-    box-sizing: border-box;
     border: 3px groove red;
 }
 #Start {

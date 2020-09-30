@@ -14,7 +14,7 @@ function printMaps() {
     clearInterval(inter);
     setTimeout(function () {
       var inn = document.getElementById("start");
-      inn.innerHTML = `<button onclick="EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
+      inn.innerHTML = `<button onclick="EBI('schwierigkeiten').style.display= "none";EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
       ////console.log(maplist);
       maplist.forEach((element) => {
         // if(!element[3]){
