@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Skilltree</title>
+    <title>Turm Liste</title>
     <link rel="stylesheet" href="../css/tuerme_gegner.css">
     <script src="../js/importantFunktions.js"></script>
     <script src="../js/towerGegnerStats.js"></script>
@@ -13,9 +13,13 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="btn-box">
+    <div class="btn-box" style="z-index: 1;">
       <div></div>
       <a class="btn" href="../index.html">Back</a>
+    </div>
+    <div class="btn-box" style="padding-top: 40px; z-index: 0;">
+      <a class="btn" href="skillTree.html">Skills</a>
+      <a class="btn" href="gegnerliste.html">Gegnerstats</a>
     </div>
     <div id="tree">
       <h1>Turmstats</h1> <br>
@@ -258,24 +262,24 @@
       if (stufe == maxUpgrade && towertypen[selected][12]) {
         switch (selected) {
           case 0:
-            document.getElementById('spezial').hidden = false;
+            document.getElementById('st5').hidden = false;
             document.getElementById('spezial').innerHTML = "Dieser Turm kann 2 Gegner Gleichzeitig angreifen.";
             break;
           case 1:
-            document.getElementById('spezial').hidden = false;
+            document.getElementById('st5').hidden = false;
             document.getElementById('spezial').innerHTML = "Dieser Turm trifft alle Gegner in einer Linie mit abfallendem Schaden<br>(Schaden = 0.98* SchadenVorherigerGegner).";
             break;
           case 2:
-            document.getElementById('spezial').hidden = false;
+            document.getElementById('st5').hidden = false;
             document.getElementById('spezial').innerHTML = "Dieser Turm hat zusätzlich einen Dauerhaften slow von 0,5% der bis zu 50% stacken kann.";
             break;
           case 3:
-            document.getElementById('spezial').hidden = false;
+            document.getElementById('st5').hidden = false;
             document.getElementById('spezial').innerHTML = "Gift von diesem Turm stacked sich mit Gift anderer Türme";
             break;
           case 4:
-            document.getElementById('spezial').hidden = false;
-            document.getElementById('spezial').innerHTML = "Dieser Turm hat beim Angriff eine 5% Schance einem zufäligen Gegner<br> 10 fachem angriffsSchaden und 5 fachem Tickschaden zu verursachen.";
+            document.getElementById('st5').hidden = false;
+            document.getElementById('spezial').innerHTML = "Dieser Turm hat beim Angriff eine 5% Schance einem zufäligen Gegner<br> 10 fachem Angriffsschaden und 5 fachem Tickschaden zu verursachen.";
             break;
       default:
             document.getElementById('st5').hidden = true;

@@ -328,52 +328,6 @@ function buildMapNeu() {
     }
   }
 }
-//
-//erzeuge mapbild
-// function buildMap() {
-//   for (var i = 0; i < map.length; i++) {  //mapzeile
-//     for (var j = 0; j < map[i].length; j++) { //mapspalte
-//       map[i][j][2] = document.createElement('canvas');
-//       mapDiv.appendChild(map[i][j][2]);
-//       map[i][j][2].width = size;
-//       map[i][j][2].height = size;
-//       map[i][j][2].style.position = 'absolute';
-//       map[i][j][2].style.left = (size*j)+'px';
-//       map[i][j][2].style.top = (size*i)+'px';
-//       if (map[i][j][0] >= 1 && map[i][j][0] <= 4) {
-//         ladeBild('Bilder/Map/weg1.jpg', map[i][j][2], 0);
-//       }
-//       else if (map[i][j][0] >= 5 && map[i][j][0] <= 8) {
-//         ladeBild('Bilder/Map/start.png', map[i][j][2], 0);
-//         start[0].push(i);
-//         start[1].push(j);
-//       }
-//       else if (map[i][j][0] >= 9 && map[i][j][0] <= 12) {
-//         ladeBild('Bilder/Map/ziel1.png', map[i][j][2], 0);
-//       }
-//       else if (map[i][j][0] == 0) {
-//         ladeBild('Bilder/Map/feld1.jpg', map[i][j][2], 0);
-//         map[i][j][2].name = j+','+i;
-//         map[i][j][2].addEventListener('click', build);
-//       }
-//       else if (map[i][j][0] == -1) {
-//         ladeBild('Bilder/Map/feld1.jpg', map[i][j][2], 0);
-//         map[i][j][3] = document.createElement('canvas');
-//         mapDiv.appendChild(map[i][j][3])
-//         map[i][j][3].width = size;
-//         map[i][j][3].height = size;
-//         map[i][j][3].style.position = 'absolute';
-//         map[i][j][3].style.left = (size*j)+'px';
-//         map[i][j][3].style.top = (size*i)+'px';
-//         var bildNummer = parseInt(Math.random()*3+1);
-//         ladeBild('Bilder/Map/stein' + bildNummer + '.png', map[i][j][2], 0);
-//       }
-//       else if (map[i][j][0] == -2) {
-//         ladeBild('Bilder/Map/weg1.jpg', map[i][j][2], 0);
-//       }
-//     }
-//   }
-// }
 
 function save() {
   var prüf1 = 0;
@@ -381,18 +335,8 @@ function save() {
   var prüf3 = 1;
   var saveCode = nextChars(mapId);
   saveCode += nextChars(schwierigkeit);
-  // var leben1 = Math.floor(spielerLeben/Math.pow(94,1));
-  // var leben0 = spielerLeben-leben1*Math.pow(94, 1);
-  // saveCode += nextChar(leben1, leben0);
   saveCode += nextChars(spielerLeben, 2)
-  // var geld2 = Math.floor(geld/Math.pow(94,2));
-  // var geld1 = Math.floor((geld-geld2*Math.pow(94, 2))/Math.pow(94,1));
-  // var geld0 = geld-geld2*Math.pow(94, 2)-geld1*Math.pow(94, 1);
-  // saveCode += nextChar(geld2, geld1, geld0);
   saveCode += nextChars(geld, 3);
-  // var welle1 = Math.floor(wellenNummer/Math.pow(94,1));
-  // var welle0 = wellenNummer-welle1*Math.pow(94, 1);
-  // saveCode += nextChar(welle1, welle0);
   saveCode += nextChars(wellenNummer, 2);
   for (var i = 0; i < tuerme.length; i++) {
     if (tuerme[i] == undefined) {
@@ -417,10 +361,6 @@ function save() {
     while (tuerme[i].richtung1 > 360) {
       tuerme[i].richtung1 -= 360;
     }
-    // var richtung2 = Math.floor(tuerme[i].richtung/Math.pow(94,2));
-    // var richtung1 = Math.floor((tuerme[i].richtung-richtung2*Math.pow(94, 2))/Math.pow(94,1));
-    // var richtung0 = Math.floor(tuerme[i].richtung-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
-    // saveCode += nextChar(richtung2, richtung1, richtung0);
     saveCode += nextChars(tuerme[i].richtung, 3);
     while (tuerme[i].richtung2 < 0) {
       tuerme[i].richtung2 += 360;
@@ -428,24 +368,9 @@ function save() {
     while (tuerme[i].richtung2 > 360) {
       tuerme[i].richtung2 -= 360;
     }
-    // richtung2 = Math.floor(tuerme[i].richtung2*100/Math.pow(94,2));
-    // richtung1 = Math.floor((tuerme[i].richtung2*100-richtung2*Math.pow(94, 2))/Math.pow(94,1));
-    // richtung0 = Math.floor(tuerme[i].richtung2*100-richtung2*Math.pow(94, 2)-richtung1*Math.pow(94, 1));
-    // saveCode += nextChar(richtung2, richtung1, richtung0);
     saveCode += nextChars(tuerme[i].richtung2, 3);
     saveCode += nextChars(tuerme[i].targetPrio);
-    // var dmgDealed5 = Math.floor(tuerme[i].dmgDealed*100/Math.pow(94,5));
-    // var dmgDealed4 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5))/Math.pow(94,4));
-    // var dmgDealed3 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4))/Math.pow(94,3));
-    // var dmgDealed2 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3))/Math.pow(94,2));
-    // var dmgDealed1 = Math.floor((tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2))/Math.pow(94,1));
-    // var dmgDealed0 = Math.floor(tuerme[i].dmgDealed*100-dmgDealed5*Math.pow(94, 5)-dmgDealed4*Math.pow(94, 4)-dmgDealed3*Math.pow(94, 3)-dmgDealed2*Math.pow(94, 2)-dmgDealed1*Math.pow(94, 1));
-    // saveCode += nextChar(dmgDealed5, dmgDealed4, dmgDealed3, dmgDealed2, dmgDealed1, dmgDealed0);
     saveCode += nextChars(tuerme[i].dmgDealed*100, 6);
-    // effecktStacks2 = Math.floor(tuerme[i].effecktStacks*100/Math.pow(94,2));
-    // effecktStacks1 = Math.floor((tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2))/Math.pow(94,1));
-    // effecktStacks0 = Math.floor(tuerme[i].effecktStacks*100-effecktStacks2*Math.pow(94, 2)-effecktStacks1*Math.pow(94, 1));
-    // saveCode += nextChar(effecktStacks2, effecktStacks1, effecktStacks0);
     saveCode += nextChars(tuerme[i].effecktStacks, 3);
     saveCode += nextChars(prüf2);
   }

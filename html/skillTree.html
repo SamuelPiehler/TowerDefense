@@ -12,9 +12,13 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="btn-box">
+    <div class="btn-box" style="z-index: 1;">
       <a class="btn" id="reset" href="javascript:">Reset</a>
       <a class="btn" href="../index.html">Back</a>
+    </div>
+    <div class="btn-box" style="padding-top: 40px; z-index: 0;">
+      <a class="btn" href="gegnerliste.html">Gegnerstats</a>
+      <a class="btn" href="turmliste.html">Turmstats</a>
     </div>
     <div id="tree">
       <h1>Skilltree</h1> <br>
@@ -217,8 +221,10 @@
       }
     }
     document.getElementById("reset").addEventListener("click", function functionName() {
-      resetSkills();
-      document.getElementById("skillPunkte").textContent = skillPunkte;
+      if (confirm("Wollen sie wirklich alle Skills resetten?")) {
+        resetSkills();
+        document.getElementById("skillPunkte").textContent = skillPunkte;
+      }
     });
     for (var i = 0; i < towertypen.length; i++) {
       if (i<10) {

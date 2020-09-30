@@ -2,21 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Gegner liste </title>
+    <title>Gegner Liste </title>
     <link rel="stylesheet" href="../css/tuerme_gegner.css">
     <script src="../js/importantFunktions.js"></script>
     <script src="../js/towerGegnerStats.js"></script>
   </head>
   <body>
-    <div class="btn-box">
+    <div class="btn-box" style="z-index: 1;">
       <div></div>
       <a class="btn" href="../index.html">Back</a>
+    </div>
+    <div class="btn-box" style="padding-top: 40px; z-index: 0;">
+      <a class="btn" href="skillTree.html">Skills</a>
+      <a class="btn" href="turmliste.html">Turmstats</a>
     </div>
     <div id="gegner">
       <h1>Gegenerstats</h1>
       <h3>
         Drücke einen Gegner an um seine Genaues Stats zu sehen<br>
-        Achtung die Leben der gegner werden noch mit einem Wellenmultiplikator multipliziert <br>
+        Achtung die Leben der Gegner werden noch mit einem Wellen- und Schwierigkeitsmultiplikator multipliziert <br>
       </h3>
     </div>
     <div id="stats" hidden>
