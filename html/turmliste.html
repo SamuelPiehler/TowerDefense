@@ -71,11 +71,11 @@
           <td id = "EffecktStärke"></td>
           <td id = "EffecktDauer"></td>
         </tr>
-        <tr id = "st5">
-          <td>Stufe5 Spezial</td>
-          <td></td>
-        </tr>
       </table>
+      <div id = "st5">
+        Stufe5 Spezial:<br>
+        <span id = "spezial"></span>
+      </div>
     </div>
     <script type="text/javascript">
     var selected = -1;
@@ -168,6 +168,18 @@
       else {
         stufe = Math.max(stufe-1, 0);
       }
+      if (stufe == maxUpgrade) {
+        document.getElementById("plus").src = "../Bilder/Icons/plusAus.png";
+      }
+      else {
+        document.getElementById("plus").src = "../Bilder/Icons/plusAn.png";
+      }
+      if (stufe == 0) {
+        document.getElementById("minus").src = "../Bilder/Icons/minusAus.png";
+      }
+      else {
+        document.getElementById("minus").src = "../Bilder/Icons/minusAn.png";
+      }
       document.getElementById("stats").hidden = false;
       document.getElementById("turmName").innerHTML = towertypen[selected][10];
       document.getElementById("stufe").innerHTML = stufe;
@@ -243,7 +255,35 @@
           }
         }
       }
-      document.getElementById('st5').hidden = true;
+      if (stufe == maxUpgrade && towertypen[selected][12]) {
+        switch (selected) {
+          case 0:
+            document.getElementById('spezial').hidden = false;
+            document.getElementById('spezial').innerHTML = "Dieser Turm kann 2 Gegner Gleichzeitig angreifen.";
+            break;
+          case 1:
+            document.getElementById('spezial').hidden = false;
+            document.getElementById('spezial').innerHTML = "Dieser Turm trifft alle Gegner in einer Linie mit abfallendem Schaden<br>(Schaden = 0.98* SchadenVorherigerGegner).";
+            break;
+          case 2:
+            document.getElementById('spezial').hidden = false;
+            document.getElementById('spezial').innerHTML = "Dieser Turm hat zusätzlich einen Dauerhaften slow von 0,5% der bis zu 50% stacken kann.";
+            break;
+          case 3:
+            document.getElementById('spezial').hidden = false;
+            document.getElementById('spezial').innerHTML = "Gift von diesem Turm stacked sich mit Gift anderer Türme";
+            break;
+          case 4:
+            document.getElementById('spezial').hidden = false;
+            document.getElementById('spezial').innerHTML = "Dieser Turm hat beim Angriff eine 5% Schance einem zufäligen Gegner<br> 10 fachem angriffsSchaden und 5 fachem Tickschaden zu verursachen.";
+            break;
+      default:
+            document.getElementById('st5').hidden = true;
+        }
+      }
+      else {
+        document.getElementById('st5').hidden = true;
+      }
       if (useThis) {
         document.getElementById("stats").style.top = '0px';
         document.getElementById("stats").style.left = '0px';
