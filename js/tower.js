@@ -226,7 +226,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
           }
           if (this.effekt[i] >= 5 && this.effekt[i] <= 10) {   //ist in effekttime zeit oder reichweite abgespeichert?
             if (this.typ == 9) {
-              this.effektTime[i] = round(this.effektTime[i]+towertypen[this.typ][9][this.effekt[0]-7]/10, 4);
+              this.effektTime[i] = round(this.effektTime[i]+towertypen[this.typ][9][this.effekt[i]-7]/10, 4);
             }
             else {
               this.effektTime[i] = round(this.effektTime[i]+towertypen[this.typ][9][i]/10, 4);
@@ -289,23 +289,25 @@ function Turm(posx, posy, typ, id, spezialisierung) {
               ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
               break;
             case 9:   //Support
-              this.effektStaerke[0] += orginalTowertypen[9][8][this.effekt[0]-7]*0.5;
-              this.effektTime[0] += orginalTowertypen[9][9][this.effekt[0]-7]*0.5;
-              this.reichweite = this.effektTime[0];
-              ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
-              switch (spezialisierung*1) {
-                case 0:
-                  ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
-                  break;
-                case 1:
-                  ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
-                  break;
-                case 2:
-                  ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
-                  break;
-                case 3:
-                  ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
-                  break;
+              for (var i = 0; i < this.effekt.length; i++) {
+                this.effektStaerke[i] += orginalTowertypen[9][8][this.effekt[i]-7]*0.5;
+                this.effektTime[i] += orginalTowertypen[9][9][this.effekt[i]-7]*0.5;
+                this.reichweite = this.effektTime[i];
+                ladeBild(towertypen[this.typ][11], this.canvasGeschütz, 0, true);
+                switch (spezialisierung*1) {
+                  case 0:
+                    ladeBild("Bilder/Icons/schadenKlein.png", this.canvasGeschütz, 0);
+                    break;
+                  case 1:
+                    ladeBild("Bilder/Icons/angriffsGeschwindikeitKlein.png", this.canvasGeschütz, 0);
+                    break;
+                  case 2:
+                    ladeBild("Bilder/Icons/effecktKlein.png", this.canvasGeschütz, 0);
+                    break;
+                  case 3:
+                    ladeBild("Bilder/Icons/reichweiteKlein.png", this.canvasGeschütz, 0);
+                    break;
+                }
               }
               break;
             case 10:   //Tesla

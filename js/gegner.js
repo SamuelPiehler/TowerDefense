@@ -458,9 +458,11 @@ function Gegner(id, typ, localLebenMult){
           }
         }
         else if (effekt[i] == 4) {
-          this.permaEffektStaerke[0] = Math.min(1, this.permaEffektStaerke[0]+effektStaerke[i]);
-          if (tuerme[ursprung] != undefined) {
-            tuerme[ursprung].effecktStacks++;
+          if (this.permaEffektStaerke[0] < 1) {
+            this.permaEffektStaerke[0] = Math.min(1, this.permaEffektStaerke[0]+effektStaerke[i]);
+            if (tuerme[ursprung] != undefined) {
+              tuerme[ursprung].effecktStacks++;
+            }
           }
         }
       }

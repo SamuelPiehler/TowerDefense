@@ -587,7 +587,7 @@ function showStats(evt, object) {
           statFenster.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um " + round(towertypen[object.name][8][i], 3) + "%. <br>";
           break;
       }
-      if (towertypen[object.name][7][i] >= 5 && towertypen[object.name][7][i] <= 9) {
+      if (towertypen[object.name][7][i] >= 5 && towertypen[object.name][7][i] <= 10) {
         statFenster.innerHTML += "Effektreichweite: " + round(towertypen[object.name][9][i], 3) + " <br>";
       }
       else {
@@ -751,7 +751,7 @@ function showUpgrade(object, id) {
       upgradeFenster.innerHTML += "Turm Stufe 5 Spezialupgrade:<br>";
       switch (typ) {
         case 0:
-          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält einen zweiten Lauf und zusätzliche 10 Reichweite</span><br>";
+          upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm kann dann 2 Gegner gleichzeitig angreifen und zusätzliche 10 Reichweite</span><br>";
           break;
         case 1:
           upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm kann dann durch Gegner hindurchschiesen und Trifft alle Gegner in einer Linie mit leich reduziertem Schaden je mehr Gegner vor im in der Linie sind</span><br>";
@@ -893,13 +893,14 @@ function showUpgrade(object, id) {
     if (towertypen[typ][12]) {
       switch (typ) {
         case 0:
-          upgradeFenster.innerHTML += "Der Turm hat 2 Läufe<br>";
+          upgradeFenster.innerHTML += "Der Turm kann 2 Gegner gleichzeitig angreifen<br>";
           break;
         case 1:
           upgradeFenster.innerHTML += "Der Turm kann durch Gegner hindurchschiesen und Trifft alle Gegner in einer Linie mit leich reduziertem Schaden je mehr Gegner vor im in der Linie sind<br>";
           break;
         case 2:
           upgradeFenster.innerHTML += "Der Turm hat einen zusätzlichen permanenten Slow von 0,5% der sich bis zu Speed 50% hochstacken kann (Stacked additiv)<br>";
+          upgradeFenster.innerHTML += "Der Turm hat insgesamt " + tuerme[id].effecktStacks + " permanente Slowstacks auf Gegner verteilt<br>";
           break;
         case 4:
           upgradeFenster.innerHTML += "Der Turm hat zusätzlich eine 30% Chance einen zufälligen Gegner auf der Map mit 10fachem Feuerschaden und 5fachen Tickschaden anzugreifen<br>";

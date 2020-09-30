@@ -55,7 +55,7 @@
           <td>Angriffszeit</td>
           <td id="Angriffszeit"></td>
         </tr>
-        <tr>
+        <tr id="turmReichweite">
           <td>Reichweite</td>
           <td id="Reichweite"></td>
         </tr>
@@ -193,7 +193,13 @@
       document.getElementById("critChance").innerHTML = round(turm[schwierigkeit][selected][stufe].critChance, 2) + "%";
       document.getElementById("critDamage").innerHTML = "*" + round(turm[schwierigkeit][selected][stufe].critDamage, 2);
       document.getElementById("Angriffszeit").innerHTML = round(turm[schwierigkeit][selected][stufe].angriffsZeit, 4) + "sec";
-      document.getElementById("Reichweite").innerHTML = round(turm[schwierigkeit][selected][stufe].reichweite, 2);
+      if (selected == 9) {
+        document.getElementById("turmReichweite").hidden = true;
+      }
+      else {
+        document.getElementById("turmReichweite").hidden = false;
+        document.getElementById("Reichweite").innerHTML = round(turm[schwierigkeit][selected][stufe].reichweite, 2);
+      }
       document.getElementById("Drehgeschwindigkeit").innerHTML = round(turm[schwierigkeit][selected][stufe].drehGeschw*100, 2) + " Grad/sec";
       if (turm[schwierigkeit][selected][stufe].effekt.length == 0) {
         document.getElementById('EffecktStärke').hidden = true;
