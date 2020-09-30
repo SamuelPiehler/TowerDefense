@@ -14,7 +14,7 @@ function printMaps() {
     clearInterval(inter);
     setTimeout(function () {
       var inn = document.getElementById("start");
-      inn.innerHTML = `<button onclick="EBI('schwierigkeiten').style.display= "none";EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
+      inn.innerHTML = `<button onclick="EBI('schwierigkeiten').style.display= 'none';EBI('main').setAttribute('class','contain visible');EBI('start').setAttribute('class','contain invisible')" style="position:absolute; font-size:2em; padding:0px; z-index: 999999999;">&#8592;</button>`
       ////console.log(maplist);
       maplist.forEach((element) => {
         // if(!element[3]){
@@ -103,11 +103,11 @@ function switchdifficulty(diffi) {
       document.getElementById("Schwer").setAttribute("class", "menubutton selected");
       break;
     case 4:
-      schwierigkeit = 3;
+      schwierigkeit = 4;
       document.getElementById("Extreme").setAttribute("class", "menubutton selected");
       break;
     case 5:
-      schwierigkeit = 3;
+      schwierigkeit = 5;
       document.getElementById("Unmöglich").setAttribute("class", "menubutton selected");
       break;
   }

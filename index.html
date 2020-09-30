@@ -201,7 +201,8 @@
             handle(el, func, (function () {
               success = false;
             })());
-          }.bind(el,func));
+          }.bind(null, script, func));
+
           script.onload = function (el, func) {
             handle(el, func)
           }.bind(null, script, func);
