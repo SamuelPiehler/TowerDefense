@@ -55,15 +55,18 @@
         document.getElementById("gegner").innerHTML += '<img id="' + i + '" class="Object" src="../' + gegnertypen[i][0] + '">';
       }
       document.getElementById('close').addEventListener("click", close);
+
       function close() {
         document.getElementById("stats").hidden = true;
       }
+
       for (var i = 0; i < gegnertypen.length; i++) {
         document.getElementById(i).addEventListener("click", showStats);
       }
+
       function showStats() {
         var pos = this.getBoundingClientRect();
-        selected = this.id*1;
+        selected = this.id * 1;
         document.getElementById("stats").hidden = false;
         switch (selected) {
           case 6:
@@ -84,8 +87,7 @@
         document.getElementById("schaden").innerHTML = gegnertypen[selected][6];
         if (gegnertypen[selected][3].length == 0) {
           document.getElementById("immunitäten").hidden = true;
-        }
-        else {
+        } else {
           document.getElementById("immunitäten").hidden = false;
           document.getElementById("effeckt").innerHTML = "";
           document.getElementById("effecktStärke").innerHTML = "";
@@ -120,7 +122,7 @@
                 document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i] + " mal Gegner 11<br>";
                 break;
               case 8:
-                document.getElementById("effeckt").innerHTML += "Spawnt alle " + gegnertypen[selected][4][i][0]/100 + "sec<br>";
+                document.getElementById("effeckt").innerHTML += "Spawnt alle " + gegnertypen[selected][4][i][0] / 100 + "sec<br>";
                 document.getElementById("effecktStärke").innerHTML += "Gegner " + gegnertypen[selected][4][i][1] + "<br>";
                 break;
               case 9:
@@ -129,11 +131,11 @@
                 break;
               case 10:
                 document.getElementById("effeckt").innerHTML += "Heilt alle Gegner um <br>";
-                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][2]+ "%<br>";
-                  document.getElementById("effeckt").innerHTML += "Cooldown<br>";
-                  document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0]/100 + " sec<br>";
-                  document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
-                  document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][2] + "%<br>";
+                document.getElementById("effeckt").innerHTML += "Cooldown<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0] / 100 + " sec<br>";
+                document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
                 break;
               case 11:
                 document.getElementById("effeckt").innerHTML += "Bufft speed von nahen Gegnern um <br>";
@@ -157,9 +159,9 @@
                 break;
               case 14:
                 document.getElementById("effeckt").innerHTML += "Stunned einen Turm für<br>";
-                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][2]/100 + "sec<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][2] / 100 + "sec<br>";
                 document.getElementById("effeckt").innerHTML += "Cooldown<br>";
-                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0]/100 + " sec<br>";
+                document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][0] / 100 + " sec<br>";
                 document.getElementById("effeckt").innerHTML += "Reichweite: <br>";
                 document.getElementById("effecktStärke").innerHTML += gegnertypen[selected][4][i][1] + "<br>";
                 break;
@@ -174,13 +176,11 @@
           if (document.getElementById("stats").offsetWidth < window.innerWidth * 0.96 - 50) {
             document.getElementById("stats").style.left = pos.x - document.getElementById("stats").offsetWidth + 'px';
             document.getElementById("stats").style.right = "auto";
-          }
-          else {
+          } else {
             document.getElementById("stats").style.right = '0px';
             document.getElementById("stats").style.left = "auto";
           }
-        }
-        else {
+        } else {
           document.getElementById("stats").style.left = pos.x + 50 + 'px';
           document.getElementById("stats").style.right = "auto";
         }
@@ -188,12 +188,12 @@
         if (pos.y + document.getElementById("stats").offsetHeight >= window.innerHeight * 0.98) {
           document.getElementById("stats").style.bottom = '0px';
           document.getElementById("stats").style.top = "auto";
-        }
-        else {
+        } else {
           document.getElementById("stats").style.top = pos.y + 'px';
           document.getElementById("stats").style.bottom = "auto";
         }
       }
+
     </script>
   </body>
 </html>

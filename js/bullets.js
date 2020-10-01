@@ -18,16 +18,19 @@ function bullet(x1, y1, x2, y2, time = 100, color = "black", l_width = 3) {
 			line.setAttribute("y2", y2);
 			line.setAttribute("stroke", color);
 			line.setAttribute("stroke-width", l_width);
-			el[0].setAttribute("style", `position:absolute; top:${0}px; left:${0}px; width:${window.innerWidth}px; height:${window.innerHeight}px;`);
+			el[0].setAttribute("style",
+				`position:absolute; top:${0}px; left:${0}px; width:${window.innerWidth}px; height:${window.innerHeight}px;`
+				);
 			setTimeout(function (bull, id) {
-  			line.setAttribute("stroke", "none");
+				line.setAttribute("stroke", "none");
 				bullets[id][1] = true;
 			}.bind(null, el[0], id), time);
 		}
 	});
 	if (!caught) {
 		var bull = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		bull.setAttribute("style", `position:absolute; top:${0}px; left:${0}px; width:${window.innerWidth}px; height:${window.innerHeight}px;`);
+		bull.setAttribute("style",
+			`position:absolute; top:${0}px; left:${0}px; width:${window.innerWidth}px; height:${window.innerHeight}px;`);
 		bull.setAttribute("width", window.innerHeight);
 		bull.setAttribute("height", window.innerWidth);
 		var line = document.createElementNS("http://www.w3.org/2000/svg", "line");
@@ -44,18 +47,21 @@ function bullet(x1, y1, x2, y2, time = 100, color = "black", l_width = 3) {
 		document.getElementById("bullets").appendChild(bull);
 		bullets.push([bull, false, id]);
 		setTimeout(function (bull, id) {
-      line.setAttribute("stroke", "none");
+			line.setAttribute("stroke", "none");
 			bullets[id][1] = true;
 		}.bind(null, bull, id), time);
 	}
 }
+
 function party() {
-	bullet(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * window.innerWidth, Math.random() * window.innerHeight, getRandomColor(), Math.random() * 1000)
+	bullet(Math.random() * window.innerWidth, Math.random() * window.innerHeight, Math.random() * window.innerWidth, Math
+		.random() * window.innerHeight, getRandomColor(), Math.random() * 1000)
 	if (!stopParty)
 		setTimeout(party, 100);
 	if (stopParty)
 		stopParty = false;
 }
+
 function getRandomColor() {
 	var letters = '0123456789ABCDEF';
 	var color = '#';
@@ -64,9 +70,11 @@ function getRandomColor() {
 	}
 	return color;
 }
+
 function stop_Party() {
 	stopParty = false;
 }
+
 function getOffset(el) {
 	const rect = el.getBoundingClientRect();
 	return {

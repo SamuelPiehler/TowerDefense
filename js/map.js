@@ -26,7 +26,7 @@ class Map {
 			for (let x = 0; x < width; x++) {
 				const tile = legacyMap[y][x];
 				const newTile = [tile[0]];
-				(typeof tile[1] !== "object" ? [tile[1],] : tile[1]).forEach((texture,) => {
+				(typeof tile[1] !== "object" ? [tile[1], ] : tile[1]).forEach((texture, ) => {
 					if (txc.indexOf(texture) === -1) {
 						txc.push(texture);
 					}
@@ -42,13 +42,14 @@ class Map {
 
 	getTile(x, y) {
 		const inner = this.inner[y * this.width + x];
-		const tile = [inner[0],];
+		const tile = [inner[0], ];
 		if (inner.length > 2) {
 			tile.push([]);
 			for (let i = 1; i < inner.length; i++) {
 				tile[1].push(this.textureAtlas[inner[i]]);
 			}
-		} else {
+		}
+		else {
 			tile[1] = this.textureAtlas[inner[1]];
 		}
 		return tile;
@@ -58,7 +59,7 @@ class Map {
 		const tile = [];
 
 		tile.push(data.id);
-		(typeof data[1] !== "object" ? [data[1],] : data[1]).forEach((texture) => {
+		(typeof data[1] !== "object" ? [data[1], ] : data[1]).forEach((texture) => {
 			if (this.textureAtlas.indexOf(texture) === -1) {
 				this.textureAtlas.push(texture);
 			}
@@ -89,14 +90,14 @@ class MapCodec {
 		const data = new Uint8ClampedArray(dataLen);
 
 		// Metadata
-		MapCodec.writeInt(dataLen,          data,  0);
-		MapCodec.writeInt(rowSize,          data,  4);
-		MapCodec.writeInt(MapCodec.CUR_VERSION, data,  8)
-		MapCodec.writeInt(metaSize,         data, 12);
-		MapCodec.writeInt(atlasSize,        data, 16);
-		MapCodec.writeInt(map.width,        data, 20);
-		MapCodec.writeInt(map.height,       data, 24);
-		MapCodec.writeInt(map.money,        data, 28);
+		MapCodec.writeInt(dataLen, data, 0);
+		MapCodec.writeInt(rowSize, data, 4);
+		MapCodec.writeInt(MapCodec.CUR_VERSION, data, 8)
+		MapCodec.writeInt(metaSize, data, 12);
+		MapCodec.writeInt(atlasSize, data, 16);
+		MapCodec.writeInt(map.width, data, 20);
+		MapCodec.writeInt(map.height, data, 24);
+		MapCodec.writeInt(map.money, data, 28);
 		data[32] = map.startType;
 		data[33] = map.randomTiles ? 1 : 0;
 		data[34 + 0] = thumbnail.byteLength >> 8 & 0xff;
@@ -137,7 +138,7 @@ class MapCodec {
 		canvas.height = dataLen / map.width;
 		const ctx = canvas.getContext("2d");
 		const img_data = ctx.createImageData(map.width, map.height);
-		for(let i = 0; i < data.length; i++) {
+		for (let i = 0; i < data.length; i++) {
 			img_data[i] = data[i];
 		}
 		ctx.putImageData(img_data, 0, 0);
@@ -149,8 +150,8 @@ class MapCodec {
 	static writeInt(int, target, offset) {
 		target[offset + 0] = int >> 24 & 0xff;
 		target[offset + 1] = int >> 16 & 0xff;
-		target[offset + 2] = int >>  8 & 0xff;
-		target[offset + 3] = int >>  0 & 0xff;
+		target[offset + 2] = int >> 8 & 0xff;
+		target[offset + 3] = int >> 0 & 0xff;
 	}
 
 	static calculateAtlasSize(atlas) {
@@ -165,11 +166,11 @@ class MapCodec {
 
 /// Source: https://developer.mozilla.org/en-US/docs/Web/API/TextEncoder
 if (typeof TextEncoder === "undefined") {
-	TextEncoder = function TextEncoder() {
-	};
+	TextEncoder = function TextEncoder() {};
 	TextEncoder.prototype.encode = function encode(str) {
 		"use strict";
-		var Len = str.length, resPos = -1;
+		var Len = str.length,
+			resPos = -1;
 		// The Uint8Array's length must be at least 3x the length of the string because an invalid UTF-16
 		//  takes up the equivelent space of 3 UTF-8 characters to encode it properly. However, Array's
 		//  have an auto expanding length and 1.5x should be just the right balance for most uses.
@@ -178,9 +179,9 @@ if (typeof TextEncoder === "undefined") {
 			point = str.charCodeAt(i), i += 1;
 			if (point >= 0xD800 && point <= 0xDBFF) {
 				if (i === Len) {
-					resArr[resPos += 1] = 0xef/*0b11101111*/;
-					resArr[resPos += 1] = 0xbf/*0b10111111*/;
-					resArr[resPos += 1] = 0xbd/*0b10111101*/;
+					resArr[resPos += 1] = 0xef /*0b11101111*/ ;
+					resArr[resPos += 1] = 0xbf /*0b10111111*/ ;
+					resArr[resPos += 1] = 0xbd /*0b10111101*/ ;
 					break;
 				}
 				// https://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
@@ -189,28 +190,31 @@ if (typeof TextEncoder === "undefined") {
 					point = (point - 0xD800) * 0x400 + nextcode - 0xDC00 + 0x10000;
 					i += 1;
 					if (point > 0xffff) {
-						resArr[resPos += 1] = (0x1e/*0b11110*/ << 3) | (point >>> 18);
-						resArr[resPos += 1] = (0x2/*0b10*/ << 6) | ((point >>> 12) & 0x3f/*0b00111111*/);
-						resArr[resPos += 1] = (0x2/*0b10*/ << 6) | ((point >>> 6) & 0x3f/*0b00111111*/);
-						resArr[resPos += 1] = (0x2/*0b10*/ << 6) | (point & 0x3f/*0b00111111*/);
+						resArr[resPos += 1] = (0x1e /*0b11110*/ << 3) | (point >>> 18);
+						resArr[resPos += 1] = (0x2 /*0b10*/ << 6) | ((point >>> 12) & 0x3f /*0b00111111*/ );
+						resArr[resPos += 1] = (0x2 /*0b10*/ << 6) | ((point >>> 6) & 0x3f /*0b00111111*/ );
+						resArr[resPos += 1] = (0x2 /*0b10*/ << 6) | (point & 0x3f /*0b00111111*/ );
 						continue;
 					}
-				} else {
-					resArr[resPos += 1] = 0xef/*0b11101111*/;
-					resArr[resPos += 1] = 0xbf/*0b10111111*/;
-					resArr[resPos += 1] = 0xbd/*0b10111101*/;
+				}
+				else {
+					resArr[resPos += 1] = 0xef /*0b11101111*/ ;
+					resArr[resPos += 1] = 0xbf /*0b10111111*/ ;
+					resArr[resPos += 1] = 0xbd /*0b10111101*/ ;
 					continue;
 				}
 			}
 			if (point <= 0x007f) {
-				resArr[resPos += 1] = (0x0/*0b0*/ << 7) | point;
-			} else if (point <= 0x07ff) {
-				resArr[resPos += 1] = (0x6/*0b110*/ << 5) | (point >>> 6);
-				resArr[resPos += 1] = (0x2/*0b10*/ << 6) | (point & 0x3f/*0b00111111*/);
-			} else {
-				resArr[resPos += 1] = (0xe/*0b1110*/ << 4) | (point >>> 12);
-				resArr[resPos += 1] = (0x2/*0b10*/ << 6) | ((point >>> 6) & 0x3f/*0b00111111*/);
-				resArr[resPos += 1] = (0x2/*0b10*/ << 6) | (point & 0x3f/*0b00111111*/);
+				resArr[resPos += 1] = (0x0 /*0b0*/ << 7) | point;
+			}
+			else if (point <= 0x07ff) {
+				resArr[resPos += 1] = (0x6 /*0b110*/ << 5) | (point >>> 6);
+				resArr[resPos += 1] = (0x2 /*0b10*/ << 6) | (point & 0x3f /*0b00111111*/ );
+			}
+			else {
+				resArr[resPos += 1] = (0xe /*0b1110*/ << 4) | (point >>> 12);
+				resArr[resPos += 1] = (0x2 /*0b10*/ << 6) | ((point >>> 6) & 0x3f /*0b00111111*/ );
+				resArr[resPos += 1] = (0x2 /*0b10*/ << 6) | (point & 0x3f /*0b00111111*/ );
 			}
 		}
 		if (typeof Uint8Array !== "undefined") return resArr.subarray(0, resPos + 1);
@@ -228,7 +232,9 @@ if (typeof TextEncoder === "undefined") {
 				else throw TypeError("Illegal invocation");
 			}
 		});
-	} catch (e) { /*IE6-8 fallback*/
+	}
+	catch (e) {
+		/*IE6-8 fallback*/
 		TextEncoder.prototype.encoding = "utf-8";
 	}
 	if (typeof Symbol !== "undefined") TextEncoder.prototype[Symbol.toStringTag] = "TextEncoder";

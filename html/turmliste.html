@@ -37,19 +37,19 @@
     </div>
     <div id="stats" hidden>
       <img id="close" src="../Bilder/Icons/close.png" alt="">
-      <span id="name" style="padding: 20px"><span id="turmName"></span> Stufe <span id="stufe"></span> <img id="minus" width = "20px" src="../Bilder/Icons/minusAn.png"> <img id="plus" width = "20px" src="../Bilder/Icons/plusAn.png"></span><br>
+      <span id="name" style="padding: 20px"><span id="turmName"></span> Stufe <span id="stufe"></span> <img id="minus" width="20px" src="../Bilder/Icons/minusAn.png"> <img id="plus" width="20px" src="../Bilder/Icons/plusAn.png"></span><br>
       <table>
         <tr>
           <td>Preis Upgrade zu dieser Stufe</td>
-          <td id = "stufePreis"></td>
+          <td id="stufePreis"></td>
         </tr>
         <tr>
           <td>Gesamt Baupreis zu dieser Stufe</td>
-          <td id = "gesamtPreis"></td>
+          <td id="gesamtPreis"></td>
         </tr>
         <tr>
           <td>Damge</td>
-          <td id = "Damge"></td>
+          <td id="Damge"></td>
         </tr>
         <tr>
           <td>Angriffszeit</td>
@@ -69,282 +69,279 @@
         </tr>
         <tr>
           <td>critDamage</td>
-          <td id = "critDamage"></td>
+          <td id="critDamage"></td>
         </tr>
         <tr>
-          <td id = "EffecktStärke"></td>
-          <td id = "EffecktDauer"></td>
+          <td id="EffecktStärke"></td>
+          <td id="EffecktDauer"></td>
         </tr>
       </table>
-      <div id = "st5">
+      <div id="st5">
         Stufe5 Spezial:<br>
-        <span id = "spezial"></span>
+        <span id="spezial"></span>
       </div>
     </div>
     <script type="text/javascript">
-    var selected = -1;
-    var stufe = 0;
-    var strg = false;
-    var schwierigkeit = 0;
-    for (var i = 0; i < towertypen.length - 1; i++) {
-      if (i<10) {
-        document.getElementById("tree").innerHTML += '<img id="0' + i + towertypen[i][10] + '" class="Object" src="../' + towertypen[i][1] + '">';
-      }
-      else {
-        document.getElementById("tree").innerHTML += '<img id="' + i + towertypen[i][10] + '" class="Object" src="../' + towertypen[i][1] + '">';
-      }
-    }
-    for (var i = 0; i < towertypen.length - 1; i++) {
-      if (i<10) {
-        document.getElementById("0" + i + towertypen[i][10]).addEventListener("click", showStats);
-      }
-      else {
-        document.getElementById(i + towertypen[i][10]).addEventListener("click", showStats);
-      }
-    }
-    document.getElementById("schwierigkeit").addEventListener("change", function () {
-      schwierigkeit = document.getElementById("schwierigkeit").selectedIndex + 1;
-      document.getElementById("stufePreis").innerHTML = turm[schwierigkeit][selected][stufe].lastUpgradeCost;
-      document.getElementById("gesamtPreis").innerHTML = turm[schwierigkeit][selected][stufe].buildCost;
-    });
-
-    document.getElementById('close').addEventListener("click", close);
-    function close() {
-      document.getElementById("stats").hidden = true;
-    }
-
-    document.getElementById("plus").addEventListener("click", function () {showStats(false, true);});
-    document.getElementById("minus").addEventListener("click", function () {showStats(false, false);});
-    //Werte die ein Turm zum bauen braucht
-    {
-      var geld;
-      var shift;
-      var size = 0;
-      var tuerme = [];
-      var roundTime = 0;
-      function ladeBild() {}
-      function hideUpgrade() {}
-    }
-
-    var turm = [];
-    var preisMult = 0.7;
-    for (var i = 1; i <= 5; i++) {
-      turm[i] = [];
-      for (var j = 0; j < towertypen.length - 1; j++) {
-        turm[i][j] = [];
-        var geld = 1000 - parseInt(towertypen[j][6]*preisMult);
-        var lastGeldAmount = geld;
-        var lastUpgradeCost = 0;
-        var tempTurm = new Turm(NaN, NaN, j);
-        tempTurm.canvasBase = undefined;
-        tempTurm.canvasGeschütz = undefined;
-        for (var k = 0; k <= maxUpgrade; k++) {
-          turm[i][j][k] = copyObj(tempTurm);
-          turm[i][j][k].lastUpgradeCost = lastUpgradeCost;
-          turm[i][j][k].buildCost = 1000 - geld;
-          tempTurm.upgrade();
-          lastUpgradeCost = lastGeldAmount - geld;
-          lastGeldAmount = geld;
+      var selected = -1;
+      var stufe = 0;
+      var strg = false;
+      var schwierigkeit = 0;
+      for (var i = 0; i < towertypen.length - 1; i++) {
+        if (i < 10) {
+          document.getElementById("tree").innerHTML += '<img id="0' + i + towertypen[i][10] + '" class="Object" src="../' + towertypen[i][1] + '">';
+        } else {
+          document.getElementById("tree").innerHTML += '<img id="' + i + towertypen[i][10] + '" class="Object" src="../' + towertypen[i][1] + '">';
         }
       }
-      preisMult += 0.15;
-    }
-
-    function addGeld(amount) {
-      geld += amount;
-    }
-
-    function showStats(useThis = false, plus = true) {
-      if (useThis) {
-        var pos = this.getBoundingClientRect();
-        x = pos.x;
-        y = pos.y;
-        id = this.id;
-        if (selected != id.substr(0,2)*1) {
-          selected = id.substr(0,2)*1;
-          stufe = 0;
+      for (var i = 0; i < towertypen.length - 1; i++) {
+        if (i < 10) {
+          document.getElementById("0" + i + towertypen[i][10]).addEventListener("click", showStats);
+        } else {
+          document.getElementById(i + towertypen[i][10]).addEventListener("click", showStats);
         }
+      }
+      document.getElementById("schwierigkeit").addEventListener("change", function() {
         schwierigkeit = document.getElementById("schwierigkeit").selectedIndex + 1;
+        document.getElementById("stufePreis").innerHTML = turm[schwierigkeit][selected][stufe].lastUpgradeCost;
+        document.getElementById("gesamtPreis").innerHTML = turm[schwierigkeit][selected][stufe].buildCost;
+      });
+
+      document.getElementById('close').addEventListener("click", close);
+
+      function close() {
+        document.getElementById("stats").hidden = true;
       }
-      else if (plus) {
-        stufe = Math.min(stufe+1, maxUpgrade);
+
+      document.getElementById("plus").addEventListener("click", function() {
+        showStats(false, true);
+      });
+      document.getElementById("minus").addEventListener("click", function() {
+        showStats(false, false);
+      });
+      //Werte die ein Turm zum bauen braucht
+      {
+        var geld;
+        var shift;
+        var size = 0;
+        var tuerme = [];
+        var roundTime = 0;
+
+        function ladeBild() {}
+
+        function hideUpgrade() {}
       }
-      else {
-        stufe = Math.max(stufe-1, 0);
+
+      var turm = [];
+      var preisMult = 0.7;
+      for (var i = 1; i <= 5; i++) {
+        turm[i] = [];
+        for (var j = 0; j < towertypen.length - 1; j++) {
+          turm[i][j] = [];
+          var geld = 1000 - parseInt(towertypen[j][6] * preisMult);
+          var lastGeldAmount = geld;
+          var lastUpgradeCost = 0;
+          var tempTurm = new Turm(NaN, NaN, j);
+          tempTurm.canvasBase = undefined;
+          tempTurm.canvasGeschütz = undefined;
+          for (var k = 0; k <= maxUpgrade; k++) {
+            turm[i][j][k] = copyObj(tempTurm);
+            turm[i][j][k].lastUpgradeCost = lastUpgradeCost;
+            turm[i][j][k].buildCost = 1000 - geld;
+            tempTurm.upgrade();
+            lastUpgradeCost = lastGeldAmount - geld;
+            lastGeldAmount = geld;
+          }
+        }
+        preisMult += 0.15;
       }
-      if (stufe == maxUpgrade) {
-        document.getElementById("plus").src = "../Bilder/Icons/plusAus.png";
+
+      function addGeld(amount) {
+        geld += amount;
       }
-      else {
-        document.getElementById("plus").src = "../Bilder/Icons/plusAn.png";
-      }
-      if (stufe == 0) {
-        document.getElementById("minus").src = "../Bilder/Icons/minusAus.png";
-      }
-      else {
-        document.getElementById("minus").src = "../Bilder/Icons/minusAn.png";
-      }
-      document.getElementById("stats").hidden = false;
-      document.getElementById("turmName").innerHTML = towertypen[selected][10];
-      document.getElementById("stufe").innerHTML = stufe;
-      document.getElementById("stufePreis").innerHTML = turm[schwierigkeit][selected][stufe].lastUpgradeCost;
-      document.getElementById("gesamtPreis").innerHTML = turm[schwierigkeit][selected][stufe].buildCost;
-      document.getElementById("Damge").innerHTML = round(turm[schwierigkeit][selected][stufe].schaden, 2);
-      document.getElementById("critChance").innerHTML = round(turm[schwierigkeit][selected][stufe].critChance, 2) + "%";
-      document.getElementById("critDamage").innerHTML = "*" + round(turm[schwierigkeit][selected][stufe].critDamage, 2);
-      document.getElementById("Angriffszeit").innerHTML = round(turm[schwierigkeit][selected][stufe].angriffsZeit, 4) + "sec";
-      if (selected == 9) {
-        document.getElementById("turmReichweite").hidden = true;
-      }
-      else {
-        document.getElementById("turmReichweite").hidden = false;
-        document.getElementById("Reichweite").innerHTML = round(turm[schwierigkeit][selected][stufe].reichweite, 2);
-      }
-      document.getElementById("Drehgeschwindigkeit").innerHTML = round(turm[schwierigkeit][selected][stufe].drehGeschw*100, 2) + " Grad/sec";
-      if (turm[schwierigkeit][selected][stufe].effekt.length == 0) {
-        document.getElementById('EffecktStärke').hidden = true;
-        document.getElementById('EffecktDauer').hidden = true;
-      }
-      else {
-        document.getElementById('EffecktStärke').hidden = false;
-        document.getElementById('EffecktDauer').hidden = false;
-        document.getElementById('EffecktStärke').innerHTML = "";
-        document.getElementById('EffecktDauer').innerHTML = "";
-        for (var i = 0; i < turm[schwierigkeit][selected][stufe].effekt.length; i++) {
-          var obj = document.getElementById('EffecktStärke');
-          var obj2 = document.getElementById('EffecktDauer');
-          switch (turm[schwierigkeit][selected][stufe].effekt[i]) {
+
+      function showStats(useThis = false, plus = true) {
+        if (useThis) {
+          var pos = this.getBoundingClientRect();
+          x = pos.x;
+          y = pos.y;
+          id = this.id;
+          if (selected != id.substr(0, 2) * 1) {
+            selected = id.substr(0, 2) * 1;
+            stufe = 0;
+          }
+          schwierigkeit = document.getElementById("schwierigkeit").selectedIndex + 1;
+        } else if (plus) {
+          stufe = Math.min(stufe + 1, maxUpgrade);
+        } else {
+          stufe = Math.max(stufe - 1, 0);
+        }
+        if (stufe == maxUpgrade) {
+          document.getElementById("plus").src = "../Bilder/Icons/plusAus.png";
+        } else {
+          document.getElementById("plus").src = "../Bilder/Icons/plusAn.png";
+        }
+        if (stufe == 0) {
+          document.getElementById("minus").src = "../Bilder/Icons/minusAus.png";
+        } else {
+          document.getElementById("minus").src = "../Bilder/Icons/minusAn.png";
+        }
+        document.getElementById("stats").hidden = false;
+        document.getElementById("turmName").innerHTML = towertypen[selected][10];
+        document.getElementById("stufe").innerHTML = stufe;
+        document.getElementById("stufePreis").innerHTML = turm[schwierigkeit][selected][stufe].lastUpgradeCost;
+        document.getElementById("gesamtPreis").innerHTML = turm[schwierigkeit][selected][stufe].buildCost;
+        document.getElementById("Damge").innerHTML = round(turm[schwierigkeit][selected][stufe].schaden, 2);
+        document.getElementById("critChance").innerHTML = round(turm[schwierigkeit][selected][stufe].critChance, 2) + "%";
+        document.getElementById("critDamage").innerHTML = "*" + round(turm[schwierigkeit][selected][stufe].critDamage, 2);
+        document.getElementById("Angriffszeit").innerHTML = round(turm[schwierigkeit][selected][stufe].angriffsZeit, 4) + "sec";
+        if (selected == 9) {
+          document.getElementById("turmReichweite").hidden = true;
+        } else {
+          document.getElementById("turmReichweite").hidden = false;
+          document.getElementById("Reichweite").innerHTML = round(turm[schwierigkeit][selected][stufe].reichweite, 2);
+        }
+        document.getElementById("Drehgeschwindigkeit").innerHTML = round(turm[schwierigkeit][selected][stufe].drehGeschw * 100, 2) + " Grad/sec";
+        if (turm[schwierigkeit][selected][stufe].effekt.length == 0) {
+          document.getElementById('EffecktStärke').hidden = true;
+          document.getElementById('EffecktDauer').hidden = true;
+        } else {
+          document.getElementById('EffecktStärke').hidden = false;
+          document.getElementById('EffecktDauer').hidden = false;
+          document.getElementById('EffecktStärke').innerHTML = "";
+          document.getElementById('EffecktDauer').innerHTML = "";
+          for (var i = 0; i < turm[schwierigkeit][selected][stufe].effekt.length; i++) {
+            var obj = document.getElementById('EffecktStärke');
+            var obj2 = document.getElementById('EffecktDauer');
+            switch (turm[schwierigkeit][selected][stufe].effekt[i]) {
+              case 0:
+                obj.innerHTML += "Verlangsamt Gegner auf die x fache Geschwindigkeit <br>";
+                obj2.innerHTML += round(1 / (turm[schwierigkeit][selected][stufe].effektStaerke[i] + 1), 4) + "<br>";
+                break;
+              case 1:
+                obj.innerHTML += "Stunned Gegner <br>";
+                obj2.innerHTML += "<br>";
+                break;
+              case 2:
+                obj.innerHTML += "Verbrennt Gegner für x Schaden/sec <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "<br>";
+                break;
+              case 3:
+                obj.innerHTML += "Vergiftet Gegner für x Schaden/sec <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "<br>";
+                break;
+              case 5:
+                obj.innerHTML += "Trifft nahe Gegner zusätzlich für x Schaden <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "<br>";
+                break;
+              case 6:
+                obj.innerHTML += "Springt zusätzlich bis zu x mal auf nahe Gegner über <br>";
+                obj2.innerHTML += turm[schwierigkeit][selected][stufe].effektStaerke[i] + "<br>";
+                break;
+              case 7:
+                obj.innerHTML += "Verbesstert den Damage von nahen Türmen um <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
+                break;
+              case 8:
+                obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
+                break;
+              case 9:
+                obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
+                break;
+              case 10:
+                obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um <br>";
+                obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
+                break;
+            }
+            if (turm[schwierigkeit][selected][stufe].effekt[i] >= 5 && turm[schwierigkeit][selected][stufe].effekt[i] <= 10) {
+              obj.innerHTML += "Effektreichweite: <br>";
+              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektTime[i], 2) + "<br>";
+            } else {
+              obj.innerHTML += "Effektdauer:<br>";
+              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektTime[i] / 100, 2) + " sec <br>";
+            }
+          }
+        }
+        if (stufe == maxUpgrade && towertypen[selected][12]) {
+          switch (selected) {
             case 0:
-              obj.innerHTML += "Verlangsamt Gegner auf die x fache Geschwindigkeit <br>";
-              obj2.innerHTML += round(1 / (turm[schwierigkeit][selected][stufe].effektStaerke[i] + 1), 4) + "<br>";
+              document.getElementById('st5').hidden = false;
+              document.getElementById('spezial').innerHTML = "Dieser Turm kann 2 Gegner Gleichzeitig angreifen.";
               break;
             case 1:
-              obj.innerHTML += "Stunned Gegner <br>";
-              obj2.innerHTML += "<br>";
+              document.getElementById('st5').hidden = false;
+              document.getElementById('spezial').innerHTML = "Dieser Turm trifft alle Gegner in einer Linie mit abfallendem Schaden<br>(Schaden = 0.98* SchadenVorherigerGegner).";
               break;
             case 2:
-              obj.innerHTML += "Verbrennt Gegner für x Schaden/sec <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "<br>";
+              document.getElementById('st5').hidden = false;
+              document.getElementById('spezial').innerHTML = "Dieser Turm hat zusätzlich einen Dauerhaften slow von 0,5% der bis zu 50% stacken kann.";
               break;
             case 3:
-              obj.innerHTML += "Vergiftet Gegner für x Schaden/sec <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "<br>";
+              document.getElementById('st5').hidden = false;
+              document.getElementById('spezial').innerHTML = "Gift von diesem Turm stacked sich mit Gift anderer Türme";
               break;
-            case 5:
-              obj.innerHTML += "Trifft nahe Gegner zusätzlich für x Schaden <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "<br>";
+            case 4:
+              document.getElementById('st5').hidden = false;
+              document.getElementById('spezial').innerHTML = "Dieser Turm hat beim Angriff eine 5% Schance einem zufäligen Gegner<br> 10 fachem Angriffsschaden und 5 fachem Tickschaden zu verursachen.";
               break;
-            case 6:
-              obj.innerHTML += "Springt zusätzlich bis zu x mal auf nahe Gegner über <br>";
-              obj2.innerHTML += turm[schwierigkeit][selected][stufe].effektStaerke[i] + "<br>";
-              break;
-            case 7:
-              obj.innerHTML += "Verbesstert den Damage von nahen Türmen um <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
-              break;
-            case 8:
-              obj.innerHTML += "Oder: Verbesstert die Angriffsgeschwindigkeit von nahen Türmen um <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
-              break;
-            case 9:
-              obj.innerHTML += "Oder: Verbesstert die Effektstärke, -dauer und -reichweite von nahen Türmen um <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
-              break;
-            case 10:
-              obj.innerHTML += "Oder: Verbesstert die Drehgeschwindigkeit und Reichweite von nahen Türmen um <br>";
-              obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektStaerke[i], 2) + "%<br>";
-              break;
+            default:
+              document.getElementById('st5').hidden = true;
           }
-          if (turm[schwierigkeit][selected][stufe].effekt[i] >= 5 && turm[schwierigkeit][selected][stufe].effekt[i] <= 10) {
-            obj.innerHTML += "Effektreichweite: <br>";
-            obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektTime[i], 2) + "<br>";
-          }
-          else {
-            obj.innerHTML += "Effektdauer:<br>";
-            obj2.innerHTML += round(turm[schwierigkeit][selected][stufe].effektTime[i]/100, 2) + " sec <br>";
-          }
+        } else {
+          document.getElementById('st5').hidden = true;
         }
-      }
-      if (stufe == maxUpgrade && towertypen[selected][12]) {
-        switch (selected) {
-          case 0:
-            document.getElementById('st5').hidden = false;
-            document.getElementById('spezial').innerHTML = "Dieser Turm kann 2 Gegner Gleichzeitig angreifen.";
-            break;
-          case 1:
-            document.getElementById('st5').hidden = false;
-            document.getElementById('spezial').innerHTML = "Dieser Turm trifft alle Gegner in einer Linie mit abfallendem Schaden<br>(Schaden = 0.98* SchadenVorherigerGegner).";
-            break;
-          case 2:
-            document.getElementById('st5').hidden = false;
-            document.getElementById('spezial').innerHTML = "Dieser Turm hat zusätzlich einen Dauerhaften slow von 0,5% der bis zu 50% stacken kann.";
-            break;
-          case 3:
-            document.getElementById('st5').hidden = false;
-            document.getElementById('spezial').innerHTML = "Gift von diesem Turm stacked sich mit Gift anderer Türme";
-            break;
-          case 4:
-            document.getElementById('st5').hidden = false;
-            document.getElementById('spezial').innerHTML = "Dieser Turm hat beim Angriff eine 5% Schance einem zufäligen Gegner<br> 10 fachem Angriffsschaden und 5 fachem Tickschaden zu verursachen.";
-            break;
-      default:
-            document.getElementById('st5').hidden = true;
-        }
-      }
-      else {
-        document.getElementById('st5').hidden = true;
-      }
-      if (useThis) {
-        document.getElementById("stats").style.top = '0px';
-        document.getElementById("stats").style.left = '0px';
-        document.getElementById("stats").style.bottom = "auto";
-        document.getElementById("stats").style.right = "auto";
-        if (x + document.getElementById("stats").offsetWidth >= window.innerWidth * 0.98) {
-          if (document.getElementById("stats").offsetWidth < window.innerWidth * 0.96 - 70) {
-            document.getElementById("stats").style.left = x - document.getElementById("stats").offsetWidth + 'px';
+        if (useThis) {
+          document.getElementById("stats").style.top = '0px';
+          document.getElementById("stats").style.left = '0px';
+          document.getElementById("stats").style.bottom = "auto";
+          document.getElementById("stats").style.right = "auto";
+          if (x + document.getElementById("stats").offsetWidth >= window.innerWidth * 0.98) {
+            if (document.getElementById("stats").offsetWidth < window.innerWidth * 0.96 - 70) {
+              document.getElementById("stats").style.left = x - document.getElementById("stats").offsetWidth + 'px';
+              document.getElementById("stats").style.right = "auto";
+            } else {
+              document.getElementById("stats").style.right = '0px';
+              document.getElementById("stats").style.left = "auto";
+            }
+          } else {
+            document.getElementById("stats").style.left = x + 70 + 'px';
             document.getElementById("stats").style.right = "auto";
           }
-          else {
-            document.getElementById("stats").style.right = '0px';
-            document.getElementById("stats").style.left = "auto";
+
+          if (y + document.getElementById("stats").offsetHeight >= window.innerHeight * 0.98) {
+            document.getElementById("stats").style.bottom = '0px';
+            document.getElementById("stats").style.top = "auto";
+          } else {
+            document.getElementById("stats").style.top = y + 'px';
+            document.getElementById("stats").style.bottom = "auto";
           }
         }
-        else {
-          document.getElementById("stats").style.left = x + 70 + 'px';
-          document.getElementById("stats").style.right = "auto";
-        }
+      }
+      
+      //frägt ab ob eine Tastatur Taste gedückt oder losgelassen wird
+      document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
+      document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
-        if (y + document.getElementById("stats").offsetHeight >= window.innerHeight * 0.98) {
-          document.getElementById("stats").style.bottom = '0px';
-          document.getElementById("stats").style.top = "auto";
-        }
-        else {
-          document.getElementById("stats").style.top = y + 'px';
-          document.getElementById("stats").style.bottom = "auto";
+      function tasteGedrueckt(evt) {
+        switch (evt.key) {
+          case "Control":
+            strg = true;
+            break;
+          case "Escape":
+            document.getElementById("stats").hidden = true;
+            break;
         }
       }
-    }
-    //frägt ab ob eine Tastatur Taste gedückt oder losgelassen wird
-    document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
-    document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
-    function tasteGedrueckt(evt) {
-      switch (evt.key) {
-        case "Control":
-          strg = true;
-          break;
-        case "Escape":
-          document.getElementById("stats").hidden = true;
-          break;
+      function tasteLosgelassen(evt) {
+        switch (evt.key) {
+          case "Control":
+            strg = false;
+            break;
+        }
       }
-    }
-    function tasteLosgelassen(evt) {
-      switch (evt.key) {
-        case "Control":
-          strg = false;
-          break;
-      }
-    }
+
     </script>
   </body>
 </html>
