@@ -42,6 +42,11 @@ a.btn:hover {
   flex-flow: row;
   justify-content: space-between;
 }
+.close{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
 h1{
   color: red;
 }
@@ -62,10 +67,16 @@ h3{
   border-radius: 5px ;
   min-width: 200px;
 }
-#close{
+#skill{
+  background: linear-gradient(200deg,#6de3a2, #A36BFF);
   position: absolute;
   top: 0px;
-  right: 0px;
+  left: 0px;
+  border: 10px;
+  border-color: black;
+  border-style: double;
+  border-radius: 5px ;
+  min-width: 200px;
 }
 #name{
   font-size: 2em;

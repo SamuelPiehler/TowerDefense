@@ -36,7 +36,7 @@
       </h3>
     </div>
     <div id="stats" hidden>
-      <img id="close" src="../Bilder/Icons/close.png" alt="">
+      <img class="close" id="close" src="../Bilder/Icons/close.png" alt="">
       <span id="name" style="padding: 20px"><span id="turmName"></span> Stufe <span id="stufe"></span> <img id="minus" width="20px" src="../Bilder/Icons/minusAn.png"> <img id="plus" width="20px" src="../Bilder/Icons/plusAn.png"></span><br>
       <table>
         <tr>
@@ -318,7 +318,7 @@
           }
         }
       }
-      
+
       //frägt ab ob eine Tastatur Taste gedückt oder losgelassen wird
       document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
       document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
