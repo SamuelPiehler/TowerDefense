@@ -142,12 +142,14 @@ border-radius: 0px;
 }
 #schwierigkeiten{
 width: 600px;
-height: 556px;
+height: fit-content;
+max-height: 567px;
 padding:10px;
 border: 3px groove red;
 background-color: rgba(255, 160, 160, 0.971);
 z-index: 9999999;
 position: absolute;
+overflow-y: auto;
 }
 #schwierigkeit{
     left: 4px;
@@ -193,11 +195,7 @@ width: 100%;
     padding: 4px;
     padding-bottom: 0px;
 }
-#Mapname{
-    font-size: 2em;
-    text-align:center;
 
-}
 #Mapimage{
     position: relative;
 }
@@ -205,8 +203,8 @@ width: 100%;
     border: 3px groove red;
 }
 #Start {
-    position:absolute;
-    bottom:5px;
+    position:relative;
+    top:5px;
     width:calc(100% - 20px);
     left:10px;
 
@@ -214,4 +212,27 @@ width: 100%;
 #schwierigkeiten #Mapimage div#qw{
     height:390px;
     text-align: center;
+}
+#closebutton{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+#Mapname{
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 2em;
+    text-align:center;
+}
+#Mapname[value="false"]{
+    display: none;
+}
+#Mapname[value="undefined"]{
+    display: none;
+}
+#schwierigkeiten button{
+    position: absolute;
+    top: 0px;
+    left:0px;
+    z-index: 100;
 }

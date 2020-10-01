@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
@@ -17,80 +17,81 @@
   </head>
   <body>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <button onclick="EBI('menu').style.display = 'block'; if(!gamePause){startAndPause(); gotpaused = true;}" style='position: absolute; z-index:22; right: 20px; top:20px;'>
+    <button onclick="EBI('menu').style.display = 'block'; if(!gamePause && wellenEnde !== 0){
+      startAndPause();
+      }" style='position: absolute; z-index:22; right: 20px; top:20px;'>
       Menü
     </button>
     <div id=menu>
-      <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-      <div id=innermenu>
-        <div id=main class="contain visible">
-          <div class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</div>
-          <div class="menubutton mbutton-normal">Challanges</div>
-          <div class="menubutton mbutton-normal" onclick="laden()">Laden</div>
-          <a href="html/skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>
-          <div class="menubutton mbutton-half">
-            <a href="html/gegnerliste.html" class="menubutton mbutton-half-left">Gegner</a>
-            <a href="html/turmliste.html" class="menubutton mbutton-half-right">Towers</a>
-          </div>
-          <div class="menubutton mbutton-normal">Settings</div>
+        <button id="closebutton" onclick="EBI('menu').style.display = 'none';" style="display: none;">X</button>
+        <div id=innermenu>
+            <div id=main class="contain visible">
+                <a class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</a>
+                <a class="menubutton mbutton-normal">Challanges</a>
+                <a class="menubutton mbutton-normal" onclick="laden()">Laden</a>
+                <a href="html/skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>
+                <span class="menubutton mbutton-half">
+                    <a href="html/gegnerliste.html" class="menubutton mbutton-half-left">Gegner</a>
+                    <a href="html/turmliste.html" class="menubutton mbutton-half-right">Towers</a>
+                </span>
+                <a class="menubutton mbutton-normal">Settings</a>
+            </div>
+            <div id=start class="contain invisible">
+                <div class=map>
+                    <div class=outer-frame>
+                        <div class=inner-frame>
+                            <img src="">
+                        </div>
+                        <p>Map1</p>
+                    </div>
+                </div>
+            </div>
+            <span id="schwierigkeiten" style="display: none;">
+                <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
+                <div id=Mapname value="Map1">
+                    Map 1
+                </div>
+                <div id=Mapimage>
+                    <div id=qw>
+                        <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
+                        <div id=money>
+                            <img src="Bilder/Icons/coin.png">
+                            <span id=dGeld>100</span>
+                        </div>
+                        <div id=diffi>
+                            <img id="DSIco" src='Bilder/Icons/einfach.png'>
+                            <span id="DS">Leicht</span>
+                        </div>
+                        <div id=size>
+                            Mapgrösse: <span id="MSO">11 x 16</span>
+                        </div>
+                    </div>
+                </div>
+                <div id=schwierigkeit>
+                    <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
+                        Sandbox
+                    </div>
+                    <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
+                        Leicht
+                    </div>
+                    <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
+                        Mittel
+                    </div>
+                    <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
+                        Schwer
+                    </div>
+                    <div id=Extreme class=menubutton onclick="switchdifficulty(4);">
+                        Extreme
+                    </div>
+                    <div id=Unmöglich class=menubutton onclick="switchdifficulty(5);">
+                        Unmöglich
+                    </div>
+                </div>
+                <div id=Start class=menubutton onclick="startTheGame();">
+                    Spiel Starten!!
+                </div>
+              </span>
         </div>
-        <div id=start class="contain invisible">
-          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-          <div class=map>
-            <div class=outer-frame>
-              <div class=inner-frame>
-                <img src="">
-              </div>
-              <p>Map1</p>
-            </div>
-          </div>
-        </div>
-        <div id="schwierigkeiten" style="display: none;">
-          <button onclick="document.getElementById('schwierigkeiten').style.display = 'none';" style="position:absolute;">X</button>
-          <div id=Mapname>
-            Map 1
-          </div>
-          <div id=Mapimage>
-            <div id=qw>
-              <img id=mapbig src="Bilder/Icons/sorry.png" onerror="this.src='Bilder/Icons/sorry.png'; this.height =390">
-              <div id=money>
-                <img src="Bilder/Icons/coin.png">
-                <span id=dGeld>100</span>
-              </div>
-              <div id=diffi>
-                <img id="DSIco" src='Bilder/Icons/einfach.png'>
-                <span id="DS">Leicht</span>
-              </div>
-              <div id=size>
-                Mapgrösse: <span id="MSO">11 x 16</span>
-              </div>
-            </div>
-          </div>
-          <div id=schwierigkeit>
-            <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
-              Sandbox
-            </div>
-            <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
-              Leicht
-            </div>
-            <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
-              Mittel
-            </div>
-            <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
-              Schwer
-            </div>
-            <div id=Extreme class=menubutton onclick="switchdifficulty(4);">
-              Extreme
-            </div>
-            <div id=Unmöglich class=menubutton onclick="switchdifficulty(5);">
-              Unmöglich
-            </div>
-          </div>
-          <div id=Start class=menubutton onclick="startTheGame();">
-            Spiel Starten!!
-          </div>
-        </div>
-      </div>
     </div>
     <script src="js/menu.js"></script>
     <div id="bullets">
@@ -115,12 +116,12 @@
       </lable>
       <input type=button value="Spiel starten!" onclick="loadsettings()">
       <script type="text/javascript">
-        var gotpaused = false;
+          var gotpaused = false;
         var scriptLoaded = 0;
         var alreadyl = false;
         mapsloaded = false;
         var mapSchwie;
-        var anzahlMaps = 20;
+        var anzahlMaps = 3;
         var MapName;
         //speichern der zuletzt genutzten map
         var mapold;
@@ -150,11 +151,11 @@
           //maplist löschen
           maplist = [];
           //neu nach maps suchen
-          getmaps(function() {
+          getmaps(function () {
             //Liste löschen
             document.getElementById("selectmap").innerHTML = "";
             //liste neu erschaffen
-            maplist.forEach(function(Index, i) {
+            maplist.forEach(function (Index, i) {
               document.getElementById("selectmap").innerHTML += `<option name =${i} > ${Index[2]}</option> `;
             });
           });
@@ -164,7 +165,7 @@
         function handle(el, func) {
           //success wird immer beim erfolgre
           if (success) {
-            maplist.push([map, geld, checkerturn, image, mapSchwie, MapName]);
+            maplist.push([map, geld, checkerturn, image,mapSchwie,MapName]);
             checkerturn++;
             map = mapold;
             geld = geldold;
@@ -174,7 +175,7 @@
             mapSchwie = "undefined";
             MapName = "undefined";
           }
-          if (!success) {
+          if (!success){
             alreadyl = true;
             func(maplist);
             mapsloaded = true;
@@ -186,38 +187,40 @@
         }
 
         function getmaps(func = (() => {})) {
-          if (alreadyl) {
+          if(alreadyl){
             func(maplist);
 
-          } else {
-            mapold = map;
-            geldold = geld;
-            var error = false;
-            var script = document.createElement("script");
-            script.src = "Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
-            script.addEventListener("error", function(el, func) {
+          }else{
+          mapold = map;
+          geldold = geld;
+          var error = false;
+          var script = document.createElement("script");
+          script.src = "Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
+          //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
+          script.addEventListener("error", function(el,func) {
+            success = false;
+            handle(el, func, (function () {
               success = false;
-              handle(el, func, (function() {
-                success = false;
-              })());
-            }.bind(null, script, func));
+            })());
+          }.bind(null, script, func));
 
-            script.onload = function(el, func) {
-              handle(el, func)
-            }.bind(null, script, func);
-          }
+          script.onload = function (el, func) {
+            handle(el, func)
+          }.bind(null, script, func);
+        }
           document.body.appendChild(script);
         }
 
         function loadsettings(mapload = "") {
-          window.onbeforeunload = function() {
+          window.onbeforeunload = function () {
             return "";
           };
 
-          if (mapload == "") {
+          if (mapload == ""){
             map = maplist[document.getElementById("selectmap").selectedIndex];
             mapId = document.getElementById("selectmap").selectedIndex + 1;
-          } else {
+          }
+          else{
             map = mapload;
           }
           mapGeld = map[1];
@@ -235,12 +238,12 @@
             script.src = "headScript.js";
             //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
             document.body.appendChild(script);
-            script.onload = function() {
+            script.onload = function () {
               var scriptb = document.createElement("script");
               scriptb.src = "bodyScript.js";
               //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
               document.body.appendChild(scriptb);
-              scriptb.onload = function() {
+              scriptb.onload = function () {
                 if (map[0][0][1] == undefined) {
                   buildMap();
                 } else {
@@ -273,7 +276,7 @@
               document.getElementById("Leben").innerHTML = spielerLeben;
             };
           } else {
-            reset();
+              reset();
           }
         }
 
@@ -293,20 +296,9 @@
           spielEnde = false;
           timers = [];
           intervals = [];
-          start = [
-            [],
-            []
-          ];
-          portal1 = [
-            [],
-            [],
-            []
-          ];
-          portal2 = [
-            [],
-            [],
-            []
-          ];
+          start = [[], []];
+          portal1 = [[], [], []];
+          portal2 = [[], [], []];
           deselect();
           hideUpgrade();
           gegner = [];
@@ -314,12 +306,12 @@
           objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
           objContext2 = gegnerBildHidden.getContext('2d');
           objContext2.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
-          gegnerBildHidden.width = size * map[0].length;
-          gegnerBildHidden.height = size * map.length;
-          gegnerBild.width = size * map[0].length;
-          gegnerBild.height = size * map.length;
-          TCN.width = size * map[0].length;
-          TCN.height = size * map.length;
+          gegnerBildHidden.width = size*map[0].length;
+          gegnerBildHidden.height = size*map.length;
+          gegnerBild.width = size*map[0].length;
+          gegnerBild.height = size*map.length;
+          TCN.width = size*map[0].length;
+          TCN.height = size*map.length;
           tuerme.forEach((item, i) => {
             if (item != undefined) {
               item.canvasBase.remove();
@@ -392,9 +384,10 @@
           } else {
             buildMapNeu();
           }
-          if (size * 1.7 * 6 + 100 + size < screen.height) {
+          if (size*1.7*6+100+size < screen.height) {
             selectSize = size;
-          } else {
+          }
+          else {
             selectSize = (screen.height - 100) / (1.7 * 6 + 1);
           }
           for (var i = 0; i < towertypen.length; i++) {
@@ -402,23 +395,23 @@
               towerSelect[i][j].width = selectSize;
               towerSelect[i][j].height = selectSize;
               var x = size * map[0].length + 90;
-              var y = selectSize * 1.7 * i + 100;
+              var y = selectSize*1.7*i+100;
               if (i >= 6) {
                 x += 120;
-                y -= 6 * selectSize * 1.7;
+                y -= 6*selectSize*1.7;
               }
-              towerSelect[i][j].style.left = x + 'px';
-              towerSelect[i][j].style.top = y + 'px';
+              towerSelect[i][j].style.left = x +'px';
+              towerSelect[i][j].style.top = y +'px';
             }
             ladeBild(towertypen[i][1], towerSelect[i][1], 0, false, 0, 0, undefined, selectSize);
           }
-          startButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize * 3) / 4 + 5 + 'px';
-          speedButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize * 3) / 2 + 45 + 5 + 'px';
-          autoStartButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize * 3) / 4 * 3 + 45 + 77 + 5 + 'px';
+          startButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 4 + 5 + 'px';
+          speedButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 2 + 45 + 5 + 'px';
+          autoStartButton.style.left = (size * map[0].length) + Math.min(document.body.offsetWidth - size * map[0].length - (45 + 77 + 123), selectSize*3) / 4 * 3 + 45 + 77 + 5 + 'px';
         }
 
         function loadmap(name = "map1.js") {
-          getmap(name, function(arr) {
+          getmap(name, function (arr) {
             map = arr;
             mapGeld = map[1];
             geld = map[1];
@@ -434,12 +427,12 @@
               script.src = "headScript.js";
               //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
               document.body.appendChild(script);
-              script.onload = function() {
+              script.onload = function () {
                 var scriptb = document.createElement("script");
                 scriptb.src = "bodyScript.js";
                 //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
                 document.body.appendChild(scriptb);
-                scriptb.onload = function() {
+                scriptb.onload = function () {
                   if (map[0][0][1] == undefined) {
                     buildMap();
                   } else {
@@ -471,7 +464,8 @@
                 }
                 document.getElementById("Leben").innerHTML = spielerLeben;
               };
-            } else {
+            }
+            else {
               reset();
             }
           });
@@ -484,11 +478,11 @@
           script.src = `${"Maps/" + name}${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
           //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
           document.body.appendChild(script);
-          script.onerror = function(el, func) {
+          script.onerror = function (el, func) {
             success = false;
             handleb(el, func, false);
           }.bind(null, script, func);
-          script.onload = function(el, func) {
+          script.onload = function (el, func) {
             handleb(el, func, true)
           }.bind(null, script, func);
         }
@@ -502,7 +496,6 @@
           }
           el.remove();
         }
-
       </script>
     </span>
     <canvas id=NumberCanvas style="position: absolute; left: 10px; top: 50px; z-index: 6; pointer-events: none;"></canvas>
