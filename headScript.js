@@ -25,6 +25,7 @@ var spielerLeben = 100;
 var killSteinePreis = Infinity;
 var selected = -1; // nummer des ausgewählten turms für upgradefenster anzeige
 var gameSpeed = 2; // giebt an wie schnell das spiel läuft (=2 wenn gamespeed butten auf 1; =6 wenn gamspeedbutton auf 3)
+var tickSpeed = 1;
 var gamePause = false; // ist das spiel momentan pausiert?
 var autoStart = false; // soll die nächste welle bei abschluss dieser welle automatisch gestartet werden?
 var startHover = false; // wird der Startbutton gerade gehovert

@@ -401,12 +401,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 			while (grad2 - this.richtung2 > 180) {
 				this.richtung2 += 360;
 			}
-			if (Math.abs(this.richtung2 - grad2) < this.drehGeschw * gameSpeed * (1 + this.buffStaerken[3] / 100) / this
+			if (Math.abs(this.richtung2 - grad2) < this.drehGeschw * gameSpeed * tickSpeed * (1 + this.buffStaerken[3] / 100) / this
 				.towerSlow && this.towerStun <= 0) { //wenn sich der turm lauf2 bis zum gegner2 drehen kann in diesem gametick
 				this.richtung2 = grad2;
 				if (roundTime - this.letzterAngriff2 >= 100 * this.angriffsZeit / (1 + this.buffStaerken[1] /
 					100)) { //wenn zeit des letzten angriffs länger als angriffszeit her ist
-					bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100 / gameSpeed); //add bullet
+					bullet(this.posx, this.posy, gegner[target2].posx, gegner[target2].posy, 100 / gameSpeed * tickSpeed); //add bullet
 					if (Math.random() * 100 < this.critChance) { //füge schaden und effeckt auf gegner zu
 						gegner[target2].damage(this.schaden * (1 + this.buffStaerken[0] / 100) * this.critDamage, this.effekt
 							.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
@@ -415,7 +415,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 						gegner[target2].damage(this.schaden * (1 + this.buffStaerken[0] / 100), this.effekt.slice(),
 							uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id);
 					}
-					if (roundTime - this.letzterAngriff2 - gameSpeed < 100 * this.angriffsZeit / (1 + this.buffStaerken[1] /
+					if (roundTime - this.letzterAngriff2 - gameSpeed * tickSpeed < 100 * this.angriffsZeit / (1 + this.buffStaerken[1] /
 							100)) {
 						this.letzterAngriff2 += 100 * this.angriffsZeit / (1 + this.buffStaerken[1] / 100);
 					}
@@ -426,16 +426,16 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 			}
 			else if (this.richtung2 > grad2) { //drehe richtung gegner
 				if (this.towerStun <= 0) {
-					this.richtung2 -= this.drehGeschw * gameSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
+					this.richtung2 -= this.drehGeschw * gameSpeed * tickSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
 				}
 			}
 			else {
 				if (this.towerStun <= 0) {
-					this.richtung2 += this.drehGeschw * gameSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
+					this.richtung2 += this.drehGeschw * gameSpeed * tickSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
 				}
 			}
 		}
-		if (Math.abs(this.richtung - grad) < this.drehGeschw * gameSpeed * (1 + this.buffStaerken[3] / 100) / this
+		if (Math.abs(this.richtung - grad) < this.drehGeschw * gameSpeed * tickSpeed * (1 + this.buffStaerken[3] / 100) / this
 			.towerSlow && this.towerStun <= 0) { //wenn sich der turm bis zum gegner drehen kann in diesem gametick
 			this.richtung = grad;
 			while (this.richtung >= 360) {
@@ -449,16 +449,16 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 				if (this.typ == 1 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][12]) { //wenn sniper stufe 5
 					switch (this.richtung) {
 						case 0: //wenn der sniper exact nach oben zeigt
-							bullet(this.posx, this.posy, this.posx, -size / 2, 100 / gameSpeed); //add bullet
+							bullet(this.posx, this.posy, this.posx, -size / 2, 100 / gameSpeed * tickSpeed); //add bullet
 							break;
 						case 90: //wenn der sniper exact nach links zeigt
-							bullet(this.posx, this.posy, -size / 2, this.posy, 100 / gameSpeed); //add bullet
+							bullet(this.posx, this.posy, -size / 2, this.posy, 100 / gameSpeed * tickSpeed); //add bullet
 							break;
 						case 180: //wenn der sniper nach unten zeigt
-							bullet(this.posx, this.posy, this.posx, size * map.length - size / 2, 100 / gameSpeed); //add bullet
+							bullet(this.posx, this.posy, this.posx, size * map.length - size / 2, 100 / gameSpeed * tickSpeed); //add bullet
 							break;
 						case 270: //wenn der sniper nach rechts zeigt
-							bullet(this.posx, this.posy, size * map[0].length - size / 2, this.posy, 100 / gameSpeed); //add bullet
+							bullet(this.posx, this.posy, size * map[0].length - size / 2, this.posy, 100 / gameSpeed * tickSpeed); //add bullet
 							break;
 						default:
 							var a = -Math.tan((this.richtung + 90) / 180 * Math
@@ -467,24 +467,24 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 									180 && a * (size * map[0].length - size / 2 - this.posx) + this.posy < -size / 2
 									)) { //falsch   //add bullet mit endpunkt (f(x)|0)
 								bullet(this.posx, this.posy, (-size / 2 - this.posy) / a + this.posx, -size / 2, 100 /
-								gameSpeed); //add bullet mit endpunkt f(x) = -size/2
+								gameSpeed * tickSpeed); //add bullet mit endpunkt f(x) = -size/2
 							}
 							else if ((this.richtung < 180 && a * (-size / 2 - this.posx) + this.posy > size * map.length - size /
 								2) || (this.richtung > 180 && a * (size * map[0].length - size / 2 - this.posx) + this.posy > size *
 									map.length - size / 2)) { //add bullet mit endpunkt (f(x)|MapHight)
 								console.log(this.richtung);
 								bullet(this.posx, this.posy, (size * map.length - size / 2 - this.posy) / a + this.posx, size * map
-									.length - size / 2, 100 / gameSpeed); //add bullet mit endpunkt f(x) = mapy -size/2
+									.length - size / 2, 100 / gameSpeed * tickSpeed); //add bullet mit endpunkt f(x) = mapy -size/2
 							}
 							else {
 								if (this.richtung < 180) {
 									bullet(this.posx, this.posy, -size / 2, a * (-size / 2 - this.posx) + this.posy, 100 /
-									gameSpeed); //add bullet mit endpunkt (-size/2|f(-size/2))
+									gameSpeed * tickSpeed); //add bullet mit endpunkt (-size/2|f(-size/2))
 								}
 								else {
 									bullet(this.posx, this.posy, size * map[0].length - size / 2, a * (size * map[0].length - size / 2 -
 										this.posx) + this.posy, 100 /
-									gameSpeed); //add bullet mit endpunkt (mapWidth - size/2|f(mapWidth-size/2))
+									gameSpeed * tickSpeed); //add bullet mit endpunkt (mapWidth - size/2|f(mapWidth-size/2))
 								}
 							}
 							break;
@@ -587,7 +587,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 				}
 				else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][
 					12]) { //wenn antiBoss stufe 5
-					bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100 / gameSpeed); //add bullet
+					bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100 / gameSpeed * tickSpeed); //add bullet
 					//füge schaden und effeckt auf gegner zu
 					if (Math.random() * 100 < this.critChance) {
 						gegner[target].damage((this.schaden * (1 + this.buffStaerken[0] / 100) + 100 * this.effecktStacks * (1 +
@@ -605,7 +605,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 				}
 				else {
 					if (gegner[target] != undefined) {
-						bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100 / gameSpeed); //add bullet
+						bullet(this.posx, this.posy, gegner[target].posx, gegner[target].posy, 100 / gameSpeed * tickSpeed); //add bullet
 						if (Math.random() * 100 < this.critChance) { //füge schaden und effeckt auf gegner zu
 							gegner[target].damage(this.schaden * (1 + this.buffStaerken[0] / 100) * this.critDamage, this.effekt
 								.slice(), uebergabeEffektStaerke.slice(), uebergabeEffektTime.slice(), this.id, "red");
@@ -616,7 +616,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 						}
 					}
 				}
-				if (roundTime - this.letzterAngriff - gameSpeed < 100 * this.angriffsZeit / (1 + this.buffStaerken[1] /
+				if (roundTime - this.letzterAngriff - gameSpeed * tickSpeed < 100 * this.angriffsZeit / (1 + this.buffStaerken[1] /
 					100)) {
 					this.letzterAngriff += 100 * this.angriffsZeit / (1 + this.buffStaerken[1] / 100);
 				}
@@ -627,12 +627,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 		}
 		else if (this.richtung > grad) { //drehe richtung gegner
 			if (this.towerStun <= 0) {
-				this.richtung -= this.drehGeschw * gameSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
+				this.richtung -= this.drehGeschw * gameSpeed * tickSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
 			}
 		}
 		else {
 			if (this.towerStun <= 0) {
-				this.richtung += this.drehGeschw * gameSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
+				this.richtung += this.drehGeschw * gameSpeed * tickSpeed * (1 + this.buffStaerken[3] / 100) / this.towerSlow;
 			}
 		}
 		//erzeuge turmbild in richtige richtung gedreht
@@ -650,12 +650,12 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 	};
 	this.zielen = function () { //wird 1 mal pro gametick ausgeführt
 		if (this.towerStun > 0) {
-			this.letzterAngriff += gameSpeed;
-			this.letzterAngriff2 += gameSpeed;
+			this.letzterAngriff += gameSpeed * tickSpeed;
+			this.letzterAngriff2 += gameSpeed * tickSpeed;
 		}
 		else {
-			this.letzterAngriff += gameSpeed * (1 - 1 / this.towerSlow);
-			this.letzterAngriff2 += gameSpeed * (1 - 1 / this.towerSlow);
+			this.letzterAngriff += gameSpeed * tickSpeed * (1 - 1 / this.towerSlow);
+			this.letzterAngriff2 += gameSpeed * tickSpeed * (1 - 1 / this.towerSlow);
 		}
 		var uebergabeEffektStaerke = this.effektStaerke
 	.slice(); //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
@@ -858,7 +858,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 		}
 		if (target == -
 			2) { //wenn turm alles in reichweite angreift und target gefunden wurde setze neue letzte angriffszeit
-			if (roundTime - this.letzterAngriff - gameSpeed < 100 * this.angriffsZeit / (1 + this.buffStaerken[1] / 100)) {
+			if (roundTime - this.letzterAngriff - gameSpeed * tickSpeed < 100 * this.angriffsZeit / (1 + this.buffStaerken[1] / 100)) {
 				this.letzterAngriff += 100 * this.angriffsZeit / (1 + this.buffStaerken[1] / 100);
 			}
 			else {
@@ -883,7 +883,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 				}
 			}
 		}
-		this.towerStun -= gameSpeed;
+		this.towerStun -= gameSpeed * tickSpeed;
 		this.towerSlow = 1;
 	};
 }

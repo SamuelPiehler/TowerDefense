@@ -1387,6 +1387,13 @@ window.requestAnimationFrame(update); //intervall für die spielupdates (50 mal 
 
 //funktion für einen spieltick
 async function update() {
+	if (gameSpeed == 6) {
+		tickSpeed = Math.min(queue.delta.delta*60, 3);
+	}
+	else {
+		tickSpeed = Math.min(queue.delta.delta*60, 9);
+	}
+	// console.log(tickSpeed);
 	promise = [];
 	updateFinish = false;
 	if (!gamePause && wellenEnde != 0) { //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
@@ -1454,7 +1461,7 @@ async function update() {
 		}
 		if (roundTime >= 0) { //wenn welle nicht vorbei ist
 			draw(); //zeine gegner neu
-			roundTime += gameSpeed; //updade rundenzeit
+			roundTime += gameSpeed * tickSpeed; //updade rundenzeit
 			for (var i = timers.length - 1; i >= 0; i--) { //ausführung aller timer
 				item = timers[i];
 				if (item[1] <= roundTime) { //wenn timerzeit abgelaufen ist
@@ -1672,7 +1679,6 @@ function TextCanvas() {
 		if (this.performanceLimiter === 0) {
 			console.error("SCHEIßE");
 		}
-		console.log(this.performanceLimiter,this.textElemente.length);
 	};
 }
 
