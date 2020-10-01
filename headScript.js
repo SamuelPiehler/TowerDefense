@@ -13,15 +13,8 @@ var bildBuffer = [];
 var waitForBildLoad = [];
 var geldAnzeige = [];
 var loading = 0;
-var start = [
-	[],
-	[]
-]; //array in dem x und y koordinate des startpunktes abgespeichert werden
-var portal1 = [
-	[],
-	[],
-	[]
-]; //zu abspeichern der portalPositionen
+var start = [[], []]; //array in dem x und y koordinate des startpunktes abgespeichert werden
+var portal1 = [[], [], []]; //zu abspeichern der portalPositionen
 var spawnPointNumber = 0;
 if (multiStartTyp == "undefined") {
 	var multiStartTyp = 0; //0=Nacheinander, 1=pro welle, 2=zufällig, 3= überall gleichzeitig
