@@ -1,5 +1,6 @@
 //Konstructor für objekt vom typ gegner
 function Gegner(id, typ, localLebenMult) {
+	var spawnZeit = new Date();
 	this.letztesFeuer = roundTime; //wann wurde der gegener das letzte mal von feuerschadentick getroffen
 	this.letztesGift = roundTime; //wann wurde der gegener das letzte mal von giftschadentick getroffen
 	this.letzterEffeckt = []; //wann hat der Gegner das letzte mal seinen effekt genutzt
@@ -163,19 +164,19 @@ function Gegner(id, typ, localLebenMult) {
 		}
 		else {
 			//berechne geschwindigkeit des gegners      hier speed durch slowstärke      hier speed durch permaslowstärke
-			var speed = gameSpeed * this.baseSpeed * this.speedBuff / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this
+			var speed = gameSpeed * tickSpeed * this.baseSpeed * this.speedBuff / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this
 				.permaEffektStaerke[0] + 1) * (size / 70);
 			this.speedBuff = 1;
 		}
 		if (effektStaerken[0] !=
 			0) { //wenn der gegner geslowed wurde bekommt der erzeugende slowturm hier die credits dafür
 			if (tuerme[effektUrsprung[0]] != undefined) {
-				tuerme[effektUrsprung[0]].dmgDealed += gameSpeed;
+				tuerme[effektUrsprung[0]].dmgDealed += gameSpeed * tickSpeed;
 			}
 		}
 		if (roundTime - this.letztesFeuer >= 50 && effektStaerken[2] >
 			0) { //wenn der letzte feuerdmgtick mehr als eine halbe sec her ist und ein feuerreffeckt auf dem gegner ist
-			if (roundTime - this.letztesFeuer - gameSpeed < 50) { //setzen der zeit für letzten feuertick
+			if (roundTime - this.letztesFeuer - gameSpeed * tickSpeed < 50) { //setzen der zeit für letzten feuertick
 				this.letztesFeuer += 50;
 			}
 			else {
@@ -189,7 +190,7 @@ function Gegner(id, typ, localLebenMult) {
 		}
 		//wiederholung für gift
 		if (roundTime - this.letztesGift >= 50 && (effektStaerken[3] > 0 || effektStaerken[15] > 0)) {
-			if (roundTime - this.letztesGift - gameSpeed < 50) {
+			if (roundTime - this.letztesGift - gameSpeed * tickSpeed < 50) {
 				this.letztesGift += 50;
 			}
 			else {
@@ -309,6 +310,7 @@ function Gegner(id, typ, localLebenMult) {
 				spielerLeben -= gegnertypen[this.typ][6]; //schade spieler
 			}
 			document.getElementById("Leben").innerHTML = spielerLeben; //update lebensanzeige
+			console.log(new Date - spawnZeit);
 			this.kill(true); //lösche gegner
 			if (spielerLeben <= 0) { //verloren nachricht wenn leben = 0;
 				alert("Du hast das Spiel Verloren!");
