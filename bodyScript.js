@@ -428,7 +428,7 @@ async function ladeBildPromise(resolve, reject, src, canvas, richtung, clear = f
 	undefined, bildSize = size) {
 	if (bildBuffer[src] == undefined) { //wenn das bild noch nicht im buffer
 		bildBuffer[src] = document.createElement(
-		'canvas'); //erzeuge neues kanvas im buffer in dem das bild dann abgespeichert wird
+			'canvas'); //erzeuge neues kanvas im buffer in dem das bild dann abgespeichert wird
 		bildBuffer[src].width = 70;
 		bildBuffer[src].height = 70;
 		bild = new Image();
@@ -513,7 +513,8 @@ function spawnWelle() {
 	var nummer = teilWellenNummer; //nummer der zu behandelnden Teilwelle
 	do {
 		wellenEnde = Math.max(wellenEnde, roundTime + warten + ((gegnerWellen[nummer][4] + 2) *
-		100)); //setzt eine zeit wann die welle frühestens zuende sein kann (wann startet letzte teilwelle + 2 sec sicherheit 1sec bei letzter teilwelle einer gesamtwelle)
+			100
+			)); //setzt eine zeit wann die welle frühestens zuende sein kann (wann startet letzte teilwelle + 2 sec sicherheit 1sec bei letzter teilwelle einer gesamtwelle)
 		timers.push([spawnTeilWelle, roundTime + warten]); //setzt einen timer wann die teilwellen gestartet werden sollen
 		warten += Math.max(0, gegnerWellen[nummer][4] * 100);
 		nummer++;
@@ -524,7 +525,7 @@ function spawnWelle() {
 function spawnTeilWelle() {
 	var welle = gegnerWellen[teilWellenNummer];
 	wellenEnde = Math.max(wellenEnde, roundTime + (welle[3] * 100 * (welle[2] -
-	0.5))); //setzt eine zeit wann die welle frühestens zuende sein kann (wann spawned letzter gegner der teilwelle)
+		0.5))); //setzt eine zeit wann die welle frühestens zuende sein kann (wann spawned letzter gegner der teilwelle)
 	spawn(welle[0], welle[1]); //spawned ersten gegner der teilwelle
 	if (welle[2] > 1) {
 		intervals.push([function (übergabe) {
@@ -645,7 +646,7 @@ function showStats(evt, object) {
 		statFenster.style.top = y + 'px';
 	}
 	geldAnzeige = document.getElementsByClassName(
-	"preisFarbe"); //lade alle anzeige objekte die sich auf einen preis beziehen
+		"preisFarbe"); //lade alle anzeige objekte die sich auf einen preis beziehen
 }
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
@@ -1081,7 +1082,7 @@ function showUpgrade(object, id) {
 		hideUpgrade();
 	});
 	var upgradeFehlerDiv = document.createElement(
-	"div"); //anzeige wenn evrsucht wird den turm upzugraden aber nicht genug geld vorhanden ist
+		"div"); //anzeige wenn evrsucht wird den turm upzugraden aber nicht genug geld vorhanden ist
 	upgradeFehlerDiv.id = "fehler" + id;
 	upgradeFehlerDiv.color = "red";
 	upgradeFehlerDiv.innerHTML =
@@ -1118,18 +1119,21 @@ function zeicheBild(canvas, objImg, winkel, clear, x = 0, y = 0, richtung2 = und
 	objContext = canvas.getContext('2d'); //wähle inhalt des canvas zum verändern aus
 	objContext.translate(bildSize / 2 * Math.sqrt(2) * Math.sin((winkel - 45) * Math.PI / 180), -bildSize / 2 * Math.sqrt(
 		2) * Math.cos((winkel - 45) * Math.PI /
-	180)); // Ursprung verschieben damit bei drehung um den ursprung die mitte des bildes an der gewollten position bleibt
+		180
+		)); // Ursprung verschieben damit bei drehung um den ursprung die mitte des bildes an der gewollten position bleibt
 	objContext.translate(x + bildSize / 2, y + bildSize /
-	2); // Ursprung verschieben um angegebene koordinaten +35 damit das bild in der mitte eines 70x70 felden ist
+		2); // Ursprung verschieben um angegebene koordinaten +35 damit das bild in der mitte eines 70x70 felden ist
 	objContext.rotate(winkel * Math.PI / 180); // Context drehen
 	if (clear) {
 		objContext.clearRect(0, 0, bildSize, bildSize); //löschen des inhalts des canvas wenn gewollt
 	}
 	objContext.drawImage(objImg, 0, 0, objImg.width, objImg.height, 0, 0, bildSize, bildSize); // Bild zeichnen
 	objContext.rotate(-winkel * Math.PI /
-	180); // objektContext zurücksetzen um die funktion bei dem nächsten aufrufen nicht verändern zu müssen (canvas speicher drehungen und verschiebungen und es gilt für jedes zeichnen nach der drehung/verschiebung)
+		180
+		); // objektContext zurücksetzen um die funktion bei dem nächsten aufrufen nicht verändern zu müssen (canvas speicher drehungen und verschiebungen und es gilt für jedes zeichnen nach der drehung/verschiebung)
 	objContext.translate(-x - bildSize / 2, -y - bildSize /
-	2); // deswegen müssen die drehungen und verschiebungen genau um die negative zahl nochmal ausgeführt werden um es zu resetten
+		2
+		); // deswegen müssen die drehungen und verschiebungen genau um die negative zahl nochmal ausgeführt werden um es zu resetten
 	objContext.translate(-bildSize / 2 * Math.sqrt(2) * Math.sin((winkel - 45) * Math.PI / 180), bildSize / 2 * Math.sqrt(
 		2) * Math.cos((winkel - 45) * Math.PI / 180));
 	if (richtung2 !=
@@ -1150,18 +1154,20 @@ function zeichneBufferBild(canvas, objImg, winkel, clear = false, x = 0, y = 0, 
 	objContext = canvas.getContext('2d'); //wähle inhalt des canvas zum verändern aus
 	objContext.translate(objImg.width / 2 * Math.sqrt(2) * Math.sin((winkel - 45) * Math.PI / 180), -objImg.width / 2 *
 		Math.sqrt(2) * Math.cos((winkel - 45) * Math.PI / 180)
-		); // Ursprung verschieben damit bei drehung um den ursprung die mitte des bildes an der gewollten position bleibt
+	); // Ursprung verschieben damit bei drehung um den ursprung die mitte des bildes an der gewollten position bleibt
 	objContext.translate(x + 35, y +
-	35); // Ursprung verschieben um angegebene koordinaten +35 damit das bild in der mitte eines 70x70 felden ist
+		35); // Ursprung verschieben um angegebene koordinaten +35 damit das bild in der mitte eines 70x70 felden ist
 	objContext.rotate(winkel * Math.PI / 180); // Context drehen
 	if (clear) {
 		objContext.clearRect(0, 0, 70, 70); //löschen des inhalts des canvas wenn gewollt
 	}
 	objContext.drawImage(objImg, 0, 0); // Bild zeichnen
 	objContext.rotate(-winkel * Math.PI /
-	180); // objektContext zurücksetzen um die funktion bei dem nächsten aufrufen nicht verändern zu müssen (canvas speicher drehungen und verschiebungen und es gilt für jedes zeichnen nach der drehung/verschiebung)
+		180
+		); // objektContext zurücksetzen um die funktion bei dem nächsten aufrufen nicht verändern zu müssen (canvas speicher drehungen und verschiebungen und es gilt für jedes zeichnen nach der drehung/verschiebung)
 	objContext.translate(-x - 35, -y -
-	35); // deswegen müssen die drehungen und verschiebungen genau um die negative zahl nochmal ausgeführt werden um es zu resetten
+		35
+		); // deswegen müssen die drehungen und verschiebungen genau um die negative zahl nochmal ausgeführt werden um es zu resetten
 	objContext.translate(-objImg.width / 2 * Math.sqrt(2) * Math.sin((winkel - 45) * Math.PI / 180), objImg.width / 2 *
 		Math.sqrt(2) * Math.cos((winkel - 45) * Math.PI / 180));
 	if (richtung2 !=
@@ -1179,7 +1185,8 @@ function zeichneBufferBild(canvas, objImg, winkel, clear = false, x = 0, y = 0, 
 }
 //funktion zum auswählen eines towers um ihn zu bauen
 function select(evt,
-id) { //id enthält entweder die id des zu wählenden towers oder undefined wennn aufruf durch eventlistener (dann ist unter this. das objekt des angeklickten events abgespeichert und id wird dann aus dessen namen gelesen)
+	id
+	) { //id enthält entweder die id des zu wählenden towers oder undefined wennn aufruf durch eventlistener (dann ist unter this. das objekt des angeklickten events abgespeichert und id wird dann aus dessen namen gelesen)
 	deselect(); //falls schon anderer tower augewählt ist lösche die auswahl
 	if (id == undefined) { //erkennung der id und abspeichern in selected
 		selected = this.name * 1;
@@ -1231,7 +1238,8 @@ function build() {
 		}
 		if (preis <= geld) { //ist genug geld vorhanden?
 			var coordinaten = this.name.split(
-			','); //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
+				','
+				); //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
 			if (selected == 9) { //wenn Supporttower öffne place menü
 				upgradeFenster = document.createElement("div");
 				document.body.appendChild(upgradeFenster);
@@ -1301,7 +1309,7 @@ function build() {
 				}
 				else {
 					tuerme[number] = new Turm(coordinaten[0], coordinaten[1], selected,
-					number); //erstelle neuen turm mit koordinaten typ und id
+						number); //erstelle neuen turm mit koordinaten typ und id
 				}
 				tuerme.forEach((item, i) => {
 					if (item != undefined && item.typ == 9) {
@@ -1333,7 +1341,7 @@ function spawn(typ, localLebenMult) {
 		number++;
 	}
 	gegner[number] = new Gegner(number, typ, localLebenMult *
-	lebenMult); //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
+		lebenMult); //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
 	if (multiStartTyp == 0 || multiStartTyp == 3) {
 		spawnPointNumber++;
 		if (spawnPointNumber >= start[0].length) {
@@ -1355,7 +1363,7 @@ function addGeld(amount) {
 		for (var i = 0; i < geldAnzeige.length; i++) {
 			if (geldAnzeige[i].innerHTML * 1 <= geld) {
 				geldAnzeige[i].style.color =
-				"darkgreen"; //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
+					"darkgreen"; //und wechsle die farbe auf grün wenn nach dem geld bekommen nun genug geld da ist um es sich zu leisten
 			}
 		}
 	}
@@ -1368,7 +1376,7 @@ function addGeld(amount) {
 		for (var i = 0; i < geldAnzeige.length; i++) {
 			if (geldAnzeige[i].innerHTML * 1 > geld) {
 				geldAnzeige[i].style.color =
-				"red"; //und wechsle die farbe auf rot wenn nach dem zahlen nun nicht mehr genug geld da ist um es sich zu leisten
+					"red"; //und wechsle die farbe auf rot wenn nach dem zahlen nun nicht mehr genug geld da ist um es sich zu leisten
 			}
 		}
 	}
@@ -1407,12 +1415,20 @@ async function update() {
 			else {
 				startButton.src = "Bilder/Buttons/start.png";
 			}
-			if (teilWellenNummer == gegnerWellen.length || (anzahlWellen == wellenNummer && schwierigkeit !=
-				0)) { //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
-				alert("Du hast das Spiel Gewonnen!");
-				spielEnde = true;
-				addCompletedMap();
+			if (teilWellenNummer == gegnerWellen.length ||
+				(anzahlWellen == wellenNummer && schwierigkeit != 0)
+				) { //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
 				localStorage.removeItem("saveCode");
+				spielEnde = true;
+				var gain = addCompletedMap();
+				var text = "Du hast das Spiel Gewonnen!\n";
+				if (gain[0] > 0) {
+					text += "Für das Gewinnen der Map bekommst du " + gain[0] + " Skillpunkte.\n";
+				}
+				if (spielerLeben == 100 && gain[1] > 0) {
+					text += "Für das Gewinnen ohne Leben zu verlieren bekommst du " + gain[1] + " Skillpunkte.";
+				}
+				alert(text);
 			}
 			else {
 				objContext = gegnerBild.getContext('2d'); //löschen des gegnerbildes
@@ -1474,20 +1490,24 @@ async function update() {
 }
 
 function addCompletedMap() {
+	var gain = [0, 0]
 	completedMaps = loadCompletedMaps();
 	if (completedMaps[mapId - 1] < schwierigkeit) {
-		skillPunkte += skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[completedMaps[mapId - 1]];
+		gain[0] = skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[completedMaps[mapId - 1]];
+		skillPunkte += gain[0];
 		completedMaps[mapId - 1] = schwierigkeit;
 		saveSkillTree()
 	}
 	localStorage.setItem('completedMaps', JSON.stringify(completedMaps));
-	flawlessMaps = loadCompletedMaps();
-	if (leben == 100 && flawlessMaps[mapId - 1] < schwierigkeit) {
-		skillPunkte += skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[flawlessMaps[mapId - 1]];
+	flawlessMaps = loadFlawlessMaps();
+	if (spielerLeben == 100 && flawlessMaps[mapId - 1] < schwierigkeit) {
+		gain[1] = skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[flawlessMaps[mapId - 1]];
+		skillPunkte += gain[1];
 		flawlessMaps[mapId - 1] = schwierigkeit;
 		saveSkillTree()
 	}
 	localStorage.setItem('flawlessMaps', JSON.stringify(flawlessMaps));
+	return gain;
 }
 
 function loadCompletedMaps() {
@@ -1641,7 +1661,7 @@ function TextCanvas() {
 }
 
 function teslaEffekt(points, effektStaerke, effektReichweite, ursprung, targetGegner, momentanerGegner, schaden =
-true) {
+	true) {
 	var target = -1;
 	var targetEntfernung = -1;
 	for (var i = targetGegner.length - 1; i >= 0; i--) { //überprüfe jeden gegner

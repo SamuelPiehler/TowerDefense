@@ -195,7 +195,6 @@
             var error = false;
             var script = document.createElement("script");
             script.src = "Maps/map" + checkerturn + `.js?${"?" + new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
-            //?"+new Date().getTime()+Math.floor(Math.random()*1000000);
             script.addEventListener("error", function(el, func) {
               success = false;
               handle(el, func, (function() {
