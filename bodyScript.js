@@ -1591,6 +1591,13 @@ function Delta() {
 		this.last = now;
 	}
 }
+// Source: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 function TextCanvas() {
 	/// canvas besorgen
@@ -1599,9 +1606,10 @@ function TextCanvas() {
 	this.canvas.offsetLeft = (this.canvas.height = size * map.length);
 	this.ctx = this.canvas.getContext("2d");
 	this.textElemente = [];
+	this.spawnQueue = [];
 	this.performanceLimiter = 200;
 	this.spawnText = (text, x, y, color) => {
-		this.textElemente.push(new(function () {
+		this.spawnQueue.push(new(function () {
 			this.text = text.toString().replace("<br>", "\n");
 			this.progress = 1.0;
 			this.curve = (prog = this.progress) => Math.sqrt(Math.sin(prog ** 2 * Math.PI));
@@ -1614,6 +1622,9 @@ function TextCanvas() {
 	};
 	this.update = () => {
 		const delta = queue.delta.delta;
+		shuffleArray(this.spawnQueue);
+		this.spawnQueue.forEach((item,) => this.textElemente.push(item));
+		this.spawnQueue = [];
 		this.textElemente = this.textElemente
 			.map((el) => {
 				el.progress -= delta;
@@ -1655,8 +1666,13 @@ function TextCanvas() {
 			});
 
 		const renderTime = (new Date().getTime() - start);
-		if (renderTime > 0)
-			this.performanceLimiter = Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30; // min ~33 fps
+		if (renderTime > 0) {
+			this.performanceLimiter = Math.max(Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30, 20); // min ~33 fps
+		}
+		if (this.performanceLimiter === 0) {
+			console.error("SCHEIßE");
+		}
+		console.log(this.performanceLimiter,this.textElemente.length);
 	};
 }
 
