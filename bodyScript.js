@@ -1387,6 +1387,13 @@ window.requestAnimationFrame(update); //intervall für die spielupdates (50 mal 
 
 //funktion für einen spieltick
 async function update() {
+	if (gameSpeed == 6) {
+		tickSpeed = Math.min(queue.delta.delta*60, 3);
+	}
+	else {
+		tickSpeed = Math.min(queue.delta.delta*60, 9);
+	}
+	// console.log(tickSpeed);
 	promise = [];
 	updateFinish = false;
 	if (!gamePause && wellenEnde != 0) { //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
@@ -1454,7 +1461,7 @@ async function update() {
 		}
 		if (roundTime >= 0) { //wenn welle nicht vorbei ist
 			draw(); //zeine gegner neu
-			roundTime += gameSpeed; //updade rundenzeit
+			roundTime += gameSpeed * tickSpeed; //updade rundenzeit
 			for (var i = timers.length - 1; i >= 0; i--) { //ausführung aller timer
 				item = timers[i];
 				if (item[1] <= roundTime) { //wenn timerzeit abgelaufen ist
@@ -1591,6 +1598,13 @@ function Delta() {
 		this.last = now;
 	}
 }
+// Source: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 function TextCanvas() {
 	/// canvas besorgen
@@ -1599,9 +1613,10 @@ function TextCanvas() {
 	this.canvas.offsetLeft = (this.canvas.height = size * map.length);
 	this.ctx = this.canvas.getContext("2d");
 	this.textElemente = [];
+	this.spawnQueue = [];
 	this.performanceLimiter = 200;
 	this.spawnText = (text, x, y, color) => {
-		this.textElemente.push(new(function () {
+		this.spawnQueue.push(new(function () {
 			this.text = text.toString().replace("<br>", "\n");
 			this.progress = 1.0;
 			this.curve = (prog = this.progress) => Math.sqrt(Math.sin(prog ** 2 * Math.PI));
@@ -1614,6 +1629,9 @@ function TextCanvas() {
 	};
 	this.update = () => {
 		const delta = queue.delta.delta;
+		shuffleArray(this.spawnQueue);
+		this.spawnQueue.forEach((item,) => this.textElemente.push(item));
+		this.spawnQueue = [];
 		this.textElemente = this.textElemente
 			.map((el) => {
 				el.progress -= delta;
@@ -1655,8 +1673,12 @@ function TextCanvas() {
 			});
 
 		const renderTime = (new Date().getTime() - start);
-		if (renderTime > 0)
-			this.performanceLimiter = Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30; // min ~33 fps
+		if (renderTime > 0) {
+			this.performanceLimiter = Math.max(Math.floor(Math.max(this.textElemente.length, 1) / renderTime) * 30, 20); // min ~33 fps
+		}
+		if (this.performanceLimiter === 0) {
+			console.error("SCHEIßE");
+		}
 	};
 }
 
