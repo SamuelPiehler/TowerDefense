@@ -1387,7 +1387,12 @@ window.requestAnimationFrame(update); //intervall für die spielupdates (50 mal 
 
 //funktion für einen spieltick
 async function update() {
-	tickSpeed = Math.min(queue.delta.delta*60, 3);
+	if (gameSpeed == 6) {
+		tickSpeed = Math.min(queue.delta.delta*60, 3);
+	}
+	else {
+		tickSpeed = Math.min(queue.delta.delta*60, 9);
+	}
 	// console.log(tickSpeed);
 	promise = [];
 	updateFinish = false;
