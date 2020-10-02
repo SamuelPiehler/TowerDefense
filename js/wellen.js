@@ -236,7 +236,7 @@ var gegnerWellen = [
   //45
   [6,   lebenMult +=0.5, 15, 1 , 1], //  300 Gold
   [15,  lebenMult, 5, 1.5 ,1.2 ], // 450 Gold
-  [16,  lebenMult, 2, 2 , 1.3 ], // 525 Gold    
+  [16,  lebenMult, 2, 2 , 1.3 ], // 525 Gold
   [13,  lebenMult, 10, 2.5 , 1.5 ], // 150 Gold
   [8,   lebenMult, 5,  1,  1.6], //  150 Gold
   [9,   lebenMult, 10,  1,  -1], // 225 Gold
