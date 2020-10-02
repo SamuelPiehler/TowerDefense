@@ -540,6 +540,7 @@ function spawnTeilWelle() {
 //statfenster für das towerselect menü wenn tower gehovert werden zum bauen
 function showStats(evt, object) {
 	statFenster = document.createElement("div");
+	statFenster.style.pointerEvents = "none";
 	document.body.appendChild(statFenster);
 	statFenster.style.position = 'absolute';
 	var x = evt.srcElement.offsetLeft + selectSize * 0.9;
@@ -647,6 +648,8 @@ function showStats(evt, object) {
 	}
 	geldAnzeige = document.getElementsByClassName(
 		"preisFarbe"); //lade alle anzeige objekte die sich auf einen preis beziehen
+	makefit(statFenster,20);
+
 }
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
@@ -995,7 +998,7 @@ function showUpgrade(object, id) {
 			else if (tuerme[id].effekt[i] != 4) {
 				upgradeFenster.innerHTML += "Effektdauer: " + round(tuerme[id].effektTime[i] / 100 * (1 + tuerme[id]
 					.buffStaerken[2] / 100), 4) + " sec <br>";
-			}
+			} 
 		}
 		if (towertypen[typ][12]) {
 			switch (typ) {
@@ -1105,6 +1108,7 @@ function showUpgrade(object, id) {
 	else {
 		upgradeFenster.style.top = y + 'px';
 	}
+	makefit(upgradeFenster,20);
 }
 
 //funktion zum schliesen der Stats/Upgradestats/-kosten anzeige

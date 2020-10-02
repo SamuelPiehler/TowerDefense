@@ -1,6 +1,7 @@
 body *{
   box-sizing: border-box;
   user-select: None;
+  overflow: hidden;
 }
 .button{
   box-shadow: 3px 2px 3px  #972742, -3px -2px 3px #972742, -3px 2px 3px  #972742, 3px -2px 3px #972742;

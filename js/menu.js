@@ -261,7 +261,69 @@ function showWindow(id){
   //                            **///
   let all = document.querySelectorAll("#menu #innermenu > div");
   all.forEach((ob) => {
-    ob.setAttribute('class','contain invisible');
+    ob.classList.remove("invisible");
+    ob.classList.remove("visible");
+    ob.classList.add("invisible");
   })
-  EBI(id).setAttribute('class','contain visible');
+  EBI(id).classList.remove("invisible");
+  EBI(id).classList.add("visible");
+}
+
+
+
+
+
+function makefit(el, accuracy = 1, cheat = false){
+  var pass = true;
+  var fitx = true;
+  var fity = true;
+
+  var steps = 1000 / accuracy
+  var winrect = {
+    left: 0,
+    top: 0,
+    right: window.innerWidth,
+    bottom: window.innerHeight
+  }
+  var elrect = el.getBoundingClientRect();
+  var top = elrect.y;
+  var bot = elrect.x;
+  el.style.top = "-1000px";
+  el.style.left = "-1000px";
+  var width = el.getBoundingClientRect().width + cheat;
+  var height = el.getBoundingClientRect().height;
+  console.log(width);
+  el.style.top = top + "px";
+  el.style.left = bot + "px";
+  elrect = el.getBoundingClientRect();
+  if(cheat){
+    el.style.top = elrect.y  + cheat + "px";
+    el.style.left = elrect.x  + cheat + "px";
+  }
+  if(width < winrect.right){if(height < winrect.bottom){}else{el.top = 0;fity = false}}
+  else{
+    el.right = 0;fitx = false;
+    if(height >= winrect.bottom){el.top = 0;fity = false;}}setTimeout(fitConstructor,0);
+  function fitConstructor()
+  {
+    steps--;
+    pass = true;
+  winrect = {
+    left: 0,
+    top: 0,
+    right: window.innerWidth,
+    bottom: window.innerHeight + 20
+  }
+  elrect = el.getBoundingClientRect();
+  if(fitx)
+  if(elrect.x < 0){el.style.left = elrect.x + accuracy +"px"; pass = false}
+  else if(elrect.x + width >= winrect.right){el.style.left = elrect.x - accuracy +"px";pass = false}
+  if(fity)
+  if(elrect.y < 0){el.style.top = elrect.y + accuracy +"px"; pass = false}
+  else if(elrect.y + height >= winrect.bottom){el.style.top = elrect.y - accuracy + "px";pass = false}
+  if(!pass && steps > 0)
+  setTimeout(fitConstructor,0);
+  else
+  console.log("done moving!")
+}
 }
