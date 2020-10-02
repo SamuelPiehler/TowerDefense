@@ -9,8 +9,7 @@ function Gegner(id, typ, localLebenMult) {
 	this.leben = gegnertypen[typ][1] * localLebenMult;
 	this.maxHP = this.leben;
 	this.lebenMult = localLebenMult;
-	this.imunität = copyObj(gegnertypen[typ][
-	3]); //welche immunitäten/effeckte hat der gegner in array  (.copyObj wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
+	this.imunität = copyObj(gegnertypen[typ][3]); //welche immunitäten/effeckte hat der gegner in array  (.copyObj wird hier benötigt um nicht eine verküpfung des arrays zu erstellen sondern eine unabhängige kopie)
 	this.imunitätStärke = copyObj(gegnertypen[typ][4]); //wie stark sind die immunitäten
 	for (var i = 0; i < this.imunität.length; i++) {
 		this.letzterEffeckt[i] = roundTime - this.imunitätStärke[i][0];
@@ -18,8 +17,7 @@ function Gegner(id, typ, localLebenMult) {
 			this.shieldAmount = this.imunitätStärke[i][0] * this.leben / 100;
 		}
 	}
-	this
-.effektTyp = []; //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
+	this.effektTyp = []; //welche efeckte betreffen den gegner momentan (hier wird slow gift feuer und stunn abgespeichert)
 	this.effektStaerke = []; //wie stark ist der jeweilige effeckt
 	this.effektStart = []; //wann wurde der effekt erzeugt
 	this.effektZeit = []; //wie lang gilt der effeckt
@@ -39,8 +37,7 @@ function Gegner(id, typ, localLebenMult) {
 	this.posx = this.mapx * size; //koordinaten des gegners
 	this.posy = this.mapy * size; //koordinaten des gegners
 	this.wert = gegnertypen[typ][5]; //wie viel geld ist der gegner on kill wert
-	this.bewegt =
-	0; //wie weit hat sich der gegner auf dem mapfeld schon bewegt zur überprüfung wann der gegner ein neues mapfeld erreicht hat
+	this.bewegt = 0; //wie weit hat sich der gegner auf dem mapfeld schon bewegt zur überprüfung wann der gegner ein neues mapfeld erreicht hat
 	this.baseSpeed = gegnertypen[typ][2]; //wie schnell bewegt sich der gegner
 	this.speedBuff = 1;
 	this.richtung = map[this.mapy][this.mapx][0] % 4; //in welche richtung schaut der gegner momentan
@@ -144,8 +141,7 @@ function Gegner(id, typ, localLebenMult) {
 		for (var i = 0; i < this.effektTyp.length; i++) { //gehe jeden effeckt durch der den gegner momentan betrifft
 			if (this.effektTyp[i] != undefined) { //skip falls effeckt gelöscht wurde
 				if (roundTime - this.effektStart[i] <= this.effektZeit[i]) { //skip falls efecktzeit abgelaufen ist
-					if (this.effektStaerke[i] > effektStaerken[this.effektTyp[
-						i]]) { //wenn es der bisher stärkste effeckt von diesem typ ist
+					if (this.effektStaerke[i] > effektStaerken[this.effektTyp[i]]) { //wenn es der bisher stärkste effeckt von diesem typ ist
 						effektStaerken[this.effektTyp[i]] = this.effektStaerke[i]; //wird er abgespeichert
 						effektUrsprung[this.effektTyp[i]] = this.effektUrsprung[i];
 					}
@@ -164,8 +160,7 @@ function Gegner(id, typ, localLebenMult) {
 		}
 		else {
 			//berechne geschwindigkeit des gegners      hier speed durch slowstärke      hier speed durch permaslowstärke
-			var speed = gameSpeed * tickSpeed * this.baseSpeed * this.speedBuff / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this
-				.permaEffektStaerke[0] + 1) * (size / 70);
+			var speed = gameSpeed * tickSpeed * this.baseSpeed * this.speedBuff / Math.max(1, effektStaerken[0] + 1) / Math.max(1, this.permaEffektStaerke[0] + 1) * (size / 70);
 			this.speedBuff = 1;
 		}
 		if (effektStaerken[0] !=
@@ -182,8 +177,7 @@ function Gegner(id, typ, localLebenMult) {
 			else {
 				this.letztesFeuer = roundTime;
 			}
-			this.damage(effektStaerken[2] / 2, [], [], [], effektUrsprung[2], "orange",
-			true); //füge schaden für feuertick zu
+			this.damage(effektStaerken[2] / 2, [], [], [], effektUrsprung[2], "orange", true); //füge schaden für feuertick zu
 			if (this.leben <= 0) {
 				return; //beende tick wenn gegner tot
 			}
@@ -379,8 +373,7 @@ function Gegner(id, typ, localLebenMult) {
 				}
 				for (var j = 0; j < this.imunität.length; j++) { //gehe alle immunitäten des gegners durch
 					if (this.imunität[j] == effekt[i]) { //betrifft diese immunität diesen effeckt?
-						effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j] / 100,
-						0); //reduziere effecktstärke je nach immunität
+						effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j] / 100, 0); //reduziere effecktstärke je nach immunität
 						if (this.imunität[j] == 2 && effekt[i] == 2) { //wenn feuerschaden reduziere den schaden je nach immunität
 							points *= Math.max(1 - this.imunitätStärke[j] / 100, 0);
 						}
@@ -450,12 +443,9 @@ function Gegner(id, typ, localLebenMult) {
 				if (effekt[i] > 10 || effekt[i] <
 					4) { // 4=permaslow und die anderen efeckte werden nicht im gegner gespeichert extra behandelt
 					var handeled = false; //effeckt schon abgehandelt (bei überschreiben von altem effeckt)
-					for (var j = 0; j < this.effektTyp
-						.length; j++) { //gehe alle effeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
-						if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] <= effektStaerke[i] && this.effektUrsprung[
-							j] == ursprung) {
-							this.effektZeit[j] = Math.max(effektZeit[i] + roundTime - this.effektStart[j], this.effektZeit[
-							j]); //wenn ja verängere nur efeckt zeit
+					for (var j = 0; j < this.effektTyp.length; j++) { //gehe alle effeckte durch ob dieser efeckt schon vom gleichen ursprung mit gleicher stärke schon existiert
+						if (this.effektTyp[j] == effekt[i] && this.effektStaerke[j] <= effektStaerke[i] && this.effektUrsprung[j] == ursprung) {
+							this.effektZeit[j] = Math.max(effektZeit[i] + roundTime - this.effektStart[j], this.effektZeit[j]); //wenn ja verängere nur efeckt zeit
 							handeled = true;
 							break;
 						}
@@ -482,8 +472,7 @@ function Gegner(id, typ, localLebenMult) {
 				}
 			}
 			if (tuerme[ursprung] != undefined) {
-				tuerme[ursprung].dmgDealed += Math.min(points, this
-				.leben); //schaden zugefügt wird bei erzeugerturm aufgerechnet
+				tuerme[ursprung].dmgDealed += Math.min(points, this.leben); //schaden zugefügt wird bei erzeugerturm aufgerechnet
 			}
 			this.leben -= points; //leben werden abgezogen
 			if (this.leben <= 0) { //wenn gegner keine leben mehr hat

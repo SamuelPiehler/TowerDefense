@@ -1340,8 +1340,7 @@ function spawn(typ, localLebenMult) {
 	while (gegner[number] != undefined) {
 		number++;
 	}
-	gegner[number] = new Gegner(number, typ, localLebenMult *
-		lebenMult); //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
+	gegner[number] = new Gegner(number, typ, localLebenMult * lebenMult); //erzeugt einen neuen gegner und übergiebt id, typ und lebensmultiplikator
 	if (multiStartTyp == 0 || multiStartTyp == 3) {
 		spawnPointNumber++;
 		if (spawnPointNumber >= start[0].length) {
