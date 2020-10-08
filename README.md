@@ -2,9 +2,6 @@
 Hier gehts zum Spiel: <br>
 [SpielLink](https://samuelpiehler.github.io/TowerDefense/index.html) <br>
 
-Hier gehts zu meinem Discord Server
-https://discord.gg/pqnj5nW <br>
-
 Tips: <br>
 Nach jeder Gewonnenen Map erhält man Skillpnkte die im Skilltree ausgegben werden können! <br>
 <br>
