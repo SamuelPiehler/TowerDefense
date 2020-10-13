@@ -242,7 +242,7 @@
       document.getElementById("skillPunkte").innerHTML = skillPunkte;
       var selected = -1;
       var skillNummer = -1;
-      var strg = false;
+      var max = false;
       var schwierigkeit = 0;
       for (var i = 0; i < towertypen.length; i++) {
         if (i < 10) {
@@ -349,7 +349,7 @@
               skillPunkte -= skills[nummer][10] + skills[nummer][9];
               document.getElementById("skillPunkte").innerHTML = skillPunkte;
               skills[nummer][9]++;
-              if (strg) {
+              if (max) {
                 addSkillpunkt(uebergabewerte);
               }
             }
@@ -368,7 +368,7 @@
             if (required) {
               skillPunkte += skills[nummer][10] + skills[nummer][9];
               document.getElementById("skillPunkte").innerHTML = skillPunkte;
-              if (strg) {
+              if (max) {
                 addSkillpunkt(uebergabewerte);
               }
             } else {
@@ -696,7 +696,7 @@
       function tasteGedrueckt(evt) {
         switch (evt.key) {
           case "Control":
-            strg = true;
+            max = true;
             break;
           case "Escape":
             document.getElementById("stats").hidden = true;
@@ -707,7 +707,7 @@
       function tasteLosgelassen(evt) {
         switch (evt.key) {
           case "Control":
-            strg = false;
+            max = false;
             break;
         }
       }

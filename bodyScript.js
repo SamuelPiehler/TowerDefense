@@ -195,32 +195,26 @@ document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
 document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
 function tasteGedrueckt(evt) {
+	if (evt.code == standartTasten["multiBuild"][0] || evt.code == standartTasten["multiBuild"][1]) {
+		multiBuild = true;
+	}
+	if (evt.code == standartTasten["keepUpgradeOpen"][0] || evt.code == standartTasten["keepUpgradeOpen"][1]) {
+		keepUpgradeOpen = true;
+	}
+	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+		max = true;
+	}
+	if (evt.code == standartTasten["close"][0] || evt.code == standartTasten["close"][1]) {
+		deselect();
+		hideUpgrade();
+	}
+	if (evt.code == standartTasten["startPause"][0] || evt.code == standartTasten["startPause"][1]) {
+		startAndPause();
+	}
+	if (evt.code == standartTasten["speedChange"][0] || evt.code == standartTasten["speedChange"][1]) {
+		changeGameSpeed();
+	}
 	switch (evt.code) {
-		case standartTasten["multiBuild"][0]:
-		case standartTasten["multiBuild"][1]:
-			multiBuild = true;
-			break;
-		case standartTasten["keepUpgradeOpen"][0]:
-		case standartTasten["keepUpgradeOpen"][1]:
-			keepUpgradeOpen = true;
-			break;
-		case standartTasten["max"][0]:
-		case standartTasten["max"][1]:
-			max = true;
-			break;
-		case standartTasten["close"][0]:
-		case standartTasten["close"][1]:
-			deselect();
-			hideUpgrade();
-			break;
-		case standartTasten["startPause"][0]:
-		case standartTasten["startPause"][1]:
-			startAndPause();
-			break;
-		case standartTasten["speedChange"][0]:
-		case standartTasten["speedChange"][1]:
-			changeGameSpeed();
-			break;
 		case standartTasten["select00"][0]:
 		case standartTasten["select00"][1]:
 			select(false, 0);
@@ -273,18 +267,14 @@ function tasteGedrueckt(evt) {
 }
 
 function tasteLosgelassen(evt) {
-	switch (evt.key) {
-		case standartTasten["multiBuild"][0]:
-		case standartTasten["multiBuild"][1]:
-			multiBuild = false;
-			break;
-		case standartTasten["keepUpgradeOpen"][0]:
-		case standartTasten["keepUpgradeOpen"][1]:
-			keepUpgradeOpen = false;
-			break;
-		case "Control":
-			max = false;
-			break;
+	if (evt.code == standartTasten["multiBuild"][0] || evt.code == standartTasten["multiBuild"][1]) {
+		multiBuild = false;
+	}
+	if (evt.code == standartTasten["keepUpgradeOpen"][0] || evt.code == standartTasten["keepUpgradeOpen"][1]) {
+		keepUpgradeOpen = false;
+	}
+	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+		max = false;
 	}
 }
 
