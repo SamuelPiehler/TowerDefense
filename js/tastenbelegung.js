@@ -28,7 +28,7 @@ function saveTastenBelegung() {
 
 function ladeTastenBelegung() {
   var save = localStorage.getItem('tastenbelegung');
-  if (save = "undefined") {
+  if (save == null) {
     tastenbelegung = copyObj(standartTasten);
   }
   else {
