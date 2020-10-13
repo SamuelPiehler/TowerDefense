@@ -28,12 +28,12 @@ var gegnertypen = [
   ['Bilder/Gegner/gegner06Boss1.png', 1000, 0.5, [0,6], [65,25], 20, 10],   //6 Boss Gegner langsam mit slow und normaldmg immunität
   ['Bilder/Gegner/gegner07Agro.png', 800,  1 ,[9] , [1], 5 , 3],  //7 zieht die Tower auf sich
   ['Bilder/Gegner/gegner08Heiler.png', 650, 1 ,[10], [[100, 140, 1]], 10 , 4],  //8 soll die Gegner heilen 1% jede sec(100 spielticks) mit 140 reichweite
-  ['Bilder/Gegner/gegner09SpawnTimer.png', 550, 0.6, [8], [[250, 0]], 15, 4], //9 spawnt Gegner 1 alle 2.5 sec (=250)
+  ['Bilder/Gegner/gegner09SpawnTimer.png', 550, 0.6, [8], [[500, 0]], 15, 4], //9 spawnt Gegner 1 alle 5 sec (=250)
   ['Bilder/Gegner/gegner10DethSplit.png', 400, 0.9 ,[7], [3] , 10, 2], //10 nach dem Tod spawnt er 3 mal Gegner 11
   ['Bilder/Gegner/gegner11Dethsplit2.png', 300, 1.4 ,[], [] , 5, 1], // 11 wird von anderen gegnern gespawned
   ['Bilder/Gegner/gegner12SpeedBuff.png', 375, 1.2 ,[11], [[5, 140]], 10 , 3], //12 Bufft speed von anderen Gegner um 5% 140 reichweite
   ['Bilder/Gegner/gegner13Shield.png', 650 , 1.6, [12], [[40, 140]], 10, 4], //13 Bufft Gegner mit Schild 50% von gegnerleben und der Effektschaden wird anulliert solange das schild aktiv ist
   ['Bilder/Gegner/gegner14TowerSlow.png', 750, 0.7, [13, 14], [[5, 350], [500, 140, 100]], 15 , 4], //14 slowed die Türme in 350 reichweite um 5% und stunned alle 5 sec einen turm in 140 reichweite für 1 sec
   ['Bilder/Gegner/gegner15Boss2.png', 2000, 0.8, [], [], 30 , 12], //15 Boss2
-  ['Bilder/Gegner/gegner16Boss3.png', 2500, 0.5, [8], [[1500, 8]], 35, 15], // 16 Boss3 spawnt alle 15 sec gegner 8 (heiler)
+  ['Bilder/Gegner/gegner16Boss3.png', 2500, 0.5, [8], [[2500, 8]], 35, 15], // 16 Boss3 spawnt alle 25 sec gegner 8 (heiler)
 ];

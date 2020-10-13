@@ -195,81 +195,95 @@ document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
 document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
 function tasteGedrueckt(evt) {
-	switch (evt.key) {
-		case "Shift":
-			shift = true;
+	switch (evt.code) {
+		case standartTasten["multiBuild"][0]:
+		case standartTasten["multiBuild"][1]:
+			multiBuild = true;
 			break;
-		case "Control":
-			strg = true;
+		case standartTasten["keepUpgradeOpen"][0]:
+		case standartTasten["keepUpgradeOpen"][1]:
+			keepUpgradeOpen = true;
 			break;
-		case "Escape":
+		case standartTasten["max"][0]:
+		case standartTasten["max"][1]:
+			max = true;
+			break;
+		case standartTasten["close"][0]:
+		case standartTasten["close"][1]:
 			deselect();
 			hideUpgrade();
 			break;
-		case " ":
+		case standartTasten["startPause"][0]:
+		case standartTasten["startPause"][1]:
 			startAndPause();
 			break;
-		case "s":
+		case standartTasten["speedChange"][0]:
+		case standartTasten["speedChange"][1]:
 			changeGameSpeed();
 			break;
-		case "S":
-			changeGameSpeed();
-			break;
-		case "!":
+		case standartTasten["select00"][0]:
+		case standartTasten["select00"][1]:
 			select(false, 0);
 			break;
-		case '"':
+		case standartTasten["select01"][0]:
+		case standartTasten["select01"][1]:
 			select(false, 1);
 			break;
-		case '§':
+		case standartTasten["select02"][0]:
+		case standartTasten["select02"][1]:
 			select(false, 2);
 			break;
-		case '$':
+		case standartTasten["select03"][0]:
+		case standartTasten["select03"][1]:
 			select(false, 3);
 			break;
-		case '%':
+		case standartTasten["select04"][0]:
+		case standartTasten["select04"][1]:
 			select(false, 4);
 			break;
-		case '&':
+		case standartTasten["select05"][0]:
+		case standartTasten["select05"][1]:
 			select(false, 5);
 			break;
-		case '/':
+		case standartTasten["select06"][0]:
+		case standartTasten["select06"][1]:
 			select(false, 6);
 			break;
-		case '(':
+		case standartTasten["select07"][0]:
+		case standartTasten["select07"][1]:
 			select(false, 7);
 			break;
-		case ')':
+		case standartTasten["select08"][0]:
+		case standartTasten["select08"][1]:
 			select(false, 8);
 			break;
-		case '=':
-			select(false, 9);
-		case '0':
+		case standartTasten["select09"][0]:
+		case standartTasten["select09"][1]:
 			select(false, 9);
 			break;
-		case '?':
-			select(false, 10);
-		case 'ß':
+		case standartTasten["select10"][0]:
+		case standartTasten["select10"][1]:
 			select(false, 10);
 			break;
-		case 'Dead':
+		case standartTasten["select11"][0]:
+		case standartTasten["select11"][1]:
 			select(false, 11);
-			break;
-		default:
-			if (evt.key * 1 >= 1 && evt.key * 1 <= 9) { //wählt tower zum bauen aus je nach gedückter zahl
-				select(false, evt.key - 1);
-			}
 			break;
 	}
 }
 
 function tasteLosgelassen(evt) {
 	switch (evt.key) {
-		case "Control":
-			strg = false;
+		case standartTasten["multiBuild"][0]:
+		case standartTasten["multiBuild"][1]:
+			multiBuild = false;
 			break;
-		case "Shift":
-			shift = false;
+		case standartTasten["keepUpgradeOpen"][0]:
+		case standartTasten["keepUpgradeOpen"][1]:
+			keepUpgradeOpen = false;
+			break;
+		case "Control":
+			max = false;
 			break;
 	}
 }
@@ -441,9 +455,6 @@ async function ladeBildPromise(resolve, reject, src, canvas, richtung, clear = f
 					item();
 				});
 				waitForBildLoad = [];
-				// if (updateFinish && !spielEnde) {
-				//   window.requestAnimationFrame(update);
-				// }
 				scriptLoaded++;
 			}
 			loading--; //gibt an das ein weiteres bufferbild fertig geladen hat
@@ -457,9 +468,6 @@ async function ladeBildPromise(resolve, reject, src, canvas, richtung, clear = f
 					item();
 				});
 				waitForBildLoad = [];
-				// if (updateFinish && !spielEnde) {
-				//   window.requestAnimationFrame(update);
-				// }
 			}
 			loading--; //gibt an das ein weiteres bufferbild fertig geladen hat
 			reject();
@@ -512,9 +520,7 @@ function spawnWelle() {
 	var warten = 0;
 	var nummer = teilWellenNummer; //nummer der zu behandelnden Teilwelle
 	do {
-		wellenEnde = Math.max(wellenEnde, roundTime + warten + ((gegnerWellen[nummer][4] + 2) *
-			100
-			)); //setzt eine zeit wann die welle frühestens zuende sein kann (wann startet letzte teilwelle + 2 sec sicherheit 1sec bei letzter teilwelle einer gesamtwelle)
+		wellenEnde = Math.max(wellenEnde, roundTime + warten + ((gegnerWellen[nummer][4] + 2) * 100)); //setzt eine zeit wann die welle frühestens zuende sein kann (wann startet letzte teilwelle + 2 sec sicherheit 1sec bei letzter teilwelle einer gesamtwelle)
 		timers.push([spawnTeilWelle, roundTime + warten]); //setzt einen timer wann die teilwellen gestartet werden sollen
 		warten += Math.max(0, gegnerWellen[nummer][4] * 100);
 		nummer++;
@@ -1267,7 +1273,7 @@ function build() {
 								item.buffTuerme();
 							}
 						});
-						if (strg) {
+						if (max) {
 							tuerme[number].upgrade();
 						}
 						hideUpgrade(); //
@@ -1316,7 +1322,7 @@ function build() {
 						item.buffTuerme();
 					}
 				});
-				if (strg) {
+				if (max) {
 					for (var i = 0; i < maxUpgrade; i++) {
 						tuerme[number].upgrade();
 					}
@@ -1325,7 +1331,7 @@ function build() {
 				//if 1/1000 chance full upgraded bei randomturm??
 			}
 		}
-		if (!shift || geld < preis) { //wenn shift nicht gedrückt ist wird die auswahl des towers gelöscht nach bau
+		if (!multiBuild || geld < preis) { //wenn shift nicht gedrückt ist wird die auswahl des towers gelöscht nach bau
 			deselect();
 		}
 		else if (selectRandom) {
@@ -1367,8 +1373,7 @@ function addGeld(amount) {
 		}
 	}
 	else if (amount < 0) {
-		if (geld <
-			0) { //wenn man mehr geld gezahlt hat als vorhanden war (sollte nicht vorkommen auser durch aufruf in der konsole)
+		if (geld < 0) { //wenn man mehr geld gezahlt hat als vorhanden war (sollte nicht vorkommen auser durch aufruf in der konsole)
 			console.log("Zu wenig Geld!!!");
 			geld = 0;
 		}
@@ -1392,14 +1397,14 @@ async function update() {
 	else {
 		tickSpeed = Math.min(queue.delta.delta*60, 9);
 	}
-	// console.log(tickSpeed);
 	promise = [];
 	updateFinish = false;
-	if (!gamePause && wellenEnde != 0) { //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
+	if (!gamePause && wellenEnde != 0 && !spielEnde) { //keine ausführung wenn das spiel pausiert ist oder zwischen den wellen
 		for (var i = gegner.length - 1; i >= 0; i--) { //gegner tick
 			if (gegner[i] != undefined) {
 				gegner[i].bewegen();
 				if (spielerLeben <= 0) { //beendet das update wenn das spiel verlohren ist
+					window.requestAnimationFrame(update);
 					return;
 				}
 			}
@@ -1414,7 +1419,7 @@ async function update() {
 				item.shieldedFrom = [];
 			}
 		});
-		if (gegner.length == 0 && roundTime > wellenEnde) { //wenn welle zuende ist (alle gegener tot)
+		if (gegner.length == 0 && roundTime > wellenEnde && !spielEnde) { //wenn welle zuende ist (alle gegener tot)
 			if (startHover) { //pausebutton wird zum startbutton
 				startButton.src = "Bilder/Buttons/startHover.png";
 			}
@@ -1481,18 +1486,10 @@ async function update() {
 			}
 		}
 	}
-	if (!spielEnde) {
-		Promise.all(promise).then(() => {
-			window.requestAnimationFrame(update);
-		});
-	}
+	Promise.all(promise).then(() => {
+		window.requestAnimationFrame(update);
+	});
 	queue.update();
-	// if (loading == 0 && !spielEnde) {
-	//   window.requestAnimationFrame(update);
-	// }
-	// else {
-	//   updateFinish = true;
-	// }
 }
 
 function addCompletedMap() {

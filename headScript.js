@@ -30,8 +30,9 @@ var gamePause = false; // ist das spiel momentan pausiert?
 var autoStart = false; // soll die nächste welle bei abschluss dieser welle automatisch gestartet werden?
 var startHover = false; // wird der Startbutton gerade gehovert
 var speedHover = false; // wird der speedbutton gerade gehovert
-var shift = false; // ist die shift taste gerade gedrückt
-var strg = false;
+var multiBuild = false; // ist die shift taste gerade gedrückt
+var keepUpgradeOpen = false;
+var max = false;
 var roundTime = -1000; // wie lang läuft die momentane welle schon -1000 wenn gerade keine welle läuft
 // 0 = funktion, 1 = executionTime
 var timers = [];
@@ -97,9 +98,14 @@ if (schwierigkeit != 0) {
 }
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert
-var preisMult = 1.3;
+var preisMult = 1.2;
+var lebenMult = 1.3;
 for (var i = 0; i < 5 - schwierigkeit; i++) {
 	preisMult -= 0.15;
+	lebenMult -= 0.1
+}
+for (var i = 0; i < 3 - schwierigkeit; i++) {
+	lebenMult -= 0.05;
 }
 var lebenMult = preisMult;
 if (schwierigkeit == 0) {
