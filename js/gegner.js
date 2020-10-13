@@ -48,7 +48,7 @@ function Gegner(id, typ, localLebenMult) {
 				case 8:
 					if (this.letzterEffeckt[i] <= roundTime - this.imunitätStärke[i][0]) {
 						this.letzterEffeckt[i] += this.imunitätStärke[i][0];
-						var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult / 2);
+						var spawnId = spawn(this.imunitätStärke[i][1], this.lebenMult);
 						gegner[spawnId].strecke = this.strecke;
 						gegner[spawnId].mapx = this.mapx;
 						gegner[spawnId].mapy = this.mapy;
@@ -304,7 +304,6 @@ function Gegner(id, typ, localLebenMult) {
 				spielerLeben -= gegnertypen[this.typ][6]; //schade spieler
 			}
 			document.getElementById("Leben").innerHTML = spielerLeben; //update lebensanzeige
-			console.log(new Date - spawnZeit);
 			this.kill(true); //lösche gegner
 			if (spielerLeben <= 0) { //verloren nachricht wenn leben = 0;
 				alert("Du hast das Spiel Verloren!");

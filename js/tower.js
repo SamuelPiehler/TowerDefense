@@ -352,11 +352,11 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 		}
 		if (successUp) { //wenn genug geld für upgrade vorhanden war
 			hideUpgrade(); //verstecke upgradefenster
-			if (shift) { //wenn shift gedrückt ist
+			if (keepUpgradeOpen) { //wenn shift gedrückt ist
 				showUpgrade(this.canvasGeschütz, this.id); //zeige geupdatetes upgradefenster
 				document.getElementById("fehler" + this.id).hidden = true; //verstecke fehleranzeige
 			}
-			if (strg) {
+			if (max) {
 				this.upgrade();
 			}
 		}
@@ -368,8 +368,7 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 	};
 	this.drehen = function (grad, target, grad2,
 	target2) { // richte turm in richtung gegner aus grad ist gegnerrichtung target ist gegner id (2 für basic turm stufe 5 zweites target)
-		var uebergabeEffektStaerke = this.effektStaerke
-	.slice(); //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
+		var uebergabeEffektStaerke = this.effektStaerke.slice(); //berechne übergabewerte für effeckte falls ein angriff ausgeführt wird
 		var uebergabeEffektTime = this.effektTime.slice();
 		for (var i = 0; i < this.effekt.length; i++) {
 			uebergabeEffektStaerke[i] *= (1 + this.buffStaerken[2] / 100);

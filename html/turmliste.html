@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../css/tuerme_gegner.css">
     <script src="../js/importantFunktions.js"></script>
     <script src="../js/towerGegnerStats.js"></script>
+    <script src="../js/tastenbelegung.js"></script>
     <script src="../js/tower.js"></script>
     <script src="../js/skills.js"></script>
     <meta charset="UTF-8">
@@ -84,7 +85,9 @@
     <script type="text/javascript">
       var selected = -1;
       var stufe = 0;
-      var strg = false;
+      var multiBuild = false; // ist die shift taste gerade gedrückt
+      var keepUpgradeOpen = false;
+      var max = false;
       var schwierigkeit = 0;
       for (var i = 0; i < towertypen.length - 1; i++) {
         if (i < 10) {
@@ -170,10 +173,22 @@
             stufe = 0;
           }
           schwierigkeit = document.getElementById("schwierigkeit").selectedIndex + 1;
-        } else if (plus) {
-          stufe = Math.min(stufe + 1, maxUpgrade);
-        } else {
-          stufe = Math.max(stufe - 1, 0);
+        }
+        else if (plus) {
+          if (max) {
+            stufe = maxUpgrade;
+          }
+          else {
+            stufe = Math.min(stufe + 1, maxUpgrade);
+          }
+        }
+        else {
+          if (max) {
+            stufe = 0;
+          }
+          else {
+            stufe = Math.max(stufe - 1, 0);
+          }
         }
         if (stufe == maxUpgrade) {
           document.getElementById("plus").src = "../Bilder/Icons/plusAus.png";
@@ -326,7 +341,7 @@
       function tasteGedrueckt(evt) {
         switch (evt.key) {
           case "Control":
-            strg = true;
+            max = true;
             break;
           case "Escape":
             document.getElementById("stats").hidden = true;
@@ -337,7 +352,7 @@
       function tasteLosgelassen(evt) {
         switch (evt.key) {
           case "Control":
-            strg = false;
+            max = false;
             break;
         }
       }
