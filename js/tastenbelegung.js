@@ -19,6 +19,8 @@ var standartTasten = {
   "select11" : ["Equal", ""],
 };
 var tastenbelegung;
+var funktion = undefined;
+var nummer = -1;
 
 function saveTastenBelegung() {
   localStorage.setItem('tastenbelegung', JSON.stringify(tastenbelegung));
@@ -26,7 +28,7 @@ function saveTastenBelegung() {
 
 function ladeTastenBelegung() {
   var save = localStorage.getItem('tastenbelegung');
-  if (save = "undefined") {
+  if (save == null) {
     tastenbelegung = copyObj(standartTasten);
   }
   else {
@@ -38,4 +40,44 @@ ladeTastenBelegung();
 function openTastenBelegung() {
   document.getElementById("settings").setAttribute('class','contain invisible');
   document.getElementById("tastenbelegung").setAttribute('class','contain visible');
+  var html = "";
+  for (var item in tastenbelegung) {
+    html += `<tr>`;
+      html += `<td>`;
+        html += `${item}`;
+      html += `</td>`;
+      html += `<td>`;
+        html += `<button class=tastenButton onclick="tasteAendern('${item}', 0)">${tastenbelegung[item][0]}</button>`;
+      html += `</td>`;
+      html += `<td>`;
+        html += `<button class=tastenButton onclick="tasteAendern('${item}', 1)">${tastenbelegung[item][1]}</button>`;
+      html += `</td>`;
+    html += `</tr>`;
+  }
+  document.getElementById("tastenbelegungTable").innerHTML = html;
+}
+
+function tasteAendern(ueFunktion, ueNummer) {
+  if (funktion == undefined && nummer == -1) {
+    funktion = ueFunktion;
+    nummer = ueNummer;
+    tastenbelegung[funktion][nummer] = "Neue Taste";
+    openTastenBelegung();
+  }
+}
+
+function aendereTasteZu(evt) {
+  if (funktion != undefined && nummer != -1) {
+    tastenbelegung[funktion][nummer] = evt.code;
+    saveTastenBelegung();
+    openTastenBelegung();
+    nummer = -1;
+    funktion = undefined;
+  }
+}
+
+function resetTastenbelegung() {
+  tastenbelegung = standartTasten;
+  saveTastenBelegung();
+  openTastenBelegung();
 }

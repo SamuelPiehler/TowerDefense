@@ -694,22 +694,18 @@
       document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
       function tasteGedrueckt(evt) {
-        switch (evt.key) {
-          case "Control":
-            max = true;
-            break;
-          case "Escape":
-            document.getElementById("stats").hidden = true;
-            break;
-        }
+      	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+      		max = true;
+      	}
+      	if (evt.code == standartTasten["close"][0] || evt.code == standartTasten["close"][1]) {
+          document.getElementById("stats").hidden = true;
+      	}
       }
 
       function tasteLosgelassen(evt) {
-        switch (evt.key) {
-          case "Control":
-            max = false;
-            break;
-        }
+      	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+      		max = false;
+      	}
       }
 
     </script>

@@ -52,6 +52,8 @@
           <button id="closebutton" onclick="EBI('main').setAttribute('class','contain visible');EBI('tastenbelegung').setAttribute('class','contain invisible');">X</button>
           <table id=tastenbelegungTable>
           </table>
+          <br><br>
+          <button onclick="resetTastenbelegung()">Reset</button>
         </div>
         <div id=start class="contain invisible">
           <div class=map>
@@ -176,7 +178,9 @@
             });
           });
         }
-
+        document.querySelector("body").addEventListener("keydown", function (evt) {
+            aendereTasteZu(evt);
+        });
         //hilfsfunktion um auszuwerten, ob die momentan getestete map existiert und hinzufügen zur maplist
         function handle(el, func) {
           //success wird immer beim erfolgre
