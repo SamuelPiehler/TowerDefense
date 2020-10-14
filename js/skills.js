@@ -262,6 +262,9 @@ function loadSkillTree() {
       console.log("fehler beim laden");
     }
   }
+  else {
+    skillPunkte = 0;
+  }
   applaySkills();
 }
 //für jeden Turm

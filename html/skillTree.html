@@ -426,43 +426,29 @@
             document.getElementById("vorraussetzungen").hidden = false;
             document.getElementById("required").innerHTML = "";
             document.getElementById("amount").innerHTML = "";
-            for (var i = 0; i < skills[skillNummer][6].length; i++) {
-              document.getElementById("required").innerHTML += skills[skills[skillNummer][6][i]][0] + "<br>";
-            }
-            if (Array.isArray(skills[skillNummer][7].length)) {
-              document.getElementById("amount").innerHTML += `${skills[skills[skillNummer][6][i]][9]}/${skills[skillNummer][7][i]}<br>`;
-            } else {
-              var have = 0;
+            if (Array.isArray(skills[skillNummer][7])) {
               for (var i = 0; i < skills[skillNummer][6].length; i++) {
-                have += skills[skills[skillNummer][6][i]][9];
-                document.getElementById("amount").innerHTML += `${skills[skills[skillNummer][6][i]][9]}/${skills[skillNummer][7]}<br>`;
+                if (i != 0) {
+                  document.getElementById("required").innerHTML += "<hr>";
+                  document.getElementById("amount").innerHTML += "<hr>";
+                }
+                var have = 0;
+                for (var j = 0; j < skills[skillNummer][6][i].length; j++) {
+                  document.getElementById("required").innerHTML += skills[skills[skillNummer][6][i][j]][0] + "<br>";
+                  have += skills[skills[skillNummer][6][i][j]][9];
+                  document.getElementById("amount").innerHTML += `${skills[skills[skillNummer][6][i][j]][9]}/${skills[skillNummer][7][i]}<br>`;
+                }
+                if (skills[skillNummer][6][i].length > 1) {
+                  document.getElementById("required").innerHTML += "Gesamt:";
+                  document.getElementById("amount").innerHTML += `${have}/${skills[skillNummer][7][i]}`;
+                }
+
               }
-              if (skills[skillNummer][6].length > 1) {
-                document.getElementById("required").innerHTML += "Gesamt:";
-                document.getElementById("amount").innerHTML += `${have}/${skills[skillNummer][7]}`;
+            }
+            else {
+              for (var i = 0; i < skills[skillNummer][6].length; i++) {
+                document.getElementById("required").innerHTML += skills[skills[skillNummer][6][i]][0] + "<br>";
               }
-            }
-            if (num != -1) {
-              var posStats = document.getElementById("stats").getBoundingClientRect();
-              console.log(posStats);
-              document.getElementById("skill").style.top = (posStats.y - document.getElementById("skill").getBoundingClientRect().height) + 'px';
-              document.getElementById("skill").style.left = posStats.x + 'px';
-            }
-          }
-          document.getElementById("skillName").innerHTML = skills[skillNummer][0];
-          document.getElementById("skillBeschreibung").innerHTML = skills[skillNummer][1];
-          if (skills[skillNummer][6].length == 0) {
-            document.getElementById("vorraussetzungen").hidden = true;
-          } else {
-            document.getElementById("vorraussetzungen").hidden = false;
-            document.getElementById("required").innerHTML = "";
-            document.getElementById("amount").innerHTML = "";
-            for (var i = 0; i < skills[skillNummer][6].length; i++) {
-              document.getElementById("required").innerHTML += skills[skills[skillNummer][6][i]][0] + "<br>";
-            }
-            if (Array.isArray(skills[skillNummer][7].length)) {
-              document.getElementById("amount").innerHTML += `${skills[skills[skillNummer][6][i]][9]}/${skills[skillNummer][7][i]}<br>`;
-            } else {
               var have = 0;
               for (var i = 0; i < skills[skillNummer][6].length; i++) {
                 have += skills[skills[skillNummer][6][i]][9];

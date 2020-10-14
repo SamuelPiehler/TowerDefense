@@ -1482,63 +1482,6 @@ async function update() {
 	queue.update();
 }
 
-function addCompletedMap() {
-	var gain = [0, 0]
-	completedMaps = loadCompletedMaps();
-	if (completedMaps[mapId - 1] < schwierigkeit) {
-		gain[0] = skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[completedMaps[mapId - 1]];
-		skillPunkte += gain[0];
-		completedMaps[mapId - 1] = schwierigkeit;
-		saveSkillTree()
-	}
-	localStorage.setItem('completedMaps', JSON.stringify(completedMaps));
-	flawlessMaps = loadFlawlessMaps();
-	if (spielerLeben == 100 && flawlessMaps[mapId - 1] < schwierigkeit) {
-		gain[1] = skillPunkteBeiSchwierigkeit[schwierigkeit] - skillPunkteBeiSchwierigkeit[flawlessMaps[mapId - 1]];
-		skillPunkte += gain[1];
-		flawlessMaps[mapId - 1] = schwierigkeit;
-		saveSkillTree()
-	}
-	localStorage.setItem('flawlessMaps', JSON.stringify(flawlessMaps));
-	return gain;
-}
-
-function loadCompletedMaps() {
-	var completedMapsString = localStorage.getItem('completedMaps');
-	if (completedMapsString != null) {
-		var completedMaps = JSON.parse(completedMapsString);
-		if (anzahlMaps < completedMaps.length) {
-			console.log("fehlerhafter completedMapsString");
-			return;
-		}
-	}
-	else {
-		completedMaps = [];
-	}
-	for (var i = completedMaps.length; i < anzahlMaps; i++) {
-		completedMaps[i] = 0;
-	}
-	return completedMaps;
-}
-
-function loadFlawlessMaps() {
-	var flawlessMapsString = localStorage.getItem('flawlessMaps');
-	if (flawlessMapsString != null) {
-		var flawlessMaps = JSON.parse(flawlessMapsString);
-		if (anzahlMaps < flawlessMaps.length) {
-			console.log("fehlerhafter flawlessMapsString");
-			return;
-		}
-	}
-	else {
-		flawlessMaps = [];
-	}
-	for (var i = flawlessMaps.length; i < anzahlMaps; i++) {
-		flawlessMaps[i] = 0;
-	}
-	return flawlessMaps;
-}
-
 //zeichne gegner
 function draw() {
 	objContext = gegnerBild.getContext('2d');

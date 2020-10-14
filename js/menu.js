@@ -36,17 +36,38 @@ function printMaps() {
 var inter = setInterval(printMaps, 100);
 
 function showselectedindex(i, d = false) {
-  if (!d)
+  if (!d){
     document.getElementById('schwierigkeiten').style.display = 'block';
+  }
+  var completedMaps = loadCompletedMaps(false);
+  for (var j = 0; j <= 5; j++) {
+    if (completedMaps[i-1] >= j) {
+      document.getElementById(`complete${j}Normal`).hidden = false;
+    }
+    else {
+      document.getElementById(`complete${j}Normal`).hidden = true;
+    }
+  }
+  var completedMaps = loadCompletedMaps(true);
+  for (var j = 0; j <= 5; j++) {
+    if (completedMaps[i-1] >= j) {
+      document.getElementById(`complete${j}Flawless`).hidden = false;
+    }
+    else {
+      document.getElementById(`complete${j}Flawless`).hidden = true;
+    }
+  }
   switchdifficulty(0);
   var arr = maplist[i - 1];
   var bild = arr[3];
   var schwierigkeitIcon = 'Bilder/Icons/sandBurg.png';
   var innertext = "undefiniert";
-  if (arr[4] != "undefined")
+  if (arr[4] != "undefined"){
     var schwierigkeitn = arr[4];
-  else
+  }
+  else{
     schwierigkeit = 0;
+  }
   switch (schwierigkeitn) {
     case 0:
       schwierigkeitIcon = "Bilder/Icons/einfach.png";
