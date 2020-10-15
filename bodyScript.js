@@ -1455,9 +1455,15 @@ async function update() {
 		}
 		if (roundTime >= 0) { //wenn welle nicht vorbei ist
 			draw(); //zeine gegner neu
-			roundTime += gameSpeed * tickSpeed; //updade rundenzeit
+			nextSpawn = -1;
 			for (var i = timers.length - 1; i >= 0; i--) { //ausführung aller timer
 				item = timers[i];
+				if (nextSpawn == -1) {
+					nextSpawn = item[1];
+				}
+				else {
+					nextSpawn = Math.min(nextSpawn, item[1]);
+				}
 				if (item[1] <= roundTime) { //wenn timerzeit abgelaufen ist
 					item[0](); //füge gespeicherte funktion aus
 					timers.splice(i, 1); //lösche timer
@@ -1465,6 +1471,12 @@ async function update() {
 			}
 			for (var i = intervals.length - 1; i >= 0; i--) { //ausführung aller intervalle
 				item = intervals[i];
+				if (nextSpawn == -1) {
+					nextSpawn = item[2] + item[3];
+				}
+				else {
+					nextSpawn = Math.min(nextSpawn, item[2] + item[3]);
+				}
 				if (item[2] + item[3] <= roundTime) { //wenn nächster aufruf des interwalls fällig ist
 					item[0](item[1]); //führe funktion des intervalls aus mit übergabewerte
 					item[2] += item[3]; //update letzte ausführungszeit
@@ -1473,6 +1485,10 @@ async function update() {
 						intervals.splice(i, 1); //lösche intervall
 					}
 				}
+			}
+			roundTime += gameSpeed * tickSpeed; //updade rundenzeit
+			if (gegner.length == 0) {
+				roundTime = Math.max(roundTime, nextSpawn);
 			}
 		}
 	}
