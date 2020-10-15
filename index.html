@@ -29,7 +29,7 @@
       <div id=innermenu>
         <div id=main class="contain visible">
           <a class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</a>
-          <a class="menubutton mbutton-normal">Challenges</a>
+          <!-- <a class="menubutton mbutton-normal">Challenges</a> -->
           <a class="menubutton mbutton-normal" onclick="laden()">Laden</a>
           <a href="html/skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>
           <span class="menubutton mbutton-half">
@@ -40,13 +40,17 @@
         </div>
         <div id=settings class="contain invisible">
           <button id="closebutton" onclick="EBI('main').setAttribute('class','contain visible');EBI('settings').setAttribute('class','contain invisible');">X</button>
-          <a class="menubutton mbutton-normal" onclick="">Mute/Unmute</a>
+          <!-- <a class="menubutton mbutton-normal" onclick="">Mute/Unmute</a>
           <a class="menubutton mbutton-normal" onclick="">Lautstärke Türme</a>
-          <a class="menubutton mbutton-normal" onclick="">Lautstärke Background</a>
+          <a class="menubutton mbutton-normal" onclick="">Lautstärke Background</a> -->
           <a class="menubutton mbutton-normal" onclick="openTastenBelegung()">Tastenbelegung</a>
-          <a class="menubutton mbutton-normal" onclick="">Export Save</a>
-          <a class="menubutton mbutton-normal" onclick="">Import Save</a>
-          <a class="menubutton mbutton-normal" onclick="">Hard Reset</a>
+          <!-- <a class="menubutton mbutton-normal" onclick="">Export Save</a>
+          <a class="menubutton mbutton-normal" onclick="">Import Save</a> -->
+          <a class="menubutton mbutton-normal" onclick="if(confirm('Wollen sie wirklich Ihren kompletten Vortschritt permanent löschen?')){
+            localStorage.clear();
+            loadSkillTree();
+            ladeTastenBelegung();
+          }">Hard Reset</a>
         </div>
         <div id=tastenbelegung class="contain invisible">
           <button id="closebutton" onclick="EBI('main').setAttribute('class','contain visible');EBI('tastenbelegung').setAttribute('class','contain invisible');">X</button>
@@ -88,22 +92,22 @@
           </div>
           <div id=schwierigkeit>
             <div class="menubutton selected" id=Sandbox onclick="switchdifficulty(0);">
-              Sandbox
+              Sandbox <span id=complete0Normal>&#10003;</span> <span id=complete0Flawless>&#10003;</span>
             </div>
             <div id=Leicht class=menubutton onclick="switchdifficulty(1);">
-              Leicht
+              Leicht <span id=complete1Normal hidden>&#10003;</span> <span id=complete1Flawless hidden>&#10003;</span>
             </div>
             <div id=Mittel class=menubutton onclick="switchdifficulty(2);">
-              Mittel
+              Mittel <span id=complete2Normal hidden>&#10003;</span> <span id=complete2Flawless hidden>&#10003;</span>
             </div>
             <div id=Schwer class=menubutton onclick="switchdifficulty(3);">
-              Schwer
+              Schwer <span id=complete3Normal hidden>&#10003;</span> <span id=complete3Flawless hidden>&#10003;</span>
             </div>
             <div id=Extreme class=menubutton onclick="switchdifficulty(4);">
-              Extreme
+              Extreme <span id=complete4Normal hidden>&#10003;</span> <span id=complete4Flawless hidden>&#10003;</span>
             </div>
             <div id=Unmöglich class=menubutton onclick="switchdifficulty(5);">
-              Unmöglich
+              Unmöglich <span id=complete5Normal hidden>&#10003;</span> <span id=complete5Flawless hidden>&#10003;</span>
             </div>
           </div>
           <div id=Start class=menubutton onclick="startTheGame();">
