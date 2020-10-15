@@ -8,6 +8,7 @@ var numberallsum = [35, 70];
 var maxHit = 0;
 //Startvariablen
 var spielEnde = false;
+var nextSpawn = -1;
 var promise = [];
 var bildBuffer = [];
 var waitForBildLoad = [];
@@ -98,8 +99,8 @@ if (schwierigkeit != 0) {
 }
 
 //mit welchem schwierigkeitsmultiplayer werden die towerkosten/upgradekosten multipliziert
-var preisMult = 1.2;
-var lebenMult = 1.3;
+var preisMult = 1.3;
+var lebenMult = 1.2;
 for (var i = 0; i < 5 - schwierigkeit; i++) {
 	preisMult -= 0.15;
 	lebenMult -= 0.1
