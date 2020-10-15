@@ -77,7 +77,7 @@ function aendereTasteZu(evt) {
 }
 
 function resetTastenbelegung() {
-  tastenbelegung = standartTasten;
+  tastenbelegung = copyObj(standartTasten);
   saveTastenBelegung();
   openTastenBelegung();
 }

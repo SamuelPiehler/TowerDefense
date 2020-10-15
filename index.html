@@ -29,7 +29,7 @@
       <div id=innermenu>
         <div id=main class="contain visible">
           <a class="menubutton mbutton-normal" onclick="EBI('main').setAttribute('class','contain invisible');EBI('start').setAttribute('class','contain visible')">Spielen</a>
-          <a class="menubutton mbutton-normal">Challenges</a>
+          <!-- <a class="menubutton mbutton-normal">Challenges</a> -->
           <a class="menubutton mbutton-normal" onclick="laden()">Laden</a>
           <a href="html/skillTree.html" class="menubutton mbutton-normal">Skill-Tree</a>
           <span class="menubutton mbutton-half">
@@ -40,12 +40,12 @@
         </div>
         <div id=settings class="contain invisible">
           <button id="closebutton" onclick="EBI('main').setAttribute('class','contain visible');EBI('settings').setAttribute('class','contain invisible');">X</button>
-          <a class="menubutton mbutton-normal" onclick="">Mute/Unmute</a>
+          <!-- <a class="menubutton mbutton-normal" onclick="">Mute/Unmute</a>
           <a class="menubutton mbutton-normal" onclick="">Lautstärke Türme</a>
-          <a class="menubutton mbutton-normal" onclick="">Lautstärke Background</a>
+          <a class="menubutton mbutton-normal" onclick="">Lautstärke Background</a> -->
           <a class="menubutton mbutton-normal" onclick="openTastenBelegung()">Tastenbelegung</a>
-          <a class="menubutton mbutton-normal" onclick="">Export Save</a>
-          <a class="menubutton mbutton-normal" onclick="">Import Save</a>
+          <!-- <a class="menubutton mbutton-normal" onclick="">Export Save</a>
+          <a class="menubutton mbutton-normal" onclick="">Import Save</a> -->
           <a class="menubutton mbutton-normal" onclick="if(confirm('Wollen sie wirklich Ihren kompletten Vortschritt permanent löschen?')){
             localStorage.clear();
             loadSkillTree();
