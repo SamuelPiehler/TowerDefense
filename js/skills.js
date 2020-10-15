@@ -251,7 +251,7 @@ function loadSkillTree() {
   var killLevelsString = localStorage.getItem('skillLevels');
   if (killLevelsString != null) {
     var skillLevels = JSON.parse(killLevelsString);
-    if (skillLevels[0] == 1 && skillLevels.length == skills.length + 2) {
+    if (skillLevels[0] == 1 && skillLevels.length <= skills.length + 2) {
       skillPunkte = skillLevels[1];
       for (var i = 2; i < skillLevels.length; i++) {
         if (skillLevels[i] != null) {
