@@ -348,27 +348,26 @@
         var getfile = false
         if (te === true && ismaptrue && !!dataURL)
           getfile = true;
-      }
-      var inputted;
-      if (getfile)
-        inputted = dataURL;
-      else
-        inputted = document.getElementById("input").value;
-      var [out, settings] = JSON.parse(inputted);
-      //console.log(out);
-      out.forEach((ele) => {
-        ele.update = update;
-        ele.showportals = showportals;
-        ele.hideportals = hideportals;
-      });
+        var inputted;
+        if (getfile)
+          inputted = dataURL;
+        else
+          inputted = document.getElementById("input").value;
+        var [out, settings] = JSON.parse(inputted);
+        //console.log(out);
+        out.forEach((ele) => {
+          ele.update = update;
+          ele.showportals = showportals;
+          ele.hideportals = hideportals;
+        });
 
-      var id = out[out.length - 1].id;
-      var spl = id.split(",");
-      generate(spl[1] - -1, spl[0] - -1);
-      tiles = out;
-      tiles.forEach((el) => {
-        el.update("gen");
-      })
+        var id = out[out.length - 1].id;
+        var spl = id.split(",");
+        generate(spl[1] - -1, spl[0] - -1);
+        tiles = out;
+        tiles.forEach((el) => {
+          el.update("gen");
+        });
       }
       var shift = false;
       var settings = {
