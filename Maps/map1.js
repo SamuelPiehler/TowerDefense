@@ -21,4 +21,4 @@ var multiStartTyp = "0";
 // hier kommt das preview- Bild
 
 
-var image = 'Maps/map1/image.webp';
+var image = 'Maps/map1/Bild.webp';
