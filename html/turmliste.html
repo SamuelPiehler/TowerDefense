@@ -339,14 +339,12 @@
       document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
       function tasteGedrueckt(evt) {
-        switch (evt.key) {
-          case "Control":
-            max = true;
-            break;
-          case "Escape":
-            document.getElementById("stats").hidden = true;
-            break;
+      	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
+          max = true;
         }
+      	if (evt.code == tastenbelegung["close"][0] || evt.code == tastenbelegung["close"][1]) {
+          document.getElementById("stats").hidden = true;
+      	}
       }
 
       function tasteLosgelassen(evt) {

@@ -681,16 +681,16 @@
       document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
       function tasteGedrueckt(evt) {
-      	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+      	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
       		max = true;
       	}
-      	if (evt.code == standartTasten["close"][0] || evt.code == standartTasten["close"][1]) {
+      	if (evt.code == tastenbelegung["close"][0] || evt.code == tastenbelegung["close"][1]) {
           document.getElementById("stats").hidden = true;
       	}
       }
 
       function tasteLosgelassen(evt) {
-      	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+      	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
       		max = false;
       	}
       }

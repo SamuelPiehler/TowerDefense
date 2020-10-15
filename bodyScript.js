@@ -195,85 +195,85 @@ document.querySelector("body").addEventListener("keydown", tasteGedrueckt);
 document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
 function tasteGedrueckt(evt) {
-	if (evt.code == standartTasten["multiBuild"][0] || evt.code == standartTasten["multiBuild"][1]) {
+	if (evt.code == tastenbelegung["multiBuild"][0] || evt.code == tastenbelegung["multiBuild"][1]) {
 		multiBuild = true;
 	}
-	if (evt.code == standartTasten["keepUpgradeOpen"][0] || evt.code == standartTasten["keepUpgradeOpen"][1]) {
+	if (evt.code == tastenbelegung["keepUpgradeOpen"][0] || evt.code == tastenbelegung["keepUpgradeOpen"][1]) {
 		keepUpgradeOpen = true;
 	}
-	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
 		max = true;
 	}
-	if (evt.code == standartTasten["close"][0] || evt.code == standartTasten["close"][1]) {
+	if (evt.code == tastenbelegung["close"][0] || evt.code == tastenbelegung["close"][1]) {
 		deselect();
 		hideUpgrade();
 	}
-	if (evt.code == standartTasten["startPause"][0] || evt.code == standartTasten["startPause"][1]) {
+	if (evt.code == tastenbelegung["startPause"][0] || evt.code == tastenbelegung["startPause"][1]) {
 		startAndPause();
 	}
-	if (evt.code == standartTasten["speedChange"][0] || evt.code == standartTasten["speedChange"][1]) {
+	if (evt.code == tastenbelegung["speedChange"][0] || evt.code == tastenbelegung["speedChange"][1]) {
 		changeGameSpeed();
 	}
 	switch (evt.code) {
-		case standartTasten["select00"][0]:
-		case standartTasten["select00"][1]:
+		case tastenbelegung["select00"][0]:
+		case tastenbelegung["select00"][1]:
 			select(false, 0);
 			break;
-		case standartTasten["select01"][0]:
-		case standartTasten["select01"][1]:
+		case tastenbelegung["select01"][0]:
+		case tastenbelegung["select01"][1]:
 			select(false, 1);
 			break;
-		case standartTasten["select02"][0]:
-		case standartTasten["select02"][1]:
+		case tastenbelegung["select02"][0]:
+		case tastenbelegung["select02"][1]:
 			select(false, 2);
 			break;
-		case standartTasten["select03"][0]:
-		case standartTasten["select03"][1]:
+		case tastenbelegung["select03"][0]:
+		case tastenbelegung["select03"][1]:
 			select(false, 3);
 			break;
-		case standartTasten["select04"][0]:
-		case standartTasten["select04"][1]:
+		case tastenbelegung["select04"][0]:
+		case tastenbelegung["select04"][1]:
 			select(false, 4);
 			break;
-		case standartTasten["select05"][0]:
-		case standartTasten["select05"][1]:
+		case tastenbelegung["select05"][0]:
+		case tastenbelegung["select05"][1]:
 			select(false, 5);
 			break;
-		case standartTasten["select06"][0]:
-		case standartTasten["select06"][1]:
+		case tastenbelegung["select06"][0]:
+		case tastenbelegung["select06"][1]:
 			select(false, 6);
 			break;
-		case standartTasten["select07"][0]:
-		case standartTasten["select07"][1]:
+		case tastenbelegung["select07"][0]:
+		case tastenbelegung["select07"][1]:
 			select(false, 7);
 			break;
-		case standartTasten["select08"][0]:
-		case standartTasten["select08"][1]:
+		case tastenbelegung["select08"][0]:
+		case tastenbelegung["select08"][1]:
 			select(false, 8);
 			break;
-		case standartTasten["select09"][0]:
-		case standartTasten["select09"][1]:
+		case tastenbelegung["select09"][0]:
+		case tastenbelegung["select09"][1]:
 			select(false, 9);
 			break;
-		case standartTasten["select10"][0]:
-		case standartTasten["select10"][1]:
+		case tastenbelegung["select10"][0]:
+		case tastenbelegung["select10"][1]:
 			select(false, 10);
 			break;
-		case standartTasten["select11"][0]:
-		case standartTasten["select11"][1]:
+		case tastenbelegung["select11"][0]:
+		case tastenbelegung["select11"][1]:
 			select(false, 11);
 			break;
 	}
 }
 
 function tasteLosgelassen(evt) {
-	if (evt.code == standartTasten["multiBuild"][0] || evt.code == standartTasten["multiBuild"][1]) {
+	if (evt.code == tastenbelegung["multiBuild"][0] || evt.code == tastenbelegung["multiBuild"][1]) {
 		multiBuild = false;
 	}
-	if (evt.code == standartTasten["keepUpgradeOpen"][0] || evt.code == standartTasten["keepUpgradeOpen"][1]) {
+	if (evt.code == tastenbelegung["keepUpgradeOpen"][0] || evt.code == tastenbelegung["keepUpgradeOpen"][1]) {
 		keepUpgradeOpen = false;
 	}
-	if (evt.code == standartTasten["max"][0] || evt.code == standartTasten["max"][1]) {
+	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
 		max = false;
 	}
 }
