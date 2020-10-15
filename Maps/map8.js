@@ -18,4 +18,4 @@ multiStartTyp = 0;
 if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';var randomtiles = false
 
  // hier kommt das preview- Bild
-var image = 'Maps/map8/image.webp';
+var image = 'Maps/map8/Bild.webp';

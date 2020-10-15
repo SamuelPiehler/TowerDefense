@@ -1,6 +1,6 @@
-var geld = 75;
+var geld = 420;
 var map = [[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],],
-[[6, ['Bilder/Map/weg1.jpg','Bilder/Map/start.png']],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[6, ['Bilder/Map/weg1.jpg','Bilder/Map/start.png']],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],],
+[[6, ['Bilder/Map/feld1.jpg','Bilder/Map/start.png']],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[6, ['Bilder/Map/feld1.jpg','Bilder/Map/start.png']],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],],
 [[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[13, ['Bilder/Map/weg1.jpg','Bilder/Map/zwischenPortal1.png'],2,1],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[14, ['Bilder/Map/weg1.jpg','Bilder/Map/zwischenPortal2.png'],4,3],[9, ['Bilder/Map/weg1.jpg','Bilder/Map/ziel1.png']],[3, 'Bilder/Map/weg1.jpg'],[3, 'Bilder/Map/weg1.jpg'],[3, 'Bilder/Map/weg1.jpg'],],
 [[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[4, 'Bilder/Map/weg1.jpg'],],
 [[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[4, 'Bilder/Map/weg1.jpg'],],
@@ -9,12 +9,12 @@ var map = [[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/
 [[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[4, 'Bilder/Map/weg1.jpg'],],
 [[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[4, 'Bilder/Map/weg1.jpg'],],
 [[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[2, 'Bilder/Map/weg1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[13, ['Bilder/Map/weg1.jpg','Bilder/Map/zwischenPortal2.png'],3,4],[0, 'Bilder/Map/feld1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[1, 'Bilder/Map/weg1.jpg'],[4, 'Bilder/Map/weg1.jpg'],],
-[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[14, ['Bilder/Map/weg1.jpg','Bilder/Map/zwischenPortal1.png'],1,2],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],],
+[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[14, ['Bilder/Map/feld1.jpg','Bilder/Map/zwischenPortal1.png'],1,2],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],],
 ]
 ;
 success= true;
 mapSchwie = false;
-MapName = 'false';
+MapName = 'Weed Paradise';
 multiStartTyp = 0;
 if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';var randomtiles = false
 
@@ -23,4 +23,4 @@ if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!mu
  // hier kommt das preview- Bild
 
 
-var image = '';
+var image = 'Maps/map18/Bild.webp';
