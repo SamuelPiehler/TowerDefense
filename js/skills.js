@@ -136,7 +136,8 @@ const skills = [
   ["Kills geben mehr Geld", "Geld pro kill erhöht sich um 5%", -2, 0, 5, true, [], 0, 5, 0, 3],   //120
   ["Mache Steine zerstörbar", "Erhale die fähigkeit Steine für 1000 Gold zu zerstören", -2, 1, 1000, 0, [110], 3, 1, 0, 5],   //121
   ["Steine billiger zerstören", "Reduziert die kosten um steine zu zerstören um 5%", -2, 1, -5, true, [111], 1, 5, 0, 1],   //122
-  ["Höheres Maximum", "Erhöht die maximale Upgradestufe von Türmen um 1", -2, 2, 1, false, [], 0, 2, 0, 10]   //123
+  ["Höheres Maximum", "Erhöht die maximale Upgradestufe von Türmen um 1", -2, 2, 1, false, [], 0, 2, 0, 10],   //123
+  ["Mehr Startgeld", "Starte jedes level mit 5 Gold mehr", -2, 3, 5, false, [], 0, 5, 0, 1],   //124
 ];
 
 var skillPunkteBeiSchwierigkeit = [0, 5, 10, 20, 40, 100];
