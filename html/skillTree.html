@@ -226,6 +226,58 @@
           <td class="?"><b style="font-size: 1.6em;">?</b></td>
         </tr>
       </table>
+      <table  id="andereSkills">
+        <tr>
+          <td>Mehr Geld bei Kill <span id="killGeld"></span></td>
+          <td id="kosten0"></td>
+          <td id="stufe0"></td>
+          <td id="buttons0">
+            <img src="../Bilder/Icons/plusAn.png" id="plus0">
+            <img src="../Bilder/Icons/minusAn.png" id="minus0">
+          </td>
+          <td id="?0"><b style="font-size: 1.6em;">?</b></td>
+        </tr>
+        <tr>
+          <td>Mehr Geld bei Wellenende <span id="wellenGeld"></span></td>
+          <td id="kosten1"></td>
+          <td id="stufe1"></td>
+          <td id="buttons1">
+            <img src="../Bilder/Icons/plusAn.png" id="plus1">
+            <img src="../Bilder/Icons/minusAn.png" id="minus1">
+          </td>
+          <td id="?1"><b style="font-size: 1.6em;">?</b></td>
+        </tr>
+        <tr>
+          <td>Mehr Startgeld <span id="startGeld"></span></td>
+          <td id="kosten2"></td>
+          <td id="stufe2"></td>
+          <td id="buttons2">
+            <img src="../Bilder/Icons/plusAn.png" id="plus2">
+            <img src="../Bilder/Icons/minusAn.png" id="minus2">
+          </td>
+          <td id="?2"><b style="font-size: 1.6em;">?</b></td>
+        </tr>
+        <tr>
+          <td><span id="steinKill"></span></td>
+          <td id="kosten3"></td>
+          <td id="stufe3"></td>
+          <td id="buttons3">
+            <img src="../Bilder/Icons/plusAn.png" id="plus3">
+            <img src="../Bilder/Icons/minusAn.png" id="minus3">
+          </td>
+          <td id="?3"><b style="font-size: 1.6em;">?</b></td>
+        </tr>
+        <tr>
+          <td>Steine zerstören billiger <span id="steinKillBiliger"></span></td>
+          <td id="kosten4"></td>
+          <td id="stufe4"></td>
+          <td id="buttons4">
+            <img src="../Bilder/Icons/plusAn.png" id="plus4">
+            <img src="../Bilder/Icons/minusAn.png" id="minus4">
+          </td>
+          <td id="?4"><b style="font-size: 1.6em;">?</b></td>
+        </tr>
+      </table>
     </div>
     <div id="skill" hidden>
       <img class="close" id="close2" src="../Bilder/Icons/close.png">
@@ -252,6 +304,7 @@
           document.getElementById("tree").innerHTML += '<img id="' + i + towertypen[i][10] + '" class="Object" src="../' + towertypen[i][1] + '">';
         }
       }
+      document.getElementById("tree").innerHTML += '<img id="' + towertypen.length + 'Andere" class="Object" src="../Bilder/Andere/platzhalter.png">';
       document.getElementById("reset").addEventListener("click", function functionName() {
         if (confirm("Wollen sie wirklich alle Skills resetten?")) {
           resetSkills();
@@ -267,6 +320,7 @@
           document.getElementById(i + towertypen[i][10]).addEventListener("click", showStats);
         }
       }
+      document.getElementById(towertypen.length + 'Andere').addEventListener("click", showStats);
       document.getElementById('close').addEventListener("click", function() {
         document.getElementById("stats").hidden = true;
       });
@@ -287,10 +341,18 @@
       for (var i = 0; i < document.getElementsByClassName("?").length; i++) {
         neuerEventlistener(document.getElementsByClassName("?")[i], showSkill, i);
       }
+      for (var i = 0; i <= 4; i++) {
+        neuerEventlistener(document.getElementById("plus" + i), addSkillpunkt, [i, true]);
+        neuerEventlistener(document.getElementById("minus" + i), addSkillpunkt, [i, false]);
+        neuerEventlistener(document.getElementById("?" + i), showSkill, i);
+      }
       dragElement(document.getElementById("skill"));
 
       function dragElement(elmnt) {
-        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        var pos1 = 0,
+          pos2 = 0,
+          pos3 = 0,
+          pos4 = 0;
         if (document.getElementById(elmnt.id + "header")) {
           // if present, the header is where you move the DIV from:
           document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
@@ -343,6 +405,9 @@
           var nummer = 123;
         } else {
           var nummer = typ + 10 * selected;
+          if (nummer >= 123) {
+            nummer++;
+          }
         }
         if (plus) {
           if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10] + skills[nummer][9]) {
@@ -415,6 +480,9 @@
             skillNummer = 123;
           } else {
             skillNummer = num + 10 * selected;
+            if (skillNummer >= 123) {
+              skillNummer++;
+            }
           }
           document.getElementById("skill").hidden = false;
         }
@@ -445,8 +513,7 @@
                 }
 
               }
-            }
-            else {
+            } else {
               for (var i = 0; i < skills[skillNummer][6].length; i++) {
                 document.getElementById("required").innerHTML += skills[skills[skillNummer][6][i]][0] + "<br>";
               }
@@ -481,9 +548,11 @@
           var towerTyp = selected;
         }
         document.getElementById("stats").hidden = false;
-        document.getElementById("normalStats").hidden = false;
+        document.getElementById("normalStats").hidden = true;
         document.getElementById("supportStats").hidden = true;
+        document.getElementById("andereSkills").hidden = true;
         if (towerTyp == 11) {
+          document.getElementById("normalStats").hidden = false;
           document.getElementsByName("Turmname")[0].innerHTML = "Stats für alle Türme";
           document.getElementsByName("Damge")[0].innerHTML = "+" + round(skills[110][4] * skills[110][9], 2) + "%";
           document.getElementsByName("critChance")[0].innerHTML = "+" + round(skills[114][4] * skills[114][9], 2) + "%";
@@ -499,7 +568,6 @@
           document.getElementById('MaxStufe').hidden = false;
           document.getElementsByName('MaxStufe')[0].innerHTML = skills[123][9] + 3;
         } else if (towerTyp == 9) {
-          document.getElementById("normalStats").hidden = true;
           document.getElementById("supportStats").hidden = false;
           document.getElementsByName("Turmname")[0].textContent = towertypen[towerTyp][10];
           for (var i = 0; i < towertypen[towerTyp][7].length; i++) {
@@ -545,7 +613,52 @@
               }
             }
           }
+        } else if (towerTyp == 12) {
+          document.getElementById("andereSkills").hidden = false;
+          document.getElementsByName("Turmname")[0].innerHTML = "Andere Skills";
+          document.getElementById("killGeld").innerHTML = `+${round((killGeldMult-1)*100, 0)}%`;
+          document.getElementById("wellenGeld").innerHTML = `+${round((wellenGeldMult-1)*100, 0)}%`;
+          document.getElementById("startGeld").innerHTML = `+${skillStartgeld}`;
+          if (killSteinePreis == Infinity) {
+            document.getElementById("steinKill").innerHTML = "Steine sind nicht zerstörbar.";
+          }
+          else {
+            document.getElementById("steinKill").innerHTML = `Steine sind für ${killSteinePreis} Geld zerstörbar.`;
+          }
+          document.getElementById("steinKillBiliger").innerHTML = `${skills[125][4]*skills[125][9]}%`;
+          for (var i = 0; i <= 4; i++) {
+            var nummer = 120 + i;
+            if (nummer >= 123) {
+              nummer++;
+            }
+            document.getElementById("kosten" + i).innerHTML =`Kosten: ${skills[nummer][10]+Math.min(skills[nummer][9], skills[nummer][8]-1)}`;
+            document.getElementById("stufe" + i).innerHTML = `Stufe: ${skills[nummer][9]}/${skills[nummer][8]}`;
+            if (skills[nummer][9] < skills[nummer][8] && skillPunkte >= skills[nummer][10] + skills[nummer][9] && haveRequired(nummer)) {
+              document.getElementById("plus" + i).src = "../Bilder/Icons/plusAn.png";
+            } else {
+              document.getElementById("plus" + i).src = "../Bilder/Icons/plusAus.png";
+            }
+            if (skills[nummer][9] > 0) {
+              skills[nummer][9]--;
+              required = true;
+              for (var j = 0; j < skills.length; j++) {
+                if (skills[j] != undefined && skills[j][9] > 0 && !haveRequired(j)) {
+                  required = false;
+                  break;
+                }
+              }
+              skills[nummer][9]++;
+              if (required) {
+                document.getElementById("minus" + i).src = "../Bilder/Icons/minusAn.png";
+              } else {
+                document.getElementById("minus" + i).src = "../Bilder/Icons/minusAus.png";
+              }
+            } else {
+              document.getElementById("minus" + i).src = "../Bilder/Icons/minusAus.png";
+            }
+          }
         } else {
+          document.getElementById("normalStats").hidden = false;
           document.getElementsByName("Turmname")[0].innerHTML = towertypen[towerTyp][10];
           document.getElementsByName("Damge")[0].innerHTML = round(towertypen[towerTyp][2], 2);
           document.getElementsByName("critChance")[0].innerHTML = round(towertypen[towerTyp][13], 2) + "%";
@@ -681,18 +794,18 @@
       document.querySelector("body").addEventListener("keyup", tasteLosgelassen);
 
       function tasteGedrueckt(evt) {
-      	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
-      		max = true;
-      	}
-      	if (evt.code == tastenbelegung["close"][0] || evt.code == tastenbelegung["close"][1]) {
+        if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
+          max = true;
+        }
+        if (evt.code == tastenbelegung["close"][0] || evt.code == tastenbelegung["close"][1]) {
           document.getElementById("stats").hidden = true;
-      	}
+        }
       }
 
       function tasteLosgelassen(evt) {
-      	if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
-      		max = false;
-      	}
+        if (evt.code == tastenbelegung["max"][0] || evt.code == tastenbelegung["max"][1]) {
+          max = false;
+        }
       }
 
     </script>

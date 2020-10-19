@@ -446,8 +446,8 @@
         function loadmap(name = "map1.js") {
           getmap(name, function(arr) {
             map = arr;
-            mapGeld = map[1];
-            geld = map[1];
+            mapGeld = map[1] + skillStartgeld;
+            geld = map[1] + skillStartgeld;
             map = map[0];
             // map = JSON.stringify(map);
             // map = map.replace(/(\[")/gm, "[");

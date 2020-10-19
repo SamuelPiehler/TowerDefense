@@ -1244,11 +1244,9 @@ function build() {
 				var y = coordinaten[1] * (size - 1.2);
 				upgradeFenster.style.backgroundColor = '#d5d0ffd0';
 				upgradeFenster.style.zIndex = 10;
-				upgradeFenster.innerHTML +=
-					"<img id='typ0' src='Bilder/Icons/schaden.png' title='Schaden'><img id='typ1' src='Bilder/Icons/angriffsGeschwindikeit.png' title='Angriffsgeschwindigkeit'><br>";
+				upgradeFenster.innerHTML += "<img id='typ0' src='Bilder/Icons/schaden.png' title='Schaden'><img id='typ1' src='Bilder/Icons/angriffsGeschwindikeit.png' title='Angriffsgeschwindigkeit'><br>";
 				upgradeFenster.innerHTML += "Welchen Suportturm<br>willst du bauen?<br>";
-				upgradeFenster.innerHTML +=
-					"<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite.png' title='Reichweite und Drehgeschwindigkeit'><br>";
+				upgradeFenster.innerHTML += "<img id='typ2' src='Bilder/Icons/effeckt.png' title='Effeckt'><img id='typ3' src='Bilder/Icons/reichweite.png' title='Reichweite und Drehgeschwindigkeit'><br>";
 				for (var i = 0; i < 4; i++) {
 					document.getElementById("typ" + i).addEventListener("click", function () {
 						addGeld(-preis); //kosten abziehen
@@ -1353,7 +1351,7 @@ function spawn(typ, localLebenMult) {
 
 //funktion um geld zu bekommen/zu zahlen
 function addGeld(amount) {
-	geld += amount; //speichere neuen geld wert ab
+	geld = round(geld + amount, 2); //speichere neuen geld wert ab
 	if (amount > 0) { //bekommt der spieler geld?
 		for (var i = 0; i < geldAnzeige.length; i++) {
 			if (geldAnzeige[i].innerHTML * 1 <= geld) {
@@ -1374,7 +1372,7 @@ function addGeld(amount) {
 			}
 		}
 	}
-	document.getElementById("Geld").innerHTML = geld; //update geldanzeige
+	document.getElementById("Geld").innerHTML = round(geld, 0); //update geldanzeige
 }
 
 window.requestAnimationFrame(update); //intervall für die spielupdates (50 mal in der sec)
@@ -1416,9 +1414,7 @@ async function update() {
 			else {
 				startButton.src = "Bilder/Buttons/start.png";
 			}
-			if (teilWellenNummer == gegnerWellen.length ||
-				(anzahlWellen == wellenNummer && schwierigkeit != 0)
-				) { //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
+			if (teilWellenNummer == gegnerWellen.length || (anzahlWellen == wellenNummer && schwierigkeit != 0)) { //wenn die lettze teilwelle um ist nachricht dass das spiel gewonnen ist
 				localStorage.removeItem("saveCode");
 				spielEnde = true;
 				var gain = addCompletedMap();
@@ -1436,7 +1432,7 @@ async function update() {
 				objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
 				objContext = gegnerBildHidden.getContext('2d');
 				objContext.clearRect(0, 0, gegnerBild.width, gegnerBild.height);
-				addGeld(parseInt(10 * Math.pow(1.04, wellenNummer))); //runden geld bonus wird vergeben
+				addGeld(parseInt(10 * Math.pow(1.04, wellenNummer)) * wellenGeldMult); //runden geld bonus wird vergeben
 				wellenNummer++;
 				document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen; //update wellenanzeige
 				wellenEnde = 0; //stelle werte auf zwischen den wellen

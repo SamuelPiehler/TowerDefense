@@ -475,7 +475,7 @@ function Gegner(id, typ, localLebenMult) {
 			}
 			this.leben -= points; //leben werden abgezogen
 			if (this.leben <= 0) { //wenn gegner keine leben mehr hat
-				addGeld(this.wert); //geld für kill hinzufügen
+				addGeld(this.wert * killGeldMult); //geld für kill hinzufügen
 				this.kill(); //gegner entfernen
 				return false;
 			}
