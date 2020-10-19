@@ -833,7 +833,7 @@ function showUpgrade(object, id) {
 						"<span style='color: #ff0000'>Der Turm erhält einen zusätzlichen permanenten Slow von 0,5% der sich bis zu 50% hochstacken kann (Stacked additiv)</span><br>";
 					break;
 				case 3:
-					upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält ein Stackbares Gift</span><br>";
+					upgradeFenster.innerHTML += "<span style='color: #ff0000'>Der Turm erhält ein Stackbares Gift und ignoriert 50% der Giftimmunität</span><br>";
 					break;
 				case 4:
 					upgradeFenster.innerHTML +=
@@ -981,7 +981,7 @@ function showUpgrade(object, id) {
 					break;
 				case 15:
 					upgradeFenster.innerHTML += "Vergiftet Gegner für " + round(tuerme[id].effektStaerke[i] * (1 + tuerme[id]
-						.buffStaerken[2] / 100), 3) + " Schaden/sec (kann mit Gift von anderen Türmen stacken). <br>";
+						.buffStaerken[2] / 100), 3) + " Schaden/sec (kann mit Gift von anderen Türmen stacken und ignoriert 50% der Giftimmunität). <br>";
 					break;
 			}
 			if (tuerme[id].effekt[i] >= 5 && tuerme[id].effekt[i] <= 11) {

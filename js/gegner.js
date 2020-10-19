@@ -384,8 +384,8 @@ function Gegner(id, typ, localLebenMult) {
 					if (this.imunität[j] == 0 && effekt[i] == 4) { //slow imunität wirkt auf permaslow
 						effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j] / 100, 0);
 					}
-					if (this.imunität[j] == 3 && effekt[i] == 15) { //gift immunität wirkt auf stackbares Gift
-						effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j] / 100, 0);
+					if (this.imunität[j] == 3 && effekt[i] == 15) { //gift immunität wirkt auf stackbares Gift für 50%
+						effektStaerke[i] *= Math.max(1 - this.imunitätStärke[j] / 200, 0);
 					}
 				}
 			}
