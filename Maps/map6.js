@@ -13,8 +13,7 @@ var map = [[[2, 'Bilder/Map/weg1.jpg'],[3, 'Bilder/Map/weg1.jpg'],[3, 'Bilder/Ma
 ]
 ;
 success= true;
-mapSchwie = false;
-MapName = 'false';
+mapSchwie= 2;
 multiStartTyp = 0;
 if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';var randomtiles = false
 

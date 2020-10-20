@@ -14,9 +14,9 @@ var map = [[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/
 ;
 success= true;
 var randomtiles = false
+mapSchwie= 3;
 
-
-var multiStartTyp = "0";
+var multiStartTyp = 0;
 
  // hier kommt das preview- Bild
 

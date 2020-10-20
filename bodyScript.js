@@ -299,6 +299,10 @@ function buildMapNeu() {
 				map[i][j]["object"].style.left = (size * j) + 'px';
 				map[i][j]["object"].style.top = (size * i) + 'px';
 				ladeBild(map[i][j][1][1], map[i][j]["object"], 0);
+				if (map[i][j][0] == -1) {
+						map[i][j]["object"].name = `${j},${i},stein`;
+						map[i][j]["object"].addEventListener('click', sell);
+				}
 			}
 			else {
 				ladeBild(map[i][j][1], map[i][j]["map"], parseInt(Math.random() * 4) * 90);
@@ -307,7 +311,7 @@ function buildMapNeu() {
 				start[0].push(i);
 				start[1].push(j);
 			}
-			else if (map[i][j][0] == 0) {
+			else if (map[i][j][0] == 0 || map[i][j][0] == -1) {
 				map[i][j]["map"].name = j + ',' + i;
 				map[i][j]["map"].addEventListener('click', build);
 			}
@@ -1216,6 +1220,50 @@ function deselect() {
 	}
 }
 
+function sell() {
+	if (killSteinePreis != Infinity) {
+		hideUpgrade();
+		upgradeFenster = document.createElement("div");
+		document.body.appendChild(upgradeFenster);
+		upgradeFenster.style.position = 'absolute';
+		var coordinaten = this.name.split(','); //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
+		var x = coordinaten[0] * size;
+		var y = coordinaten[1] * size;
+		upgradeFenster.style.backgroundColor = '#d5d0ffd0';
+		upgradeFenster.style.zIndex = 10;
+		upgradeFenster.innerHTML = `Verkaufe das Hindernis für ${killSteinePreis} Geld<br><button onclick="
+		if(geld >= killSteinePreis || schwierigkeit == 0){
+			if (schwierigkeit != 0) {
+				addGeld(-killSteinePreis);
+			}
+			map[${coordinaten[1]}][${coordinaten[0]}]['object'].remove();
+			hideUpgrade();
+		}
+		">verkaufen</button>`;
+		var closeButton = document.createElement("button"); //button um das fenster zu schliesen
+		upgradeFenster.appendChild(closeButton);
+		closeButton.innerHTML = "close";
+		closeButton.style.position = 'absolute';
+		closeButton.style.right = '0px';
+		closeButton.style.bottom = '0px';
+		closeButton.addEventListener("click", function () {
+			hideUpgrade();
+		});
+		if (x + upgradeFenster.offsetWidth > size * map[0].length) {
+			upgradeFenster.style.right = '0px';
+		}
+		else {
+			upgradeFenster.style.left = x + 'px';
+		}
+		if (y + 100 + upgradeFenster.offsetHeight > screen.height) {
+			upgradeFenster.style.bottom = '0px';
+		}
+		else {
+			upgradeFenster.style.top = y + 'px';
+		}
+	}
+}
+
 //funktion zum bauen eines turmes
 function build() {
 	hideUpgrade();
@@ -1233,9 +1281,7 @@ function build() {
 			var preis = parseInt(towertypen[selected][6] * preisMult);
 		}
 		if (preis <= geld) { //ist genug geld vorhanden?
-			var coordinaten = this.name.split(
-				','
-				); //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
+			var coordinaten = this.name.split(','); //coordinaten werden aus dem angeklickten map canvas gelesen (jedes mapbild enthält im namen spaltennummer und zeilennummer mit komma getrennt)
 			if (selected == 9) { //wenn Supporttower öffne place menü
 				upgradeFenster = document.createElement("div");
 				document.body.appendChild(upgradeFenster);
@@ -1425,6 +1471,7 @@ async function update() {
 				if (spielerLeben == 100 && gain[1] > 0) {
 					text += "Für das Gewinnen ohne Leben zu verlieren bekommst du " + gain[1] + " Skillpunkte.";
 				}
+				hideRange();
 				alert(text);
 			}
 			else {
