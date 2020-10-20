@@ -647,8 +647,10 @@ function showStats(evt, object) {
 
 //lösche des statfenster wenn der tower nicht mehr gehovert wird
 function hideStats() {
-	statFenster.remove();
-	statFenster = undefined;
+	if (statFenster) {
+		statFenster.remove();
+		statFenster = undefined;
+	}
 }
 
 // zeige reichweite des gehoverten turms
@@ -672,8 +674,10 @@ function showRange(evt, object, id) {
 
 //lösche reichweite des turms wenn er nicht mehr gehovert wird
 function hideRange() {
-	rangeDiv.remove();
-	rangeDiv = undefined;
+	if (rangeDiv) {
+		rangeDiv.remove();
+		rangeDiv = undefined;
+	}
 }
 
 //zeige die Stats/Upgradestats/-kosten des angeklickten turms
@@ -1105,7 +1109,7 @@ function showUpgrade(object, id) {
 
 //funktion zum schliesen der Stats/Upgradestats/-kosten anzeige
 function hideUpgrade() {
-	if (upgradeFenster != undefined) {
+	if (upgradeFenster) {
 		upgradeFenster.remove();
 		upgradeFenster = undefined;
 	}
