@@ -12,7 +12,3 @@ Shift drücken beim upgraden Upgradefenster offen zu halten: <br>
 Tasten 1-9 + 0 und ß um Turm zum Bau auszuwählen. <br>
 Space für Start/Pause <br>
 S um Spielgeschwindigkeit zu ändern <br>
-<br>
-<br>
-
-[Mapeditor](https://samuelpiehler.github.io/TowerDefense/mapeditor/mapeditor.html)
