@@ -23,4 +23,4 @@ if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!mu
  // hier kommt das preview- Bild
 
 
-var image = 'Bilder/mapVorschau/Map6.webp';
+var image = 'Bilder/MapVorschau/Map6.webp';
