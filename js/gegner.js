@@ -306,6 +306,7 @@ function Gegner(id, typ, localLebenMult) {
 			document.getElementById("Leben").innerHTML = spielerLeben; //update lebensanzeige
 			this.kill(true); //lösche gegner
 			if (spielerLeben <= 0) { //verloren nachricht wenn leben = 0;
+				hideRange();
 				alert("Du hast das Spiel Verloren!");
 				spielEnde = true;
 				localStorage.removeItem("saveCode");
@@ -360,11 +361,6 @@ function Gegner(id, typ, localLebenMult) {
 								}
 							}
 						}
-					}
-					//kommt weg
-					if (maxHit < anzalHits) {
-						maxHit = anzalHits;
-						console.log("rocket: " + maxHit);
 					}
 					if (this.leben <= 0) {
 						return false; //beende funktion wenn gegner tot ist (damit keine aktionen am nicht existierenden gegner mehr ausgeführt werden)

@@ -13,8 +13,7 @@ var map = [[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/
 ]
 ;
 success= true;
-mapSchwie= false;
-MapName = 'false';
+mapSchwie= 4;
 multiStartTyp = 0;
 if(!mapSchwie) mapSchwie = 'undefined';if(!MapName) MapName = 'undefined';if(!multiStartTyp) multiStartTyp = 'undefined';var randomtiles = false
 

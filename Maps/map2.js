@@ -16,7 +16,8 @@ var map = [
 success = true; // not neccecary
 var randomtiles = false
 
-var multiStartTyp = "0";
+mapSchwie= 1;
+var multiStartTyp = 0;
 
 // hier kommt das preview- Bild
 

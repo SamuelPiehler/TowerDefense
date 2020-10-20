@@ -488,9 +488,8 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 							}
 							break;
 					}
-					//kommt weg!!
 					var anzalHits = 0;
-					var weakenPerHit = 0.98;
+					var weakenPerHit = 0.97;
 					for (var i = gegner.length - 1; i >= 0; i--) {
 						var item = gegner[i];
 						if (item != undefined) {

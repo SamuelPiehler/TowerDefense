@@ -14,7 +14,7 @@ var map = [[[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/Map/feld1.jpg'],[0, 'Bilder/
 ;
 success= true;
 var randomtiles = false
-
+mapSchwie= 1;
 
 
  // hier kommt das preview- Bild

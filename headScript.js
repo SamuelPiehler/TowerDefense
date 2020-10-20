@@ -4,8 +4,6 @@ var anzahlEffeckte = 5;
 // config optionen für die SchadensZahlen
 // 0 = OffsetX, 1 = OffsetY
 var numberallsum = [35, 70];
-//kommt weg!!!
-var maxHit = 0;
 //Startvariablen
 var spielEnde = false;
 var nextSpawn = -1;
