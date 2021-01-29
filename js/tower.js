@@ -578,10 +578,6 @@ function Turm(posx, posy, typ, id, spezialisierung) {
 							}
 						}
 					}
-					if (maxHit < anzalHits) {
-						maxHit = anzalHits;
-						console.log("sniper: " + maxHit);
-					}
 				}
 				else if (this.typ == 5 && this.upgradeStufe == maxUpgrade && towertypen[this.typ][
 					12]) { //wenn antiBoss stufe 5
