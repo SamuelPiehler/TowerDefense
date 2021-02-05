@@ -201,9 +201,10 @@ function laden() {
       document.getElementById("Welle").innerHTML = wellenNummer + "/" + anzahlWellen;   //update wellenanzeige
       teilWellenNummer = 0;
       for (var i = 1; i < wellenNummer; i++) {
-        do {
+        while (gegnerWellen[teilWellenNummer][4] != -1) {
           teilWellenNummer++;
-        } while (gegnerWellen[teilWellenNummer][4] != -1);
+        }
+        teilWellenNummer++;
       }
       towerNum = 0;
       while (saveCode.length > towerNum*towerDataLength + 11) {
